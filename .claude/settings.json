@@ -1,0 +1,7 @@
+{
+  "enabledPlugins": {
+    "pdf@anthropic-skills": true,
+    "xlsx@anthropic-skills": true,
+    "docx@anthropic-skills": true
+  }
+}

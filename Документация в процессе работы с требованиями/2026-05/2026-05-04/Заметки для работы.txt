@@ -1,0 +1,10 @@
+Обновить схему по результатам встречи 30.04:
+
+- EquipmentTrackers - исключить из схемы (не входит в зону ответственности букинга)
+- EquipmentFreeze, EquipmentRepairHistory, decomposition - привести в одну таблицу "EquipmentStatuses" 
+- в Equipments - отображать актуальный статус из таблицы "EquipmentStatuses"
+- FleetDelegations - переименовать в что-то типа "FleetManagePermissions" с полями: id, fleetId, userId, createdAt, expiresAt
+- в BookingRequests убрать поле "IsDefaultWorkOrder", поле "workOrderJdeId" сделать nullable
+- в Bookings - исключить поле "AssignedFleetOwnerId", исключить статусы с их дэйт-таймами
+- все статусы букинга хранить в BookingStatuses (BookingStatusHistory - переименовать в BookingStatuses); убрать из BookingStatuses previous_snapshot; old_status и new_status заменить на просто status (в BookingStatuses будет записывать каждое текущее состояние, в том числе и самое первое)
+
