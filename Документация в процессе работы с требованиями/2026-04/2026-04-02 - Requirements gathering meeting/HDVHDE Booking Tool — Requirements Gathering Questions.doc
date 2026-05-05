@@ -1,0 +1,2055 @@
+Date: Thu, 2 Apr 2026 14:14:29 +0500 (AQTT)
+Message-ID: <1702505537.3534.1775121269242@confluence>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_3533_851434682.1775121269241"
+
+------=_Part_3533_851434682.1775121269241
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>HDV/HDE Booking Tool =E2=80=94 Requirements Gathering Questions<=
+/title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: #fff !important;
+        color: #000 !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: #000;
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>HDV/HDE Booking Tool =E2=80=94 Requirements Gathering Questions</h1=
+>
+    <div class=3D"Section1">
+        <h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions=
+-1.CurrentState/=D0=A2=D0=B5=D0=BA=D1=83=D1=89=D0=B5=D0=B5=D1=81=D0=BE=D1=
+=81=D1=82=D0=BE=D1=8F=D0=BD=D0=B8=D0=B5(As-Is)">1. Current State / =D0=A2=
+=D0=B5=D0=BA=D1=83=D1=89=D0=B5=D0=B5 =D1=81=D0=BE=D1=81=D1=82=D0=BE=D1=8F=
+=D0=BD=D0=B8=D0=B5 (As-Is)</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=81=D0=B5=D0=B9=D1=87=D0=
+=B0=D1=81 =D0=BE=D1=81=D1=83=D1=89=D0=B5=D1=81=D1=82=D0=B2=D0=BB=D1=8F=D0=
+=B5=D1=82=D1=81=D1=8F =D0=BF=D1=80=D0=BE=D1=86=D0=B5=D1=81=D1=81 =D0=B1=D1=
+=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D1=82=D0=
+=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =E2=80=94 =D0=BE=D0=BF=D0=B8=D1=88=D0=B8=
+=D1=82=D0=B5 =D1=88=D0=B0=D0=B3=D0=B8 =D0=BE=D1=82 =D0=B2=D0=BE=D0=B7=D0=BD=
+=D0=B8=D0=BA=D0=BD=D0=BE=D0=B2=D0=B5=D0=BD=D0=B8=D1=8F =D0=BF=D0=BE=D1=82=
+=D1=80=D0=B5=D0=B1=D0=BD=D0=BE=D1=81=D1=82=D0=B8 =D0=B2 =D1=82=D0=B5=D1=85=
+=D0=BD=D0=B8=D0=BA=D0=B5 =D0=B4=D0=BE =D0=B7=D0=B0=D0=B2=D0=B5=D1=80=D1=88=
+=D0=B5=D0=BD=D0=B8=D1=8F =D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=
+=D0=B0=D0=BD=D0=B8=D1=8F. =D0=9E=D0=BF=D0=B8=D1=88=D0=B8=D1=82=D0=B5 =D0=B7=
+=D0=B0=D0=B8=D0=BD=D1=82=D0=B5=D1=80=D0=B5=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=BD=D1=8B=D1=85 =D0=BB=D0=B8=D1=86 =D0=B8 =D0=B8=D1=85 =D0=B7=D0=BE=D0=BD=
+=D1=8B =D0=BE=D1=82=D0=B2=D0=B5=D1=82=D1=81=D1=82=D0=B2=D0=B5=D0=BD=D0=BD=
+=D0=BE=D1=81=D1=82=D0=B8.</td>
+<td class=3D"confluenceTd">How is the equipment booking process currently c=
+arried out =E2=80=94 describe the steps from identifying a need to completi=
+ng the booking. Describe the stakeholders involved and their areas of respo=
+nsibility.</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=B8=D0=BD=D1=
+=81=D1=82=D1=80=D1=83=D0=BC=D0=B5=D0=BD=D1=82=D1=8B =D0=B8=D1=81=D0=BF=D0=
+=BE=D0=BB=D1=8C=D0=B7=D1=83=D1=8E=D1=82=D1=81=D1=8F =D1=81=D0=B5=D0=B9=D1=
+=87=D0=B0=D1=81 (Excel, email, =D0=BC=D0=B5=D1=81=D1=81=D0=B5=D0=BD=D0=B4=
+=D0=B6=D0=B5=D1=80=D1=8B, =D1=81=D1=83=D1=89=D0=B5=D1=81=D1=82=D0=B2=D1=83=
+=D1=8E=D1=89=D0=B8=D0=B5 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D0=B8 =
+=D0=BF=D1=80=D0=B8=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D1=8F, =D1=83=D1=81=
+=D1=82=D0=BD=D1=8B=D0=B5 =D0=B4=D0=BE=D0=B3=D0=BE=D0=B2=D0=BE=D1=80=D1=91=
+=D0=BD=D0=BD=D0=BE=D1=81=D1=82=D0=B8)?</td>
+<td class=3D"confluenceTd">What tools are currently used (Excel, email, mes=
+sengers, existing systems and applications, verbal agreements)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=9C=D0=BE=D0=B6=D0=B5=D1=82=D0=B5 =D0=BF=D0=
+=BE=D0=B4=D0=B5=D0=BB=D0=B8=D1=82=D1=8C=D1=81=D1=8F =D0=BF=D1=80=D0=B8=D0=
+=BC=D0=B5=D1=80=D0=B0=D0=BC=D0=B8 =D1=82=D0=B5=D0=BA=D1=83=D1=89=D0=B8=D1=
+=85 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BE=D0=BA =D0=B8=D0=BB=D0=B8 =D1=84=D0=BE=D1=
+=80=D0=BC, =D0=BA=D0=BE=D1=82=D0=BE=D1=80=D1=8B=D0=B5 =D0=B7=D0=B0=D0=BF=D0=
+=BE=D0=BB=D0=BD=D1=8F=D1=8E=D1=82=D1=81=D1=8F? =D0=A1 =D1=83=D0=BA=D0=B0=D0=
+=B7=D0=B0=D0=BD=D0=B8=D0=B5=D0=BC =D0=BE=D0=B1=D1=8F=D0=B7=D0=B0=D1=82=D0=
+=B5=D0=BB=D1=8C=D0=BD=D1=8B=D1=85 =D0=B8 =D0=BD=D0=B5=D0=BE=D0=B1=D1=8F=D0=
+=B7=D0=B0=D1=82=D0=B5=D0=BB=D1=8C=D0=BD=D1=8B=D1=85 =D0=BF=D0=BE=D0=BB=D0=
+=B5=D0=B9.</td>
+<td class=3D"confluenceTd">Can you share examples of current requests or fo=
+rms that are filled out, indicating mandatory and optional fields?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D1=81=D0=B5=D0=B9=D1=87=D0=
+=B0=D1=81 =D0=BF=D1=80=D0=B8=D0=BD=D0=B8=D0=BC=D0=B0=D0=B5=D1=82 =D1=80=D0=
+=B5=D1=88=D0=B5=D0=BD=D0=B8=D0=B5 =D0=BE =D0=B2=D1=8B=D0=B4=D0=B5=D0=BB=D0=
+=B5=D0=BD=D0=B8=D0=B8 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D0=B8 =D0=
+=BD=D0=B0 =D0=BA=D0=B0=D0=BA=D0=BE=D0=BC =D0=BE=D1=81=D0=BD=D0=BE=D0=B2=D0=
+=B0=D0=BD=D0=B8=D0=B8? =D0=9A=D0=B0=D0=BA=D0=B0=D1=8F =D0=B4=D0=BE=D0=BB=D0=
+=B6=D0=BD=D0=BE=D1=81=D1=82=D1=8C? =D0=9A=D0=B0=D0=BA =D0=B2=D1=8B=D0=B3=D0=
+=BB=D1=8F=D0=B4=D0=B8=D1=82 =D0=B4=D0=BE=D0=BA=D1=83=D0=BC=D0=B5=D0=BD=D1=
+=82-=D0=BE=D1=81=D0=BD=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5?</td>
+<td class=3D"confluenceTd">Who currently makes the decision on equipment al=
+location and on what basis? What is their job title? What does the supporti=
+ng document look like?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D0=B4=D0=BE=D0=BB=D0=B3=D0=
+=BE =D0=B2 =D1=81=D1=80=D0=B5=D0=B4=D0=BD=D0=B5=D0=BC =D0=B7=D0=B0=D0=BD=D0=
+=B8=D0=BC=D0=B0=D0=B5=D1=82 =D0=BF=D1=80=D0=BE=D1=86=D0=B5=D1=81=D1=81 =D1=
+=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=
+=BE=D1=82 =D0=BF=D0=BE=D0=B4=D0=B0=D1=87=D0=B8 =D0=B7=D0=B0=D1=8F=D0=B2=D0=
+=BA=D0=B8 =D0=B4=D0=BE =D0=BF=D0=BE=D0=BB=D1=83=D1=87=D0=B5=D0=BD=D0=B8=D1=
+=8F =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8? =D0=95=D1=81=D0=BB=D0=B8 =
+=D0=B4=D0=BE=D0=BB=D0=B3=D0=BE =E2=80=94 =D0=BA=D0=B0=D0=BA=D0=BE=D0=B2=D1=
+=8B =D0=BE=D1=81=D0=BD=D0=BE=D0=B2=D0=BD=D1=8B=D0=B5 =D0=BF=D1=80=D0=B8=D1=
+=87=D0=B8=D0=BD=D1=8B?</td>
+<td class=3D"confluenceTd">How long does the approval process take on avera=
+ge =E2=80=94 from submission to receiving the equipment? If it takes long, =
+what are the main reasons?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=81=D0=B5=D0=B9=D1=87=D0=
+=B0=D1=81 =D0=BE=D1=82=D1=81=D0=BB=D0=B5=D0=B6=D0=B8=D0=B2=D0=B0=D0=B5=D1=
+=82=D1=81=D1=8F =D1=81=D1=82=D0=B0=D1=82=D1=83=D1=81 =D0=B7=D0=B0=D1=8F=D0=
+=B2=D0=BA=D0=B8 =E2=80=94 =D0=B5=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BA=D0=
+=B0=D0=BA=D0=B0=D1=8F-=D1=82=D0=BE =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D0=
+=B0 =D0=B8=D0=BB=D0=B8 =D0=B2=D1=81=D1=91 =D1=87=D0=B5=D1=80=D0=B5=D0=B7 =
+=D0=BF=D0=B5=D1=80=D0=B5=D0=BF=D0=B8=D1=81=D0=BA=D1=83?</td>
+<td class=3D"confluenceTd">How is the request status currently tracked =E2=
+=80=94 is there any system or is everything done through correspondence?</t=
+d>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">7</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=81=D0=B5=D0=B9=D1=87=D0=
+=B0=D1=81 =D0=B2=D0=B5=D0=B4=D1=91=D1=82=D1=81=D1=8F =D1=83=D1=87=D1=91=D1=
+=82 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =E2=80=94 =D0=B3=D0=B4=D0=B5=
+ =D1=85=D1=80=D0=B0=D0=BD=D0=B8=D1=82=D1=81=D1=8F =D0=B8=D0=BD=D1=84=D0=BE=
+=D1=80=D0=BC=D0=B0=D1=86=D0=B8=D1=8F =D0=BE =D0=BD=D0=B0=D0=BB=D0=B8=D1=87=
+=D0=B8=D0=B8, =D1=81=D1=82=D0=B0=D1=82=D1=83=D1=81=D0=B5, =D0=BF=D0=B0=D1=
+=80=D0=B0=D0=BC=D0=B5=D1=82=D1=80=D0=B0=D1=85 =D0=B8 =D1=81=D0=BE=D1=81=D1=
+=82=D0=BE=D1=8F=D0=BD=D0=B8=D0=B8 =D0=B5=D0=B4=D0=B8=D0=BD=D0=B8=D1=86?</td=
+>
+<td class=3D"confluenceTd">How is equipment currently recorded =E2=80=94 wh=
+ere is information about availability, status, parameters, and condition st=
+ored?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">8</td>
+<td class=3D"confluenceTd">=D0=A2=D1=80=D0=B5=D0=B1=D1=83=D0=B5=D1=82=D1=81=
+=D1=8F =D0=BB=D0=B8 =D0=BC=D0=BE=D0=BD=D0=B8=D1=82=D0=BE=D1=80=D0=B8=D0=BD=
+=D0=B3 =D0=B8 =D1=83=D1=87=D1=91=D1=82 =D1=83=D1=80=D0=BE=D0=B2=D0=BD=D1=8F=
+ =D1=82=D0=BE=D0=BF=D0=BB=D0=B8=D0=B2=D0=B0? =D0=95=D1=81=D0=BB=D0=B8 =D0=
+=B4=D0=B0 =E2=80=94 =D0=BA=D0=B0=D0=BA =D1=8D=D1=82=D0=BE =D0=BF=D1=80=D0=
+=BE=D0=B8=D1=81=D1=85=D0=BE=D0=B4=D0=B8=D1=82 =D1=81=D0=B5=D0=B9=D1=87=D0=
+=B0=D1=81?</td>
+<td class=3D"confluenceTd">Is fuel level monitoring and tracking required? =
+If so, how is it currently handled?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-2.PainP=
+oints/=D0=91=D0=BE=D0=BB=D0=B8=D0=B8=D0=BF=D1=80=D0=BE=D0=B1=D0=BB=D0=B5=D0=
+=BC=D1=8B">2. Pain Points / =D0=91=D0=BE=D0=BB=D0=B8 =D0=B8 =D0=BF=D1=80=D0=
+=BE=D0=B1=D0=BB=D0=B5=D0=BC=D1=8B</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BE=D1=81=D0=
+=BD=D0=BE=D0=B2=D0=BD=D1=8B=D0=B5 =D0=BF=D1=80=D0=BE=D0=B1=D0=BB=D0=B5=D0=
+=BC=D1=8B =D0=B2=D1=8B =D0=B8=D1=81=D0=BF=D1=8B=D1=82=D1=8B=D0=B2=D0=B0=D0=
+=B5=D1=82=D0=B5 =D0=B2 =D1=82=D0=B5=D0=BA=D1=83=D1=89=D0=B5=D0=BC =D0=BF=D1=
+=80=D0=BE=D1=86=D0=B5=D1=81=D1=81=D0=B5?</td>
+<td class=3D"confluenceTd">What are the main problems you experience in the=
+ current process?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=91=D1=8B=D0=BB=D0=B8 =D0=BB=D0=B8 =D1=81=D0=
+=BB=D1=83=D1=87=D0=B0=D0=B8 =D0=BA=D0=BE=D0=BD=D1=84=D0=BB=D0=B8=D0=BA=D1=
+=82=D0=B0 =D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=B8=D0=B9 (=D0=B4=D0=B2=D0=BE=D0=B9=D0=BD=D0=BE=D0=B5 =D0=B1=D1=80=D0=BE=D0=
+=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5 =D0=BE=D0=B4=D0=BD=D0=
+=BE=D0=B9 =D0=B5=D0=B4=D0=B8=D0=BD=D0=B8=D1=86=D1=8B)?</td>
+<td class=3D"confluenceTd">Have there been cases of booking conflicts (doub=
+le booking of the same unit)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=91=D1=8B=D0=BB=D0=B8 =D0=BB=D0=B8 =D1=81=D0=
+=BB=D1=83=D1=87=D0=B0=D0=B8 =D0=BF=D1=80=D0=BE=D1=81=D1=82=D0=BE=D1=8F =D1=
+=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D0=B8=D0=B7-=D0=B7=D0=B0 =D0=BE=D1=
+=82=D1=81=D1=83=D1=82=D1=81=D1=82=D0=B2=D0=B8=D1=8F =D0=B2=D0=B8=D0=B4=D0=
+=B8=D0=BC=D0=BE=D1=81=D1=82=D0=B8 =D0=B5=D1=91 =D0=B4=D0=BE=D1=81=D1=82=D1=
+=83=D0=BF=D0=BD=D0=BE=D1=81=D1=82=D0=B8?</td>
+<td class=3D"confluenceTd">Have there been cases of equipment downtime due =
+to lack of visibility of its availability?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=87=D0=B0=D1=81=D1=82=D0=
+=BE =D0=B2=D0=BE=D0=B7=D0=BD=D0=B8=D0=BA=D0=B0=D1=8E=D1=82 =D1=81=D0=B8=D1=
+=82=D1=83=D0=B0=D1=86=D0=B8=D0=B8, =D0=BA=D0=BE=D0=B3=D0=B4=D0=B0 =D0=BD=D1=
+=83=D0=B6=D0=BD=D0=B0=D1=8F =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B0 =D0=
+=BE=D0=BA=D0=B0=D0=B7=D1=8B=D0=B2=D0=B0=D0=B5=D1=82=D1=81=D1=8F =D0=BD=D0=
+=B5=D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF=D0=BD=D0=B0 =E2=80=94 =D0=B8 =D1=87=
+=D1=82=D0=BE =D0=BF=D1=80=D0=BE=D0=B8=D1=81=D1=85=D0=BE=D0=B4=D0=B8=D1=82 =
+=D0=B2 =D1=82=D0=B0=D0=BA=D0=BE=D0=BC =D1=81=D0=BB=D1=83=D1=87=D0=B0=D0=B5?=
+</td>
+<td class=3D"confluenceTd">How often does the required equipment turn out t=
+o be unavailable =E2=80=94 and what happens in that case?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BF=D1=
+=80=D0=BE=D0=B1=D0=BB=D0=B5=D0=BC=D1=8B =D1=81 =D0=BF=D1=80=D0=BE=D0=B7=D1=
+=80=D0=B0=D1=87=D0=BD=D0=BE=D1=81=D1=82=D1=8C=D1=8E =D0=B7=D0=B0=D1=82=D1=
+=80=D0=B0=D1=82 =E2=80=94 =D0=B7=D0=BD=D0=B0=D0=B5=D1=82=D0=B5 =D0=BB=D0=B8=
+ =D0=B2=D1=8B, =D1=81=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=D0=BE =D1=82=D1=80=D0=
+=B0=D1=82=D0=B8=D1=82=D1=81=D1=8F =D0=BD=D0=B0 =D0=B0=D1=80=D0=B5=D0=BD=D0=
+=B4=D1=83 =D0=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=B5=D0=B9 =D1=82=D0=B5=D1=85=D0=
+=BD=D0=B8=D0=BA=D0=B8?</td>
+<td class=3D"confluenceTd">Are there issues with cost transparency =E2=80=
+=94 do you know how much is spent on external equipment rental?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BE=D1=88=D0=
+=B8=D0=B1=D0=BA=D0=B8 =D0=B8=D0=BB=D0=B8 =D0=BF=D0=BE=D1=82=D0=B5=D1=80=D0=
+=B8 =D1=81=D0=BB=D1=83=D1=87=D0=B0=D0=BB=D0=B8=D1=81=D1=8C =D0=B8=D0=B7-=D0=
+=B7=D0=B0 =D0=BE=D1=82=D1=81=D1=83=D1=82=D1=81=D1=82=D0=B2=D0=B8=D1=8F =D0=
+=B0=D0=B2=D1=82=D0=BE=D0=BC=D0=B0=D1=82=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D0=B8=
+?</td>
+<td class=3D"confluenceTd">What errors or losses have occurred due to the l=
+ack of automation?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">7</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=BF=D1=80=D0=BE=D0=B8=D1=
+=81=D1=85=D0=BE=D0=B4=D0=B8=D1=82 =D0=BF=D1=80=D0=B8 =D0=BF=D0=BE=D0=BB=D0=
+=BE=D0=BC=D0=BA=D0=B5 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D0=BF=D0=
+=BE=D1=81=D0=BB=D0=B5 =D1=82=D0=BE=D0=B3=D0=BE, =D0=BA=D0=B0=D0=BA =D0=B5=
+=D1=91 =D0=B7=D0=B0=D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=
+=D0=BB=D0=B8? =D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BF=D1=80=D0=BE=D1=
+=86=D0=B5=D1=81=D1=81 =D0=B7=D0=B0=D0=BC=D0=B5=D0=BD=D1=8B =D0=B8=D0=BB=D0=
+=B8 =D1=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F =D0=
+=B7=D0=B0=D1=8F=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=D1=8F?</td>
+<td class=3D"confluenceTd">What happens when equipment breaks down after it=
+ has been booked? Is there a process for replacement or notifying the reque=
+stor?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-3.Busin=
+essProcesses&amp;RequestTypes/=D0=91=D0=B8=D0=B7=D0=BD=D0=B5=D1=81-=D0=BF=
+=D1=80=D0=BE=D1=86=D0=B5=D1=81=D1=81=D1=8B=D0=B8=D1=82=D0=B8=D0=BF=D1=8B=D0=
+=B7=D0=B0=D1=8F=D0=B2=D0=BE=D0=BA">3. Business Processes &amp; Request Type=
+s / =D0=91=D0=B8=D0=B7=D0=BD=D0=B5=D1=81-=D0=BF=D1=80=D0=BE=D1=86=D0=B5=D1=
+=81=D1=81=D1=8B =D0=B8 =D1=82=D0=B8=D0=BF=D1=8B =D0=B7=D0=B0=D1=8F=D0=B2=D0=
+=BE=D0=BA</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=B1=D0=B8=D0=
+=B7=D0=BD=D0=B5=D1=81-=D0=BF=D1=80=D0=BE=D1=86=D0=B5=D1=81=D1=81=D1=8B =D1=
+=81=D0=B2=D1=8F=D0=B7=D0=B0=D0=BD=D1=8B =D1=81 =D0=B1=D1=80=D0=BE=D0=BD=D0=
+=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5=D0=BC =D1=82=D0=B5=D1=85=D0=
+=BD=D0=B8=D0=BA=D0=B8 =E2=80=94 =D0=BF=D0=BB=D0=B0=D0=BD=D0=BE=D0=B2=D1=8B=
+=D0=B5 =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D1=8B, =D0=B0=D0=B2=D0=B0=D1=80=D0=B8=
+=D0=B9=D0=BD=D1=8B=D0=B5 =D0=B2=D1=8B=D0=B5=D0=B7=D0=B4=D1=8B, =D1=80=D0=B5=
+=D0=B3=D1=83=D0=BB=D1=8F=D1=80=D0=BD=D1=8B=D0=B5 =D0=BC=D0=B0=D1=80=D1=88=
+=D1=80=D1=83=D1=82=D1=8B? =D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=B4=D1=
+=80=D1=83=D0=B3=D0=B8=D0=B5 =D1=81=D1=86=D0=B5=D0=BD=D0=B0=D1=80=D0=B8=D0=
+=B8 =D0=B8=D1=81=D0=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=B8=D1=8F?</td>
+<td class=3D"confluenceTd">What business processes are related to equipment=
+ booking =E2=80=94 planned works, emergency call-outs, regular routes? Are =
+there other usage scenarios?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=A7=D0=B5=D0=BC =D0=BE=D1=82=D0=BB=D0=B8=D1=
+=87=D0=B0=D0=B5=D1=82=D1=81=D1=8F =D0=BF=D1=80=D0=BE=D1=86=D0=B5=D1=81=D1=
+=81 =D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=
+=8F =D0=B2=D0=BD=D1=83=D1=82=D1=80=D0=B5=D0=BD=D0=BD=D0=B5=D0=B9 =D1=82=D0=
+=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D0=BE=D1=82 =D0=B2=D0=BD=D0=B5=D1=88=D0=
+=BD=D0=B5=D0=B9? =D0=A3=D0=BA=D0=B0=D0=B6=D0=B8=D1=82=D0=B5: =D0=BF=D1=80=
+=D0=BE=D1=86=D0=B5=D1=81=D1=81=D1=8B =D0=B8 =D1=86=D0=B5=D0=BF=D0=BE=D1=87=
+=D0=BA=D0=B8 =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=
+=D0=B8=D1=8F, =D0=BA=D1=82=D0=BE =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D1=83=
+=D0=B5=D1=82, =D1=84=D0=BE=D1=80=D0=BC=D1=8B =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=
+=D0=B8, =D0=BF=D0=B5=D1=80=D0=B5=D0=B4=D0=B0=D1=87=D0=B0 =D0=B4=D0=B0=D0=BD=
+=D0=BD=D1=8B=D1=85 =D0=B2 =D1=86=D0=B5=D0=BD=D1=82=D1=80 =D0=BE=D0=BF=D0=BB=
+=D0=B0=D1=82=D1=8B.</td>
+<td class=3D"confluenceTd">What is the difference between the booking proce=
+ss for internal and external equipment? Please cover: approval processes an=
+d chains, who approves, request forms, data transfer to the payment centre.=
+</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D1=82=D0=B0=D0=BA=D0=BE=D0=
+=B5 "=D0=A1=D0=B5=D1=80=D0=B2=D0=B8=D1=81=D0=BD=D0=B0=D1=8F =D0=B7=D0=B0=D1=
+=8F=D0=B2=D0=BA=D0=B0" =D0=B2 =D0=BA=D0=BE=D0=BD=D1=82=D0=B5=D0=BA=D1=81=D1=
+=82=D0=B5 Work Order =D0=B2 JDE =E2=80=94 =D0=BE=D0=BF=D0=B8=D1=88=D0=B8=D1=
+=82=D0=B5 =D1=81=D1=86=D0=B5=D0=BD=D0=B0=D1=80=D0=B8=D0=B9 =D0=BE=D1=82 =D0=
+=BD=D0=B0=D1=87=D0=B0=D0=BB=D0=B0 =D0=B4=D0=BE =D0=BA=D0=BE=D0=BD=D1=86=D0=
+=B0. =D0=9F=D0=BE =D0=BA=D0=B0=D0=BA=D0=B8=D0=BC =D0=BA=D1=80=D0=B8=D1=82=
+=D0=B5=D1=80=D0=B8=D1=8F=D0=BC =D0=B8 =D0=B3=D0=B4=D0=B5 =D0=B8=D0=BD=D0=B8=
+=D1=86=D0=B8=D0=B8=D1=80=D1=83=D0=B5=D1=82=D1=81=D1=8F?</td>
+<td class=3D"confluenceTd">What is a "Service Work Request" in the context =
+of a Work Order in JDE =E2=80=94 describe the scenario from start to finish=
+. By what criteria and where is it initiated?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D1=82=D0=B8=D0=
+=BF=D1=8B =D1=80=D0=B0=D0=B1=D0=BE=D1=82 =D0=B8=D0=BD=D0=B8=D1=86=D0=B8=D0=
+=B8=D1=80=D1=83=D1=8E=D1=82 =D0=BF=D0=BE=D1=82=D1=80=D0=B5=D0=B1=D0=BD=D0=
+=BE=D1=81=D1=82=D1=8C =D0=B2 HDV/HDE =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=
+=D0=B5? =D0=9A=D0=B0=D0=BA =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B0 =D1=
+=80=D0=B0=D0=B7=D0=B4=D0=B5=D0=BB=D1=8F=D0=B5=D1=82=D1=81=D1=8F =D0=BF=D0=
+=BE =D1=82=D0=B8=D0=BF=D0=B0=D0=BC =D1=80=D0=B0=D0=B1=D0=BE=D1=82?</td>
+<td class=3D"confluenceTd">What types of work trigger the need for HDV/HDE =
+equipment? How is equipment categorised by work type?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=9C=D0=BE=D0=B6=D0=BD=D0=BE =D0=BB=D0=B8 =D0=
+=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=8C =D1=82=D0=
+=B5=D1=85=D0=BD=D0=B8=D0=BA=D1=83 =D1=81 =D0=BE=D0=BF=D1=80=D0=B5=D0=B4=D0=
+=B5=D0=BB=D1=91=D0=BD=D0=BD=D0=BE=D0=B9 =D1=80=D0=B5=D0=B3=D1=83=D0=BB=D1=
+=8F=D1=80=D0=BD=D0=BE=D1=81=D1=82=D1=8C=D1=8E (=D0=BD=D0=B0=D0=BF=D1=80=D0=
+=B8=D0=BC=D0=B5=D1=80, =D0=B5=D0=B6=D0=B5=D0=BD=D0=B5=D0=B4=D0=B5=D0=BB=D1=
+=8C=D0=BD=D0=BE)? =D0=9A=D0=B0=D0=BA =D1=8D=D1=82=D0=BE =D0=B2=D1=8B=D0=B3=
+=D0=BB=D1=8F=D0=B4=D0=B8=D1=82 =D1=81=D0=B5=D0=B9=D1=87=D0=B0=D1=81?</td>
+<td class=3D"confluenceTd">Is it possible to book equipment on a recurring =
+basis (e.g., weekly)? How is this currently handled?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=BE=D0=B2 =D0=BC=D0=B8=D0=
+=BD=D0=B8=D0=BC=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=B9 =D0=B8 =D0=BC=D0=B0=D0=
+=BA=D1=81=D0=B8=D0=BC=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=B9 =D1=81=D1=80=D0=
+=BE=D0=BA =D0=BE=D1=82 =D0=BC=D0=BE=D0=BC=D0=B5=D0=BD=D1=82=D0=B0 =D0=BF=D0=
+=BE=D0=B4=D0=B0=D1=87=D0=B8 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B8 =D0=B4=D0=
+=BE =D0=B4=D0=B0=D1=82=D1=8B/=D0=B2=D1=80=D0=B5=D0=BC=D0=B5=D0=BD=D0=B8, =
+=D0=BD=D0=B0 =D0=BA=D0=BE=D1=82=D0=BE=D1=80=D0=BE=D0=B5 =D0=BD=D1=83=D0=B6=
+=D0=BD=D0=B0 =D0=B1=D1=80=D0=BE=D0=BD=D1=8C?</td>
+<td class=3D"confluenceTd">What is the minimum and maximum lead time betwee=
+n submitting a request and the required booking date/time?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">7</td>
+<td class=3D"confluenceTd">=D0=9D=D0=B0 =D0=BA=D0=B0=D0=BA=D0=BE=D0=B9 =D0=
+=BC=D0=B0=D0=BA=D1=81=D0=B8=D0=BC=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=B9 =D0=
+=BF=D0=B5=D1=80=D0=B8=D0=BE=D0=B4 =D0=BC=D0=BE=D0=B6=D0=B5=D1=82 =D0=B1=D1=
+=8B=D1=82=D1=8C =D0=BE=D1=84=D0=BE=D1=80=D0=BC=D0=BB=D0=B5=D0=BD=D0=BE =D0=
+=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5?</td>
+<td class=3D"confluenceTd">What is the maximum duration of a single booking=
+?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">8</td>
+<td class=3D"confluenceTd">=D0=9C=D0=BE=D0=B6=D0=BD=D0=BE =D0=BB=D0=B8 =D0=
+=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=8C =D0=BE=D0=
+=B4=D0=BD=D1=83 =D0=B8 =D1=82=D1=83 =D0=B6=D0=B5 =D0=B5=D0=B4=D0=B8=D0=BD=
+=D0=B8=D1=86=D1=83 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D0=BD=D0=B5=
+=D1=81=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=D0=BE =D1=80=D0=B0=D0=B7 =D0=BF=D0=BE=
+=D0=B4=D1=80=D1=8F=D0=B4? =D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BE=D0=
+=B3=D1=80=D0=B0=D0=BD=D0=B8=D1=87=D0=B5=D0=BD=D0=B8=D1=8F?</td>
+<td class=3D"confluenceTd">Is it possible to book the same equipment unit m=
+ultiple times consecutively? Are there any restrictions?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">9</td>
+<td class=3D"confluenceTd">=D0=9C=D0=BE=D0=B6=D0=BD=D0=BE =D0=BB=D0=B8 =D0=
+=B2 =D0=BE=D0=B4=D0=BD=D0=BE=D0=B9 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B5 =D0=
+=B7=D0=B0=D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=8C=
+ =D0=BD=D0=B5=D1=81=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=D0=BE =D0=B5=D0=B4=D0=B8=
+=D0=BD=D0=B8=D1=86 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D1=81 =D1=80=
+=D0=B0=D0=B7=D0=BD=D1=8B=D0=BC=D0=B8 =D0=B4=D0=B0=D1=82=D0=B0=D0=BC=D0=B8 =
+=D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F?</=
+td>
+<td class=3D"confluenceTd">Is it possible to include multiple equipment uni=
+ts with different booking dates within a single request?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">10</td>
+<td class=3D"confluenceTd">=D0=9C=D0=BE=D0=B6=D0=BD=D0=BE =D0=BB=D0=B8 =D0=
+=B2 =D0=BE=D0=B4=D0=BD=D0=BE=D0=B9 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B5 =D0=
+=B4=D0=BE=D0=B1=D0=B0=D0=B2=D0=B8=D1=82=D1=8C =D1=82=D0=B5=D1=85=D0=BD=D0=
+=B8=D0=BA=D1=83 =D0=B8=D0=B7 =D1=80=D0=B0=D0=B7=D0=BD=D1=8B=D1=85 =D0=BF=D0=
+=B0=D1=80=D0=BA=D0=BE=D0=B2 (=D0=BD=D0=B0=D0=BF=D1=80=D0=B8=D0=BC=D0=B5=D1=
+=80, =D0=B2=D0=BD=D1=83=D1=82=D1=80=D0=B5=D0=BD=D0=BD=D0=B8=D0=B9 =D0=B8 =
+=D0=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=B8=D0=B9 =D1=84=D0=BB=D0=BE=D1=82 =D0=BE=
+=D0=B4=D0=BD=D0=BE=D0=B2=D1=80=D0=B5=D0=BC=D0=B5=D0=BD=D0=BD=D0=BE)?</td>
+<td class=3D"confluenceTd">Is it possible to add equipment from different f=
+leets (e.g., internal and external) within a single request?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">11</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D0=B4=D0=BE=D0=BB=D0=B6=D0=
+=BD=D0=B0 =D1=80=D0=B5=D0=B0=D0=B3=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=
+=8C =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D0=B0, =D0=B5=D1=81=D0=BB=D0=B8 =
+=D0=B2 =D0=BE=D0=B4=D0=BD=D0=BE=D0=B9 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B5 =
+=D0=BE=D0=B4=D0=BD=D0=B0 =D0=B1=D1=80=D0=BE=D0=BD=D1=8C =D0=BF=D0=BE=D0=B4=
+=D1=82=D0=B2=D0=B5=D1=80=D0=B6=D0=B4=D0=B5=D0=BD=D0=B0, =D0=B0 =D0=B4=D1=80=
+=D1=83=D0=B3=D0=B0=D1=8F =E2=80=94 =D0=BE=D1=82=D0=BA=D0=BB=D0=BE=D0=BD=D0=
+=B5=D0=BD=D0=B0? =D0=97=D0=B0=D1=8F=D0=B2=D0=BA=D0=B0 =D0=BE=D1=81=D1=82=D0=
+=B0=D1=91=D1=82=D1=81=D1=8F =D0=B0=D0=BA=D1=82=D0=B8=D0=B2=D0=BD=D0=BE=D0=
+=B9 =D0=B8=D0=BB=D0=B8 =D0=B7=D0=B0=D0=BA=D1=80=D1=8B=D0=B2=D0=B0=D0=B5=D1=
+=82=D1=81=D1=8F?</td>
+<td class=3D"confluenceTd">How should the system respond if one booking wit=
+hin a request is confirmed and another is rejected? Does the request remain=
+ active or close?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">12</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D1=8F=D0=B2=D0=BB=D1=8F=D0=
+=B5=D1=82=D1=81=D1=8F =D0=BF=D0=BE=D0=B4=D1=82=D0=B2=D0=B5=D1=80=D0=B6=D0=
+=B4=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC =D1=82=D0=BE=D0=B3=D0=BE, =D1=87=D1=82=D0=
+=BE =D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=
+=B5 =D1=81=D0=BE=D1=81=D1=82=D0=BE=D1=8F=D0=BB=D0=BE=D1=81=D1=8C =E2=80=94 =
+=D1=81=D1=82=D0=B0=D1=82=D1=83=D1=81 =D0=B2 =D1=81=D0=B8=D1=81=D1=82=D0=B5=
+=D0=BC=D0=B5, =D1=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=BB=D0=B5=D0=BD=D0=B8=
+=D0=B5, =D0=B4=D0=BE=D0=BA=D1=83=D0=BC=D0=B5=D0=BD=D1=82?</td>
+<td class=3D"confluenceTd">What constitutes confirmation that a booking has=
+ been completed =E2=80=94 a system status, a notification, a document?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">13</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D0=B4=D0=BE=D0=BB=D0=B6=D0=
+=BD=D0=B0 =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=B0=D1=82=D1=8C =D0=BF=D1=80=D0=
+=B8=D0=BE=D1=80=D0=B8=D1=82=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D1=8F =D0=B7=D0=
+=B0=D1=8F=D0=B2=D0=BE=D0=BA =E2=80=94 =D0=BF=D0=BB=D0=B0=D0=BD=D0=B8=D1=80=
+=D1=83=D0=B5=D1=82=D1=81=D1=8F =D0=BB=D0=B8 =D1=80=D0=B0=D0=BD=D0=B6=D0=B8=
+=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5 =D0=BF=D0=BE =D1=81=D1=82=D0=B5=
+=D0=BF=D0=B5=D0=BD=D0=B8 =D0=B2=D0=B0=D0=B6=D0=BD=D0=BE=D1=81=D1=82=D0=B8 =
+=D0=BF=D1=80=D0=BE=D0=B5=D0=BA=D1=82=D0=B0 =D0=B8=D0=BB=D0=B8 =D1=81=D1=80=
+=D0=BE=D1=87=D0=BD=D0=BE=D1=81=D1=82=D0=B8? =D0=9A=D1=82=D0=BE =D0=BE=D0=BF=
+=D1=80=D0=B5=D0=B4=D0=B5=D0=BB=D1=8F=D0=B5=D1=82 =D0=BF=D1=80=D0=B8=D0=BE=
+=D1=80=D0=B8=D1=82=D0=B5=D1=82?</td>
+<td class=3D"confluenceTd">How should request prioritisation work =E2=80=94=
+ is ranking by project importance or urgency planned? Who determines the pr=
+iority?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">14</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D1=81=D0=
+=B5=D0=B7=D0=BE=D0=BD=D0=BD=D0=BE=D1=81=D1=82=D1=8C =D0=B8=D0=BB=D0=B8 =D0=
+=BF=D0=B8=D0=BA=D0=B8 =D1=81=D0=BF=D1=80=D0=BE=D1=81=D0=B0 =D0=BD=D0=B0 =D1=
+=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D1=83 =D0=B2 =D1=82=D0=B5=D1=87=D0=B5=D0=
+=BD=D0=B8=D0=B5 =D0=B3=D0=BE=D0=B4=D0=B0?</td>
+<td class=3D"confluenceTd">Is there seasonality or peaks in equipment deman=
+d throughout the year?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-4.Equip=
+ment&amp;Fleet/=D0=A2=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B0=D0=B8=D0=BF=D0=B0=
+=D1=80=D0=BA">4. Equipment &amp; Fleet / =D0=A2=D0=B5=D1=85=D0=BD=D0=B8=D0=
+=BA=D0=B0 =D0=B8 =D0=BF=D0=B0=D1=80=D0=BA</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D1=82=D0=B8=D0=
+=BF=D1=8B =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D0=B2=D1=85=D0=BE=D0=
+=B4=D1=8F=D1=82 =D0=B2 HDV/HDE =E2=80=94 =D0=BC=D0=BE=D0=B6=D0=B5=D1=82=D0=
+=B5 =D0=B4=D0=B0=D1=82=D1=8C =D0=BF=D0=BE=D0=BB=D0=BD=D1=8B=D0=B9 =D0=BF=D0=
+=B5=D1=80=D0=B5=D1=87=D0=B5=D0=BD=D1=8C =D0=BA=D0=B0=D1=82=D0=B5=D0=B3=D0=
+=BE=D1=80=D0=B8=D0=B9 =D1=81 =D1=85=D0=B0=D1=80=D0=B0=D0=BA=D1=82=D0=B5=D1=
+=80=D0=B8=D1=81=D1=82=D0=B8=D0=BA=D0=B0=D0=BC=D0=B8? =D0=9A=D0=B0=D0=BA =D1=
+=80=D0=B0=D0=B7=D0=B4=D0=B5=D0=BB=D1=8F=D0=B5=D1=82=D1=81=D1=8F =D1=82=D0=
+=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B0 =D0=BD=D0=B0 =D0=B4=D0=B2=D0=B8=D0=B6=D0=
+=B8=D0=BC=D1=83=D1=8E =D0=B8 =D0=BD=D0=B5=D0=B4=D0=B2=D0=B8=D0=B6=D0=B8=D0=
+=BC=D1=83=D1=8E (=D1=81=D1=82=D0=B0=D1=86=D0=B8=D0=BE=D0=BD=D0=B0=D1=80=D0=
+=BD=D1=8B=D0=B5 =D1=83=D1=81=D1=82=D0=B0=D0=BD=D0=BE=D0=B2=D0=BA=D0=B8, =D0=
+=B3=D0=B5=D0=BD=D0=B5=D1=80=D0=B0=D1=82=D0=BE=D1=80=D1=8B =D0=B8 =D1=82.=D0=
+=BF.)?</td>
+<td class=3D"confluenceTd">What types of equipment are included in HDV/HDE =
+=E2=80=94 can you provide a full list of categories with specifications? Ho=
+w is equipment divided into mobile and stationary (fixed installations, gen=
+erators, etc.)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BF=D0=B0=D1=
+=80=D0=B0=D0=BC=D0=B5=D1=82=D1=80=D1=8B =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=
+=BA=D0=B8 =D0=B2=D0=B0=D0=B6=D0=BD=D1=8B =D0=B4=D0=BB=D1=8F =D0=B7=D0=B0=D1=
+=8F=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=D1=8F =D0=BF=D1=80=D0=B8 =D0=B2=D1=8B=D0=
+=B1=D0=BE=D1=80=D0=B5 (=D0=B3=D1=80=D1=83=D0=B7=D0=BE=D0=BF=D0=BE=D0=B4=D1=
+=8A=D1=91=D0=BC=D0=BD=D0=BE=D1=81=D1=82=D1=8C, =D1=82=D0=B8=D0=BF =D0=BF=D1=
+=80=D0=B8=D0=B2=D0=BE=D0=B4=D0=B0, =D0=B7=D0=BE=D0=BD=D0=B0 =D0=BE=D0=B1=D1=
+=81=D0=BB=D1=83=D0=B6=D0=B8=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F)?</td>
+<td class=3D"confluenceTd">What equipment parameters are important for a Re=
+questor when selecting (load capacity, drive type, service zone)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BF=D0=B0=D1=
+=80=D0=B0=D0=BC=D0=B5=D1=82=D1=80=D1=8B =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=
+=BA=D0=B8 =D0=B2=D0=B0=D0=B6=D0=BD=D1=8B =D0=B4=D0=BB=D1=8F =D0=B2=D0=BB=D0=
+=B0=D0=B4=D0=B5=D0=BB=D1=8C=D1=86=D0=B0 =D0=BF=D0=B0=D1=80=D0=BA=D0=B0 =D0=
+=BF=D1=80=D0=B8 =D1=83=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D0=
+=B8? =D0=9F=D1=80=D0=B5=D0=B4=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D1=8C=D1=82=D0=
+=B5 =D0=BF=D0=BE=D0=BB=D0=BD=D1=8B=D0=B9 =D1=81=D0=BF=D0=B8=D1=81=D0=BE=D0=
+=BA =D0=BF=D0=B0=D1=80=D0=B0=D0=BC=D0=B5=D1=82=D1=80=D0=BE=D0=B2, =D0=BA=D0=
+=BE=D1=82=D0=BE=D1=80=D1=8B=D0=B5 =D0=B4=D0=BE=D0=BB=D0=B6=D0=BD=D1=8B =D0=
+=B1=D1=8B=D1=82=D1=8C =D0=BE=D1=82=D1=80=D0=B0=D0=B6=D0=B5=D0=BD=D1=8B =D0=
+=B2 =D0=BA=D0=B0=D1=80=D1=82=D0=BE=D1=87=D0=BA=D0=B5 =D1=82=D0=B5=D1=85=D0=
+=BD=D0=B8=D0=BA=D0=B8.</td>
+<td class=3D"confluenceTd">What equipment parameters are important for a Fl=
+eet Owner when managing the fleet? Please provide a full list of parameters=
+ to be reflected in the equipment card.</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=94=D0=BE=D0=BB=D0=B6=D0=BD=D0=B0 =D0=BB=D0=
+=B8 =D0=BA=D0=B0=D1=80=D1=82=D0=BE=D1=87=D0=BA=D0=B0 =D1=82=D0=B5=D1=85=D0=
+=BD=D0=B8=D0=BA=D0=B8 =D1=81=D0=BE=D0=B4=D0=B5=D1=80=D0=B6=D0=B0=D1=82=D1=
+=8C =D0=B8=D1=81=D1=82=D0=BE=D1=80=D0=B8=D1=8E =D0=B1=D1=80=D0=BE=D0=BD=D0=
+=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B9 =E2=80=94 =D0=B8 =D0=B5=D1=81=
+=D0=BB=D0=B8 =D0=B4=D0=B0, =D1=82=D0=BE =D0=B4=D0=BB=D1=8F =D0=BA=D0=B0=D0=
+=BA=D0=B8=D1=85 =D1=80=D0=BE=D0=BB=D0=B5=D0=B9 =D0=BE=D0=BD=D0=B0 =D0=B4=D0=
+=BE=D0=BB=D0=B6=D0=BD=D0=B0 =D0=B1=D1=8B=D1=82=D1=8C =D0=B4=D0=BE=D1=81=D1=
+=82=D1=83=D0=BF=D0=BD=D0=B0 (=D1=82=D0=BE=D0=BB=D1=8C=D0=BA=D0=BE Fleet Own=
+er =D0=B8=D0=BB=D0=B8 =D1=82=D0=B0=D0=BA=D0=B6=D0=B5 =D0=B7=D0=B0=D1=8F=D0=
+=B2=D0=B8=D1=82=D0=B5=D0=BB=D1=8C)?</td>
+<td class=3D"confluenceTd">Should the equipment card include booking histor=
+y =E2=80=94 if so, which roles should have access to it (Fleet Owner only, =
+or also the Requestor)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=A1=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=D0=BE =D0=
+=B5=D0=B4=D0=B8=D0=BD=D0=B8=D1=86 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=
+=B8 =D0=B2 =D0=BE=D0=B1=D1=89=D0=B5=D0=B9 =D1=81=D0=BB=D0=BE=D0=B6=D0=BD=D0=
+=BE=D1=81=D1=82=D0=B8 =E2=80=94 =D0=B2=D0=BD=D1=83=D1=82=D1=80=D0=B5=D0=BD=
+=D0=BD=D0=B5=D0=B9 =D0=B8 =D0=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=B5=D0=B9?</td>
+<td class=3D"confluenceTd">How many equipment units are there in total =E2=
+=80=94 internal and external?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=87=D0=B0=D1=81=D1=82=D0=
+=BE =D0=BC=D0=B5=D0=BD=D1=8F=D0=B5=D1=82=D1=81=D1=8F =D1=81=D0=BE=D1=81=D1=
+=82=D0=B0=D0=B2 =D0=BF=D0=B0=D1=80=D0=BA=D0=B0 =E2=80=94 =D0=B4=D0=BE=D0=B1=
+=D0=B0=D0=B2=D0=BB=D1=8F=D0=B5=D1=82=D1=81=D1=8F =D0=BD=D0=BE=D0=B2=D0=B0=
+=D1=8F =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B0, =D1=81=D0=BF=D0=B8=D1=81=
+=D1=8B=D0=B2=D0=B0=D0=B5=D1=82=D1=81=D1=8F =D1=81=D1=82=D0=B0=D1=80=D0=B0=
+=D1=8F?</td>
+<td class=3D"confluenceTd">How often does the fleet composition change =E2=
+=80=94 new equipment added, old equipment written off?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=BE=D0=B7=D0=BD=D0=B0=D1=
+=87=D0=B0=D0=B5=D1=82 =D1=81=D1=82=D0=B0=D1=82=D1=83=D1=81 "Shared with con=
+ditions" =D0=B4=D0=BB=D1=8F =D0=B5=D0=B4=D0=B8=D0=BD=D0=B8=D1=86=D1=8B =D1=
+=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =E2=80=94 =D0=BA=D0=B0=D0=BA=D0=B8=
+=D0=B5 =D1=8D=D1=82=D0=BE =D0=BC=D0=BE=D0=B3=D1=83=D1=82 =D0=B1=D1=8B=D1=82=
+=D1=8C =D1=83=D1=81=D0=BB=D0=BE=D0=B2=D0=B8=D1=8F?</td>
+<td class=3D"confluenceTd">What does the "Shared with conditions" status me=
+an for an equipment unit =E2=80=94 what conditions might apply?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">7</td>
+<td class=3D"confluenceTd">=D0=9D=D1=83=D0=B6=D0=BD=D0=BE =D0=BB=D0=B8 =D1=
+=83=D1=87=D0=B8=D1=82=D1=8B=D0=B2=D0=B0=D1=82=D1=8C =D0=B2=D0=BE=D0=B4=D0=
+=B8=D1=82=D0=B5=D0=BB=D1=8C=D1=81=D0=BA=D0=B8=D0=B9/=D0=BE=D0=BF=D0=B5=D1=
+=80=D0=B0=D1=82=D0=BE=D1=80=D1=81=D0=BA=D0=B8=D0=B9 =D1=81=D0=BE=D1=81=D1=
+=82=D0=B0=D0=B2 =D0=BF=D1=80=D0=B8 =D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=
+=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B8 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=
+=B8? =D0=9F=D1=80=D0=B8=D0=B2=D1=8F=D0=B7=D1=8B=D0=B2=D0=B0=D0=B5=D1=82=D1=
+=81=D1=8F =D0=BB=D0=B8 =D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D0=B5=D0=BB=D1=8C =D0=
+=BA =D0=BA=D0=BE=D0=BD=D0=BA=D1=80=D0=B5=D1=82=D0=BD=D0=BE=D0=B9 =D0=B5=D0=
+=B4=D0=B8=D0=BD=D0=B8=D1=86=D0=B5 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=
+=B8 =D0=B2 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B5?</td>
+<td class=3D"confluenceTd">Is it necessary to account for drivers or operat=
+ors when booking equipment? Is a driver assigned to a specific unit within =
+a request?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-5.Roles=
+&amp;Organisation/=D0=A0=D0=BE=D0=BB=D0=B8=D0=B8=D0=BE=D1=80=D0=B3=D0=B0=D0=
+=BD=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D1=8F">5. Roles &amp; Organisation / =D0=
+=A0=D0=BE=D0=BB=D0=B8 =D0=B8 =D0=BE=D1=80=D0=B3=D0=B0=D0=BD=D0=B8=D0=B7=D0=
+=B0=D1=86=D0=B8=D1=8F</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D0=B2 =D0=BE=D1=80=D0=B3=D0=
+=B0=D0=BD=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D0=B8 =D0=B1=D1=83=D0=B4=D0=B5=D1=
+=82 =D0=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D1=82=D1=8C=D1=81=D1=
+=8F =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D0=BE=D0=B9 =E2=80=94 =D0=BF=D0=BE=
+=D0=B4=D1=80=D0=B0=D0=B7=D0=B4=D0=B5=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F, =D1=80=
+=D0=BE=D0=BB=D0=B8, =D0=BF=D1=80=D0=B8=D0=BC=D0=B5=D1=80=D0=BD=D0=BE=D0=B5 =
+=D0=BA=D0=BE=D0=BB=D0=B8=D1=87=D0=B5=D1=81=D1=82=D0=B2=D0=BE =D0=BB=D1=8E=
+=D0=B4=D0=B5=D0=B9?</td>
+<td class=3D"confluenceTd">Who in the organisation will use the system =E2=
+=80=94 departments, roles, approximate number of people?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D1=82=D0=B0=D0=BA=D0=BE=D0=
+=B9 =D0=B2=D0=BB=D0=B0=D0=B4=D0=B5=D0=BB=D0=B5=D1=86 =D0=BF=D0=B0=D1=80=D0=
+=BA=D0=B0 =D0=BD=D0=B0 =D0=BF=D1=80=D0=B0=D0=BA=D1=82=D0=B8=D0=BA=D0=B5 =E2=
+=80=94 =D1=8D=D1=82=D0=BE =D0=BE=D0=B4=D0=B8=D0=BD =D1=87=D0=B5=D0=BB=D0=BE=
+=D0=B2=D0=B5=D0=BA =D0=B8=D0=BB=D0=B8 =D0=B3=D1=80=D1=83=D0=BF=D0=BF=D0=B0,=
+ =D0=B5=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=B7=D0=B0=D0=BC=D0=B5=D1=81=D1=82=
+=D0=B8=D1=82=D0=B5=D0=BB=D0=B8?</td>
+<td class=3D"confluenceTd">Who is a Fleet Owner in practice =E2=80=94 is it=
+ one person or a group, are there deputies?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=83=D1=81=D1=82=D1=80=D0=
+=BE=D0=B5=D0=BD=D0=B0 =D1=81=D1=82=D1=80=D1=83=D0=BA=D1=82=D1=83=D1=80=D0=
+=B0 Cost Center'=D0=BE=D0=B2 =E2=80=94 =D1=81=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=
+=D0=BE =D0=B8=D1=85, =D0=BA=D1=82=D0=BE =D1=8F=D0=B2=D0=BB=D1=8F=D0=B5=D1=
+=82=D1=81=D1=8F =D0=B2=D0=BB=D0=B0=D0=B4=D0=B5=D0=BB=D1=8C=D1=86=D0=B5=D0=
+=BC?</td>
+<td class=3D"confluenceTd">How is the Cost Center structure organised =E2=
+=80=94 how many are there, who is the owner?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D1=82=D0=B0=D0=BA=D0=BE=D0=
+=B9 DOA =D0=BD=D0=B0 =D0=BF=D1=80=D0=B0=D0=BA=D1=82=D0=B8=D0=BA=D0=B5 =E2=
+=80=94 =D1=8D=D1=82=D0=BE =D0=BE=D1=84=D0=B8=D1=86=D0=B8=D0=B0=D0=BB=D1=8C=
+=D0=BD=D0=BE=D0=B5 =D0=B4=D0=B5=D0=BB=D0=B5=D0=B3=D0=B8=D1=80=D0=BE=D0=B2=
+=D0=B0=D0=BD=D0=B8=D0=B5 =D0=B8=D0=BB=D0=B8 =D1=81=D0=B8=D1=82=D1=83=D0=B0=
+=D1=82=D0=B8=D0=B2=D0=BD=D0=BE=D0=B5? =D0=9A=D0=B0=D0=BA =D0=BE=D1=84=D0=BE=
+=D1=80=D0=BC=D0=BB=D1=8F=D0=B5=D1=82=D1=81=D1=8F =D0=B8 =D1=85=D1=80=D0=B0=
+=D0=BD=D0=B8=D1=82=D1=81=D1=8F =D0=B8=D0=BD=D1=84=D0=BE=D1=80=D0=BC=D0=B0=
+=D1=86=D0=B8=D1=8F =D0=BE =D0=B4=D0=B5=D0=BB=D0=B5=D0=B3=D0=B8=D1=80=D0=BE=
+=D0=B2=D0=B0=D0=BD=D0=B8=D0=B8?</td>
+<td class=3D"confluenceTd">Who is a DOA in practice =E2=80=94 is this a for=
+mal delegation or situational? How is delegation information formalised and=
+ stored?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D0=B1=D1=83=D0=B4=D0=B5=D1=
+=82 =D0=90=D0=B4=D0=BC=D0=B8=D0=BD=D0=B8=D1=81=D1=82=D1=80=D0=B0=D1=82=D0=
+=BE=D1=80=D0=BE=D0=BC =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D1=81=D0=
+=BE =D1=81=D1=82=D0=BE=D1=80=D0=BE=D0=BD=D1=8B =D0=B1=D0=B8=D0=B7=D0=BD=D0=
+=B5=D1=81=D0=B0 =E2=80=94 =D0=9B=D0=BE=D0=B3=D0=B8=D1=81=D1=82=D0=B8=D0=BA=
+=D0=B0?</td>
+<td class=3D"confluenceTd">Who will be the System Administrator from the bu=
+siness side =E2=80=94 Logistics?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-6.Exter=
+nalPartners/=D0=92=D0=BD=D0=B5=D1=88=D0=BD=D0=B8=D0=B5=D0=BF=D0=B0=D1=80=D1=
+=82=D0=BD=D1=91=D1=80=D1=8B(BusinessPartners)">6. External Partners / =D0=
+=92=D0=BD=D0=B5=D1=88=D0=BD=D0=B8=D0=B5 =D0=BF=D0=B0=D1=80=D1=82=D0=BD=D1=
+=91=D1=80=D1=8B (Business Partners)</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=A1=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=D0=BE =D0=
+=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=B8=D1=85 =D0=91=D0=9F =D0=BF=D1=80=D0=B5=D0=
+=B4=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D0=BB=D1=8F=D1=8E=D1=82 =D1=82=D0=B5=D1=
+=85=D0=BD=D0=B8=D0=BA=D1=83 =E2=80=94 =D1=8D=D1=82=D0=BE 2=E2=80=933 =D0=BF=
+=D0=B0=D1=80=D1=82=D0=BD=D1=91=D1=80=D0=B0 =D0=B8=D0=BB=D0=B8 =D0=B4=D0=B5=
+=D1=81=D1=8F=D1=82=D0=BA=D0=B8? =D0=9A=D0=B0=D0=BA=D0=BE=D0=B2 =D1=81=D1=80=
+=D0=B5=D0=B4=D0=BD=D0=B8=D0=B9 =D1=80=D0=B0=D0=B7=D0=BC=D0=B5=D1=80 =D0=BF=
+=D0=B0=D1=80=D0=BA=D0=B0 =D1=83 =D0=BE=D0=B4=D0=BD=D0=BE=D0=B3=D0=BE =D0=91=
+=D0=9F?</td>
+<td class=3D"confluenceTd">How many external BPs provide equipment =E2=80=
+=94 is it 2=E2=80=933 partners or dozens? What is the average fleet size pe=
+r BP?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=81=D0=B5=D0=B9=D1=87=D0=
+=B0=D1=81 =D0=BE=D1=84=D0=BE=D1=80=D0=BC=D0=BB=D1=8F=D1=8E=D1=82=D1=81=D1=
+=8F =D0=BE=D1=82=D0=BD=D0=BE=D1=88=D0=B5=D0=BD=D0=B8=D1=8F =D1=81 =D0=91=D0=
+=9F =D0=BF=D1=80=D0=B8 =D0=B0=D1=80=D0=B5=D0=BD=D0=B4=D0=B5 =D1=82=D0=B5=D1=
+=85=D0=BD=D0=B8=D0=BA=D0=B8 =E2=80=94 =D0=B4=D0=BE=D0=B3=D0=BE=D0=B2=D0=BE=
+=D1=80, RWA, =D0=B4=D1=80=D1=83=D0=B3=D0=BE=D0=B5? =D0=9A=D0=B0=D0=BA=D0=BE=
+=D0=B2=D1=8B =D1=82=D0=B8=D0=BF=D0=B8=D1=87=D0=BD=D1=8B=D0=B5 =D1=81=D1=80=
+=D0=BE=D0=BA=D0=B8 =D0=B4=D0=B5=D0=B9=D1=81=D1=82=D0=B2=D0=B8=D1=8F =D0=B4=
+=D0=BE=D0=B3=D0=BE=D0=B2=D0=BE=D1=80=D0=B0 =D1=81 =D0=91=D0=9F?</td>
+<td class=3D"confluenceTd">How are relations with BPs currently formalised =
+when renting equipment =E2=80=94 contract, RWA, other? What are the typical=
+ contract durations with BPs?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D1=82=D0=B0=D0=BA=D0=BE=D0=
+=B5 RWA =E2=80=94 =D0=BC=D0=BE=D0=B6=D0=B5=D1=82=D0=B5 =D0=BE=D0=BF=D0=B8=
+=D1=81=D0=B0=D1=82=D1=8C =D0=BF=D1=80=D0=BE=D1=86=D0=B5=D1=81=D1=81 =D0=B5=
+=D0=B3=D0=BE =D1=81=D0=BE=D0=B7=D0=B4=D0=B0=D0=BD=D0=B8=D1=8F =D0=B8 =D0=BD=
+=D0=B0=D0=B7=D0=BD=D0=B0=D1=87=D0=B5=D0=BD=D0=B8=D0=B5? =D0=9A=D0=B0=D0=BA =
+=D0=B2=D1=8B=D0=B3=D0=BB=D1=8F=D0=B4=D0=B8=D1=82 =D0=B4=D0=BE=D0=BA=D1=83=
+=D0=BC=D0=B5=D0=BD=D1=82?</td>
+<td class=3D"confluenceTd">What is RWA =E2=80=94 can you describe the proce=
+ss of its creation and purpose? What does the document look like?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D1=83 =D0=
+=91=D0=9F =D1=81=D0=BE=D0=B1=D1=81=D1=82=D0=B2=D0=B5=D0=BD=D0=BD=D1=8B=D0=
+=B5 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D1=83=D1=87=D1=91=D1=82=D0=
+=B0 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8, =D1=81 =D0=BA=D0=BE=D1=82=
+=D0=BE=D1=80=D1=8B=D0=BC=D0=B8 =D0=BF=D0=BE=D1=82=D1=80=D0=B5=D0=B1=D1=83=
+=D0=B5=D1=82=D1=81=D1=8F =D0=B2=D0=B7=D0=B0=D0=B8=D0=BC=D0=BE=D0=B4=D0=B5=
+=D0=B9=D1=81=D1=82=D0=B2=D0=B8=D0=B5?</td>
+<td class=3D"confluenceTd">Do BPs have their own equipment tracking systems=
+ that will need to be interacted with?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=9E=D1=81=D0=BD=D0=B0=D1=89=D0=B5=D0=BD=D0=B0=
+ =D0=BB=D0=B8 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B0 =D0=91=D0=9F =D1=
+=82=D1=80=D0=B5=D0=BA=D0=B5=D1=80=D0=B0=D0=BC=D0=B8 =E2=80=94 =D0=B5=D1=81=
+=D0=BB=D0=B8 =D0=B4=D0=B0, =D1=82=D0=BE =D0=BA=D0=B0=D0=BA=D0=B8=D0=BC=D0=
+=B8 =D0=B8 =D1=87=D1=8C=D0=B8=D0=BC=D0=B8? =D0=9A=D1=82=D0=BE =D0=BD=D0=B5=
+=D1=81=D1=91=D1=82 =D0=BE=D1=82=D0=B2=D0=B5=D1=82=D1=81=D1=82=D0=B2=D0=B5=
+=D0=BD=D0=BD=D0=BE=D1=81=D1=82=D1=8C =D0=B7=D0=B0 =D0=BF=D0=B5=D1=80=D0=B5=
+=D0=B4=D0=B0=D1=87=D1=83 =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85 =D1=82=D1=80=
+=D0=B5=D0=BA=D0=B5=D1=80=D0=BE=D0=B2?</td>
+<td class=3D"confluenceTd">Is BP equipment equipped with trackers =E2=80=94=
+ if so, what type and whose? Who is responsible for transmitting tracker da=
+ta?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-7.Exter=
+nalSystems&amp;Data/=D0=92=D0=BD=D0=B5=D1=88=D0=BD=D0=B8=D0=B5=D1=81=D0=B8=
+=D1=81=D1=82=D0=B5=D0=BC=D1=8B=D0=B8=D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D0=B5">7=
+. External Systems &amp; Data / =D0=92=D0=BD=D0=B5=D1=88=D0=BD=D0=B8=D0=B5 =
+=D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D0=B8 =D0=B4=D0=B0=D0=BD=D0=BD=
+=D1=8B=D0=B5</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=B2=D0=BD=D0=
+=B5=D1=88=D0=BD=D0=B8=D0=B5 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D1=
+=81=D0=B5=D0=B9=D1=87=D0=B0=D1=81 =D0=B8=D1=81=D0=BF=D0=BE=D0=BB=D1=8C=D0=
+=B7=D1=83=D1=8E=D1=82=D1=81=D1=8F =D0=B2 =D1=81=D0=BC=D0=B5=D0=B6=D0=BD=D1=
+=8B=D1=85 =D0=BF=D1=80=D0=BE=D1=86=D0=B5=D1=81=D1=81=D0=B0=D1=85 (JDE E1, D=
+CT, PSWS, DOA, =D1=82=D1=80=D0=B5=D0=BA=D0=B5=D1=80=D1=8B)? =D0=95=D1=81=D1=
+=82=D1=8C =D0=BB=D0=B8 =D0=B4=D1=80=D1=83=D0=B3=D0=B8=D0=B5 =D1=81=D0=B8=D1=
+=81=D1=82=D0=B5=D0=BC=D1=8B, =D0=BD=D0=B5 =D1=83=D0=BF=D0=BE=D0=BC=D1=8F=D0=
+=BD=D1=83=D1=82=D1=8B=D0=B5 =D0=B2 BRD?</td>
+<td class=3D"confluenceTd">What external systems are currently used in rela=
+ted processes (JDE E1, DCT, PSWS, DOA, trackers)? Are there other systems n=
+ot mentioned in the BRD?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=94=D0=BB=D1=8F =D0=BA=D0=B0=D0=B6=D0=B4=D0=
+=BE=D0=B9 =D0=B8=D0=B7 =D1=8D=D1=82=D0=B8=D1=85 =D1=81=D0=B8=D1=81=D1=82=D0=
+=B5=D0=BC =E2=80=94 =D0=BA=D0=B0=D0=BA=D0=B8=D0=B5 =D0=B4=D0=B0=D0=BD=D0=BD=
+=D1=8B=D0=B5 =D0=B8=D0=B7 =D0=BD=D0=B5=D1=91 =D0=BD=D1=83=D0=B6=D0=BD=D1=8B=
+ =D0=B8 =D0=BA=D0=B0=D0=BA=D0=B8=D0=B5 =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D0=B5=
+ =D1=82=D1=83=D0=B4=D0=B0 =D0=BF=D0=B5=D1=80=D0=B5=D0=B4=D0=B0=D1=8E=D1=82=
+=D1=81=D1=8F? =D0=A3=D0=BA=D0=B0=D0=B6=D0=B8=D1=82=D0=B5 =D1=84=D0=BE=D1=80=
+=D0=BC=D0=B0=D1=82=D1=8B =D0=B8 =D0=BF=D1=80=D0=B8=D0=BC=D0=B5=D1=80=D1=8B =
+=D0=B2=D1=85=D0=BE=D0=B4=D1=8F=D1=89=D0=B8=D1=85/=D0=B8=D1=81=D1=85=D0=BE=
+=D0=B4=D1=8F=D1=89=D0=B8=D1=85 =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85.</td>
+<td class=3D"confluenceTd">For each of these systems =E2=80=94 what data is=
+ needed from it and what data is sent back? Please provide formats and exam=
+ples of incoming/outgoing data.</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D1=83=D0=
+=B6=D0=B5 API =D1=83 =D1=8D=D1=82=D0=B8=D1=85 =D1=81=D0=B8=D1=81=D1=82=D0=
+=B5=D0=BC =D0=B8=D0=BB=D0=B8 =D0=B8=D0=BD=D1=82=D0=B5=D0=B3=D1=80=D0=B0=D1=
+=86=D0=B8=D1=8F =D0=B1=D1=83=D0=B4=D0=B5=D1=82 =D1=80=D0=B0=D0=B7=D1=80=D0=
+=B0=D0=B1=D0=B0=D1=82=D1=8B=D0=B2=D0=B0=D1=82=D1=8C=D1=81=D1=8F =D1=81 =D0=
+=BD=D1=83=D0=BB=D1=8F? =D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=B4=D0=BE=
+=D0=BA=D1=83=D0=BC=D0=B5=D0=BD=D1=82=D0=B0=D1=86=D0=B8=D1=8F =D0=BD=D0=B0 A=
+PI?</td>
+<td class=3D"confluenceTd">Do these systems already have APIs or will the i=
+ntegration be developed from scratch? Is API documentation available?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=92 =D0=BA=D0=B0=D0=BA=D0=BE=D0=BC =D1=84=D0=
+=BE=D1=80=D0=BC=D0=B0=D1=82=D0=B5 =D0=BF=D1=80=D0=B5=D0=B4=D0=BE=D1=81=D1=
+=82=D0=B0=D0=B2=D0=BB=D1=8F=D1=8E=D1=82=D1=81=D1=8F =D0=B4=D0=B0=D0=BD=D0=
+=BD=D1=8B=D0=B5 =D0=B8=D0=B7 =D1=82=D1=80=D0=B5=D0=BA=D0=B5=D1=80=D0=BE=D0=
+=B2 (WIALON, IVMS, Vega) =E2=80=94 Excel-=D0=B2=D1=8B=D0=B3=D1=80=D1=83=D0=
+=B7=D0=BA=D0=B8, API, Datalake?</td>
+<td class=3D"confluenceTd">In what format is data provided from trackers (W=
+IALON, IVMS, Vega) =E2=80=94 Excel exports, API, Datalake?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BE=D1=
+=82=D0=B2=D0=B5=D1=82=D1=81=D1=82=D0=B2=D0=B5=D0=BD=D0=BD=D1=8B=D0=B5 =D1=
+=81=D0=BE =D1=81=D1=82=D0=BE=D1=80=D0=BE=D0=BD=D1=8B =D0=B2=D0=BB=D0=B0=D0=
+=B4=D0=B5=D0=BB=D1=8C=D1=86=D0=B5=D0=B2 =D0=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=
+=B8=D1=85 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC, =D1=81 =D0=BA=D0=B5=D0=BC =
+=D0=BC=D0=BE=D0=B6=D0=BD=D0=BE =D1=83=D1=82=D0=BE=D1=87=D0=BD=D1=8F=D1=82=
+=D1=8C =D0=B4=D0=B5=D1=82=D0=B0=D0=BB=D0=B8 =D0=B8=D0=BD=D1=82=D0=B5=D0=B3=
+=D1=80=D0=B0=D1=86=D0=B8=D0=B8?</td>
+<td class=3D"confluenceTd">Are there responsible contacts on the side of th=
+ese system owners who can clarify integration details?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=BE=D0=B2=D1=8B =D0=BE=D0=
+=B3=D1=80=D0=B0=D0=BD=D0=B8=D1=87=D0=B5=D0=BD=D0=B8=D1=8F =D0=B8=D0=BB=D0=
+=B8 SLA =D0=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=B8=D1=85 =D1=81=D0=B8=D1=81=D1=82=
+=D0=B5=D0=BC =E2=80=94 =D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF=D0=BD=D0=BE=D1=
+=81=D1=82=D1=8C, =D1=87=D0=B0=D1=81=D1=82=D0=BE=D1=82=D0=B0 =D0=BE=D0=B1=D0=
+=BD=D0=BE=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F =D0=B4=D0=B0=D0=BD=D0=BD=D1=
+=8B=D1=85, =D0=BB=D0=B8=D0=BC=D0=B8=D1=82=D1=8B API-=D0=B7=D0=B0=D0=BF=D1=
+=80=D0=BE=D1=81=D0=BE=D0=B2?</td>
+<td class=3D"confluenceTd">What are the limitations or SLAs of external sys=
+tems =E2=80=94 availability, data update frequency, API request limits?</td=
+>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-8.Notif=
+ications&amp;Communication/=D0=A3=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=BB=D0=B5=
+=D0=BD=D0=B8=D1=8F=D0=B8=D0=BA=D0=BE=D0=BC=D0=BC=D1=83=D0=BD=D0=B8=D0=BA=D0=
+=B0=D1=86=D0=B8=D0=B8">8. Notifications &amp; Communication / =D0=A3=D0=B2=
+=D0=B5=D0=B4=D0=BE=D0=BC=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F =D0=B8 =D0=BA=D0=BE=
+=D0=BC=D0=BC=D1=83=D0=BD=D0=B8=D0=BA=D0=B0=D1=86=D0=B8=D0=B8</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=A7=D0=B5=D1=80=D0=B5=D0=B7 =D0=BA=D0=B0=D0=
+=BA=D0=B8=D0=B5 =D0=BA=D0=B0=D0=BD=D0=B0=D0=BB=D1=8B =D0=B4=D0=BE=D0=BB=D0=
+=B6=D0=BD=D1=8B =D0=BF=D1=80=D0=B8=D1=85=D0=BE=D0=B4=D0=B8=D1=82=D1=8C =D1=
+=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F =E2=80=94 e=
+mail, Microsoft Teams, =D0=B2=D0=BD=D1=83=D1=82=D1=80=D0=B5=D0=BD=D0=BD=D0=
+=B8=D0=B9 =D0=BF=D0=BE=D1=80=D1=82=D0=B0=D0=BB, SMS?</td>
+<td class=3D"confluenceTd">Through what channels should notifications be se=
+nt =E2=80=94 email, Microsoft Teams, internal portal, SMS?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D0=B8 =D0=BE =D0=BA=D0=B0=D0=
+=BA=D0=B8=D1=85 =D1=81=D0=BE=D0=B1=D1=8B=D1=82=D0=B8=D1=8F=D1=85 =D0=B4=D0=
+=BE=D0=BB=D0=B6=D0=B5=D0=BD =D0=BF=D0=BE=D0=BB=D1=83=D1=87=D0=B0=D1=82=D1=
+=8C =D1=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F (=D0=
+=BF=D0=BE=D0=B4=D0=B0=D1=87=D0=B0 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B8, =D1=
+=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5, =D0=
+=BE=D1=82=D0=BA=D0=BB=D0=BE=D0=BD=D0=B5=D0=BD=D0=B8=D0=B5, =D0=B7=D0=B0=D0=
+=B2=D0=B5=D1=80=D1=88=D0=B5=D0=BD=D0=B8=D0=B5 =D0=B1=D1=80=D0=BE=D0=BD=D0=
+=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F)?</td>
+<td class=3D"confluenceTd">Who should be notified and about which events (r=
+equest submission, approval, rejection, booking completion)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=94=D0=BE=D0=BB=D0=B6=D0=BD=D0=B0 =D0=BB=D0=
+=B8 =D0=B1=D1=8B=D1=82=D1=8C =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=
+=BE=D1=81=D1=82=D1=8C =D0=BD=D0=B0=D1=81=D1=82=D1=80=D0=BE=D0=B9=D0=BA=D0=
+=B8 =D1=83=D0=B2=D0=B5=D0=B4=D0=BE=D0=BC=D0=BB=D0=B5=D0=BD=D0=B8=D0=B9 =D0=
+=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D1=82=D0=B5=D0=BB=D0=B5=D0=BC=
+ =E2=80=94 =D0=B2=D0=BA=D0=BB=D1=8E=D1=87=D0=B5=D0=BD=D0=B8=D0=B5/=D0=BE=D1=
+=82=D0=BA=D0=BB=D1=8E=D1=87=D0=B5=D0=BD=D0=B8=D0=B5 =D0=BF=D0=BE =D1=82=D0=
+=B8=D0=BF=D1=83 =D1=81=D0=BE=D0=B1=D1=8B=D1=82=D0=B8=D1=8F?</td>
+<td class=3D"confluenceTd">Should users be able to configure their notifica=
+tion preferences =E2=80=94 enabling/disabling by event type?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9D=D1=83=D0=B6=D0=BD=D1=8B =D0=BB=D0=B8 =D0=
+=BD=D0=B0=D0=BF=D0=BE=D0=BC=D0=B8=D0=BD=D0=B0=D0=BD=D0=B8=D1=8F =D0=BF=D1=
+=80=D0=B8 =D0=BE=D1=82=D1=81=D1=83=D1=82=D1=81=D1=82=D0=B2=D0=B8=D0=B8 =D1=
+=80=D0=B5=D0=B0=D0=BA=D1=86=D0=B8=D0=B8 =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=
+=81=D1=83=D1=8E=D1=89=D0=B5=D0=B3=D0=BE =E2=80=94 =D0=B8 =D0=B5=D1=81=D0=BB=
+=D0=B8 =D0=B4=D0=B0, =D1=87=D0=B5=D1=80=D0=B5=D0=B7 =D0=BA=D0=B0=D0=BA=D0=
+=BE=D0=B5 =D0=B2=D1=80=D0=B5=D0=BC=D1=8F =D0=B8 =D0=BA=D0=BE=D0=BC=D1=83 =
+=D1=8D=D1=81=D0=BA=D0=B0=D0=BB=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=8C?</=
+td>
+<td class=3D"confluenceTd">Are reminders needed when an approver has not re=
+sponded =E2=80=94 if so, after how long and to whom should escalation go?</=
+td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-9.Goals=
+&amp;ExpectedOutcome/=D0=A6=D0=B5=D0=BB=D0=B8=D0=B8=D0=BE=D0=B6=D0=B8=D0=B4=
+=D0=B0=D0=B5=D0=BC=D1=8B=D0=B9=D1=80=D0=B5=D0=B7=D1=83=D0=BB=D1=8C=D1=82=D0=
+=B0=D1=82">9. Goals &amp; Expected Outcome / =D0=A6=D0=B5=D0=BB=D0=B8 =D0=
+=B8 =D0=BE=D0=B6=D0=B8=D0=B4=D0=B0=D0=B5=D0=BC=D1=8B=D0=B9 =D1=80=D0=B5=D0=
+=B7=D1=83=D0=BB=D1=8C=D1=82=D0=B0=D1=82</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=BE=D0=B9 =D0=B3=D0=BB=D0=
+=B0=D0=B2=D0=BD=D1=8B=D0=B9 =D1=80=D0=B5=D0=B7=D1=83=D0=BB=D1=8C=D1=82=D0=
+=B0=D1=82 =D0=B2=D1=8B =D1=85=D0=BE=D1=82=D0=B8=D1=82=D0=B5 =D0=BF=D0=BE=D0=
+=BB=D1=83=D1=87=D0=B8=D1=82=D1=8C =D0=BE=D1=82 =D0=B2=D0=BD=D0=B5=D0=B4=D1=
+=80=D0=B5=D0=BD=D0=B8=D1=8F =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =E2=
+=80=94 =D1=87=D1=82=D0=BE =D0=B8=D0=B7=D0=BC=D0=B5=D0=BD=D0=B8=D1=82=D1=81=
+=D1=8F =D1=87=D0=B5=D1=80=D0=B5=D0=B7 =D0=B3=D0=BE=D0=B4 =D0=BF=D0=BE=D1=81=
+=D0=BB=D0=B5 =D0=B7=D0=B0=D0=BF=D1=83=D1=81=D0=BA=D0=B0?</td>
+<td class=3D"confluenceTd">What is the main result you want to achieve from=
+ implementing the system =E2=80=94 what will change one year after launch?<=
+/td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9F=D0=BE =D0=BA=D0=B0=D0=BA=D0=B8=D0=BC =D0=
+=BC=D0=B5=D1=82=D1=80=D0=B8=D0=BA=D0=B0=D0=BC =D0=B2=D1=8B =D0=B1=D1=83=D0=
+=B4=D0=B5=D1=82=D0=B5 =D0=BE=D1=86=D0=B5=D0=BD=D0=B8=D0=B2=D0=B0=D1=82=D1=
+=8C =D1=83=D1=81=D0=BF=D0=B5=D1=85 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=
+=8B (=D0=B2=D1=80=D0=B5=D0=BC=D1=8F =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=
+=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F, =D1=83=D1=82=D0=B8=D0=BB=D0=B8=D0=B7=D0=
+=B0=D1=86=D0=B8=D1=8F =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8, =D0=B7=D0=
+=B0=D1=82=D1=80=D0=B0=D1=82=D1=8B)? =D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BF=
+=D0=BE=D0=BA=D0=B0=D0=B7=D0=B0=D1=82=D0=B5=D0=BB=D0=B8 =D0=BD=D0=B0=D0=B8=
+=D0=B1=D0=BE=D0=BB=D0=B5=D0=B5 =D0=B2=D0=B0=D0=B6=D0=BD=D1=8B?</td>
+<td class=3D"confluenceTd">What metrics will you use to evaluate the succes=
+s of the system (approval time, equipment utilisation, costs)? Which indica=
+tors are most important?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BA=D0=
+=BE=D0=BD=D0=BA=D1=80=D0=B5=D1=82=D0=BD=D1=8B=D0=B5 =D1=86=D0=B5=D0=BB=D0=
+=B5=D0=B2=D1=8B=D0=B5 =D0=BF=D0=BE=D0=BA=D0=B0=D0=B7=D0=B0=D1=82=D0=B5=D0=
+=BB=D0=B8 =E2=80=94 =D0=BD=D0=B0=D0=BF=D1=80=D0=B8=D0=BC=D0=B5=D1=80, =D1=
+=81=D0=BE=D0=BA=D1=80=D0=B0=D1=82=D0=B8=D1=82=D1=8C =D0=B2=D1=80=D0=B5=D0=
+=BC=D1=8F =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=B8=D1=8F =D1=81 X =D0=B4=D0=BD=D0=B5=D0=B9 =D0=B4=D0=BE Y?</td>
+<td class=3D"confluenceTd">Are there specific target indicators =E2=80=94 f=
+or example, reduce approval time from X days to Y?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=B4=D0=BB=D1=8F =D0=B2=D0=
+=B0=D1=81 =D1=8F=D0=B2=D0=BB=D1=8F=D0=B5=D1=82=D1=81=D1=8F =D0=B0=D0=B1=D1=
+=81=D0=BE=D0=BB=D1=8E=D1=82=D0=BD=D1=8B=D0=BC =D0=BF=D1=80=D0=B8=D0=BE=D1=
+=80=D0=B8=D1=82=D0=B5=D1=82=D0=BE=D0=BC =D0=B2 =D1=81=D0=B8=D1=81=D1=82=D0=
+=B5=D0=BC=D0=B5, =D0=B0 =D0=B1=D0=B5=D0=B7 =D1=87=D0=B5=D0=B3=D0=BE =D0=BC=
+=D0=BE=D0=B6=D0=BD=D0=BE =D0=BE=D0=B1=D0=BE=D0=B9=D1=82=D0=B8=D1=81=D1=8C =
+=D0=BD=D0=B0 =D0=BF=D0=B5=D1=80=D0=B2=D0=BE=D0=BC =D1=8D=D1=82=D0=B0=D0=BF=
+=D0=B5?</td>
+<td class=3D"confluenceTd">What is an absolute priority for you in the syst=
+em, and what can be deferred to a later phase?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BF=D1=
+=80=D0=B8=D0=BC=D0=B5=D1=80=D1=8B =D0=BF=D0=BE=D1=85=D0=BE=D0=B6=D0=B8=D1=
+=85 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC =E2=80=94 =D0=B2=D0=BD=D1=83=D1=82=
+=D1=80=D0=B8 =D0=BA=D0=BE=D0=BC=D0=BF=D0=B0=D0=BD=D0=B8=D0=B8 =D0=B8=D0=BB=
+=D0=B8 =D1=83 =D0=B4=D1=80=D1=83=D0=B3=D0=B8=D1=85 =D0=BE=D1=80=D0=B3=D0=B0=
+=D0=BD=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D0=B9 =E2=80=94 =D0=BA=D0=BE=D1=82=D0=
+=BE=D1=80=D1=8B=D0=B5 =D0=BD=D1=80=D0=B0=D0=B2=D1=8F=D1=82=D1=81=D1=8F =D0=
+=BA=D0=B0=D0=BA =D1=8D=D1=82=D0=B0=D0=BB=D0=BE=D0=BD?</td>
+<td class=3D"confluenceTd">Are there examples of similar systems =E2=80=94 =
+within the company or at other organisations =E2=80=94 that you consider a =
+benchmark?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D0=BF=D0=BB=D0=B0=D0=BD=D0=
+=B8=D1=80=D1=83=D0=B5=D1=82=D1=81=D1=8F =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=
+=B0 =D1=81 =D1=82=D1=80=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F=D0=
+=BC=D0=B8 =D0=BF=D0=BE=D1=81=D0=BB=D0=B5 =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=
+=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=B4=D0=BE=D0=BA=D1=83=D0=BC=D0=
+=B5=D0=BD=D1=82=D0=B0 =E2=80=94 =D0=BA=D0=B0=D0=BA =D0=B1=D1=83=D0=B4=D1=83=
+=D1=82 =D1=83=D1=82=D0=BE=D1=87=D0=BD=D1=8F=D1=82=D1=8C=D1=81=D1=8F =D0=B8 =
+=D1=83=D0=BB=D1=83=D1=87=D1=88=D0=B0=D1=82=D1=8C=D1=81=D1=8F =D1=82=D1=80=
+=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BA =D1=81=D0=B8=D1=81=
+=D1=82=D0=B5=D0=BC=D0=B5 =D0=B2 =D1=85=D0=BE=D0=B4=D0=B5 =D1=80=D0=B0=D0=B7=
+=D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=BA=D0=B8?</td>
+<td class=3D"confluenceTd">How is it planned to work with requirements afte=
+r the document is approved =E2=80=94 how will requirements be refined and i=
+mproved during development?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-10.Dash=
+boards&amp;Reporting/=D0=94=D0=B0=D1=88=D0=B1=D0=BE=D1=80=D0=B4=D1=8B=D0=B8=
+=D0=BE=D1=82=D1=87=D1=91=D1=82=D0=BD=D0=BE=D1=81=D1=82=D1=8C">10. Dashboard=
+s &amp; Reporting / =D0=94=D0=B0=D1=88=D0=B1=D0=BE=D1=80=D0=B4=D1=8B =D0=B8=
+ =D0=BE=D1=82=D1=87=D1=91=D1=82=D0=BD=D0=BE=D1=81=D1=82=D1=8C</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=BF=D0=BE=D0=BD=D0=B8=D0=
+=BC=D0=B0=D0=B5=D1=82=D1=81=D1=8F =D0=BF=D0=BE=D0=B4 "=D1=83=D1=82=D0=B8=D0=
+=BB=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D0=B5=D0=B9" =D1=82=D0=B5=D1=85=D0=BD=D0=
+=B8=D0=BA=D0=B8 =D0=B2 =D0=BA=D0=BE=D0=BD=D1=82=D0=B5=D0=BA=D1=81=D1=82=D0=
+=B5 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =E2=80=94 =D1=8D=D1=82=D0=BE=
+ =D0=BF=D1=80=D0=BE=D1=86=D0=B5=D0=BD=D1=82 =D0=B2=D1=80=D0=B5=D0=BC=D0=B5=
+=D0=BD=D0=B8 =D0=B8=D1=81=D0=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=
+=D0=BD=D0=B8=D1=8F =D0=BE=D1=82 =D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF=D0=BD=
+=D0=BE=D0=B3=D0=BE, =D0=BF=D1=80=D0=BE=D0=B1=D0=B5=D0=B3, =D0=BC=D0=BE=D1=
+=82=D0=BE=D1=87=D0=B0=D1=81=D1=8B, =D0=B8=D0=BB=D0=B8 =D1=87=D1=82=D0=BE-=
+=D1=82=D0=BE =D0=B4=D1=80=D1=83=D0=B3=D0=BE=D0=B5? =D0=9A=D0=B0=D0=BA =D1=
+=83=D1=82=D0=B8=D0=BB=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D1=8F =D1=80=D0=B0=D1=
+=81=D1=81=D1=87=D0=B8=D1=82=D1=8B=D0=B2=D0=B0=D0=B5=D1=82=D1=81=D1=8F =D1=
+=81=D0=B5=D0=B9=D1=87=D0=B0=D1=81?</td>
+<td class=3D"confluenceTd">What is meant by equipment "utilisation" in the =
+context of the system =E2=80=94 is it percentage of time in use, mileage, e=
+ngine hours, or something else? How is utilisation currently calculated?</t=
+d>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BE=D1=82=D1=
+=87=D1=91=D1=82=D1=8B =D0=BD=D0=B5=D0=BE=D0=B1=D1=85=D0=BE=D0=B4=D0=B8=D0=
+=BC=D1=8B =D0=B2 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D0=B5? =D0=9E=D0=BF=
+=D0=B8=D1=88=D0=B8=D1=82=D0=B5 =D0=BA=D0=B0=D0=B6=D0=B4=D1=8B=D0=B9: =D1=87=
+=D1=82=D0=BE =D0=BE=D1=82=D0=BE=D0=B1=D1=80=D0=B0=D0=B6=D0=B0=D0=B5=D1=82=
+=D1=81=D1=8F, =D0=B7=D0=B0 =D0=BA=D0=B0=D0=BA=D0=BE=D0=B9 =D0=BF=D0=B5=D1=
+=80=D0=B8=D0=BE=D0=B4, =D0=B4=D0=BB=D1=8F =D0=BA=D0=B0=D0=BA=D0=BE=D0=B9 =
+=D1=80=D0=BE=D0=BB=D0=B8, =D0=B2 =D0=BA=D0=B0=D0=BA=D0=BE=D0=BC =D1=84=D0=
+=BE=D1=80=D0=BC=D0=B0=D1=82=D0=B5 (=D1=82=D0=B0=D0=B1=D0=BB=D0=B8=D1=86=D0=
+=B0, =D0=B3=D1=80=D0=B0=D1=84=D0=B8=D0=BA, =D0=B2=D1=8B=D0=B3=D1=80=D1=83=
+=D0=B7=D0=BA=D0=B0)?</td>
+<td class=3D"confluenceTd">What reports are required in the system? Describ=
+e each one: what is displayed, for what period, for which role, and in what=
+ format (table, chart, export)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=B4=D0=B0=D1=
+=88=D0=B1=D0=BE=D1=80=D0=B4=D1=8B =D0=BD=D0=B5=D0=BE=D0=B1=D1=85=D0=BE=D0=
+=B4=D0=B8=D0=BC=D1=8B =E2=80=94 =D0=BD=D0=B0=D0=BF=D1=80=D0=B8=D0=BC=D0=B5=
+=D1=80, =D0=BA=D0=B0=D1=80=D1=82=D0=B0 =D0=BC=D0=B5=D1=81=D1=82=D0=BE=D0=BF=
+=D0=BE=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D1=8F =D1=82=D0=B5=D1=85=D0=BD=
+=D0=B8=D0=BA=D0=B8, =D0=B3=D1=80=D0=B0=D1=84=D0=B8=D0=BA =D1=83=D1=82=D0=B8=
+=D0=BB=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D0=B8, =D1=81=D0=B2=D0=BE=D0=B4=D0=BA=
+=D0=B0 =D0=BF=D0=BE =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B0=D0=BC? =D0=94=D0=
+=BB=D1=8F =D0=BA=D0=B0=D0=BA=D0=B8=D1=85 =D1=80=D0=BE=D0=BB=D0=B5=D0=B9?</t=
+d>
+<td class=3D"confluenceTd">What dashboards are required =E2=80=94 for examp=
+le, equipment location map, utilisation chart, request summary? For which r=
+oles?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9D=D1=83=D0=B6=D0=BD=D0=B0 =D0=BB=D0=B8 =D0=
+=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=BE=D1=81=D1=82=D1=8C =D0=B2=D1=
+=8B=D0=B3=D1=80=D1=83=D0=B7=D0=BA=D0=B8 =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=
+=85 =D0=B8=D0=B7 =D0=BE=D1=82=D1=87=D1=91=D1=82=D0=BE=D0=B2 (Excel, CSV, PD=
+F)?</td>
+<td class=3D"confluenceTd">Is the ability to export report data required (E=
+xcel, CSV, PDF)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=97=D0=B0 =D0=BA=D0=B0=D0=BA=D0=BE=D0=B9 =D0=
+=BF=D0=B5=D1=80=D0=B8=D0=BE=D0=B4 =D0=B4=D0=BE=D0=BB=D0=B6=D0=BD=D1=8B =D1=
+=85=D1=80=D0=B0=D0=BD=D0=B8=D1=82=D1=8C=D1=81=D1=8F =D0=B4=D0=B0=D0=BD=D0=
+=BD=D1=8B=D0=B5 =D0=B4=D0=BB=D1=8F =D0=BE=D1=82=D1=87=D1=91=D1=82=D0=BD=D0=
+=BE=D1=81=D1=82=D0=B8 =D0=B8 =D0=B4=D0=B0=D1=88=D0=B1=D0=BE=D1=80=D0=B4=D0=
+=BE=D0=B2?</td>
+<td class=3D"confluenceTd">For what period should data be retained for repo=
+rting and dashboards?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-11.Secu=
+rity&amp;Access/=D0=91=D0=B5=D0=B7=D0=BE=D0=BF=D0=B0=D1=81=D0=BD=D0=BE=D1=
+=81=D1=82=D1=8C=D0=B8=D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF">11. Security &am=
+p; Access / =D0=91=D0=B5=D0=B7=D0=BE=D0=BF=D0=B0=D1=81=D0=BD=D0=BE=D1=81=D1=
+=82=D1=8C =D0=B8 =D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D1=82=D1=80=D0=
+=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BA =D0=B0=D0=B2=D1=82=D0=
+=BE=D1=80=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D0=B8 =D0=B2 =D1=81=D0=B8=D1=81=D1=
+=82=D0=B5=D0=BC=D0=B5 =E2=80=94 =D0=BB=D0=BE=D0=B3=D0=B8=D0=BD/=D0=BF=D0=B0=
+=D1=80=D0=BE=D0=BB=D1=8C, SSO, =D0=BC=D0=BD=D0=BE=D0=B3=D0=BE=D1=84=D0=B0=
+=D0=BA=D1=82=D0=BE=D1=80=D0=BD=D0=B0=D1=8F =D0=B0=D1=83=D1=82=D0=B5=D0=BD=
+=D1=82=D0=B8=D1=84=D0=B8=D0=BA=D0=B0=D1=86=D0=B8=D1=8F (SMS, =D0=BF=D1=80=
+=D0=B8=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5)? =D0=95=D1=81=D1=82=D1=8C=
+ =D0=BB=D0=B8 =D0=B8=D0=BD=D1=82=D0=B5=D0=B3=D1=80=D0=B0=D1=86=D0=B8=D1=8F =
+=D1=81 =D0=BA=D0=BE=D1=80=D0=BF=D0=BE=D1=80=D0=B0=D1=82=D0=B8=D0=B2=D0=BD=
+=D1=8B=D0=BC =D0=BF=D1=80=D0=BE=D0=B2=D0=B0=D0=B9=D0=B4=D0=B5=D1=80=D0=BE=
+=D0=BC =D0=B8=D0=B4=D0=B5=D0=BD=D1=82=D0=B8=D1=84=D0=B8=D0=BA=D0=B0=D1=86=
+=D0=B8=D0=B8 (Azure AD, Teams)?</td>
+<td class=3D"confluenceTd">What are the authentication requirements =E2=80=
+=94 login/password, SSO, multi-factor authentication (SMS, app)? Is there i=
+ntegration with a corporate identity provider (Azure AD, Teams)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=94=D0=BE=D0=BB=D0=B6=D0=B5=D0=BD =D0=BB=D0=
+=B8 =D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF =D0=BA =D1=81=D0=B8=D1=81=D1=82=D0=
+=B5=D0=BC=D0=B5 =D0=BE=D0=B3=D1=80=D0=B0=D0=BD=D0=B8=D1=87=D0=B8=D0=B2=D0=
+=B0=D1=82=D1=8C=D1=81=D1=8F =D0=BF=D0=BE =D0=BC=D0=B5=D1=81=D1=82=D0=BE=D0=
+=BF=D0=BE=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D1=8E (IP-=D0=B0=D0=B4=D1=80=
+=D0=B5=D1=81, =D0=BA=D0=BE=D1=80=D0=BF=D0=BE=D1=80=D0=B0=D1=82=D0=B8=D0=B2=
+=D0=BD=D0=B0=D1=8F =D1=81=D0=B5=D1=82=D1=8C, VPN)? =D0=92=D0=BE=D0=B7=D0=BC=
+=D0=BE=D0=B6=D0=B5=D0=BD =D0=BB=D0=B8 =D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF =
+=D0=B8=D0=B7=D0=B2=D0=BD=D0=B5 =D0=BA=D0=BE=D1=80=D0=BF=D0=BE=D1=80=D0=B0=
+=D1=82=D0=B8=D0=B2=D0=BD=D0=BE=D0=B9 =D1=81=D0=B5=D1=82=D0=B8 =E2=80=94 =D0=
+=BD=D0=B0=D0=BF=D1=80=D0=B8=D0=BC=D0=B5=D1=80, =D0=B4=D0=BB=D1=8F =D0=B2=D0=
+=BD=D0=B5=D1=88=D0=BD=D0=B8=D1=85 =D0=91=D0=9F?</td>
+<td class=3D"confluenceTd">Should access to the system be restricted by loc=
+ation (IP address, corporate network, VPN)? Should external access be possi=
+ble =E2=80=94 for example, for external BPs?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D1=82=D1=80=D0=
+=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BA =D0=BB=D0=BE=D0=B3=D0=
+=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8E =D0=B4=D0=B5=D0=B9=D1=81=D1=
+=82=D0=B2=D0=B8=D0=B9 =D0=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D1=
+=82=D0=B5=D0=BB=D0=B5=D0=B9 =E2=80=94 =D1=87=D1=82=D0=BE =D0=B8=D0=BC=D0=B5=
+=D0=BD=D0=BD=D0=BE =D0=B4=D0=BE=D0=BB=D0=B6=D0=BD=D0=BE =D1=84=D0=B8=D0=BA=
+=D1=81=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=8C=D1=81=D1=8F =D0=B8 =D0=BA=
+=D0=B0=D0=BA =D0=B4=D0=BE=D0=BB=D0=B3=D0=BE =D1=85=D1=80=D0=B0=D0=BD=D0=B8=
+=D1=82=D1=81=D1=8F =D0=BB=D0=BE=D0=B3?</td>
+<td class=3D"confluenceTd">What are the requirements for user action loggin=
+g =E2=80=94 what exactly should be recorded and how long should logs be ret=
+ained?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-12.UX&a=
+mp;Interface/UX=D0=B8=D0=B8=D0=BD=D1=82=D0=B5=D1=80=D1=84=D0=B5=D0=B9=D1=81=
+">12. UX &amp; Interface / UX =D0=B8 =D0=B8=D0=BD=D1=82=D0=B5=D1=80=D1=84=
+=D0=B5=D0=B9=D1=81</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=9D=D0=B0 =D0=BA=D0=B0=D0=BA=D0=B8=D1=85 =D1=
+=8F=D0=B7=D1=8B=D0=BA=D0=B0=D1=85 =D0=B4=D0=BE=D0=BB=D0=B6=D0=B5=D0=BD =D0=
+=B1=D1=8B=D1=82=D1=8C =D0=B8=D0=BD=D1=82=D0=B5=D1=80=D1=84=D0=B5=D0=B9=D1=
+=81 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =E2=80=94 =D1=80=D1=83=D1=81=
+=D1=81=D0=BA=D0=B8=D0=B9, =D0=B0=D0=BD=D0=B3=D0=BB=D0=B8=D0=B9=D1=81=D0=BA=
+=D0=B8=D0=B9, =D0=BA=D0=B0=D0=B7=D0=B0=D1=85=D1=81=D0=BA=D0=B8=D0=B9? =D0=
+=92=D1=81=D0=B5 =D1=82=D1=80=D0=B8 =D0=BE=D0=B1=D1=8F=D0=B7=D0=B0=D1=82=D0=
+=B5=D0=BB=D1=8C=D0=BD=D1=8B =D0=B8=D0=BB=D0=B8 =D1=87=D0=B0=D1=81=D1=82=D1=
+=8C =D0=BE=D0=BF=D1=86=D0=B8=D0=BE=D0=BD=D0=B0=D0=BB=D1=8C=D0=BD=D0=B0? =D0=
+=9A=D0=B0=D0=BA=D0=BE=D0=B9 =D1=8F=D0=B7=D1=8B=D0=BA =D1=8F=D0=B2=D0=BB=D1=
+=8F=D0=B5=D1=82=D1=81=D1=8F =D0=BE=D1=81=D0=BD=D0=BE=D0=B2=D0=BD=D1=8B=D0=
+=BC?</td>
+<td class=3D"confluenceTd">In what languages should the system interface be=
+ available =E2=80=94 Russian, English, Kazakh? Are all three mandatory or i=
+s some optional? Which is the primary language?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9D=D1=83=D0=B6=D0=BD=D0=B0 =D0=BB=D0=B8 =D0=
+=BC=D0=BE=D0=B1=D0=B8=D0=BB=D1=8C=D0=BD=D0=B0=D1=8F =D0=B2=D0=B5=D1=80=D1=
+=81=D0=B8=D1=8F =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D0=B8=D0=BB=D0=
+=B8 =D0=B4=D0=BE=D1=81=D1=82=D0=B0=D1=82=D0=BE=D1=87=D0=BD=D0=BE =D0=B0=D0=
+=B4=D0=B0=D0=BF=D1=82=D0=B8=D0=B2=D0=BD=D0=BE=D0=B3=D0=BE =D0=B2=D0=B5=D0=
+=B1-=D0=B8=D0=BD=D1=82=D0=B5=D1=80=D1=84=D0=B5=D0=B9=D1=81=D0=B0? =D0=95=D1=
+=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=
+=B0=D1=82=D0=B5=D0=BB=D0=B8, =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=B0=D1=8E=D1=
+=89=D0=B8=D0=B5 =D0=BF=D1=80=D0=B5=D0=B8=D0=BC=D1=83=D1=89=D0=B5=D1=81=D1=
+=82=D0=B2=D0=B5=D0=BD=D0=BD=D0=BE =D1=81 =D1=82=D0=B5=D0=BB=D0=B5=D1=84=D0=
+=BE=D0=BD=D0=B0 (=D0=BD=D0=B0=D0=BF=D1=80=D0=B8=D0=BC=D0=B5=D1=80, =D0=BF=
+=D0=BE=D0=BB=D0=B5=D0=B2=D1=8B=D0=B5 =D0=BE=D0=BF=D0=B5=D1=80=D0=B0=D1=82=
+=D0=BE=D1=80=D1=8B, =D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D0=B5=D0=BB=D0=B8)?</td>
+<td class=3D"confluenceTd">Is a mobile version of the system required, or i=
+s a responsive web interface sufficient? Are there users who work primarily=
+ from a phone (e.g., field operators, drivers)?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BA=D0=
+=BE=D1=80=D0=BF=D0=BE=D1=80=D0=B0=D1=82=D0=B8=D0=B2=D0=BD=D1=8B=D0=B9 UI-=
+=D0=B3=D0=B0=D0=B9=D0=B4, =D0=B4=D0=B8=D0=B7=D0=B0=D0=B9=D0=BD-=D1=81=D0=B8=
+=D1=81=D1=82=D0=B5=D0=BC=D0=B0 =D0=B8=D0=BB=D0=B8 =D0=B1=D1=80=D0=B5=D0=BD=
+=D0=B4=D0=B1=D1=83=D0=BA, =D0=BA=D0=BE=D1=82=D0=BE=D1=80=D1=8B=D0=BC =D0=B4=
+=D0=BE=D0=BB=D0=B6=D0=BD=D0=B0 =D1=81=D0=BE=D0=BE=D1=82=D0=B2=D0=B5=D1=82=
+=D1=81=D1=82=D0=B2=D0=BE=D0=B2=D0=B0=D1=82=D1=8C =D1=81=D0=B8=D1=81=D1=82=
+=D0=B5=D0=BC=D0=B0?</td>
+<td class=3D"confluenceTd">Is there a corporate UI guide, design system, or=
+ brand book that the system must comply with?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BF=D0=BE=D0=
+=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D1=82=D0=B5=D0=BB=D0=B8 =D0=BD=D0=B0=D0=
+=B8=D0=BC=D0=B5=D0=BD=D0=B5=D0=B5 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D1=87=D0=
+=B5=D1=81=D0=BA=D0=B8 =D0=BF=D0=BE=D0=B4=D0=B3=D0=BE=D1=82=D0=BE=D0=B2=D0=
+=BB=D0=B5=D0=BD=D1=8B? =D0=9A=D0=B0=D0=BA =D0=BE=D0=BD=D0=B8 =D1=81=D0=B5=
+=D0=B9=D1=87=D0=B0=D1=81 =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=B0=D1=8E=D1=82 =
+=D1=81 =D1=86=D0=B8=D1=84=D1=80=D0=BE=D0=B2=D1=8B=D0=BC=D0=B8 =D0=B8=D0=BD=
+=D1=81=D1=82=D1=80=D1=83=D0=BC=D0=B5=D0=BD=D1=82=D0=B0=D0=BC=D0=B8 =E2=80=
+=94 =D0=B5=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D1=83 =D0=BD=D0=B8=D1=85 =D0=BE=
+=D0=BF=D1=8B=D1=82 =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D1=8B =D1=81 =D0=BA=D0=BE=
+=D1=80=D0=BF=D0=BE=D1=80=D0=B0=D1=82=D0=B8=D0=B2=D0=BD=D1=8B=D0=BC=D0=B8 =
+=D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D0=B0=D0=BC=D0=B8?</td>
+<td class=3D"confluenceTd">Which users are the least technically proficient=
+? How do they currently work with digital tools =E2=80=94 do they have expe=
+rience with corporate systems?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D1=82=D1=
+=80=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BA =D0=B4=D0=BE=D1=
+=81=D1=82=D1=83=D0=BF=D0=BD=D0=BE=D1=81=D1=82=D0=B8 =D0=B8=D0=BD=D1=82=D0=
+=B5=D1=80=D1=84=D0=B5=D0=B9=D1=81=D0=B0 (=D0=BD=D0=B0=D0=BF=D1=80=D0=B8=D0=
+=BC=D0=B5=D1=80, =D0=B4=D0=BB=D1=8F =D0=BB=D1=8E=D0=B4=D0=B5=D0=B9 =D1=81 =
+=D0=BE=D0=B3=D1=80=D0=B0=D0=BD=D0=B8=D1=87=D0=B5=D0=BD=D0=BD=D1=8B=D0=BC=D0=
+=B8 =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=BE=D1=81=D1=82=D1=8F=D0=
+=BC=D0=B8)?</td>
+<td class=3D"confluenceTd">Are there any accessibility requirements for the=
+ interface (e.g., for users with disabilities)?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-13.MVP&=
+amp;DeliveryPhases/MVP=D0=B8=D1=84=D0=B0=D0=B7=D1=8B=D0=BF=D0=BE=D1=81=D1=
+=82=D0=B0=D0=B2=D0=BA=D0=B8">13. MVP &amp; Delivery Phases / MVP =D0=B8 =D1=
+=84=D0=B0=D0=B7=D1=8B =D0=BF=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D0=BA=D0=B8</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=A1=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BD=D0=BE=
+ Software Delivery Timeline, =D1=84=D0=B0=D0=B7=D0=B0 =D1=81=D0=B1=D0=BE=D1=
+=80=D0=B0 =D1=82=D1=80=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B9 =D0=
+=B7=D0=B0=D0=B2=D0=B5=D1=80=D1=88=D0=B0=D0=B5=D1=82=D1=81=D1=8F 17 =D0=B0=
+=D0=BF=D1=80=D0=B5=D0=BB=D1=8F, =D0=B0 =D1=80=D0=B0=D0=B7=D1=80=D0=B0=D0=B1=
+=D0=BE=D1=82=D0=BA=D0=B0 =D1=83=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D0=B5=D0=BD=
+=D0=B8=D1=8F =D0=B2=D0=BD=D1=83=D1=82=D1=80=D0=B5=D0=BD=D0=BD=D0=B8=D0=BC =
+=D1=84=D0=BB=D0=BE=D1=82=D0=BE=D0=BC =D1=81=D1=82=D0=B0=D1=80=D1=82=D1=83=
+=D0=B5=D1=82 =D1=83=D0=B6=D0=B5 30 =D0=BC=D0=B0=D1=80=D1=82=D0=B0 =D0=BF=D0=
+=B0=D1=80=D0=B0=D0=BB=D0=BB=D0=B5=D0=BB=D1=8C=D0=BD=D0=BE. =D0=92=D1=81=D0=
+=B5 =D0=BB=D0=B8 =D1=82=D1=80=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=
+=8F =D0=BF=D0=BE =D0=B2=D0=BD=D1=83=D1=82=D1=80=D0=B5=D0=BD=D0=BD=D0=B5=D0=
+=BC=D1=83 =D1=84=D0=BB=D0=BE=D1=82=D1=83 =D0=B7=D0=B0=D1=84=D0=B8=D0=BA=D1=
+=81=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D1=8B =D0=B8 =D1=81=D0=BE=D0=B3=D0=
+=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D1=8B =D0=B4=D0=BB=D1=8F =D1=81=D1=
+=82=D0=B0=D1=80=D1=82=D0=B0 =D1=80=D0=B0=D0=B7=D1=80=D0=B0=D0=B1=D0=BE=D1=
+=82=D0=BA=D0=B8?</td>
+<td class=3D"confluenceTd">According to the Software Delivery Timeline, req=
+uirements gathering ends on 17 April, while internal fleet management devel=
+opment starts on 30 March in parallel. Have all internal fleet requirements=
+ been captured and agreed upon for the development start?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=A4=D0=B0=D0=B7=D0=B0 "Booking and allocation=
+ for the internal fleet" (17-Apr =E2=86=92 29-May) =D0=B8=D0=B4=D1=91=D1=82=
+ =D1=80=D0=B0=D0=BD=D1=8C=D1=88=D0=B5 =D0=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=B5=
+=D0=B3=D0=BE =D1=84=D0=BB=D0=BE=D1=82=D0=B0. =D0=9A=D0=B0=D0=BA=D0=BE=D0=B9=
+ =D0=BC=D0=B8=D0=BD=D0=B8=D0=BC=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=B9 =D1=84=
+=D1=83=D0=BD=D0=BA=D1=86=D0=B8=D0=BE=D0=BD=D0=B0=D0=BB =D0=B1=D1=80=D0=BE=
+=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=B4=D0=BE=D0=BB=
+=D0=B6=D0=B5=D0=BD =D0=B1=D1=8B=D1=82=D1=8C =D0=B3=D0=BE=D1=82=D0=BE=D0=B2 =
+=D0=BA 29 =D0=BC=D0=B0=D1=8F =E2=80=94 =D1=87=D1=82=D0=BE =D1=8F=D0=B2=D0=
+=BB=D1=8F=D0=B5=D1=82=D1=81=D1=8F =D0=BA=D1=80=D0=B8=D1=82=D0=B5=D1=80=D0=
+=B8=D0=B5=D0=BC =D0=B7=D0=B0=D0=B2=D0=B5=D1=80=D1=88=D0=B5=D0=BD=D0=B8=D1=
+=8F =D1=8D=D1=82=D0=BE=D0=B9 =D1=84=D0=B0=D0=B7=D1=8B?</td>
+<td class=3D"confluenceTd">The "Booking and allocation for the internal fle=
+et" phase (17-Apr =E2=86=92 29-May) precedes the external fleet. What is th=
+e minimum booking functionality required by 29 May =E2=80=94 what are the c=
+ompletion criteria for this phase?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">"Fleet maintenance &amp; inspections" =D0=B2=D1=
+=8B=D0=B4=D0=B5=D0=BB=D0=B5=D0=BD=D0=B0 =D0=B2 =D0=BE=D1=82=D0=B4=D0=B5=D0=
+=BB=D1=8C=D0=BD=D1=83=D1=8E =D1=84=D0=B0=D0=B7=D1=83 (22-Jun =E2=86=92 03-A=
+ug). =D0=A7=D1=82=D0=BE =D0=B2=D1=85=D0=BE=D0=B4=D0=B8=D1=82 =D0=B2 =D1=8D=
+=D1=82=D0=BE=D1=82 =D0=BC=D0=BE=D0=B4=D1=83=D0=BB=D1=8C =E2=80=94 =D1=80=D0=
+=B5=D0=B3=D0=BB=D0=B0=D0=BC=D0=B5=D0=BD=D1=82=D0=BD=D0=BE=D0=B5 =D0=A2=D0=
+=9E, =D0=B2=D0=BD=D0=B5=D0=BF=D0=BB=D0=B0=D0=BD=D0=BE=D0=B2=D1=8B=D0=B5 =D1=
+=80=D0=B5=D0=BC=D0=BE=D0=BD=D1=82=D1=8B, =D0=B8=D0=BD=D1=81=D0=BF=D0=B5=D0=
+=BA=D1=86=D0=B8=D0=B8 =D0=B1=D0=B5=D0=B7=D0=BE=D0=BF=D0=B0=D1=81=D0=BD=D0=
+=BE=D1=81=D1=82=D0=B8? =D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=BE=D1=82=
+=D0=B4=D0=B5=D0=BB=D1=8C=D0=BD=D1=8B=D0=B5 =D1=82=D1=80=D0=B5=D0=B1=D0=BE=
+=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F, =D0=BA=D0=BE=D1=82=D0=BE=D1=80=D1=8B=D0=B5 =
+=D0=B5=D1=89=D1=91 =D0=BD=D0=B5 =D0=B7=D0=B0=D1=84=D0=B8=D0=BA=D1=81=D0=B8=
+=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D1=8B =D0=B2 BRD?</td>
+<td class=3D"confluenceTd">"Fleet maintenance &amp; inspections" is a separ=
+ate phase (22-Jun =E2=86=92 03-Aug). What does this module include =E2=80=
+=94 scheduled maintenance, unplanned repairs, safety inspections? Are there=
+ separate requirements not yet captured in the BRD?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=94=D0=B0=D1=88=D0=B1=D0=BE=D1=80=D0=B4=D1=8B=
+ =D0=B8 =D0=B0=D0=BD=D0=B0=D0=BB=D0=B8=D1=82=D0=B8=D0=BA=D0=B0 =D0=B7=D0=B0=
+=D0=BF=D0=BB=D0=B0=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D1=8B =D0=BD=
+=D0=B0 =D0=BF=D0=BE=D1=81=D0=BB=D0=B5=D0=B4=D0=BD=D1=8E=D1=8E =D0=BD=D0=B5=
+=D0=B4=D0=B5=D0=BB=D1=8E =D0=BF=D0=B5=D1=80=D0=B5=D0=B4 =D0=B4=D0=B5=D0=BF=
+=D0=BB=D0=BE=D0=B5=D0=BC (27-Jul =E2=86=92 03-Aug). =D0=AD=D1=82=D0=BE =D1=
+=84=D0=B8=D0=BD=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=B9 =D0=B8=D0=BD=D1=81=D1=
+=82=D1=80=D1=83=D0=BC=D0=B5=D0=BD=D1=82 =D0=B8=D0=BB=D0=B8 =D0=BF=D1=80=D0=
+=BE=D0=BC=D0=B5=D0=B6=D1=83=D1=82=D0=BE=D1=87=D0=BD=D1=8B=D0=B9 MVP? =D0=9A=
+=D0=B0=D0=BA=D0=BE=D0=B2 =D0=BE=D0=B6=D0=B8=D0=B4=D0=B0=D0=B5=D0=BC=D1=8B=
+=D0=B9 =D0=BE=D0=B1=D1=8A=D1=91=D0=BC =D1=84=D1=83=D0=BD=D0=BA=D1=86=D0=B8=
+=D0=BE=D0=BD=D0=B0=D0=BB=D0=B0 =D0=BD=D0=B0 =D1=81=D1=82=D0=B0=D1=80=D1=82=
+=D0=B5?</td>
+<td class=3D"confluenceTd">Dashboards and analytics are scheduled for the l=
+ast week before deployment (27-Jul =E2=86=92 03-Aug). Is this the final too=
+l or an intermediate MVP? What is the expected scope of functionality at la=
+unch?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=9F=D0=BB=D0=B0=D0=BD=D0=B8=D1=80=D1=83=D0=B5=
+=D1=82=D1=81=D1=8F =D0=BB=D0=B8 =D0=BF=D0=B8=D0=BB=D0=BE=D1=82=D0=BD=D1=8B=
+=D0=B9 =D0=B7=D0=B0=D0=BF=D1=83=D1=81=D0=BA =D0=BD=D0=B0 =D0=BE=D0=B3=D1=80=
+=D0=B0=D0=BD=D0=B8=D1=87=D0=B5=D0=BD=D0=BD=D0=BE=D0=B9 =D0=B3=D1=80=D1=83=
+=D0=BF=D0=BF=D0=B5 =D0=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D1=82=
+=D0=B5=D0=BB=D0=B5=D0=B9 =D0=BF=D0=B5=D1=80=D0=B5=D0=B4 =D0=BF=D0=BE=D0=BB=
+=D0=BD=D1=8B=D0=BC =D1=80=D0=B0=D0=B7=D0=B2=D1=91=D1=80=D1=82=D1=8B=D0=B2=
+=D0=B0=D0=BD=D0=B8=D0=B5=D0=BC =E2=80=94 =D0=B8 =D0=B5=D1=81=D0=BB=D0=B8 =
+=D0=B4=D0=B0, =D0=BA=D1=82=D0=BE =D0=B2=D0=BE=D0=B9=D0=B4=D1=91=D1=82 =D0=
+=B2 =D0=BF=D0=B8=D0=BB=D0=BE=D1=82=D0=BD=D1=83=D1=8E =D0=B3=D1=80=D1=83=D0=
+=BF=D0=BF=D1=83 =D0=B8 =D0=BF=D0=BE =D0=BA=D0=B0=D0=BA=D0=B8=D0=BC =D0=BA=
+=D1=80=D0=B8=D1=82=D0=B5=D1=80=D0=B8=D1=8F=D0=BC?</td>
+<td class=3D"confluenceTd">Is a pilot launch planned with a limited user gr=
+oup before full deployment =E2=80=94 if so, who will be included and on wha=
+t criteria?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=BE=D0=B2 =D0=BA=D1=80=D0=
+=B8=D1=82=D0=B5=D1=80=D0=B8=D0=B9 =D0=B3=D0=BE=D1=82=D0=BE=D0=B2=D0=BD=D0=
+=BE=D1=81=D1=82=D0=B8 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D0=BA =D0=
+=BF=D0=B5=D1=80=D0=B5=D1=85=D0=BE=D0=B4=D1=83 =D0=B2 Prod =E2=80=94 =D0=BA=
+=D1=82=D0=BE =D0=BF=D0=BE=D0=B4=D0=BF=D0=B8=D1=81=D1=8B=D0=B2=D0=B0=D0=B5=
+=D1=82 =D0=BF=D1=80=D0=B8=D1=91=D0=BC=D0=BA=D1=83 =D0=B8 =D0=BF=D0=BE =D0=
+=BA=D0=B0=D0=BA=D0=B8=D0=BC =D0=BF=D0=BE=D0=BA=D0=B0=D0=B7=D0=B0=D1=82=D0=
+=B5=D0=BB=D1=8F=D0=BC?</td>
+<td class=3D"confluenceTd">What is the system readiness criterion for trans=
+ition to Prod =E2=80=94 who signs off acceptance and based on what indicato=
+rs?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-14.Data=
+Migration/=D0=9C=D0=B8=D0=B3=D1=80=D0=B0=D1=86=D0=B8=D1=8F=D0=B4=D0=B0=D0=
+=BD=D0=BD=D1=8B=D1=85">14. Data Migration / =D0=9C=D0=B8=D0=B3=D1=80=D0=B0=
+=D1=86=D0=B8=D1=8F =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D0=B4=D0=
+=B0=D0=BD=D0=BD=D1=8B=D0=B5, =D0=BA=D0=BE=D1=82=D0=BE=D1=80=D1=8B=D0=B5 =D0=
+=BD=D0=B5=D0=BE=D0=B1=D1=85=D0=BE=D0=B4=D0=B8=D0=BC=D0=BE =D0=BF=D0=B5=D1=
+=80=D0=B5=D0=BD=D0=B5=D1=81=D1=82=D0=B8 =D0=B2 =D0=BD=D0=BE=D0=B2=D1=83=D1=
+=8E =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=83 =D0=B4=D0=BE =D0=B7=D0=B0=D0=
+=BF=D1=83=D1=81=D0=BA=D0=B0 =E2=80=94 =D1=80=D0=B5=D0=B5=D1=81=D1=82=D1=80=
+=D1=8B =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8, =D0=B8=D1=81=D1=82=D0=BE=
+=D1=80=D0=B8=D1=87=D0=B5=D1=81=D0=BA=D0=B8=D0=B5 =D0=B7=D0=B0=D1=8F=D0=B2=
+=D0=BA=D0=B8, =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D0=B5 =D0=BE =D0=BF=D0=B0=D1=
+=80=D0=BA=D0=B0=D1=85 =D0=B8 =D1=84=D0=BB=D0=BE=D1=82=D0=B0=D1=85?</td>
+<td class=3D"confluenceTd">Is there data that needs to be migrated to the n=
+ew system before launch =E2=80=94 equipment registers, historical requests,=
+ fleet and park data?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=92 =D0=BA=D0=B0=D0=BA=D0=BE=D0=BC =D1=84=D0=
+=BE=D1=80=D0=BC=D0=B0=D1=82=D0=B5 =D1=85=D1=80=D0=B0=D0=BD=D1=8F=D1=82=D1=
+=81=D1=8F =D1=82=D0=B5=D0=BA=D1=83=D1=89=D0=B8=D0=B5 =D0=B4=D0=B0=D0=BD=D0=
+=BD=D1=8B=D0=B5 =E2=80=94 Excel, =D0=B1=D0=B0=D0=B7=D0=B0 =D0=B4=D0=B0=D0=
+=BD=D0=BD=D1=8B=D1=85, =D0=B1=D1=83=D0=BC=D0=B0=D0=B6=D0=BD=D1=8B=D0=B5 =D0=
+=B6=D1=83=D1=80=D0=BD=D0=B0=D0=BB=D1=8B, =D0=B4=D1=80=D1=83=D0=B3=D0=B8=D0=
+=B5 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B?</td>
+<td class=3D"confluenceTd">In what format is the current data stored =E2=80=
+=94 Excel, database, paper records, other systems?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=9D=D0=B0=D1=81=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=
+=D0=BE =D0=B0=D0=BA=D1=82=D1=83=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B =D0=B8 =D0=BF=
+=D0=BE=D0=BB=D0=BD=D1=8B =D1=82=D0=B5=D0=BA=D1=83=D1=89=D0=B8=D0=B5 =D0=B4=
+=D0=B0=D0=BD=D0=BD=D1=8B=D0=B5 =E2=80=94 =D0=B5=D1=81=D1=82=D1=8C =D0=BB=D0=
+=B8 =D0=B4=D1=83=D0=B1=D0=BB=D0=B8, =D0=BF=D1=80=D0=BE=D0=BF=D1=83=D1=81=D0=
+=BA=D0=B8, =D1=83=D1=81=D1=82=D0=B0=D1=80=D0=B5=D0=B2=D1=88=D0=B8=D0=B5 =D0=
+=B7=D0=B0=D0=BF=D0=B8=D1=81=D0=B8? =D0=9A=D1=82=D0=BE =D0=BE=D1=82=D0=B2=D0=
+=B5=D1=87=D0=B0=D0=B5=D1=82 =D0=B7=D0=B0 =D0=BA=D0=B0=D1=87=D0=B5=D1=81=D1=
+=82=D0=B2=D0=BE =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85 =D0=BF=D1=80=D0=B8 =D0=
+=BF=D0=B5=D1=80=D0=B5=D0=BD=D0=BE=D1=81=D0=B5?</td>
+<td class=3D"confluenceTd">How accurate and complete is the current data =
+=E2=80=94 are there duplicates, gaps, or outdated records? Who is responsib=
+le for data quality during migration?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D1=81=D0=BE =D1=81=D1=82=D0=
+=BE=D1=80=D0=BE=D0=BD=D1=8B =D0=B1=D0=B8=D0=B7=D0=BD=D0=B5=D1=81=D0=B0 =D0=
+=B1=D1=83=D0=B4=D0=B5=D1=82 =D0=BE=D1=82=D0=B2=D0=B5=D1=87=D0=B0=D1=82=D1=
+=8C =D0=B7=D0=B0 =D0=BF=D0=BE=D0=B4=D0=B3=D0=BE=D1=82=D0=BE=D0=B2=D0=BA=D1=
+=83, =D0=BF=D1=80=D0=BE=D0=B2=D0=B5=D1=80=D0=BA=D1=83 =D0=B8 =D0=B7=D0=B0=
+=D0=B3=D1=80=D1=83=D0=B7=D0=BA=D1=83 =D0=BC=D0=B0=D1=81=D1=82=D0=B5=D1=80-=
+=D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85 (=D1=81=D0=BF=D1=80=D0=B0=D0=B2=D0=BE=
+=D1=87=D0=BD=D0=B8=D0=BA =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8, =D1=84=
+=D0=BB=D0=BE=D1=82=D1=8B, =D0=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=
+=D1=82=D0=B5=D0=BB=D0=B8)?</td>
+<td class=3D"confluenceTd">Who on the business side will be responsible for=
+ preparing, validating, and loading master data (equipment catalogue, fleet=
+s, users)?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-15.Comp=
+liance&amp;Regulatory/=D0=9A=D0=BE=D0=BC=D0=BF=D0=BB=D0=B0=D0=B5=D0=BD=D1=
+=81=D0=B8=D1=80=D0=B5=D0=B3=D1=83=D0=BB=D1=8F=D1=82=D0=BE=D1=80=D0=B8=D0=BA=
+=D0=B0">15. Compliance &amp; Regulatory / =D0=9A=D0=BE=D0=BC=D0=BF=D0=BB=D0=
+=B0=D0=B5=D0=BD=D1=81 =D0=B8 =D1=80=D0=B5=D0=B3=D1=83=D0=BB=D1=8F=D1=82=D0=
+=BE=D1=80=D0=B8=D0=BA=D0=B0</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D1=82=D1=
+=80=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BA =D1=85=D1=80=D0=
+=B0=D0=BD=D0=B5=D0=BD=D0=B8=D1=8E =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85 =D1=
+=81=D0=BE =D1=81=D1=82=D0=BE=D1=80=D0=BE=D0=BD=D1=8B =D1=80=D0=B5=D0=B3=D1=
+=83=D0=BB=D1=8F=D1=82=D0=BE=D1=80=D0=B0 =D0=B8=D0=BB=D0=B8 =D0=B2=D0=BD=D1=
+=83=D1=82=D1=80=D0=B5=D0=BD=D0=BD=D0=B5=D0=B9 =D0=BF=D0=BE=D0=BB=D0=B8=D1=
+=82=D0=B8=D0=BA=D0=B8 =D0=BA=D0=BE=D0=BC=D0=BF=D0=B0=D0=BD=D0=B8=D0=B8 =E2=
+=80=94 =D0=BD=D0=B0=D0=BF=D1=80=D0=B8=D0=BC=D0=B5=D1=80, =D0=B4=D0=B0=D0=BD=
+=D0=BD=D1=8B=D0=B5 =D0=BD=D0=B5 =D0=B4=D0=BE=D0=BB=D0=B6=D0=BD=D1=8B =D0=BF=
+=D0=BE=D0=BA=D0=B8=D0=B4=D0=B0=D1=82=D1=8C =D0=BE=D0=BF=D1=80=D0=B5=D0=B4=
+=D0=B5=D0=BB=D1=91=D0=BD=D0=BD=D1=8B=D0=B9 =D1=80=D0=B5=D0=B3=D0=B8=D0=BE=
+=D0=BD =D0=B8=D0=BB=D0=B8 =D1=81=D1=82=D1=80=D0=B0=D0=BD=D1=83?</td>
+<td class=3D"confluenceTd">Are there data storage requirements from regulat=
+ors or internal company policy =E2=80=94 for example, data must not leave a=
+ specific region or country?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9D=D1=83=D0=B6=D0=BD=D0=B0 =D0=BB=D0=B8 =D1=
+=8D=D0=BB=D0=B5=D0=BA=D1=82=D1=80=D0=BE=D0=BD=D0=BD=D0=B0=D1=8F =D0=BF=D0=
+=BE=D0=B4=D0=BF=D0=B8=D1=81=D1=8C (=D0=AD=D0=A6=D0=9F) =D0=B4=D0=BB=D1=8F =
+=D0=BF=D0=BE=D0=B4=D1=82=D0=B2=D0=B5=D1=80=D0=B6=D0=B4=D0=B5=D0=BD=D0=B8=D1=
+=8F =D0=B7=D0=B0=D1=8F=D0=B2=D0=BE=D0=BA, =D0=B8=D0=BB=D0=B8 =D0=B4=D0=BE=
+=D1=81=D1=82=D0=B0=D1=82=D0=BE=D1=87=D0=BD=D0=BE =D0=BD=D0=B0=D0=B6=D0=B0=
+=D1=82=D0=B8=D1=8F =D0=BA=D0=BD=D0=BE=D0=BF=D0=BA=D0=B8 =D0=B2 =D1=81=D0=B8=
+=D1=81=D1=82=D0=B5=D0=BC=D0=B5?</td>
+<td class=3D"confluenceTd">Is a digital signature (EDS) required for approv=
+ing requests, or is a button click within the system sufficient?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=95=D1=81=D1=82=D1=8C =D0=BB=D0=B8 =D1=82=D1=
+=80=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BA =D0=B0=D1=80=D1=
+=85=D0=B8=D0=B2=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8E =D0=B7=D0=
+=B0=D0=BA=D1=80=D1=8B=D1=82=D1=8B=D1=85 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BE=D0=
+=BA =D0=B8 =D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=B8=D0=B9 =E2=80=94 =D0=BD=D0=B0 =D0=BA=D0=B0=D0=BA=D0=BE=D0=B9 =D1=81=D1=
+=80=D0=BE=D0=BA, =D0=B2 =D0=BA=D0=B0=D0=BA=D0=BE=D0=BC =D1=84=D0=BE=D1=80=
+=D0=BC=D0=B0=D1=82=D0=B5, =D1=81 =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=
+=D0=BE=D1=81=D1=82=D1=8C=D1=8E =D0=BF=D0=BE=D0=B8=D1=81=D0=BA=D0=B0?</td>
+<td class=3D"confluenceTd">Are there requirements for archiving closed requ=
+ests and bookings =E2=80=94 for how long, in what format, with search capab=
+ility?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=A0=D0=B0=D1=81=D0=BF=D1=80=D0=BE=D1=81=D1=82=
+=D1=80=D0=B0=D0=BD=D1=8F=D1=8E=D1=82=D1=81=D1=8F =D0=BB=D0=B8 =D0=BD=D0=B0 =
+=D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=83 =D1=82=D1=80=D0=B5=D0=B1=D0=BE=
+=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BA=D0=BE=D1=80=D0=BF=D0=BE=D1=80=D0=B0=
+=D1=82=D0=B8=D0=B2=D0=BD=D0=BE=D0=B9 =D0=B8=D0=BD=D1=84=D0=BE=D1=80=D0=BC=
+=D0=B0=D1=86=D0=B8=D0=BE=D0=BD=D0=BD=D0=BE=D0=B9 =D0=B1=D0=B5=D0=B7=D0=BE=
+=D0=BF=D0=B0=D1=81=D0=BD=D0=BE=D1=81=D1=82=D0=B8 (IS =D0=BF=D0=BE=D0=BB=D0=
+=B8=D1=82=D0=B8=D0=BA=D0=B8 =D0=A2=D0=A8=D0=9E)? =D0=9F=D1=80=D0=BE=D0=B2=
+=D0=BE=D0=B4=D0=B8=D0=BB=D1=81=D1=8F =D0=BB=D0=B8 IS-assessment =D0=B4=D0=
+=BB=D1=8F =D0=B0=D0=BD=D0=B0=D0=BB=D0=BE=D0=B3=D0=B8=D1=87=D0=BD=D1=8B=D1=
+=85 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC?</td>
+<td class=3D"confluenceTd">Do corporate information security requirements (=
+TCO IS policies) apply to the system? Has an IS assessment been conducted f=
+or similar systems?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=A2=D1=80=D0=B5=D0=B1=D1=83=D0=B5=D1=82=D1=81=
+=D1=8F =D0=BB=D0=B8 =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=
+=D0=BD=D0=B8=D0=B5 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =D1=81 =D1=8E=
+=D1=80=D0=B8=D0=B4=D0=B8=D1=87=D0=B5=D1=81=D0=BA=D0=B8=D0=BC =D0=B8=D0=BB=
+=D0=B8 compliance-=D0=B4=D0=B5=D0=BF=D0=B0=D1=80=D1=82=D0=B0=D0=BC=D0=B5=D0=
+=BD=D1=82=D0=BE=D0=BC =D0=BF=D0=B5=D1=80=D0=B5=D0=B4 =D0=B7=D0=B0=D0=BF=D1=
+=83=D1=81=D0=BA=D0=BE=D0=BC?</td>
+<td class=3D"confluenceTd">Is approval from the legal or compliance departm=
+ent required before launch?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-16.Exce=
+ptionScenarios/=D0=A1=D1=86=D0=B5=D0=BD=D0=B0=D1=80=D0=B8=D0=B8=D0=B8=D1=81=
+=D0=BA=D0=BB=D1=8E=D1=87=D0=B5=D0=BD=D0=B8=D0=B9=D0=B8=D0=B3=D1=80=D0=B0=D0=
+=BD=D0=B8=D1=87=D0=BD=D1=8B=D0=B5=D1=81=D0=BB=D1=83=D1=87=D0=B0=D0=B8">16. =
+Exception Scenarios / =D0=A1=D1=86=D0=B5=D0=BD=D0=B0=D1=80=D0=B8=D0=B8 =D0=
+=B8=D1=81=D0=BA=D0=BB=D1=8E=D1=87=D0=B5=D0=BD=D0=B8=D0=B9 =D0=B8 =D0=B3=D1=
+=80=D0=B0=D0=BD=D0=B8=D1=87=D0=BD=D1=8B=D0=B5 =D1=81=D0=BB=D1=83=D1=87=D0=
+=B0=D0=B8</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=B4=D0=BE=D0=BB=D0=B6=D0=
+=BD=D0=B0 =D0=B4=D0=B5=D0=BB=D0=B0=D1=82=D1=8C =D1=81=D0=B8=D1=81=D1=82=D0=
+=B5=D0=BC=D0=B0 =D0=BF=D1=80=D0=B8 =D0=BD=D0=B5=D0=B4=D0=BE=D1=81=D1=82=D1=
+=83=D0=BF=D0=BD=D0=BE=D1=81=D1=82=D0=B8 =D0=B2=D0=BD=D0=B5=D1=88=D0=BD=D0=
+=B5=D0=B9 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B (JDE E1, PSWS, DOA) =
+=E2=80=94 =D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D1=8C =D0=BE=D0=BF=D0=B5=D1=
+=80=D0=B0=D1=86=D0=B8=D1=8E =D0=B2 =D0=BE=D1=87=D0=B5=D1=80=D0=B5=D0=B4=D1=
+=8C, =D0=B1=D0=BB=D0=BE=D0=BA=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=8C =D0=
+=B4=D0=B5=D0=B9=D1=81=D1=82=D0=B2=D0=B8=D0=B5, =D1=83=D0=B2=D0=B5=D0=B4=D0=
+=BE=D0=BC=D0=BB=D1=8F=D1=82=D1=8C =D0=B0=D0=B4=D0=BC=D0=B8=D0=BD=D0=B8=D1=
+=81=D1=82=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=B0?</td>
+<td class=3D"confluenceTd">What should the system do if an external system =
+(JDE E1, PSWS, DOA) is unavailable =E2=80=94 queue the operation, block the=
+ action, notify the administrator?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=BF=D1=80=D0=BE=D0=B8=D1=
+=81=D1=85=D0=BE=D0=B4=D0=B8=D1=82 =D1=81 =D0=BE=D1=87=D0=B5=D1=80=D0=B5=D0=
+=B4=D1=8C=D1=8E =D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=
+=BD=D0=B8=D1=8F, =D0=B5=D1=81=D0=BB=D0=B8 Fleet Owner =D0=B8=D0=BB=D0=B8 CC=
+ Owner =D1=83=D0=B2=D0=BE=D0=BB=D0=B8=D0=BB=D1=81=D1=8F, =D0=B7=D0=B0=D0=B1=
+=D0=BE=D0=BB=D0=B5=D0=BB =D0=B8=D0=BB=D0=B8 =D0=B4=D0=BB=D0=B8=D1=82=D0=B5=
+=D0=BB=D1=8C=D0=BD=D0=BE =D0=BD=D0=B5=D0=B4=D0=BE=D1=81=D1=82=D1=83=D0=BF=
+=D0=B5=D0=BD? =D0=9A=D1=82=D0=BE =D0=BF=D0=BE=D0=BB=D1=83=D1=87=D0=B0=D0=B5=
+=D1=82 =D0=B5=D0=B3=D0=BE =D0=B7=D0=B0=D0=B4=D0=B0=D1=87=D0=B8?</td>
+<td class=3D"confluenceTd">What happens to the approval queue if a Fleet Ow=
+ner or CC Owner resigns, falls ill, or is unavailable for a long time? Who =
+takes over their tasks?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=BF=D1=80=D0=BE=D0=B8=D1=
+=81=D1=85=D0=BE=D0=B4=D0=B8=D1=82 =D1=81 =D0=B0=D0=BA=D1=82=D0=B8=D0=B2=D0=
+=BD=D1=8B=D0=BC=D0=B8 =D0=B1=D1=80=D0=BE=D0=BD=D0=B8=D1=80=D0=BE=D0=B2=D0=
+=B0=D0=BD=D0=B8=D1=8F=D0=BC=D0=B8, =D0=B5=D1=81=D0=BB=D0=B8 =D0=B5=D0=B4=D0=
+=B8=D0=BD=D0=B8=D1=86=D0=B0 =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D0=BA=D0=B8 =D0=
+=BF=D0=B5=D1=80=D0=B5=D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D1=81=D1=8F =D0=B2 =D0=
+=B4=D1=80=D1=83=D0=B3=D0=BE=D0=B9 =D1=84=D0=BB=D0=BE=D1=82 =D0=B8=D0=BB=D0=
+=B8 =D0=BF=D1=80=D0=BE=D1=85=D0=BE=D0=B4=D0=B8=D1=82 =D0=BF=D1=80=D0=BE=D1=
+=86=D0=B5=D0=B4=D1=83=D1=80=D1=83 =D1=81=D0=BF=D0=B8=D1=81=D0=B0=D0=BD=D0=
+=B8=D1=8F?</td>
+<td class=3D"confluenceTd">What happens to active bookings if an equipment =
+unit is transferred to another fleet or goes through a write-off procedure?=
+</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=92=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=B0=
+ =D0=BB=D0=B8 =D1=8D=D0=BA=D1=81=D1=82=D1=80=D0=B5=D0=BD=D0=BD=D0=B0=D1=8F =
+=D0=BE=D1=82=D0=BC=D0=B5=D0=BD=D0=B0 =D1=83=D0=B6=D0=B5 =D0=BD=D0=B0=D1=87=
+=D0=B0=D0=B2=D1=88=D0=B5=D0=B3=D0=BE=D1=81=D1=8F =D0=B1=D1=80=D0=BE=D0=BD=
+=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F (=D1=81=D1=82=D0=B0=D1=82=
+=D1=83=D1=81 In Progress)? =D0=9A=D1=82=D0=BE =D0=B8=D0=BC=D0=B5=D0=B5=D1=
+=82 =D0=BF=D1=80=D0=B0=D0=B2=D0=BE =D1=8D=D1=82=D0=BE =D1=81=D0=B4=D0=B5=D0=
+=BB=D0=B0=D1=82=D1=8C =D0=B8 =D1=82=D1=80=D0=B5=D0=B1=D1=83=D0=B5=D1=82=D1=
+=81=D1=8F =D0=BB=D0=B8 =D0=BE=D0=B1=D0=BE=D1=81=D0=BD=D0=BE=D0=B2=D0=B0=D0=
+=BD=D0=B8=D0=B5?</td>
+<td class=3D"confluenceTd">Is emergency cancellation of an already started =
+booking (In Progress status) possible? Who has the authority to do so, and =
+is justification required?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">5</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA =D1=81=D0=B8=D1=81=D1=82=D0=
+=B5=D0=BC=D0=B0 =D0=B4=D0=BE=D0=BB=D0=B6=D0=BD=D0=B0 =D0=BE=D0=B1=D1=80=D0=
+=B0=D0=B1=D0=B0=D1=82=D1=8B=D0=B2=D0=B0=D1=82=D1=8C =D0=BA=D0=BE=D0=BD=D1=
+=84=D0=BB=D0=B8=D0=BA=D1=82, =D0=B5=D1=81=D0=BB=D0=B8 =D0=B4=D0=B2=D0=B0 =
+=D0=B7=D0=B0=D1=8F=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=D1=8F =D0=BE=D0=B4=D0=BD=
+=D0=BE=D0=B2=D1=80=D0=B5=D0=BC=D0=B5=D0=BD=D0=BD=D0=BE =D0=BF=D1=8B=D1=82=
+=D0=B0=D1=8E=D1=82=D1=81=D1=8F =D0=B7=D0=B0=D0=B1=D1=80=D0=BE=D0=BD=D0=B8=
+=D1=80=D0=BE=D0=B2=D0=B0=D1=82=D1=8C =D0=BE=D0=B4=D0=BD=D1=83 =D0=B8 =D1=82=
+=D1=83 =D0=B6=D0=B5 =D0=B5=D0=B4=D0=B8=D0=BD=D0=B8=D1=86=D1=83 =D0=BD=D0=B0=
+ =D0=BE=D0=B4=D0=BD=D0=BE =D0=B2=D1=80=D0=B5=D0=BC=D1=8F?</td>
+<td class=3D"confluenceTd">How should the system handle a conflict if two r=
+equestors simultaneously try to book the same unit for the same time?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">6</td>
+<td class=3D"confluenceTd">=D0=A7=D1=82=D0=BE =D0=BF=D1=80=D0=BE=D0=B8=D1=
+=81=D1=85=D0=BE=D0=B4=D0=B8=D1=82, =D0=B5=D1=81=D0=BB=D0=B8 =D0=B2=D0=BD=D0=
+=B5=D1=88=D0=BD=D0=B8=D0=B9 =D0=91=D0=9F =D0=BD=D0=B5 =D0=BE=D1=82=D1=80=D0=
+=B5=D0=B0=D0=B3=D0=B8=D1=80=D0=BE=D0=B2=D0=B0=D0=BB =D0=BD=D0=B0 =D0=BF=D0=
+=BE=D0=B4=D1=82=D0=B2=D0=B5=D1=80=D0=B6=D0=B4=D1=91=D0=BD=D0=BD=D1=83=D1=8E=
+ CC Owner =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D1=83 =D0=B2 =D1=82=D0=B5=D1=87=D0=
+=B5=D0=BD=D0=B8=D0=B5 N =D0=B4=D0=BD=D0=B5=D0=B9 =E2=80=94 =D0=B5=D1=81=D1=
+=82=D1=8C =D0=BB=D0=B8 =D0=B0=D0=B2=D1=82=D0=BE=D0=BC=D0=B0=D1=82=D0=B8=D1=
+=87=D0=B5=D1=81=D0=BA=D0=B0=D1=8F =D1=8D=D1=81=D0=BA=D0=B0=D0=BB=D0=B0=D1=
+=86=D0=B8=D1=8F =D0=B8=D0=BB=D0=B8 =D0=BE=D1=82=D0=BC=D0=B5=D0=BD=D0=B0?</t=
+d>
+<td class=3D"confluenceTd">What happens if an external BP does not respond =
+to a CC Owner-approved request within N days =E2=80=94 is there automatic e=
+scalation or cancellation?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id=3D"HDV/HDEBookingTool=E2=80=94RequirementsGatheringQuestions-17.Perf=
+ormance&amp;Maintenance/=D0=9F=D1=80=D0=BE=D0=B8=D0=B7=D0=B2=D0=BE=D0=B4=D0=
+=B8=D1=82=D0=B5=D0=BB=D1=8C=D0=BD=D0=BE=D1=81=D1=82=D1=8C=D0=B8=D1=81=D0=BE=
+=D0=BF=D1=80=D0=BE=D0=B2=D0=BE=D0=B6=D0=B4=D0=B5=D0=BD=D0=B8=D0=B5">17. Per=
+formance &amp; Maintenance / =D0=9F=D1=80=D0=BE=D0=B8=D0=B7=D0=B2=D0=BE=D0=
+=B4=D0=B8=D1=82=D0=B5=D0=BB=D1=8C=D0=BD=D0=BE=D1=81=D1=82=D1=8C =D0=B8 =D1=
+=81=D0=BE=D0=BF=D1=80=D0=BE=D0=B2=D0=BE=D0=B6=D0=B4=D0=B5=D0=BD=D0=B8=D0=B5=
+</h2>
+<div class=3D"table-wrap">
+<table class=3D"wrapped confluenceTable">
+<thead class=3D"">
+<tr class=3D"">
+<th class=3D"confluenceTh">#</th>
+<th class=3D"confluenceTh">=D0=A0=D1=83=D1=81=D1=81=D0=BA=D0=B8=D0=B9</th>
+<th class=3D"confluenceTh">English</th>
+</tr>
+</thead>
+<tbody class=3D"">
+<tr class=3D"">
+<td class=3D"confluenceTd">1</td>
+<td class=3D"confluenceTd">=D0=A1=D0=BA=D0=BE=D0=BB=D1=8C=D0=BA=D0=BE =D0=
+=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D1=82=D0=B5=D0=BB=D0=B5=D0=B9=
+ =D0=BC=D0=BE=D0=B3=D1=83=D1=82 =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=B0=D1=82=
+=D1=8C =D0=B2 =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D0=B5 =D0=BE=D0=B4=D0=BD=
+=D0=BE=D0=B2=D1=80=D0=B5=D0=BC=D0=B5=D0=BD=D0=BD=D0=BE =E2=80=94 =D0=BA=D0=
+=B0=D0=BA=D0=BE=D0=B2 =D0=BE=D0=B6=D0=B8=D0=B4=D0=B0=D0=B5=D0=BC=D1=8B=D0=
+=B9 =D0=BF=D0=B8=D0=BA?</td>
+<td class=3D"confluenceTd">How many users can work in the system simultaneo=
+usly =E2=80=94 what is the expected peak load?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">2</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=BE=D0=B2 =D0=B4=D0=BE=D0=
+=BF=D1=83=D1=81=D1=82=D0=B8=D0=BC=D1=8B=D0=B9 SLA =D0=BD=D0=B0 =D0=BE=D1=82=
+=D0=BA=D0=BB=D0=B8=D0=BA =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D1=8B =E2=80=
+=94 =D0=BC=D0=B0=D0=BA=D1=81=D0=B8=D0=BC=D0=B0=D0=BB=D1=8C=D0=BD=D0=BE=D0=
+=B5 =D0=B2=D1=80=D0=B5=D0=BC=D1=8F =D0=B7=D0=B0=D0=B3=D1=80=D1=83=D0=B7=D0=
+=BA=D0=B8 =D1=81=D1=82=D1=80=D0=B0=D0=BD=D0=B8=D1=86=D1=8B, =D0=BE=D0=B1=D1=
+=80=D0=B0=D0=B1=D0=BE=D1=82=D0=BA=D0=B8 =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=
+=B8?</td>
+<td class=3D"confluenceTd">What is the acceptable SLA for system response t=
+ime =E2=80=94 maximum page load time, request processing time?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">3</td>
+<td class=3D"confluenceTd">=D0=9A=D1=82=D0=BE =D0=B1=D1=83=D0=B4=D0=B5=D1=
+=82 =D0=BE=D1=81=D1=83=D1=89=D0=B5=D1=81=D1=82=D0=B2=D0=BB=D1=8F=D1=82=D1=
+=8C =D1=82=D0=B5=D1=85=D0=BD=D0=B8=D1=87=D0=B5=D1=81=D0=BA=D1=83=D1=8E =D0=
+=BF=D0=BE=D0=B4=D0=B4=D0=B5=D1=80=D0=B6=D0=BA=D1=83 =D1=81=D0=B8=D1=81=D1=
+=82=D0=B5=D0=BC=D1=8B =D0=BF=D0=BE=D1=81=D0=BB=D0=B5 =D0=B7=D0=B0=D0=BF=D1=
+=83=D1=81=D0=BA=D0=B0 =E2=80=94 =D0=B2=D0=BD=D1=83=D1=82=D1=80=D0=B5=D0=BD=
+=D0=BD=D1=8F=D1=8F =D0=BA=D0=BE=D0=BC=D0=B0=D0=BD=D0=B4=D0=B0 =D0=B8=D0=BB=
+=D0=B8 =D0=BF=D0=BE=D0=B4=D1=80=D1=8F=D0=B4=D1=87=D0=B8=D0=BA? =D0=9A=D0=B0=
+=D0=BA =D0=B1=D1=83=D0=B4=D0=B5=D1=82 =D0=BE=D1=80=D0=B3=D0=B0=D0=BD=D0=B8=
+=D0=B7=D0=BE=D0=B2=D0=B0=D0=BD service desk?</td>
+<td class=3D"confluenceTd">Who will provide technical support after launch =
+=E2=80=94 an internal team or a contractor? How will the service desk be or=
+ganised?</td>
+</tr>
+<tr class=3D"">
+<td class=3D"confluenceTd">4</td>
+<td class=3D"confluenceTd">=D0=9A=D0=B0=D0=BA=D0=BE=D0=B2 =D0=BF=D1=80=D0=
+=BE=D1=86=D0=B5=D1=81=D1=81 =D0=B2=D0=BD=D0=B5=D1=81=D0=B5=D0=BD=D0=B8=D1=
+=8F =D0=B8=D0=B7=D0=BC=D0=B5=D0=BD=D0=B5=D0=BD=D0=B8=D0=B9 =D0=B2 =D1=81=D0=
+=B8=D1=81=D1=82=D0=B5=D0=BC=D1=83 =D0=BF=D0=BE=D1=81=D0=BB=D0=B5 =D0=B7=D0=
+=B0=D0=BF=D1=83=D1=81=D0=BA=D0=B0 =E2=80=94 =D0=BA=D1=82=D0=BE =D0=B8=D0=BD=
+=D0=B8=D1=86=D0=B8=D0=B8=D1=80=D1=83=D0=B5=D1=82, =D0=BA=D1=82=D0=BE =D1=81=
+=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D1=83=D0=B5=D1=82, =D0=BA=D0=B0=D0=BA=D0=BE=
+=D0=B9 =D1=86=D0=B8=D0=BA=D0=BB =D0=B2=D1=8B=D0=BF=D1=83=D1=81=D0=BA=D0=B0 =
+=D0=BE=D0=B1=D0=BD=D0=BE=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D0=B9?</td>
+<td class=3D"confluenceTd">What is the change management process after laun=
+ch =E2=80=94 who initiates, who approves, what is the release cycle?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+    </div>
+</body>
+</html>
+------=_Part_3533_851434682.1775121269241--
