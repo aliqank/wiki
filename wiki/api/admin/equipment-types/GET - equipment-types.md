@@ -1,77 +1,148 @@
 # GET /equipment-types
 
-**Модуль:** Admin Panel  
-**Base URL:** `/api/admin/v1`  
-**Endpoint URL:** `/equipment-types`  
-**Метод:** `GET`  
-**Авторизация:** `Authorization: Bearer <token>`  
-**Роль:** `Admin`
+**Дата:** 2026-05-05  
+**Основание:** `Результаты claude/2026-05-05 - API спецификация Admin Panel v1.md`, `Результаты claude/2026-05-04 - Схема БД v5 (Equipments, Bookings).md`  
+**Для кого:** Backend-разработчик, Frontend-разработчик  
+**Формат:** RESTful JSON API
 
 ---
 
-## Назначение
+## Карточка метода
 
-Метод возвращает постраничный список типов техники для экрана AP-01 в Admin Panel.
-
-Use case:
-- `UC-ET-01` — просмотр списка типов техники с поиском.
-
-Источник:
-- `Результаты claude/2026-05-05 - API спецификация Admin Panel v1.md`
-- `Результаты claude/2026-05-04 - Схема БД v5 (Equipments, Bookings).md`
-
----
-
-## Query Params
-
-| Параметр | Тип | Обязательный | По умолчанию | Описание |
-|----------|-----|--------------|--------------|----------|
-| `search` | `string` | нет | — | Фильтр по `EquipmentTypes.name` |
-| `page` | `int` | нет | `1` | Номер страницы |
-| `limit` | `int` | нет | `20` | Размер страницы |
+| Параметр | Значение |
+|----------|----------|
+| Описание | Получить постраничный список типов техники для экрана AP-01 в Admin Panel |
+| Доступ только авторизованным пользователям | `+` |
+| Модуль системы | `Admin Panel` |
+| Endpoint URL | `/api/admin/v1/equipment-types` |
+| Метод запроса | `GET` |
 
 ---
 
-## Логика метода
+## 1. Задачи, в рамках которых вносятся изменения в метод
+
+Новый метод публикации в `wiki` для dev-ready описания списка типов техники.
+
+---
+
+## 2. Функциональные требования
+
+| Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
+|----------------------|------------------|---------------------|--------|----------|-------------|
+| TCO Booking Tool | FR-010 | Admin конфигурирует динамические характеристики по типам техники через Admin Panel tool | Confirmed | BRD v13 | Метод нужен для списка типов техники в Admin Panel |
+| TCO Booking Tool | FR-013 | Admin создаёт equipment types / equipment-related master data | Confirmed | BRD v13 | Метод чтения списка нужен для AP-01 |
+| TCO Booking Tool | FR-014 | Admin редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Список типов техники является входной точкой к карточке типа |
+
+---
+
+## 3. Описание логики работы метода
 
 1. Получить записи из `EquipmentTypes`.
-2. Если передан `search`, применить фильтр по `name`.
+2. Если передан `search`, применить фильтр по `EquipmentTypes.name`.
 3. Отсортировать результат по `sortOrder ASC`, затем по `name ASC`.
 4. Для каждой записи рассчитать:
    - `propertiesCount` = COUNT(`EquipmentTypeProperties` WHERE `equipmentTypeId` = `EquipmentTypes.id`)
    - `equipmentsCount` = COUNT(`Equipments` WHERE `equipmentTypeId` = `EquipmentTypes.id`)
 5. Вернуть страницу данных в формате общего `result wrapper` с `PaginatedResult` внутри `value`.
 
----
-
-## Источники данных
-
-| Поле ответа | Источник |
-|-------------|----------|
-| `id` | `EquipmentTypes.id` |
-| `name` | `EquipmentTypes.name` |
-| `mobilityType` | `EquipmentTypes.mobilityType` |
-| `requiresTransport` | `EquipmentTypes.requiresTransport` |
-| `sortOrder` | `EquipmentTypes.sortOrder` |
-| `propertiesCount` | агрегат по `EquipmentTypeProperties` |
-| `equipmentsCount` | агрегат по `Equipments` |
+Сущности, участвующие в методе:
+- читаются: `EquipmentTypes`, `EquipmentTypeProperties`, `Equipments`
+- изменения не выполняются
+- транзакционность не требуется, метод read-only
 
 ---
 
-## Структура ответа
+## 4. Разрешения доступа к методу
 
-Метод использует:
-- общий `result wrapper`
-- `PaginatedResult` внутри `value`
+| Наименование разрешения | Описание разрешения |
+|-------------------------|---------------------|
+| `Admin` | Доступ к административной панели и справочникам типов техники |
 
-Структура ответа:
+---
+
+## 5. Настройки системы, используемые в методе
+
+Не используются.
+
+---
+
+## 6. Ошибки, возвращаемые методом
+
+| Код | Описание ошибки |
+|-----|-----------------|
+| `UNAUTHORIZED` | Пользователь не авторизован |
+| `FORBIDDEN` | У пользователя нет роли `Admin` |
+
+HTTP-коды:
+- `401 Unauthorized`
+- `403 Forbidden`
+
+---
+
+## 7. Параметры метода
+
+| № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидации (если требуется) | Значение по умолчанию | Комментарий |
+|---|---------------------|-------------------------------|--------------------------|------------------------------------------------------------|---------------------------------------|------------------------|-------------|
+| 1 | Поисковая строка по названию типа техники | `search` | `string` | `-` | Если передан, используется как фильтр по `EquipmentTypes.name` | — | Query param |
+| 2 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param |
+| 3 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param |
+
+---
+
+## 8. Пример запроса
+
+### Пример HTTP-запроса
+
+```http
+GET /api/admin/v1/equipment-types?search=Компрессор&page=1&limit=20
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+У метода нет request body.
+
+---
+
+## 9. Возвращаемые данные
+
+Возвращаемые данные должны описываться с учётом двух шаблонов:
+- `Результаты claude/2026-05-05 - Шаблон обертки результата API.md`
+- `Результаты claude/2026-05-05 - Шаблон результата пагинации API.md`
+
+Правило применения:
+- метод возвращает пагинированный список;
+- поэтому используется общий `result wrapper`, а внутри `value` используется `PaginatedResult`.
+
+### 9.1 Структура response payload
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|----------------|---------------------------|--------------------------|--------|------------------------|-----------------|-------------|
+| 1 | Результат выполнения метода | `value` | `object` | `PaginatedResult<EquipmentTypeListItem>` | — | backend aggregation | Внутри содержит `items` и `total` |
+| 1.1 | Элементы текущей страницы | `items` | `array<object>` | `EquipmentTypeListItem[]` | `[]` | `EquipmentTypes` + агрегаты | Список типов техники |
+| 1.2 | Общее количество записей | `total` | `int` | integer | `0` | COUNT по `EquipmentTypes` с учётом фильтра | Без учёта размера страницы |
+| 2 | Признак успешности | `isSuccess` | `bool` | boolean | `true/false` | backend | Общий признак успешности |
+| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе пустой массив |
+
+#### Структура `EquipmentTypeListItem`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|----------------|---------------------------|--------------------------|--------|------------------------|-----------------|-------------|
+| 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | |
+| 2 | Наименование типа техники | `name` | `string` | string | — | `EquipmentTypes.name` | |
+| 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
+| 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
+| 5 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | |
+| 6 | Количество характеристик типа | `propertiesCount` | `int` | integer | `0` | COUNT(`EquipmentTypeProperties`) | Нужен для колонки AP-01 |
+| 7 | Количество единиц техники этого типа | `equipmentsCount` | `int` | integer | `0` | COUNT(`Equipments`) | Нужен для колонки AP-01 и guard удаления |
+
+### 9.2 Пример ответа
 
 ```json
 {
   "value": {
     "items": [
       {
-        "id": "uuid",
+        "id": "7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111",
         "name": "Компрессор",
         "mobilityType": "Stationary",
         "requiresTransport": true,
@@ -87,45 +158,13 @@ Use case:
 }
 ```
 
----
+### 9.3 Что обязательно указано для этого метода
 
-## Поля Response Item
-
-| Поле | Тип | Комментарий |
-|------|-----|-------------|
-| `id` | `uuid` | UUID типа техники |
-| `name` | `string` | Наименование типа |
-| `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` |
-| `requiresTransport` | `bool` | Требуется ли отдельная транспортная техника |
-| `sortOrder` | `int` | Порядок отображения в UI |
-| `propertiesCount` | `int` | Количество характеристик типа |
-| `equipmentsCount` | `int` | Количество единиц техники этого типа |
-
----
-
-## Ошибки
-
-| HTTP | code | Когда |
-|------|------|-------|
-| `401` | `UNAUTHORIZED` | Пользователь не авторизован |
-| `403` | `FORBIDDEN` | У пользователя нет роли `Admin` |
-
-Ошибки должны возвращаться внутри общего wrapper:
-
-```json
-{
-  "value": null,
-  "isSuccess": false,
-  "errors": [
-    {
-      "message": "Forbidden",
-      "code": "FORBIDDEN",
-      "property": null,
-      "tags": {}
-    }
-  ]
-}
-```
+- используется общий `result wrapper`
+- используется `PaginatedResult`
+- в `value` лежит пагинированный список `EquipmentTypeListItem`
+- `items` содержат только элементы текущей страницы
+- `total` содержит общее количество записей по фильтру
 
 ---
 
