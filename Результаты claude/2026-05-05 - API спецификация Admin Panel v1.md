@@ -14,9 +14,11 @@
 | Base URL | `/api/admin/v1` |
 | Авторизация | `Authorization: Bearer <token>` (роль: Admin) |
 | Content-Type | `application/json` |
-| Пагинация | `?page=1&limit=20` → `{ data: [], total, page, limit }` |
+| Result wrapper | Все ответы должны использовать общий result wrapper. См. `Результаты claude/2026-05-05 - Шаблон обертки результата API.md` |
+| Пагинация | Для постраничных списков использовать `PaginatedResult` внутри `value`. См. `Результаты claude/2026-05-05 - Шаблон результата пагинации API.md` |
+| Query params пагинации | `?page=1&limit=20` |
 | Soft delete | Удаление через `DELETE`; ответ `204 No Content` |
-| Ошибки | `{ error: { code: "EQUIPMENT_TYPE_IN_USE", message: "...", details: {...} } }` |
+| Ошибки | Ошибки должны возвращаться внутри общего wrapper: `value`, `isSuccess`, `errors[]` |
 | UUID | Все `id` — UUID v4 |
 
 **Коды ошибок (бизнес-логика):**
@@ -145,6 +147,15 @@
 
 **Use case:** UC-ET-01 — отобразить AP-01 (список типов техники)
 
+**Соглашение по response:**
+- используется общий result wrapper: `Результаты claude/2026-05-05 - Шаблон обертки результата API.md`
+- внутри `value` используется `PaginatedResult`: `Результаты claude/2026-05-05 - Шаблон результата пагинации API.md`
+
+**Источник данных по БД v5:**
+- `EquipmentTypes` — базовые поля типа техники
+- `EquipmentTypeProperties` — для расчёта `propertiesCount`
+- `Equipments` — для расчёта `equipmentsCount`
+
 **Query params:**
 ```
 search        string   — фильтр по name
@@ -152,28 +163,50 @@ page          int      — default 1
 limit         int      — default 20
 ```
 
+**Логика метода:**
+1. Получить список записей из `EquipmentTypes`.
+2. Применить фильтр `search` по полю `name`, если он передан.
+3. Отсортировать результат по `sortOrder ASC`, затем по `name ASC` как вторичный стабильный порядок.
+4. Для каждой записи рассчитать:
+   - `propertiesCount` = COUNT(`EquipmentTypeProperties` WHERE `equipmentTypeId` = `EquipmentTypes.id`)
+   - `equipmentsCount` = COUNT(`Equipments` WHERE `equipmentTypeId` = `EquipmentTypes.id`)
+5. Вернуть страницу данных в формате общего result wrapper + `PaginatedResult`.
+
 **Response 200:**
 ```json
 {
-  "data": [
-    {
-      "id": "uuid",
-      "name": "Компрессор",
-      "mobilityType": "Stationary",
-      "requiresTransport": true,
-      "sortOrder": 1,
-      "propertiesCount": 7,
-      "equipmentsCount": 12,
-      "deletedAt": null
-    }
-  ],
-  "total": 15,
-  "page": 1,
-  "limit": 20
+  "value": {
+    "items": [
+      {
+        "id": "uuid",
+        "name": "Компрессор",
+        "mobilityType": "Stationary",
+        "requiresTransport": true,
+        "sortOrder": 1,
+        "propertiesCount": 7,
+        "equipmentsCount": 12
+      }
+    ],
+    "total": 15
+  },
+  "isSuccess": true,
+  "errors": []
 }
 ```
 
-**Замечание:** `propertiesCount` = COUNT(EquipmentTypeProperties), `equipmentsCount` = COUNT(Equipments WHERE equipmentTypeId = id AND deletedAt IS NULL). Нужны для колонок таблицы AP-01 и guard удаления.
+**Поля response item:**
+
+| Поле | Источник | Комментарий |
+|------|----------|-------------|
+| `id` | `EquipmentTypes.id` | UUID типа техники |
+| `name` | `EquipmentTypes.name` | Наименование типа |
+| `mobilityType` | `EquipmentTypes.mobilityType` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` |
+| `requiresTransport` | `EquipmentTypes.requiresTransport` | Требуется ли отдельная транспортная техника |
+| `sortOrder` | `EquipmentTypes.sortOrder` | Порядок отображения в UI |
+| `propertiesCount` | агрегат по `EquipmentTypeProperties` | Нужен для колонки списка |
+| `equipmentsCount` | агрегат по `Equipments` | Нужен для колонки списка и guard удаления |
+
+**Замечание:** в схеме БД v5 для `EquipmentTypes` и `Equipments` не зафиксировано поле `deletedAt`, поэтому `GET /equipment-types` не должен возвращать `deletedAt` и не должен ссылаться на фильтрацию по нему в описании метода.
 
 ---
 
