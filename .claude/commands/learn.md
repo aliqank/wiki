@@ -1,41 +1,41 @@
-Проанализируй текущий контекст разговора и сохрани его в файл памяти.
+Analyze the current conversation context and save it to a session memory file.
 
-**Что нужно сделать:**
+**Steps:**
 
-1. Изучи всю переписку в текущем контекстном окне: задачи, обсуждения, принятые решения, созданные файлы, открытые вопросы.
+1. Review the entire conversation: tasks discussed, decisions made, files created or changed, open questions.
 
-2. Определи краткую тему сессии (2–5 слов на английском, snake_case, отражающих главное, чем занимались).
+2. Define a short session topic (2–5 words in English, snake_case, reflecting the main focus).
 
-   Создай файл `working_docs/session_memory/YYYY-MM-DD HH-MM - <topic>.md`, где:
-   - Дата и время — по часовому поясу **Астана (UTC+5)**; используй реальные дату и время
-   - `<topic>` — краткое название темы сессии на английском в snake_case (например: `requirements_registry`, `bpmn_external_fleet`, `ui_filters`, `claude_restructuring`)
+   Create a file at `source/working_docs/session_memory/YYYY-MM-DD HH-MM - <topic>.md`, where:
+   - Date and time — **Astana timezone (UTC+5)**; use the real current date and time
+   - `<topic>` — short snake_case label (e.g. `requirements_registry`, `bpmn_external_fleet`, `ui_filters`, `claude_restructuring`)
 
-3. Структура файла:
+3. File structure:
 
 ```
-# Контекст сессии — YYYY-MM-DD
+# Session context — YYYY-MM-DD
 
-## Что делали
-- Краткое описание задач и тем, которые обсуждались
+## What we did
+- Brief summary of tasks and topics discussed
 
-## Принятые решения
-- Список решений, договорённостей, выбранных подходов
+## Decisions made
+- List of decisions, agreements, chosen approaches
 
-## Созданные / изменённые файлы
-- Пути к файлам и краткое описание изменений
+## Created / changed files
+- File paths and short description of changes
 
-## Открытые вопросы и TBD
-- Вопросы, которые остались без ответа или требуют продолжения
+## Open questions and TBD
+- Questions left unanswered or requiring follow-up
 
-## Следующие шаги
-- Что планировалось сделать дальше (если обсуждалось)
+## Next steps
+- What was planned to do next (if discussed)
 
-## Дополнительный контекст
-- Любая важная информация, которую стоит помнить в следующей сессии
+## Additional context
+- Any important information worth remembering in the next session
 ```
 
-4. Если папка `working_docs/session_memory/` не существует — создай её (просто создай файл по этому пути, папка создастся автоматически).
+4. If the folder `source/working_docs/session_memory/` does not exist — create it (just create the file at that path, the folder will be created automatically).
 
-5. После создания файла — сообщи пользователю путь к сохранённому файлу.
+5. After creating the file — tell the user the path to the saved file.
 
-**Цель:** чтобы после `/clear` можно было прочитать этот файл и восстановить контекст сессии.
+**Goal:** after `/clear`, read this file to restore the session context.

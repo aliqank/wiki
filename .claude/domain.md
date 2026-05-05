@@ -1,31 +1,31 @@
-# Контекст домена — TCO HDV/HDE Booking Tool
+# Domain context — TCO HDV/HDE Booking Tool
 
-## Проект
-**HDV/HDE Booking Tool** для клиента **TCO (Tengizchevroil)**.
-Домен: бронирование тяжёлой техники и оборудования на нефтяном промысле.
-Роль пользователя: **бизнес-аналитик / системный аналитик**.
+## Project
+**HDV/HDE Booking Tool** for the client **TCO (Tengizchevroil)**.
+Domain: booking of heavy equipment and machinery at an oil field.
+User role: **Business Analyst / System Analyst**.
 
-## Среда
-Enterprise-окружение TCO: **Azure AAD, JDE E1, PSWS, DataLake, GIS (MAPH/Atlas)**.
+## Environment
+TCO enterprise environment: **Azure AAD, JDE E1, PSWS, DataLake, GIS (MAPH/Atlas)**.
 
 ## Scope baseline
-- В Phase 1 через систему бронируются только **TCO Owned** и **Long-term rented** единицы техники.
-- **On-demand BP (Showcase)** не участвует в booking workflow и показывается только как витрина / каталог.
-- Внешняя цепочка согласования из исходного BRD не является целевой моделью для текущего scope.
+- In Phase 1, only **TCO Owned** and **Long-term rented** units are booked through the system.
+- **On-demand BP (Showcase)** does not participate in the booking workflow — shown as a catalog/showcase only.
+- The external approval chain from the original BRD is not the target model for the current scope.
 
-## Ключевые сущности
-- **Equipment** — единица техники HDV/HDE
-- **Fleet** — парк техники
-- **Request** — заявка, объединяющая несколько booking items
-- **Booking** — отдельное бронирование конкретной единицы техники
-- **Request Item** — элемент заявки, который обрабатывается как самостоятельный booking
+## Key entities
+- **Equipment** — a single HDV/HDE unit
+- **Fleet** — a pool of equipment
+- **Request** — a booking request combining multiple booking items
+- **Booking** — a booking for a specific equipment unit
+- **Request Item** — an element of a request, processed as an independent booking
 
-## Классификация техники
+## Equipment classification
 
 ### Ownership
-- **TCO Owned** — техника TCO, цепочка согласования: `Requestor → Fleet Owner`
-- **Long-term rented** — долгосрочно арендованная техника, цепочка согласования: `Requestor → Fleet Owner → FleetOwners' Supervisor`
-- **On-demand BP (Showcase)** — только витрина, без бронирования в системе
+- **TCO Owned** — TCO-owned equipment, approval chain: `Requestor → Fleet Owner`
+- **Long-term rented** — long-term rented equipment, approval chain: `Requestor → Fleet Owner → FleetOwners' Supervisor`
+- **On-demand BP (Showcase)** — catalog only, no booking in the system
 
 ### Usage Status
 - **Assigned**
@@ -37,44 +37,44 @@ Enterprise-окружение TCO: **Azure AAD, JDE E1, PSWS, DataLake, GIS (MAP
 - **Unwheeled**
 - **Stationary**
 
-## Роли
-| Роль | Описание |
-|------|----------|
-| Requestor | Подаёт заявки на технику |
-| Service Work Processor (SWP) | Работает с JDE-sourced Service Work Requests |
-| Fleet Owner (FO) | Управляет парком и согласует бронирования |
-| FleetOwners' Supervisor | Финально согласует Long-term rented бронирования после FO |
-| Transportation Responsible | Обрабатывает транспортировку unwheeled техники |
-| Admin | Настраивает систему и справочники |
+## Roles
+| Role | Description |
+|------|-------------|
+| Requestor | Submits equipment requests |
+| Service Work Processor (SWP) | Works with JDE-sourced Service Work Requests |
+| Fleet Owner (FO) | Manages the fleet and approves bookings |
+| FleetOwners' Supervisor | Final approval for Long-term rented bookings after FO |
+| Transportation Responsible | Handles transportation of unwheeled equipment |
+| Admin | Configures the system and reference data |
 
-## Цепочки согласования
+## Approval chains
 - **TCO Owned:** `Requestor → Fleet Owner → Confirmed`
 - **Long-term rented:** `Requestor + Justification → Fleet Owner → Confirmed by FO → FleetOwners' Supervisor → Confirmed/Declined`
-- **Unwheeled:** отдельный транспортный сценарий с ролью `Transportation Responsible`
+- **Unwheeled:** separate transportation scenario involving the `Transportation Responsible` role
 
-## Ключевые бизнес-правила
-- Приоритет подбора и бронирования — внутренний флот TCO.
-- Для **Long-term rented** обязательно поле **Justification** на уровне booking item.
-- Для **Assigned** техники доступ к бронированию может быть ограничен Admin-настройками.
-- Таймауты согласования FO и Supervisor должны настраиваться через Admin Panel.
-- Горизонт бронирования, максимальная длительность и другие временные параметры не должны быть захардкожены.
-- Закрытие бронирований — manual only, без автоматического завершения по дате/времени.
+## Key business rules
+- Booking priority is internal TCO fleet first.
+- **Justification** field is mandatory for **Long-term rented** at the booking item level.
+- Access to booking **Assigned** equipment may be restricted via Admin settings.
+- FO and Supervisor approval timeouts must be configurable via Admin Panel.
+- Booking horizon, maximum duration, and other time parameters must not be hardcoded.
+- Booking closure is manual only — no automatic completion by date/time.
 
-## Интеграции
-- **Azure AAD** — аутентификация и role/group provisioning
+## Integrations
+- **Azure AAD** — authentication and role/group provisioning
 - **JDE E1** — Work Orders / Service Work Requests
-- **PSWS** — контактные данные пользователей
-- **DataLake / Cosmos DB via API** — телеметрия, usage rate, GIS-related data
-- **GIS (MAPH/Atlas)** — карта через iframe-интеграцию
+- **PSWS** — user contact data
+- **DataLake / Cosmos DB via API** — telemetry, usage rate, GIS-related data
+- **GIS (MAPH/Atlas)** — map via iframe integration
 
-## Источники истины
-- **Финальный BRD для разработки:** `wiki/brd/BRD.md`
+## Sources of truth
+- **Final BRD for development:** `wiki/brd/BRD.md`
 - **Wiki navigation:** `wiki/navigation.md`
-- **Черновые и рабочие заметки:** `working_docs/`
-- **Подготовленные аналитические результаты:** `claude_results/`
-- **Навигатор по материалам:** `materials.md`
+- **Draft and working notes:** `working_docs/`
+- **Prepared analytical results:** `claude_results/`
+- **Materials navigator:** `materials.md`
 
-## Примечание по публикации артефактов
-- Черновая работа ведётся в `working_docs/`.
-- После аналитической проработки результаты оформляются в `.md` в `claude_results/`.
-- В `wiki/` материалы переносятся только по прямой команде пользователя.
+## Artifact publishing note
+- Draft work is done in `working_docs/`.
+- After analytical work, results are formatted as `.md` files in `claude_results/`.
+- Materials are moved to `wiki/` only on an explicit user command.

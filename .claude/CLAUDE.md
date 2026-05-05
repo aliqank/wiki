@@ -1,10 +1,10 @@
 # CLAUDE.md — TCO HDV/HDE Booking Tool
 
-## Рабочие правила
-→ [.claude/rules.md](rules.md) — язык, формат вывода, навигация по проекту, работа с требованиями
+## Working rules
+→ [.claude/rules.md](rules.md) — language, output format, project navigation, requirements workflow
 
-## Контекст домена
-→ [.claude/domain.md](domain.md) — проект, среда, сущности, роли, цепочки согласования
+## Domain context
+→ [.claude/domain.md](domain.md) — project, environment, entities, roles, approval chains
 
-## Навигатор по материалам
-→ [materials.md](../materials.md) — все файлы проекта с описаниями
+## Materials navigator
+→ [materials.md](../materials.md) — all project files with descriptions
