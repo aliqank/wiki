@@ -11,7 +11,7 @@
 ### Переименования папок (git mv)
 | Было | Стало |
 |------|-------|
-| `source/Результаты claude/` | `source/claude_results/` |
+| `source/Результаты claude/` | `source/results/` |
 | `source/Документация в процессе работы с требованиями/` | `source/working_docs/` |
 | `source/Исходная документация от заказчика/` | `source/client_docs/` |
 | `source/working_docs/Сессионная память/` | `source/working_docs/session_memory/` |
@@ -21,14 +21,14 @@
 
 ### Обновлённые конфиг-файлы
 - `.claude/CLAUDE.md` — ссылка на `materials.md`
-- `.claude/rules.md` — пути к `working_docs/`, `claude_results/`, `materials.md`
-- `.claude/domain.md` — пути к `working_docs/`, `claude_results/`, `materials.md`
+- `.claude/rules.md` — пути к `working_docs/`, `results/`, `materials.md`
+- `.claude/domain.md` — пути к `working_docs/`, `results/`, `materials.md`
 - `.claude/commands/learn.md` — путь к `working_docs/session_memory/`
 - `materials.md` — 92 замены путей + 2 секции-заголовка (`## client_docs`, `## working_docs`)
-- `wiki/api/admin/equipment-types/GET - equipment-types.md` — 3 ссылки на `claude_results/`
+- `wiki/api/admin/equipment-types/GET - equipment-types.md` — 3 ссылки на `results/`
 
 ## Созданные / изменённые файлы
-- `source/claude_results/` — переименована папка (git mv, ~85 файлов)
+- `source/results/` — переименована папка (git mv, ~85 файлов)
 - `source/working_docs/` — переименована папка (git mv)
 - `source/client_docs/` — переименована папка (git mv)
 - `source/working_docs/session_memory/` — переименована подпапка (git mv)
@@ -37,7 +37,7 @@
 - `wiki/api/admin/equipment-types/GET - equipment-types.md` — обновлены ссылки
 
 ## Открытые вопросы и TBD
-- Оставшиеся русские имена файлов — около 130+ файлов в `claude_results/`, `working_docs/`, `session_memory/`
+- Оставшиеся русские имена файлов — около 130+ файлов в `results/`, `working_docs/`, `session_memory/`
 - Пользователь ещё не принял решение: переименовывать ли отдельные файлы или оставить как есть
 - 3 папки ещё не переименованы:
   - `source/working_docs/Макеты` → `mockups`

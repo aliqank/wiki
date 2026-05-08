@@ -24,7 +24,7 @@
 - `.claude/domain.md` — fully rewritten in English
 
 ## Open questions and TBD
-- 130+ individual files with Russian names in `claude_results/`, `working_docs/`, `session_memory/` — decision: leave as-is
+- 130+ individual files with Russian names in `results/`, `working_docs/`, `session_memory/` — decision: leave as-is
 - `materials.md` content is still in Russian — not discussed yet
 
 ## Next steps

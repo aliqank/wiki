@@ -18,12 +18,12 @@
 
 ## Artifact workflow
 - Raw notes and intermediate working materials go into `working_docs/`, inside the relevant month/day folders.
-- After collaborative analytical work, the final formatted result is created as a **`.md` file** in `claude_results/`.
+- After collaborative analytical work, the final formatted result is created as a **`.md` file** in `results/`.
 - Do not move or publish anything to `wiki/` without an explicit user command.
 - `wiki/` is reserved only for final, approved, **ready-for-development** artifacts.
 
-## Saving results to `claude_results/`
-- Save all formatted analytical results in `claude_results/` as `.md` files.
+## Saving results to `results/`
+- Save all formatted analytical results in `results/` as `.md` files.
 - File name: `YYYY-MM-DD - <topic_name>.md` — English, snake_case (e.g. `2026-05-06 - db_schema_v3.md`).
 - At the top of each new analytical document include:
   - **Created:** `YYYY-MM-DD HH:MM`
@@ -39,5 +39,5 @@
 
 ## Working with `wiki/`
 - `wiki/` is not a draft workspace.
-- Before moving anything to `wiki/`, a prepared artifact must exist in `claude_results/` or another explicitly agreed final source.
+- Before moving anything to `wiki/`, a prepared artifact must exist in `results/` or another explicitly agreed final source.
 - Any update to `wiki/` is only performed on a separate explicit user command.

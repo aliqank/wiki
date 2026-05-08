@@ -71,10 +71,10 @@ TCO enterprise environment: **Azure AAD, JDE E1, PSWS, DataLake, GIS (MAPH/Atlas
 - **Final BRD for development:** `wiki/brd/BRD.md`
 - **Wiki navigation:** `wiki/navigation.md`
 - **Draft and working notes:** `working_docs/`
-- **Prepared analytical results:** `claude_results/`
+- **Prepared analytical results:** `results/`
 - **Materials navigator:** `materials.md`
 
 ## Artifact publishing note
 - Draft work is done in `working_docs/`.
-- After analytical work, results are formatted as `.md` files in `claude_results/`.
+- After analytical work, results are formatted as `.md` files in `results/`.
 - Materials are moved to `wiki/` only on an explicit user command.

@@ -1,7 +1,7 @@
 # GET /equipment-types
 
 **Дата:** 2026-05-05  
-**Основание:** `claude_results/2026-05-05 - API спецификация Admin Panel v1.md`, `claude_results/2026-05-04 - Схема БД v5 (Equipments, Bookings).md`  
+**Основание:** `results/2026-05-05 - API спецификация Admin Panel v1.md`, `results/2026-05-04 - Схема БД v5 (Equipments, Bookings).md`  
 **Для кого:** Backend-разработчик, Frontend-разработчик  
 **Формат:** RESTful JSON API
 
@@ -106,8 +106,8 @@ Content-Type: application/json
 ## 9. Возвращаемые данные
 
 Возвращаемые данные должны описываться с учётом двух шаблонов:
-- `claude_results/2026-05-05 - Шаблон обертки результата API.md`
-- `claude_results/2026-05-05 - Шаблон результата пагинации API.md`
+- `results/2026-05-05 - Шаблон обертки результата API.md`
+- `results/2026-05-05 - Шаблон результата пагинации API.md`
 
 Правило применения:
 - метод возвращает пагинированный список;
