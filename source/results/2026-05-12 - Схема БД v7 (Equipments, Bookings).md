@@ -45,7 +45,7 @@
 | EquipmentTypes.equipmentClass | Добавлен атрибут «Класс техники» со значениями HDE / HDV |
 | EquipmentTypes.workCenterId | Добавлена привязка типа техники к справочнику WorkCenters |
 | WorkCenters | Добавлен новый справочник производственных центров |
-| Users | `externalId` заменён на `badgeNumber`, `displayName` — на `fullName`; добавлены `sharedEmail`, `jobTitle`, `department`, `isActive`, `businessPartnerId`, `type` |
+| Users | Таблица хранит 2 типа пользователей: `internal` и `external`; `internal` создаются автоматически при авторизации, `external` — вручную. Общие поля: `id`, `fullName`, `email`, `jobTitle`, `isActive` + аудит; nullable-поля используются для разделения атрибутов по типам |
 | BusinessPartners | Добавлен новый справочник бизнес-партнёров |
 | isDeleted в API | GET-методы Admin Panel по умолчанию фильтруют `WHERE isDeleted = false`; параметр не выставляется наружу |
 
@@ -437,17 +437,23 @@
 
 ### 14. Users
 
+Хранит 2 типа пользователей:
+- `internal` — автодобавление при авторизации
+- `external` — ручное добавление
+
+Общие поля для всех пользователей: `id`, `fullName`, `email`, `jobTitle`, `isActive` и аудит-поля.
+
 | Поле | Тип | Описание |
 |---|---|---|
 | id | UUID PK | |
-| badgeNumber | VARCHAR | Табельный номер / badge number пользователя |
+| badgeNumber | VARCHAR nullable | Только для internal: табельный номер / badge number пользователя |
 | fullName | VARCHAR | ФИО пользователя |
 | email | VARCHAR | |
-| sharedEmail | VARCHAR nullable | Общий/групповой email, если используется |
-| jobTitle | VARCHAR nullable | Должность |
-| department | VARCHAR nullable | Подразделение |
+| sharedEmail | VARCHAR nullable | Только для internal: общий/групповой email, если используется |
+| jobTitle | VARCHAR nullable | Должность; nullable для совместимости обоих типов пользователей |
+| department | VARCHAR nullable | Только для internal: подразделение |
 | isActive | BOOLEAN NOT NULL DEFAULT true | Активен ли пользователь |
-| businessPartnerId | FK → BusinessPartners nullable | Заполняется для внешних пользователей |
+| businessPartnerId | FK → BusinessPartners nullable | Только для external: заполняется для внешних пользователей |
 | type | ENUM | internal / external |
 | createdAt | TIMESTAMP NOT NULL | |
 | createdBy | UUID NOT NULL | Без FK-ограничения |
@@ -481,6 +487,8 @@
 | isDeleted | BOOLEAN NOT NULL DEFAULT false | |
 | deletedAt | TIMESTAMP nullable | |
 | deletedBy | UUID nullable | |
+
+> Для `Users`: чтобы избежать конфликтов между `internal` и `external`, поля `badgeNumber`, `sharedEmail`, `jobTitle`, `department`, `businessPartnerId` допускают `NULL`.
 
 ---
 
