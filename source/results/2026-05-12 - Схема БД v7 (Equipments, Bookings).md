@@ -13,7 +13,9 @@
 | 1 | В `Fleets` добавлено поле `userId` | Fleets |
 | 2 | В `EquipmentTypes` добавлены поля `equipmentClass` (HDE / HDV) и `workCenterId` | EquipmentTypes |
 | 3 | Добавлена новая справочная таблица `WorkCenters` | WorkCenters |
-| 4 | Схема расширена до 20 таблиц | Все таблицы |
+| 4 | Схема расширена до 21 таблицы | Все таблицы |
+| 5 | Обновлён состав полей таблицы `Users` | Users |
+| 6 | Добавлена новая справочная таблица `BusinessPartners` | BusinessPartners, Users |
 
 Стандартный набор аудит-полей:
 
@@ -38,11 +40,13 @@
 
 | Тема | Решение |
 |---|---|
-| Аудит-поля | Единый набор из 7 полей добавлен во все 20 таблиц. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
+| Аудит-поля | Единый набор из 7 полей добавлен во все 21 таблицу. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
 | Fleets.userId | Добавлен владелец/ответственный пользователь флота |
 | EquipmentTypes.equipmentClass | Добавлен атрибут «Класс техники» со значениями HDE / HDV |
 | EquipmentTypes.workCenterId | Добавлена привязка типа техники к справочнику WorkCenters |
 | WorkCenters | Добавлен новый справочник производственных центров |
+| Users | `externalId` заменён на `badgeNumber`, `displayName` — на `fullName`; добавлены `sharedEmail`, `jobTitle`, `department`, `isActive`, `businessPartnerId`, `type` |
+| BusinessPartners | Добавлен новый справочник бизнес-партнёров |
 | isDeleted в API | GET-методы Admin Panel по умолчанию фильтруют `WHERE isDeleted = false`; параметр не выставляется наружу |
 
 ### По встрече 30.04.2026
@@ -436,11 +440,40 @@
 | Поле | Тип | Описание |
 |---|---|---|
 | id | UUID PK | |
-| externalId | VARCHAR | AAD object ID (для TCO) или ID из системы БП |
+| badgeNumber | VARCHAR | Табельный номер / badge number пользователя |
+| fullName | VARCHAR | ФИО пользователя |
 | email | VARCHAR | |
-| displayName | VARCHAR | |
-| departmentCode | VARCHAR nullable | |
-| userType | ENUM | TCO / BP |
+| sharedEmail | VARCHAR nullable | Общий/групповой email, если используется |
+| jobTitle | VARCHAR nullable | Должность |
+| department | VARCHAR nullable | Подразделение |
+| isActive | BOOLEAN NOT NULL DEFAULT true | Активен ли пользователь |
+| businessPartnerId | FK → BusinessPartners nullable | Заполняется для внешних пользователей |
+| type | ENUM | internal / external |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID NOT NULL | Без FK-ограничения |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
+
+---
+
+### 15. BusinessPartners
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| name | VARCHAR | Наименование бизнес-партнёра |
+| description | TEXT nullable | Описание / примечание |
+| bin | VARCHAR | БИН / регистрационный номер |
+| country | VARCHAR nullable | Страна |
+| city | VARCHAR nullable | Город |
+| address | VARCHAR nullable | Адрес |
+| email | VARCHAR nullable | Контактный email |
+| phoneNumber | VARCHAR nullable | Контактный телефон |
+| externalId | VARCHAR nullable | Внешний ID из мастер-системы |
+| isActive | BOOLEAN NOT NULL DEFAULT true | Активен ли бизнес-партнёр |
 | createdAt | TIMESTAMP NOT NULL | |
 | createdBy | UUID NOT NULL | Без FK-ограничения |
 | updatedAt | TIMESTAMP nullable | |
@@ -593,6 +626,7 @@
 | 12а | EquipmentFeedbacks | Отзывы заявителей/SWP (FR-022) |
 | 13 | SystemSettings | Глобальные настройки Admin Panel |
 | 14 | Users | Справочник пользователей (TCO + BP) |
+| 15 | BusinessPartners | Справочник бизнес-партнёров |
 
 ### Booking-блок
 
@@ -603,7 +637,7 @@
 | 3 | BookingStatuses | История состояний брони |
 | 4 | BookingRequestStatuses | История состояний заявки |
 
-**Итого: 20 таблиц**
+**Итого: 21 таблица**
 
 ---
 
@@ -619,6 +653,7 @@
 | BookingRequestStatuses.changedBy | Users.id | Внешний UUID, без FK-ограничения |
 | EquipmentFeedbacks.bookingId | Bookings.id | FK с ограничением |
 | EquipmentFeedbacks.createdBy | Users.id | Внешний UUID, без FK-ограничения |
+| Users.businessPartnerId | BusinessPartners.id | FK; nullable, только для external users |
 
 ---
 
@@ -627,8 +662,8 @@
 | # | Вопрос | Решение |
 |---|---|---|
 | OQ-DB-1 | История изменений shareType у техники? | Не нужна |
-| OQ-DB-2 | Users.departmentCode | Отложено |
-| OQ-DB-3 | Аудит-поля | Закрыт в v7: добавлены во все 20 таблиц (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
+| OQ-DB-2 | Атрибут подразделения пользователя | Закрыт в v7: используется поле `Users.department` |
+| OQ-DB-3 | Аудит-поля | Закрыт в v7: добавлены во все 21 таблицу (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
 | OQ-DB-4 | RequestStatusHistory нужна? | Да — добавлена |
 | OQ-DB-5 | BookingSnapshot | CLOSED: previousSnapshot убран в v5 |
 | OQ-DB-8 | Продление брони | CLOSED: статус Extended |
