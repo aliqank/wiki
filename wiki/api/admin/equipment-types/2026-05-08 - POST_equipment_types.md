@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обеспечивает создание типа техники через форму AP-02 в Admin Panel. Тип техники является корневой справочной сущностью: к нему привязываются динамические характеристики (EquipmentTypeProperties) и единицы техники (Equipments).
+Новый метод. Обеспечивает создание типа техники через форму AP-02 в Admin Panel. Тип техники является корневой справочной сущностью: к нему привязываются динамические характеристики (EquipmentTypeProperties) и единицы техники (Equipments). Метод поддерживает передачу стартового списка характеристик типа в одном запросе.
 
 ---
 
@@ -44,15 +44,17 @@
 3. Проверить, что `mobilityType` входит в допустимые значения ENUM (`SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized`). Если нет — вернуть `422 VALIDATION_ERROR`.
 4. Проверить, что `equipmentClass` входит в допустимые значения ENUM (`HDE / HDV`). Если нет — вернуть `422 VALIDATION_ERROR`.
 5. Если передан `workCenterId`, проверить существование записи в `WorkCenters` WHERE `id` = `workCenterId` AND `isDeleted = false`. Если запись не найдена — вернуть `422 VALIDATION_ERROR`.
-6. Если `sortOrder` равен `null`, вычислить значение как `MAX(sortOrder) + 1` по всем записям `EquipmentTypes` WHERE `isDeleted = false`. Если таблица пуста — присвоить `1`.
-7. Создать новую запись в `EquipmentTypes`; заполнить аудит-поля `createdAt` (текущее время) и `createdBy` (ID аутентифицированного пользователя).
-8. Подтянуть `WorkCenters` по `workCenterId` для возврата полей `workCenterCode` и `workCenterName`.
-9. Вернуть созданный объект в формате общего `result wrapper` с HTTP 201.
+6. Если передан массив `properties`, провалидировать каждый элемент: `propertyId` должен ссылаться на активную запись `Properties`, `sortOrder` должен быть целым числом >= 1, `propertyId` не должен дублироваться внутри одного запроса. Если условие нарушено — вернуть `422 VALIDATION_ERROR`.
+7. Если `sortOrder` равен `null`, вычислить значение как `MAX(sortOrder) + 1` по всем записям `EquipmentTypes` WHERE `isDeleted = false`. Если таблица пуста — присвоить `1`.
+8. Создать новую запись в `EquipmentTypes`; заполнить аудит-поля `createdAt` (текущее время) и `createdBy` (ID аутентифицированного пользователя).
+9. Для каждого элемента `properties[]` создать запись в `EquipmentTypeProperties`, сохранив `propertyId`, `isRequired`, `isFilterable`, `isVisibleInCard`, `sortOrder`; заполнить аудит-поля `createdAt` и `createdBy`.
+10. Подтянуть `WorkCenters` по `workCenterId` для возврата полей `workCenterCode` и `workCenterName`.
+11. Вернуть созданный объект в формате общего `result wrapper` с HTTP 201.
 
 Сущности, участвующие в методе:
-- читаются: `EquipmentTypes` (для проверки уникальности `name` и расчёта `sortOrder`), `WorkCenters` (валидация `workCenterId`, возврат `workCenterCode` / `workCenterName`)
-- изменяются: `EquipmentTypes` (INSERT)
-- транзакционность: не требуется
+- читаются: `EquipmentTypes` (для проверки уникальности `name` и расчёта `sortOrder`), `WorkCenters` (валидация `workCenterId`, возврат `workCenterCode` / `workCenterName`), `Properties` (валидация `properties[].propertyId`)
+- изменяются: `EquipmentTypes` (INSERT), `EquipmentTypeProperties` (batch INSERT)
+- транзакционность: требуется единая транзакция, чтобы тип техники и его стартовые характеристики создавались атомарно
 
 ---
 
@@ -82,6 +84,9 @@
 | `VALIDATION_ERROR` | Поле `mobilityType` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Поле `equipmentClass` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Передан несуществующий или удалённый `workCenterId` |
+| `VALIDATION_ERROR` | В `properties[]` передан несуществующий или удалённый `propertyId` |
+| `VALIDATION_ERROR` | В `properties[]` обнаружены дубли `propertyId` |
+| `VALIDATION_ERROR` | В `properties[]` поле `sortOrder` имеет недопустимое значение |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
@@ -96,7 +101,13 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 3 | Требуется ли транспортировка | `requiresTransport` | `bool` | `+` | Булево значение | — | Request body | |
 | 4 | Класс техники | `equipmentClass` | `enum` | `+` | Одно из: `HDE`, `HDV` | — | Request body | |
 | 5 | Идентификатор work center | `workCenterId` | `uuid` | `-` | Должен быть валидным UUID v4 и ссылаться на активный `WorkCenters.id`, если передан | `null` | Request body | Nullable, если тип техники не привязан к work center |
-| 6 | Порядок отображения | `sortOrder` | `int` | `-` | Целое число >= 1, если передано | `null` → MAX + 1 | Request body | При `null` backend вычисляет автоматически |
+| 6 | Список стартовых характеристик типа | `properties` | `array<object>` | `-` | Массив без дубликатов `propertyId` | `[]` | Request body | Можно передать пустой массив |
+| 6.1 | Идентификатор характеристики | `propertyId` | `uuid` | `+` | Должен ссылаться на активный `Properties.id` | — | Request body / properties[] | |
+| 6.2 | Обязательность характеристики | `isRequired` | `bool` | `+` | Булево значение | — | Request body / properties[] | |
+| 6.3 | Используется в фильтрах поиска | `isFilterable` | `bool` | `+` | Булево значение | — | Request body / properties[] | |
+| 6.4 | Отображается в карточке техники | `isVisibleInCard` | `bool` | `+` | Булево значение | — | Request body / properties[] | |
+| 6.5 | Порядок отображения характеристики | `sortOrder` | `int` | `+` | Целое число >= 1 | — | Request body / properties[] | |
+| 7 | Порядок отображения типа техники | `sortOrder` | `int` | `-` | Целое число >= 1, если передано | `null` → MAX + 1 | Request body | При `null` backend вычисляет автоматически |
 
 ---
 
@@ -115,6 +126,22 @@ Content-Type: application/json
   "requiresTransport": false,
   "equipmentClass": "HDV",
   "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
+  "properties": [
+    {
+      "propertyId": "p0000001-0000-4000-8000-000000000001",
+      "isRequired": true,
+      "isFilterable": true,
+      "isVisibleInCard": true,
+      "sortOrder": 1
+    },
+    {
+      "propertyId": "p0000001-0000-4000-8000-000000000002",
+      "isRequired": false,
+      "isFilterable": true,
+      "isVisibleInCard": true,
+      "sortOrder": 2
+    }
+  ],
   "sortOrder": null
 }
 ```
@@ -177,3 +204,4 @@ Content-Type: application/json
 1. При `sortOrder: null` backend присваивает `MAX(sortOrder) + 1` по всем не удалённым записям `EquipmentTypes`. Если таблица пуста — присваивает `1`.
 2. Уникальность `name` проверяется только среди активных записей (`isDeleted = false`); повторное использование имени удалённого типа допустимо.
 3. Поля `workCenterId`, `workCenterCode`, `workCenterName` могут быть `null`, если тип техники не привязан к work center.
+4. Если `properties[]` не передан, тип техники создаётся без стартовых характеристик; их можно добавить позднее отдельными эндпоинтами.
