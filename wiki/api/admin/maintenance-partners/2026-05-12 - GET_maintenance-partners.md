@@ -39,7 +39,7 @@
 ## 3. Описание логики работы метода
 
 1. Получить записи из `MaintenancePartners` WHERE `isDeleted = false`.
-2. Если передан `search`, применить фильтр по `name.En`, `name.Ru`, `name.Kz` и `contactInfo`.
+2. Если передан `search`, применить фильтр по `name.En`, `name.Ru`, `name.Kz`, `phoneNumber`, `email`, `address`.
 3. Для каждой записи рассчитать `contractsCount` = COUNT(`EquipmentMaintenanceContracts` WHERE `partnerId` = `MaintenancePartners.id` AND `isDeleted = false`).
 4. Отсортировать по `name.Ru ASC`.
 5. Вернуть страницу данных в формате общего `result wrapper` с `PaginatedResult` внутри `value`.
@@ -82,7 +82,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Поиск по названию или контакту | `search` | `string` | `-` | Если передан, используется как фильтр по `name.En`, `name.Ru`, `name.Kz` и `contactInfo` | — | Query param | |
+| 1 | Поиск по названию или контакту | `search` | `string` | `-` | Если передан, используется как фильтр по `name.En`, `name.Ru`, `name.Kz`, `phoneNumber`, `email`, `address` | — | Query param | |
 | 2 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 3 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
@@ -108,8 +108,10 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор партнера ТО | `id` | `uuid` | UUID v4 | — | `MaintenancePartners.id` | |
 | 2 | Название партнера | `name` | `object` | `LocalizedName` | — | `MaintenancePartners.name` | `{ En, Ru, Kz }` |
-| 3 | Контактная информация | `contactInfo` | `string` | string | `null` | `MaintenancePartners.contactInfo` | |
-| 4 | Количество контрактов | `contractsCount` | `int` | integer | `0` | COUNT(`EquipmentMaintenanceContracts`) | Нужен для guard удаления |
+| 3 | Контактный телефон | `phoneNumber` | `string` | string | `null` | `MaintenancePartners.phoneNumber` | |
+| 4 | Контактный email | `email` | `string` | string | `null` | `MaintenancePartners.email` | |
+| 5 | Адрес | `address` | `string` | string | `null` | `MaintenancePartners.address` | |
+| 6 | Количество контрактов | `contractsCount` | `int` | integer | `0` | COUNT(`EquipmentMaintenanceContracts`) | Нужен для guard удаления |
 
 ---
 
@@ -126,7 +128,9 @@ Content-Type: application/json
           "Ru": "Shell Service",
           "Kz": "Shell Service"
         },
-        "contactInfo": "shell@example.com",
+        "phoneNumber": "+7 701 000 0000",
+        "email": "shell@example.com",
+        "address": "Atyrau, Industrial Zone 1",
         "contractsCount": 5
       }
     ],
@@ -143,3 +147,4 @@ Content-Type: application/json
 
 1. `contractsCount` используется для guard-логики удаления.
 2. Поле `name` возвращается как локализованный объект `{ En, Ru, Kz }`.
+3. Вместо поля `contactInfo` метод возвращает отдельные поля `phoneNumber`, `email`, `address`.

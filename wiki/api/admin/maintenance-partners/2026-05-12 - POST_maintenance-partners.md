@@ -84,7 +84,9 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Название партнера | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей | — | Request body | |
-| 2 | Контактная информация | `contactInfo` | `string` | `-` | Свободный текст | `null` | Request body | |
+| 2 | Контактный телефон | `phoneNumber` | `string` | `-` | Свободный текст | `null` | Request body | |
+| 3 | Контактный email | `email` | `string` | `-` | Валидный email, если передан | `null` | Request body | |
+| 4 | Адрес | `address` | `string` | `-` | Свободный текст | `null` | Request body | |
 
 ---
 
@@ -103,7 +105,9 @@ Content-Type: application/json
     "Ru": "Shell Service",
     "Kz": "Shell Service"
   },
-  "contactInfo": "shell@example.com"
+  "phoneNumber": "+7 701 000 0000",
+  "email": "shell@example.com",
+  "address": "Atyrau, Industrial Zone 1"
 }
 ```
 
@@ -126,7 +130,9 @@ Content-Type: application/json
       "Ru": "Shell Service",
       "Kz": "Shell Service"
     },
-    "contactInfo": "shell@example.com",
+    "phoneNumber": "+7 701 000 0000",
+    "email": "shell@example.com",
+    "address": "Atyrau, Industrial Zone 1",
     "contractsCount": 0
   },
   "isSuccess": true,
@@ -139,3 +145,4 @@ Content-Type: application/json
 ## Замечания
 
 1. После создания партнер ТО сразу доступен для выбора в `EquipmentMaintenanceContracts`.
+2. Вместо поля `contactInfo` метод принимает и возвращает отдельные поля `phoneNumber`, `email`, `address`.

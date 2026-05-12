@@ -697,6 +697,8 @@ HTTP 409
 **Ключевые особенности API:**
 - `PUT /measurement-units/:id` — inline-редактирование; меняет только `code` и `displayName`
 - `GET/POST/PUT /maintenance-partners` используют `name` как локализованный JSON-объект `{ En, Ru, Kz }`
+- В `MaintenancePartners` поле `contactInfo` заменено на три отдельных поля: `phoneNumber`, `email`, `address`
+- `GET /maintenance-partners` поддерживает поиск по `name.En`, `name.Ru`, `name.Kz`, `phoneNumber`, `email`, `address`
 - `DELETE /maintenance-partners/:id` — guard мягкий: если есть договоры ТО, возвращает `200` с `{ warning: "contractsCount": 3, confirm: true }` → Frontend показывает предупреждающий диалог (не блокирующий)
 
 ### Пользователи (AP-07)

@@ -11,6 +11,7 @@
 | # | Изменение | Затронутые таблицы |
 |---|---|---|
 | 1 | Во всех полях `name` тип изменён с `VARCHAR` на `JSON` с локализацией `En`, `Ru`, `Kz` | EquipmentTypes, Fleets, WorkCenters, Properties, MaintenancePartners, BusinessPartners |
+| 2 | В `MaintenancePartners` поле `contactInfo` разделено на `phoneNumber`, `email`, `address` | MaintenancePartners |
 
 Стандартный набор аудит-полей:
 
@@ -36,6 +37,7 @@
 | Тема | Решение |
 |---|---|
 | Локализация `name` | Все поля с именем `name` хранятся как `JSON` в формате `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| MaintenancePartners | Поле `contactInfo` разделено на отдельные поля `phoneNumber`, `email`, `address` |
 | Аудит-поля | Единый набор из 7 полей добавлен во все 21 таблицу. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
 | Users | Таблица хранит 2 типа пользователей: `internal` и `external`; `internal` создаются автоматически при авторизации, `external` — вручную. Общие поля: `id`, `fullName`, `email`, `jobTitle`, `isActive` + аудит; nullable-поля используются для разделения атрибутов по типам |
 | isDeleted в API | GET-методы Admin Panel по умолчанию фильтруют `WHERE isDeleted = false`; параметр не выставляется наружу |
@@ -355,7 +357,9 @@
 |---|---|---|
 | id | UUID PK | |
 | name | JSON | Локализованное наименование партнёра ТО: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
-| contactInfo | TEXT nullable | |
+| phoneNumber | VARCHAR nullable | Контактный телефон |
+| email | VARCHAR nullable | Контактный email |
+| address | VARCHAR nullable | Адрес |
 | createdAt | TIMESTAMP NOT NULL | |
 | createdBy | UUID NOT NULL | Без FK-ограничения |
 | updatedAt | TIMESTAMP nullable | |

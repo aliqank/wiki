@@ -86,7 +86,9 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор партнера ТО | `id` | `uuid` | `+` | Валидный UUID v4 | — | Path param | |
 | 2 | Название партнера | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей кроме текущей | — | Request body | |
-| 3 | Контактная информация | `contactInfo` | `string` | `-` | Свободный текст | `null` | Request body | |
+| 3 | Контактный телефон | `phoneNumber` | `string` | `-` | Свободный текст | `null` | Request body | |
+| 4 | Контактный email | `email` | `string` | `-` | Валидный email, если передан | `null` | Request body | |
+| 5 | Адрес | `address` | `string` | `-` | Свободный текст | `null` | Request body | |
 
 ---
 
@@ -105,7 +107,9 @@ Content-Type: application/json
     "Ru": "Shell Service KZ",
     "Kz": "Shell Service KZ"
   },
-  "contactInfo": "service@shell.kz"
+  "phoneNumber": "+7 701 111 1111",
+  "email": "service@shell.kz",
+  "address": "Atyrau, North industrial area"
 }
 ```
 
@@ -128,7 +132,9 @@ Content-Type: application/json
       "Ru": "Shell Service KZ",
       "Kz": "Shell Service KZ"
     },
-    "contactInfo": "service@shell.kz",
+    "phoneNumber": "+7 701 111 1111",
+    "email": "service@shell.kz",
+    "address": "Atyrau, North industrial area",
     "contractsCount": 5
   },
   "isSuccess": true,
@@ -141,3 +147,4 @@ Content-Type: application/json
 ## Замечания
 
 1. Изменение данных партнера не требует обновления `EquipmentMaintenanceContracts`, так как связи идут по `partnerId`.
+2. Вместо поля `contactInfo` метод принимает и возвращает отдельные поля `phoneNumber`, `email`, `address`.
