@@ -109,7 +109,11 @@ Content-Type: application/json
 {
   "value": {
     "id": "p0000001-0000-4000-8000-000000000003",
-    "name": "Максимальная глубина",
+    "name": {
+      "En": "Maximum depth",
+      "Ru": "Максимальная глубина",
+      "Kz": "Ең үлкен тереңдік"
+    },
     "dataType": "number",
     "unit": {
       "id": "u0000001-0000-4000-8000-000000000002",
@@ -129,3 +133,4 @@ Content-Type: application/json
 ## Замечания
 
 1. Для `dataType != enum` поле `enumValues` всегда пустое.
+2. Поле `name` возвращается как локализованный объект `{ En, Ru, Kz }`.

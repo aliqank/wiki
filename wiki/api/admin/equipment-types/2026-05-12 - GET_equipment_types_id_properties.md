@@ -123,7 +123,7 @@ Content-Type: application/json
 | 5 | Отображается в карточке техники | `isVisibleInCard` | `bool` | boolean | — | `EquipmentTypeProperties.isVisibleInCard` | |
 | 6 | Данные характеристики из справочника | `property` | `object` | `PropertyDetail` | — | `Properties` | |
 | 6.1 | Идентификатор характеристики | `id` | `uuid` | UUID v4 | — | `Properties.id` | |
-| 6.2 | Наименование характеристики | `name` | `string` | string | — | `Properties.name` | |
+| 6.2 | Наименование характеристики | `name` | `object` | `LocalizedName` | — | `Properties.name` | `{ En, Ru, Kz }` |
 | 6.3 | Тип данных | `dataType` | `enum` | `number / double / text / boolean / enum` | — | `Properties.dataType` | |
 | 6.4 | Единица измерения | `unit` | `object` | `MeasurementUnitRef \| null` | `null` | `MeasurementUnits` | |
 | 6.5 | Допустимые значения | `enumValues` | `array<object>` | `PropertyEnumValueRef[]` | `[]` | `PropertyEnumValues` | |
@@ -143,7 +143,11 @@ Content-Type: application/json
       "isVisibleInCard": true,
       "property": {
         "id": "p0000001-0000-4000-8000-000000000001",
-        "name": "Объём ресивера",
+        "name": {
+          "En": "Receiver volume",
+          "Ru": "Объём ресивера",
+          "Kz": "Ресивер көлемі"
+        },
         "dataType": "double",
         "unit": {
           "id": "u0000001-0000-4000-8000-000000000001",
@@ -165,3 +169,4 @@ Content-Type: application/json
 
 1. Метод возвращает только активные привязки `EquipmentTypeProperties WHERE isDeleted = false`.
 2. Для загрузки полной карточки AP-02 можно использовать `GET /equipment-types/:id`; этот эндпоинт нужен для адресного обновления блока характеристик.
+3. Поле `property.name` возвращается как локализованный объект `{ En, Ru, Kz }`.

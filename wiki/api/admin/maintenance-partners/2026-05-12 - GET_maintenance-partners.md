@@ -39,9 +39,9 @@
 ## 3. Описание логики работы метода
 
 1. Получить записи из `MaintenancePartners` WHERE `isDeleted = false`.
-2. Если передан `search`, применить фильтр по `name` и `contactInfo`.
+2. Если передан `search`, применить фильтр по `name.En`, `name.Ru`, `name.Kz` и `contactInfo`.
 3. Для каждой записи рассчитать `contractsCount` = COUNT(`EquipmentMaintenanceContracts` WHERE `partnerId` = `MaintenancePartners.id` AND `isDeleted = false`).
-4. Отсортировать по `name ASC`.
+4. Отсортировать по `name.Ru ASC`.
 5. Вернуть страницу данных в формате общего `result wrapper` с `PaginatedResult` внутри `value`.
 
 Сущности, участвующие в методе:
@@ -82,7 +82,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Поиск по названию или контакту | `search` | `string` | `-` | Если передан, используется как фильтр по `name` и `contactInfo` | — | Query param | |
+| 1 | Поиск по названию или контакту | `search` | `string` | `-` | Если передан, используется как фильтр по `name.En`, `name.Ru`, `name.Kz` и `contactInfo` | — | Query param | |
 | 2 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 3 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
@@ -107,7 +107,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор партнера ТО | `id` | `uuid` | UUID v4 | — | `MaintenancePartners.id` | |
-| 2 | Название партнера | `name` | `string` | string | — | `MaintenancePartners.name` | |
+| 2 | Название партнера | `name` | `object` | `LocalizedName` | — | `MaintenancePartners.name` | `{ En, Ru, Kz }` |
 | 3 | Контактная информация | `contactInfo` | `string` | string | `null` | `MaintenancePartners.contactInfo` | |
 | 4 | Количество контрактов | `contractsCount` | `int` | integer | `0` | COUNT(`EquipmentMaintenanceContracts`) | Нужен для guard удаления |
 
@@ -121,7 +121,11 @@ Content-Type: application/json
     "items": [
       {
         "id": "m0000001-0000-4000-8000-000000000001",
-        "name": "Shell Service",
+        "name": {
+          "En": "Shell Service",
+          "Ru": "Shell Service",
+          "Kz": "Shell Service"
+        },
         "contactInfo": "shell@example.com",
         "contractsCount": 5
       }
@@ -138,3 +142,4 @@ Content-Type: application/json
 ## Замечания
 
 1. `contractsCount` используется для guard-логики удаления.
+2. Поле `name` возвращается как локализованный объект `{ En, Ru, Kz }`.

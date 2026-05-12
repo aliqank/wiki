@@ -39,9 +39,10 @@
 ## 3. Описание логики работы метода
 
 1. Принять тело запроса; провалидировать обязательное поле `name`.
-2. Проверить уникальность `name` среди `MaintenancePartners` WHERE `isDeleted = false`.
-3. Создать запись в `MaintenancePartners`; заполнить аудит-поля `createdAt`, `createdBy`.
-4. Вернуть созданный объект с `contractsCount = 0`.
+2. Проверить поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен.
+3. Проверить уникальность `name` среди `MaintenancePartners` WHERE `isDeleted = false`. Проверка выполняется по правилу локализованной уникальности для набора `name.En`, `name.Ru`, `name.Kz`.
+4. Создать запись в `MaintenancePartners`; заполнить аудит-поля `createdAt`, `createdBy`.
+5. Вернуть созданный объект с `contractsCount = 0`.
 
 Сущности, участвующие в методе:
 - читаются: `MaintenancePartners`
@@ -72,7 +73,7 @@
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
-| `VALIDATION_ERROR` | Поле `name` пустое или уже существует |
+| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
@@ -82,7 +83,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Название партнера | `name` | `string` | `+` | Непустая строка; уникальная среди активных записей | — | Request body | |
+| 1 | Название партнера | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей | — | Request body | |
 | 2 | Контактная информация | `contactInfo` | `string` | `-` | Свободный текст | `null` | Request body | |
 
 ---
@@ -97,7 +98,11 @@ Content-Type: application/json
 
 ```json
 {
-  "name": "Shell Service",
+  "name": {
+    "En": "Shell Service",
+    "Ru": "Shell Service",
+    "Kz": "Shell Service"
+  },
   "contactInfo": "shell@example.com"
 }
 ```
@@ -116,7 +121,11 @@ Content-Type: application/json
 {
   "value": {
     "id": "m0000001-0000-4000-8000-000000000001",
-    "name": "Shell Service",
+    "name": {
+      "En": "Shell Service",
+      "Ru": "Shell Service",
+      "Kz": "Shell Service"
+    },
     "contactInfo": "shell@example.com",
     "contractsCount": 0
   },

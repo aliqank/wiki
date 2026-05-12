@@ -41,10 +41,11 @@
 
 1. Принять тело запроса; провалидировать обязательные поля (`code`, `name`).
 2. Проверить уникальность `code` в таблице `WorkCenters` WHERE `isDeleted = false`. Если запись с таким кодом уже существует — вернуть `422 VALIDATION_ERROR`.
-3. Проверить уникальность `name` в таблице `WorkCenters` WHERE `isDeleted = false`. Если запись с таким названием уже существует — вернуть `422 VALIDATION_ERROR`.
-4. Создать новую запись в `WorkCenters`; заполнить аудит-поля `createdAt` и `createdBy`.
-5. Рассчитать `equipmentTypesCount` = `0`.
-6. Вернуть созданный объект в формате общего `result wrapper` с HTTP 201.
+3. Проверить поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен.
+4. Проверить уникальность `name` в таблице `WorkCenters` WHERE `isDeleted = false`. Проверка выполняется по правилу локализованной уникальности для набора `name.En`, `name.Ru`, `name.Kz`. Если запись с таким локализованным названием уже существует — вернуть `422 VALIDATION_ERROR`.
+5. Создать новую запись в `WorkCenters`; заполнить аудит-поля `createdAt` и `createdBy`.
+6. Рассчитать `equipmentTypesCount` = `0`.
+7. Вернуть созданный объект в формате общего `result wrapper` с HTTP 201.
 
 Сущности, участвующие в методе:
 - читаются: `WorkCenters` (валидация уникальности)
@@ -76,7 +77,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `VALIDATION_ERROR` | Поле `code` пустое или уже существует в справочнике |
-| `VALIDATION_ERROR` | Поле `name` пустое или уже существует в справочнике |
+| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует в справочнике |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
@@ -87,7 +88,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Код work center | `code` | `string` | `+` | Непустая строка; уникальная среди `WorkCenters` WHERE `isDeleted = false` | — | Request body | |
-| 2 | Наименование work center | `name` | `string` | `+` | Непустая строка; уникальная среди `WorkCenters` WHERE `isDeleted = false` | — | Request body | |
+| 2 | Наименование work center | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `WorkCenters` WHERE `isDeleted = false` | — | Request body | |
 
 ---
 
@@ -102,7 +103,11 @@ Content-Type: application/json
 ```json
 {
   "code": "WC-100",
-  "name": "Drilling Operations"
+  "name": {
+    "En": "Drilling Operations",
+    "Ru": "Буровые работы",
+    "Kz": "Бұрғылау жұмыстары"
+  }
 }
 ```
 
@@ -127,7 +132,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор work center | `id` | `uuid` | UUID v4 | — | `WorkCenters.id` | Генерируется backend |
 | 2 | Код work center | `code` | `string` | string | — | `WorkCenters.code` | |
-| 3 | Наименование work center | `name` | `string` | string | — | `WorkCenters.name` | |
+| 3 | Наименование work center | `name` | `object` | `LocalizedName` | — | `WorkCenters.name` | `{ En, Ru, Kz }` |
 | 4 | Количество типов техники | `equipmentTypesCount` | `int` | integer | `0` | backend | Для новой записи всегда `0` |
 
 ---
@@ -139,7 +144,11 @@ Content-Type: application/json
   "value": {
     "id": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
     "code": "WC-100",
-    "name": "Drilling Operations",
+    "name": {
+      "En": "Drilling Operations",
+      "Ru": "Буровые работы",
+      "Kz": "Бұрғылау жұмыстары"
+    },
     "equipmentTypesCount": 0
   },
   "isSuccess": true,
@@ -151,5 +160,5 @@ Content-Type: application/json
 
 ## Замечания
 
-1. Уникальность `code` и `name` проверяется только среди активных записей (`isDeleted = false`).
+1. Уникальность `code` и `name` проверяется только среди активных записей (`isDeleted = false`). Для `name` применяется правило локализованной уникальности.
 2. После создания запись сразу доступна для выбора в `POST /equipment-types` и `PUT /equipment-types/:id`.

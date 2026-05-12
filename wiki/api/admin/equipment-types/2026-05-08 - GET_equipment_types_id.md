@@ -117,7 +117,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | |
-| 2 | Наименование типа техники | `name` | `string` | string | — | `EquipmentTypes.name` | |
+| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
 | 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
 | 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
 | 5 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | |
@@ -130,7 +130,7 @@ Content-Type: application/json
 | 7.5 | Отображается в карточке техники | `isVisibleInCard` | `bool` | boolean | — | `EquipmentTypeProperties.isVisibleInCard` | |
 | 7.6 | Данные характеристики из справочника | `property` | `object` | `PropertyDetail` | — | `Properties` | |
 | 7.6.1 | Идентификатор характеристики | `id` | `uuid` | UUID v4 | — | `Properties.id` | |
-| 7.6.2 | Наименование характеристики | `name` | `string` | string | — | `Properties.name` | |
+| 7.6.2 | Наименование характеристики | `name` | `object` | `LocalizedName` | — | `Properties.name` | `{ En, Ru, Kz }` |
 | 7.6.3 | Тип данных | `dataType` | `enum` | `number / double / text / boolean / enum` | — | `Properties.dataType` | |
 | 7.6.4 | Единица измерения (nullable) | `unit` | `object` | `MeasurementUnitRef \| null` | `null` | `MeasurementUnits` | `null` если `Properties.unitId IS NULL` |
 | 7.6.4.1 | Идентификатор единицы измерения | `id` | `uuid` | UUID v4 | — | `MeasurementUnits.id` | |
@@ -149,7 +149,11 @@ Content-Type: application/json
 {
   "value": {
     "id": "7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111",
-    "name": "Компрессор",
+    "name": {
+      "En": "Compressor",
+      "Ru": "Компрессор",
+      "Kz": "Компрессор"
+    },
     "mobilityType": "Stationary",
     "requiresTransport": true,
     "sortOrder": 1,
@@ -163,7 +167,11 @@ Content-Type: application/json
         "isVisibleInCard": true,
         "property": {
           "id": "p0000001-0000-4000-8000-000000000001",
-          "name": "Объём ресивера",
+          "name": {
+            "En": "Receiver volume",
+            "Ru": "Объём ресивера",
+            "Kz": "Ресивер көлемі"
+          },
           "dataType": "double",
           "unit": {
             "id": "u0000001-0000-4000-8000-000000000001",
@@ -181,7 +189,11 @@ Content-Type: application/json
         "isVisibleInCard": true,
         "property": {
           "id": "p0000001-0000-4000-8000-000000000002",
-          "name": "Тип привода",
+          "name": {
+            "En": "Drive type",
+            "Ru": "Тип привода",
+            "Kz": "Жетек түрі"
+          },
           "dataType": "enum",
           "unit": null,
           "enumValues": [
@@ -204,3 +216,4 @@ Content-Type: application/json
 1. Список `properties` включён непосредственно в ответ карточки (не запрашивается отдельно) — один HTTP round-trip для загрузки AP-02.
 2. Метод применяет скрытый фильтр `isDeleted = false` ко всем участвующим таблицам: `EquipmentTypes`, `Equipments`, `EquipmentTypeProperties`, `Properties`, `PropertyEnumValues`.
 3. `equipmentsCount` используется во frontend для guard-логики удаления типа техники (блокировать `DELETE` если счётчик > 0).
+4. Поля `name` внутри типа техники и внутри вложенных характеристик возвращаются как локализованные объекты `{ En, Ru, Kz }`.

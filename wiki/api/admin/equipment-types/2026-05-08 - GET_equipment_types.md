@@ -38,9 +38,9 @@
 ## 3. Описание логики работы метода
 
 1. Получить записи из `EquipmentTypes` WHERE `isDeleted = false`.
-2. Если передан `search`, применить фильтр по `EquipmentTypes.name`.
+2. Если передан `search`, применить фильтр по `EquipmentTypes.name.En`, `EquipmentTypes.name.Ru`, `EquipmentTypes.name.Kz`.
 3. Подтянуть данные `WorkCenters` по `EquipmentTypes.workCenterId` для возврата названия и кода work center.
-4. Отсортировать результат по `sortOrder ASC`, затем по `name ASC`.
+4. Отсортировать результат по `sortOrder ASC`, затем по `name.Ru ASC`.
 5. Для каждой записи рассчитать:
    - `propertiesCount` = COUNT(`EquipmentTypeProperties` WHERE `equipmentTypeId` = `EquipmentTypes.id`)
    - `equipmentsCount` = COUNT(`Equipments` WHERE `equipmentTypeId` = `EquipmentTypes.id` AND `isDeleted = false`)
@@ -84,7 +84,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Поисковая строка по названию типа техники | `search` | `string` | `-` | Если передан, используется как фильтр по `EquipmentTypes.name` | — | Query param | |
+| 1 | Поисковая строка по названию типа техники | `search` | `string` | `-` | Если передан, используется как фильтр по `EquipmentTypes.name.En`, `EquipmentTypes.name.Ru`, `EquipmentTypes.name.Kz` | — | Query param | |
 | 2 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 3 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
@@ -123,13 +123,13 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | |
-| 2 | Наименование типа техники | `name` | `string` | string | — | `EquipmentTypes.name` | |
+| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
 | 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
 | 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
 | 5 | Класс техники | `equipmentClass` | `enum` | `HDE / HDV` | — | `EquipmentTypes.equipmentClass` | |
 | 6 | Идентификатор work center | `workCenterId` | `uuid` | UUID v4 | — | `EquipmentTypes.workCenterId` | Nullable, если тип техники не привязан к work center |
 | 7 | Код work center | `workCenterCode` | `string` | string | `null` | `WorkCenters.code` | Nullable, возвращается при наличии связи |
-| 8 | Наименование work center | `workCenterName` | `string` | string | `null` | `WorkCenters.name` | Nullable, возвращается при наличии связи |
+| 8 | Наименование work center | `workCenterName` | `object` | `LocalizedName \| null` | `null` | `WorkCenters.name` | Nullable, возвращается при наличии связи |
 | 9 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | |
 | 10 | Количество характеристик типа | `propertiesCount` | `int` | integer | `0` | COUNT(`EquipmentTypeProperties`) | Нужен для колонки AP-01 |
 | 11 | Количество единиц техники типа | `equipmentsCount` | `int` | integer | `0` | COUNT(`Equipments`) | Нужен для колонки AP-01 и guard удаления |
@@ -144,13 +144,21 @@ Content-Type: application/json
     "items": [
       {
         "id": "7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111",
-        "name": "Компрессор",
+        "name": {
+          "En": "Compressor",
+          "Ru": "Компрессор",
+          "Kz": "Компрессор"
+        },
         "mobilityType": "Stationary",
         "requiresTransport": true,
         "equipmentClass": "HDE",
         "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
         "workCenterCode": "WC-100",
-        "workCenterName": "Drilling Operations",
+        "workCenterName": {
+          "En": "Drilling Operations",
+          "Ru": "Буровые работы",
+          "Kz": "Бұрғылау жұмыстары"
+        },
         "sortOrder": 1,
         "propertiesCount": 7,
         "equipmentsCount": 12
@@ -170,3 +178,4 @@ Content-Type: application/json
 1. Метод применяет скрытый фильтр `isDeleted = false` как к `EquipmentTypes`, так и к `Equipments` при расчёте `equipmentsCount`. Параметр не выставляется наружу — удалённые записи никогда не попадают в список.
 2. `equipmentsCount` используется в UI для guard-логики удаления типа техники (блокировать удаление, если счётчик > 0).
 3. Поля `workCenterId`, `workCenterCode`, `workCenterName` могут быть `null`, если для типа техники work center ещё не назначен.
+4. Поля `name` и `workCenterName` возвращаются как локализованные объекты `{ En, Ru, Kz }`.

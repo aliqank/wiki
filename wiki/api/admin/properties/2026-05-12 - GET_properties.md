@@ -40,12 +40,12 @@
 ## 3. Описание логики работы метода
 
 1. Получить записи из `Properties` WHERE `isDeleted = false`.
-2. Если передан `search`, применить фильтр по `Properties.name`.
+2. Если передан `search`, применить фильтр по `Properties.name.En`, `Properties.name.Ru`, `Properties.name.Kz`.
 3. Подтянуть `MeasurementUnits` по `Properties.unitId`.
 4. Для каждой записи рассчитать:
    - `enumValuesCount` = COUNT(`PropertyEnumValues` WHERE `propertyId` = `Properties.id` AND `isDeleted = false`)
    - `equipmentTypesCount` = COUNT(`EquipmentTypeProperties` WHERE `propertyId` = `Properties.id` AND `isDeleted = false`)
-5. Отсортировать по `name ASC`.
+5. Отсортировать по `name.Ru ASC`.
 6. Вернуть страницу данных в формате общего `result wrapper` с `PaginatedResult` внутри `value`.
 
 Сущности, участвующие в методе:
@@ -86,7 +86,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Поиск по названию характеристики | `search` | `string` | `-` | Если передан, используется как фильтр по `Properties.name` | — | Query param | |
+| 1 | Поиск по названию характеристики | `search` | `string` | `-` | Если передан, используется как фильтр по `Properties.name.En`, `Properties.name.Ru`, `Properties.name.Kz` | — | Query param | |
 | 2 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 3 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
@@ -111,7 +111,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор характеристики | `id` | `uuid` | UUID v4 | — | `Properties.id` | |
-| 2 | Наименование характеристики | `name` | `string` | string | — | `Properties.name` | |
+| 2 | Наименование характеристики | `name` | `object` | `LocalizedName` | — | `Properties.name` | `{ En, Ru, Kz }` |
 | 3 | Тип данных | `dataType` | `enum` | `number / double / text / boolean / enum` | — | `Properties.dataType` | |
 | 4 | Единица измерения | `unit` | `object` | `MeasurementUnitRef \| null` | `null` | `MeasurementUnits` | `null`, если `unitId IS NULL` |
 | 5 | Количество enum-значений | `enumValuesCount` | `int` | integer | `0` | COUNT(`PropertyEnumValues`) | Актуально в основном для `dataType = enum` |
@@ -127,7 +127,11 @@ Content-Type: application/json
     "items": [
       {
         "id": "p0000001-0000-4000-8000-000000000003",
-        "name": "Максимальная глубина",
+        "name": {
+          "En": "Maximum depth",
+          "Ru": "Максимальная глубина",
+          "Kz": "Ең үлкен тереңдік"
+        },
         "dataType": "number",
         "unit": {
           "id": "u0000001-0000-4000-8000-000000000002",
@@ -151,3 +155,4 @@ Content-Type: application/json
 
 1. Для `dataType = enum` состав значений управляется через `PropertyEnumValues`.
 2. `equipmentTypesCount` используется для guard-логики удаления характеристики.
+3. Поле `name` возвращается как локализованный объект `{ En, Ru, Kz }`.

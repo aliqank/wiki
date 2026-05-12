@@ -40,9 +40,9 @@
 ## 3. Описание логики работы метода
 
 1. Получить записи из `WorkCenters` WHERE `isDeleted = false`.
-2. Если передан `search`, применить фильтр по `WorkCenters.name` и `WorkCenters.code`.
+2. Если передан `search`, применить фильтр по `WorkCenters.name.En`, `WorkCenters.name.Ru`, `WorkCenters.name.Kz` и `WorkCenters.code`.
 3. Для каждой записи рассчитать `equipmentTypesCount` = COUNT(`EquipmentTypes` WHERE `workCenterId` = `WorkCenters.id` AND `isDeleted = false`).
-4. Отсортировать результат по `name ASC`, затем по `code ASC`.
+4. Отсортировать результат по `name.Ru ASC`, затем по `code ASC`.
 5. Вернуть страницу данных в формате общего `result wrapper` с `PaginatedResult` внутри `value`.
 
 Сущности, участвующие в методе:
@@ -83,7 +83,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Поисковая строка по коду или названию | `search` | `string` | `-` | Если передан, используется как фильтр по `WorkCenters.name` и `WorkCenters.code` | — | Query param | |
+| 1 | Поисковая строка по коду или названию | `search` | `string` | `-` | Если передан, используется как фильтр по `WorkCenters.name.En`, `WorkCenters.name.Ru`, `WorkCenters.name.Kz` и `WorkCenters.code` | — | Query param | |
 | 2 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 3 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
@@ -123,7 +123,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор work center | `id` | `uuid` | UUID v4 | — | `WorkCenters.id` | |
 | 2 | Код work center | `code` | `string` | string | — | `WorkCenters.code` | |
-| 3 | Наименование work center | `name` | `string` | string | — | `WorkCenters.name` | |
+| 3 | Наименование work center | `name` | `object` | `LocalizedName` | — | `WorkCenters.name` | `{ En, Ru, Kz }` |
 | 4 | Количество типов техники | `equipmentTypesCount` | `int` | integer | `0` | COUNT(`EquipmentTypes`) | Нужен для guard удаления |
 
 ---
@@ -137,7 +137,11 @@ Content-Type: application/json
       {
         "id": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
         "code": "WC-100",
-        "name": "Drilling Operations",
+        "name": {
+          "En": "Drilling Operations",
+          "Ru": "Буровые работы",
+          "Kz": "Бұрғылау жұмыстары"
+        },
         "equipmentTypesCount": 6
       }
     ],
@@ -154,3 +158,4 @@ Content-Type: application/json
 
 1. Метод применяет скрытый фильтр `isDeleted = false` как к `WorkCenters`, так и к `EquipmentTypes` при расчёте `equipmentTypesCount`.
 2. `equipmentTypesCount` используется во frontend для guard-логики удаления work center.
+3. Поле `name` возвращается как локализованный объект `{ En, Ru, Kz }`.

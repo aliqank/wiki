@@ -40,7 +40,7 @@
 ## 3. Описание логики работы метода
 
 1. Найти запись в `EquipmentTypes` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена — вернуть `404 NOT_FOUND`.
-2. Провалидировать поле `name`: непустая строка; уникальная в `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false`. Если нарушено — вернуть `422 VALIDATION_ERROR`.
+2. Провалидировать поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально в `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false`. Если нарушено — вернуть `422 VALIDATION_ERROR`.
 3. Провалидировать поле `mobilityType`: должно входить в допустимые значения ENUM (`SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized`). Если нарушено — вернуть `422 VALIDATION_ERROR`.
 4. Обновить запись в `EquipmentTypes`; заполнить аудит-поля `updatedAt` (текущее время) и `updatedBy` (ID аутентифицированного пользователя).
 5. Рассчитать `equipmentsCount` = COUNT(`Equipments` WHERE `equipmentTypeId` = `:id` AND `isDeleted = false`).
@@ -76,7 +76,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `NOT_FOUND` | Тип техники с указанным `id` не найден или помечен как удалённый |
-| `VALIDATION_ERROR` | Поле `name` пустое или уже существует в справочнике (с учётом `isDeleted = false`) |
+| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует в справочнике |
 | `VALIDATION_ERROR` | Поле `mobilityType` содержит недопустимое значение |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Entity`
@@ -88,7 +88,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор типа техники | `id` | `uuid` | `+` | Должен быть валидным UUID v4 | — | Path param | |
-| 2 | Наименование типа техники | `name` | `string` | `+` | Непустая строка; уникальная среди `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false` | — | Request body | |
+| 2 | Наименование типа техники | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false` | — | Request body | |
 | 3 | Тип мобильности | `mobilityType` | `enum` | `+` | Одно из: `SelfPropelled`, `NonSelfPropelledMotorized`, `Stationary`, `NonMotorized` | — | Request body | |
 | 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | `+` | Булево значение | — | Request body | |
 | 5 | Порядок отображения | `sortOrder` | `int` | `+` | Целое число >= 1 | — | Request body | В отличие от POST, при PUT `sortOrder` обязателен |
@@ -105,7 +105,11 @@ Content-Type: application/json
 
 ```json
 {
-  "name": "Компрессор воздушный",
+  "name": {
+    "En": "Air compressor",
+    "Ru": "Компрессор воздушный",
+    "Kz": "Ауа компрессоры"
+  },
   "mobilityType": "Stationary",
   "requiresTransport": false,
   "sortOrder": 1
@@ -132,7 +136,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | |
-| 2 | Наименование типа техники | `name` | `string` | string | — | `EquipmentTypes.name` | |
+| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
 | 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
 | 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
 | 5 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | |
@@ -146,7 +150,11 @@ Content-Type: application/json
 {
   "value": {
     "id": "7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111",
-    "name": "Компрессор воздушный",
+    "name": {
+      "En": "Air compressor",
+      "Ru": "Компрессор воздушный",
+      "Kz": "Ауа компрессоры"
+    },
     "mobilityType": "Stationary",
     "requiresTransport": false,
     "sortOrder": 1,
@@ -162,5 +170,5 @@ Content-Type: application/json
 ## Замечания
 
 1. Метод обновляет только базовые параметры типа (блок A). Характеристики типа (блок B) управляются через отдельные эндпоинты: `POST /equipment-types/:id/properties`, `PATCH /equipment-types/:id/properties/:etpId`, `DELETE /equipment-types/:id/properties/:etpId`.
-2. Уникальность `name` при обновлении проверяется с исключением самой редактируемой записи (`id ≠ :id`), чтобы допустить сохранение без изменения имени.
+2. Уникальность `name` при обновлении проверяется с исключением самой редактируемой записи (`id ≠ :id`), чтобы допустить сохранение без изменения локализованного имени.
 3. В ответе возвращается `equipmentsCount` (без перечня `properties`) — достаточно для обновления guard-состояния кнопки удаления на frontend без повторного вызова `GET /:id`.

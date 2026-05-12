@@ -41,7 +41,7 @@
 
 1. Найти исходную запись в `EquipmentTypes` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена — вернуть `404 NOT_FOUND`.
 2. Прочитать все активные привязки характеристик исходного типа из `EquipmentTypeProperties` WHERE `equipmentTypeId` = `:id` AND `isDeleted = false`, сохранив значения `propertyId`, `isRequired`, `isFilterable`, `isVisibleInCard`, `sortOrder`.
-3. Сформировать новую запись `EquipmentTypes` как копию исходной: перенести поля `mobilityType` и `requiresTransport`; поле `name` сформировать на основе исходного имени с постфиксом `(копия)`; поле `sortOrder` вычислить как `MAX(sortOrder) + 1` среди `EquipmentTypes` WHERE `isDeleted = false`. Если таблица пуста — присвоить `1`.
+3. Сформировать новую запись `EquipmentTypes` как копию исходной: перенести поля `mobilityType` и `requiresTransport`; поле `name` сформировать на основе исходного объекта локализации с постфиксом `(copy)` / `(копия)` / `(көшірме)` для `En` / `Ru` / `Kz`; поле `sortOrder` вычислить как `MAX(sortOrder) + 1` среди `EquipmentTypes` WHERE `isDeleted = false`. Если таблица пуста — присвоить `1`.
 4. Создать новую запись в `EquipmentTypes`; заполнить аудит-поля `createdAt` (текущее время) и `createdBy` (ID аутентифицированного пользователя).
 5. Для каждой активной записи из `EquipmentTypeProperties`, прочитанной на шаге 2, создать новую запись привязки для нового `equipmentTypeId`, сохранив те же `propertyId`, `isRequired`, `isFilterable`, `isVisibleInCard`, `sortOrder`; заполнить аудит-поля `createdAt` и `createdBy`.
 6. Вернуть созданный объект нового типа в формате общего `result wrapper` с HTTP 201. После этого frontend может выполнить `GET /equipment-types/:newId` для открытия карточки новой копии.
@@ -123,7 +123,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор нового типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | Генерируется backend |
-| 2 | Наименование нового типа техники | `name` | `string` | string | — | `EquipmentTypes.name` | Формируется на основе имени исходного типа с постфиксом `(копия)` |
+| 2 | Наименование нового типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | Формируется на основе локализованного имени исходного типа с постфиксами `(copy)` / `(копия)` / `(көшірме)` |
 | 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | Скопировано из исходного типа |
 | 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | Скопировано из исходного типа |
 | 5 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | Всегда назначается как следующий доступный `sortOrder` |
@@ -136,7 +136,11 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c5a6d7e-63b4-4ff1-9a12-0c1d23456789",
-    "name": "Компрессор воздушный (копия)",
+    "name": {
+      "En": "Air compressor (copy)",
+      "Ru": "Компрессор воздушный (копия)",
+      "Kz": "Ауа компрессоры (көшірме)"
+    },
     "mobilityType": "Stationary",
     "requiresTransport": false,
     "sortOrder": 17

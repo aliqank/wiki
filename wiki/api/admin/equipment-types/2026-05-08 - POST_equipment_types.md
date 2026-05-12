@@ -40,16 +40,17 @@
 ## 3. Описание логики работы метода
 
 1. Принять тело запроса; провалидировать обязательные поля (`name`, `mobilityType`, `requiresTransport`, `equipmentClass`).
-2. Проверить уникальность `name` в таблице `EquipmentTypes` WHERE `isDeleted = false`. Если запись с таким именем уже существует — вернуть `422 VALIDATION_ERROR`.
-3. Проверить, что `mobilityType` входит в допустимые значения ENUM (`SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized`). Если нет — вернуть `422 VALIDATION_ERROR`.
-4. Проверить, что `equipmentClass` входит в допустимые значения ENUM (`HDE / HDV`). Если нет — вернуть `422 VALIDATION_ERROR`.
-5. Если передан `workCenterId`, проверить существование записи в `WorkCenters` WHERE `id` = `workCenterId` AND `isDeleted = false`. Если запись не найдена — вернуть `422 VALIDATION_ERROR`.
-6. Если передан массив `properties`, провалидировать каждый элемент: `propertyId` должен ссылаться на активную запись `Properties`, `sortOrder` должен быть целым числом >= 1, `propertyId` не должен дублироваться внутри одного запроса. Если условие нарушено — вернуть `422 VALIDATION_ERROR`.
-7. Если `sortOrder` равен `null`, вычислить значение как `MAX(sortOrder) + 1` по всем записям `EquipmentTypes` WHERE `isDeleted = false`. Если таблица пуста — присвоить `1`.
-8. Создать новую запись в `EquipmentTypes`; заполнить аудит-поля `createdAt` (текущее время) и `createdBy` (ID аутентифицированного пользователя).
-9. Для каждого элемента `properties[]` создать запись в `EquipmentTypeProperties`, сохранив `propertyId`, `isRequired`, `isFilterable`, `isVisibleInCard`, `sortOrder`; заполнить аудит-поля `createdAt` и `createdBy`.
-10. Подтянуть `WorkCenters` по `workCenterId` для возврата полей `workCenterCode` и `workCenterName`.
-11. Вернуть созданный объект в формате общего `result wrapper` с HTTP 201.
+2. Проверить объект `name`: должны быть переданы локализованные поля `En`, `Ru`, `Kz`; `name.Ru` обязателен.
+3. Проверить уникальность `name` в таблице `EquipmentTypes` WHERE `isDeleted = false`. Проверка выполняется по правилу локализованной уникальности для набора `name.En`, `name.Ru`, `name.Kz`. Если запись с таким локализованным именем уже существует — вернуть `422 VALIDATION_ERROR`.
+4. Проверить, что `mobilityType` входит в допустимые значения ENUM (`SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized`). Если нет — вернуть `422 VALIDATION_ERROR`.
+5. Проверить, что `equipmentClass` входит в допустимые значения ENUM (`HDE / HDV`). Если нет — вернуть `422 VALIDATION_ERROR`.
+6. Если передан `workCenterId`, проверить существование записи в `WorkCenters` WHERE `id` = `workCenterId` AND `isDeleted = false`. Если запись не найдена — вернуть `422 VALIDATION_ERROR`.
+7. Если передан массив `properties`, провалидировать каждый элемент: `propertyId` должен ссылаться на активную запись `Properties`, `sortOrder` должен быть целым числом >= 1, `propertyId` не должен дублироваться внутри одного запроса. Если условие нарушено — вернуть `422 VALIDATION_ERROR`.
+8. Если `sortOrder` равен `null`, вычислить значение как `MAX(sortOrder) + 1` по всем записям `EquipmentTypes` WHERE `isDeleted = false`. Если таблица пуста — присвоить `1`.
+9. Создать новую запись в `EquipmentTypes`; заполнить аудит-поля `createdAt` (текущее время) и `createdBy` (ID аутентифицированного пользователя).
+10. Для каждого элемента `properties[]` создать запись в `EquipmentTypeProperties`, сохранив `propertyId`, `isRequired`, `isFilterable`, `isVisibleInCard`, `sortOrder`; заполнить аудит-поля `createdAt` и `createdBy`.
+11. Подтянуть `WorkCenters` по `workCenterId` для возврата полей `workCenterCode` и `workCenterName`.
+12. Вернуть созданный объект в формате общего `result wrapper` с HTTP 201.
 
 Сущности, участвующие в методе:
 - читаются: `EquipmentTypes` (для проверки уникальности `name` и расчёта `sortOrder`), `WorkCenters` (валидация `workCenterId`, возврат `workCenterCode` / `workCenterName`), `Properties` (валидация `properties[].propertyId`)
@@ -80,7 +81,7 @@
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
-| `VALIDATION_ERROR` | Поле `name` пустое или уже существует в справочнике (с учётом `isDeleted = false`) |
+| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует в справочнике |
 | `VALIDATION_ERROR` | Поле `mobilityType` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Поле `equipmentClass` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Передан несуществующий или удалённый `workCenterId` |
@@ -96,7 +97,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Наименование типа техники | `name` | `string` | `+` | Непустая строка; уникальная среди `EquipmentTypes` WHERE `isDeleted = false` | — | Request body | |
+| 1 | Наименование типа техники | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `EquipmentTypes` WHERE `isDeleted = false` | — | Request body | |
 | 2 | Тип мобильности | `mobilityType` | `enum` | `+` | Одно из: `SelfPropelled`, `NonSelfPropelledMotorized`, `Stationary`, `NonMotorized` | — | Request body | |
 | 3 | Требуется ли транспортировка | `requiresTransport` | `bool` | `+` | Булево значение | — | Request body | |
 | 4 | Класс техники | `equipmentClass` | `enum` | `+` | Одно из: `HDE`, `HDV` | — | Request body | |
@@ -121,7 +122,11 @@ Content-Type: application/json
 
 ```json
 {
-  "name": "Экскаватор",
+  "name": {
+    "En": "Excavator",
+    "Ru": "Экскаватор",
+    "Kz": "Экскаватор"
+  },
   "mobilityType": "SelfPropelled",
   "requiresTransport": false,
   "equipmentClass": "HDV",
@@ -166,13 +171,13 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | Генерируется backend |
-| 2 | Наименование типа техники | `name` | `string` | string | — | `EquipmentTypes.name` | |
+| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
 | 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
 | 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
 | 5 | Класс техники | `equipmentClass` | `enum` | `HDE / HDV` | — | `EquipmentTypes.equipmentClass` | |
 | 6 | Идентификатор work center | `workCenterId` | `uuid` | UUID v4 | `null` | `EquipmentTypes.workCenterId` | `null`, если тип техники не привязан к work center |
 | 7 | Код work center | `workCenterCode` | `string` | string | `null` | `WorkCenters.code` | `null`, если `workCenterId IS NULL` |
-| 8 | Наименование work center | `workCenterName` | `string` | string | `null` | `WorkCenters.name` | `null`, если `workCenterId IS NULL` |
+| 8 | Наименование work center | `workCenterName` | `object` | `LocalizedName \| null` | `null` | `WorkCenters.name` | `null`, если `workCenterId IS NULL` |
 | 9 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | Фактическое значение (вычисленное или переданное) |
 
 ---
@@ -183,13 +188,21 @@ Content-Type: application/json
 {
   "value": {
     "id": "3e2a1c4d-88f1-4b3e-a9d2-c7f0e1234567",
-    "name": "Экскаватор",
+    "name": {
+      "En": "Excavator",
+      "Ru": "Экскаватор",
+      "Kz": "Экскаватор"
+    },
     "mobilityType": "SelfPropelled",
     "requiresTransport": false,
     "equipmentClass": "HDV",
     "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
     "workCenterCode": "WC-100",
-    "workCenterName": "Drilling Operations",
+    "workCenterName": {
+      "En": "Drilling Operations",
+      "Ru": "Буровые работы",
+      "Kz": "Бұрғылау жұмыстары"
+    },
     "sortOrder": 16
   },
   "isSuccess": true,
@@ -202,6 +215,6 @@ Content-Type: application/json
 ## Замечания
 
 1. При `sortOrder: null` backend присваивает `MAX(sortOrder) + 1` по всем не удалённым записям `EquipmentTypes`. Если таблица пуста — присваивает `1`.
-2. Уникальность `name` проверяется только среди активных записей (`isDeleted = false`); повторное использование имени удалённого типа допустимо.
+2. Уникальность `name` проверяется только среди активных записей (`isDeleted = false`); повторное использование локализованного имени удалённого типа допустимо.
 3. Поля `workCenterId`, `workCenterCode`, `workCenterName` могут быть `null`, если тип техники не привязан к work center.
 4. Если `properties[]` не передан, тип техники создаётся без стартовых характеристик; их можно добавить позднее отдельными эндпоинтами.
