@@ -103,6 +103,11 @@
 | `POST` | `/maintenance-partners` | M-AP-05: создать партнёра |
 | `PUT` | `/maintenance-partners/:id` | M-AP-05: редактировать партнёра |
 | `DELETE` | `/maintenance-partners/:id` | AP-06: удалить партнёра |
+| `GET` | `/business-partners` | AP-06, таб "Бизнес-партнёры" |
+| `POST` | `/business-partners` | AP-06: создать бизнес-партнёра |
+| `GET` | `/business-partners/:id` | AP-06: открыть карточку / форму редактирования |
+| `PUT` | `/business-partners/:id` | AP-06: сохранить изменения бизнес-партнёра |
+| `DELETE` | `/business-partners/:id` | AP-06: удалить бизнес-партнёра |
 
 ### Раздел 5: Пользователи (AP-07)
 
@@ -700,6 +705,9 @@ HTTP 409
 - В `MaintenancePartners` поле `contactInfo` заменено на три отдельных поля: `phoneNumber`, `email`, `address`
 - `GET /maintenance-partners` поддерживает поиск по `name.En`, `name.Ru`, `name.Kz`, `phoneNumber`, `email`, `address`
 - `DELETE /maintenance-partners/:id` — guard мягкий: если есть договоры ТО, возвращает `200` с `{ warning: "contractsCount": 3, confirm: true }` → Frontend показывает предупреждающий диалог (не блокирующий)
+- `GET/POST/PUT /business-partners` используют `name` как локализованный JSON-объект `{ En, Ru, Kz }`
+- `GET /business-partners` поддерживает поиск по `name.En`, `name.Ru`, `name.Kz`, `bin`, `externalId`, `email`, `phoneNumber`, `country`, `city`
+- `DELETE /business-partners/:id` — guard жёсткий: если к партнёру привязаны активные external users (`Users.businessPartnerId`), backend возвращает `409 BUSINESS_PARTNER_IN_USE`
 
 ### Пользователи (AP-07)
 
