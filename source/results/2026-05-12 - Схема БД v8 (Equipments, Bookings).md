@@ -12,6 +12,7 @@
 |---|---|---|
 | 1 | Во всех полях `name` тип изменён с `VARCHAR` на `JSON` с локализацией `En`, `Ru`, `Kz` | EquipmentTypes, Fleets, WorkCenters, Properties, MaintenancePartners, BusinessPartners |
 | 2 | В `MaintenancePartners` поле `contactInfo` разделено на `phoneNumber`, `email`, `address` | MaintenancePartners |
+| 3 | В `Equipments` добавлены поля плановой суточной загрузки: `plannedEngineHoursPerDay`, `plannedMileagePerDay` | Equipments |
 
 Стандартный набор аудит-полей:
 
@@ -38,6 +39,7 @@
 |---|---|
 | Локализация `name` | Все поля с именем `name` хранятся как `JSON` в формате `{ "En": "...", "Ru": "...", "Kz": "..." }` |
 | MaintenancePartners | Поле `contactInfo` разделено на отдельные поля `phoneNumber`, `email`, `address` |
+| Equipments usage targets | Добавлены поля `plannedEngineHoursPerDay` и `plannedMileagePerDay` — плановые значения использования техники в сутки, редактируются Fleet Owner |
 | Аудит-поля | Единый набор из 7 полей добавлен во все 21 таблицу. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
 | Users | Таблица хранит 2 типа пользователей: `internal` и `external`; `internal` создаются автоматически при авторизации, `external` — вручную. Общие поля: `id`, `fullName`, `email`, `jobTitle`, `isActive` + аудит; nullable-поля используются для разделения атрибутов по типам |
 | isDeleted в API | GET-методы Admin Panel по умолчанию фильтруют `WHERE isDeleted = false`; параметр не выставляется наружу |
@@ -182,6 +184,8 @@
 | shareType | ENUM | Shared / SharedWithConditions / Assigned |
 | isCritical | BOOLEAN | Требует охраны (service de sécurité) при транспортировке |
 | yearOfManufacture | INT nullable | Год выпуска |
+| plannedEngineHoursPerDay | DECIMAL nullable | Плановые мото-часы в сутки; задаются Fleet Owner |
+| plannedMileagePerDay | DECIMAL nullable | Плановый километраж в сутки; задаётся Fleet Owner |
 | serviceZoneCode | VARCHAR | Код сервисной зоны (строка из PSWS) |
 | costCenter | VARCHAR | Финансовый ЦЗ (строка из JDE) |
 | baseLocation | VARCHAR | Базовое местоположение (из Master Fleet) |
