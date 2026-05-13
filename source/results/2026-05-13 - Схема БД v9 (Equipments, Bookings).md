@@ -629,7 +629,7 @@
 | email | VARCHAR | |
 | sharedEmail | VARCHAR nullable | Только для internal: общий/групповой email, если используется |
 | jobTitle | VARCHAR nullable | Должность; nullable для совместимости обоих типов пользователей |
-| department | VARCHAR nullable | Только для internal: подразделение |
+| departmentId | FK → Departments nullable | Только для internal: департамент пользователя |
 | isActive | BOOLEAN NOT NULL DEFAULT true | Активен ли пользователь |
 | businessPartnerId | FK → BusinessPartners nullable | Только для external: заполняется для внешних пользователей |
 | type | ENUM | internal / external |
@@ -666,7 +666,7 @@
 | deletedAt | TIMESTAMP nullable | |
 | deletedBy | UUID nullable | |
 
-> Для `Users`: чтобы избежать конфликтов между `internal` и `external`, поля `badgeNumber`, `sharedEmail`, `jobTitle`, `department`, `businessPartnerId` допускают `NULL`.
+> Для `Users`: чтобы избежать конфликтов между `internal` и `external`, поля `badgeNumber`, `sharedEmail`, `jobTitle`, `departmentId`, `businessPartnerId` допускают `NULL`.
 
 ---
 
@@ -856,7 +856,7 @@
 | # | Вопрос | Решение |
 |---|---|---|
 | OQ-DB-1 | История изменений shareType у техники? | Не нужна |
-| OQ-DB-2 | Атрибут подразделения пользователя | Закрыт в v7: используется поле `Users.department` |
+| OQ-DB-2 | Атрибут подразделения пользователя | Закрыт в v7; актуализировано в v9: используется поле `Users.departmentId -> Departments` |
 | OQ-DB-3 | Аудит-поля | Закрыт в v8; актуализировано в v9: аудит-поля используются во всех 30 таблицах (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
 | OQ-DB-4 | RequestStatusHistory нужна? | Да — добавлена |
 | OQ-DB-5 | BookingSnapshot | CLOSED: previousSnapshot убран в v5 |
