@@ -11,12 +11,12 @@
 | # | Изменение | Затронутые таблицы |
 |---|---|---|
 | 1 | В `EquipmentTypes` добавлено поле `iconUrl` | EquipmentTypes |
-| 2 | Добавлен иерархический справочник `Brand -> Model`; строковые поля `brand` / `model` заменены на FK | EquipmentBrandModels, Equipments |
+| 2 | Добавлен плоский справочник связок `brand + model`; строковые поля `brand` / `model` заменены на один FK | EquipmentBrandModels, Equipments |
 | 3 | Добавлен справочник локаций; строковое поле `baseLocation` заменено на FK | Locations, Equipments |
 | 4 | Добавлен справочник cost centers; строковое поле `costCenter` заменено на FK | CostCenters, Equipments |
 | 5 | Добавлен справочник service zones; строковое поле `serviceZoneCode` заменено на FK | ServiceZones, Equipments |
-| 6 | Добавлен иерархический справочник подразделений `Division -> Group -> Department -> Section`; в `Equipments` добавлен FK на запись уровня `Section` | OrganizationalUnits, Equipments |
-| 7 | В `Equipments` добавлены поля `vin` и `e1Id` | Equipments |
+| 6 | Добавлены отдельные справочники подразделений `Divisions`, `Groups`, `Departments`, `Sections`; в `Equipments` добавлен FK на `Sections` | Divisions, Groups, Departments, Sections, Equipments |
+| 7 | В `Equipments` добавлены поля `vin` и `jdeId` | Equipments |
 
 Стандартный набор аудит-полей:
 
@@ -42,16 +42,16 @@
 | Тема | Решение |
 |---|---|
 | EquipmentTypes.iconUrl | Добавлено поле URL иконки типа техники для Admin Panel и каталогов выбора |
-| Equipment brands / models | Производители и модели вынесены в единый self-reference справочник `EquipmentBrandModels` с уровнями `Brand / Model`; в `Equipments` хранятся `equipmentBrandId` и `equipmentModelId`, оба FK ссылаются на одну таблицу |
+| Equipment brands / models | Производитель и модель хранятся как одна справочная запись `EquipmentBrandModels`; в `Equipments` хранится один FK `brandModelId` |
 | Base locations | Базовые местоположения вынесены в справочник `Locations`; строка `baseLocation` в `Equipments` заменена на `baseLocationId` |
 | Cost centers | Финансовые ЦЗ вынесены в справочник `CostCenters`; строка `costCenter` в `Equipments` заменена на `costCenterId` |
 | Service zones | Сервисные зоны вынесены в справочник `ServiceZones`; строка `serviceZoneCode` в `Equipments` заменена на `serviceZoneId` |
-| Organizational structure | Для подразделений используется единый self-reference справочник `OrganizationalUnits` с уровнями `Division / Group / Department / Section`; в `Equipments` хранится ссылка только на запись уровня `Section` |
-| External equipment identifiers | `vin` и `e1Id` добавлены как отдельные nullable string-поля в `Equipments` |
+| Organizational structure | Для подразделений используются отдельные справочники `Divisions -> Groups -> Departments -> Sections`; в `Equipments` хранится ссылка только на `Sections` |
+| External equipment identifiers | `vin` и `jdeId` добавлены как отдельные nullable string-поля в `Equipments` |
 | Локализация `name` | Все поля с именем `name` хранятся как `JSON` в формате `{ "En": "...", "Ru": "...", "Kz": "..." }` |
 | MaintenancePartners | Поле `contactInfo` разделено на отдельные поля `phoneNumber`, `email`, `address` |
 | Equipments usage targets | Добавлены поля `plannedEngineHoursPerDay` и `plannedMileagePerDay` — плановые значения использования техники в сутки, редактируются Fleet Owner |
-| Аудит-поля | Единый набор из 7 полей добавлен во все 26 таблиц. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
+| Аудит-поля | Единый набор из 7 полей добавлен во все 30 таблиц. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
 | Users | Таблица хранит 2 типа пользователей: `internal` и `external`; `internal` создаются автоматически при авторизации, `external` — вручную. Общие поля: `id`, `fullName`, `email`, `jobTitle`, `isActive` + аудит; nullable-поля используются для разделения атрибутов по типам |
 | isDeleted в API | GET-методы Admin Panel по умолчанию фильтруют `WHERE isDeleted = false`; параметр не выставляется наружу |
 
@@ -157,14 +157,13 @@
 
 ### 2б. EquipmentBrandModels
 
-Иерархический справочник производителей и моделей техники.
+Справочник комбинаций `бренд + модель`.
 
 | Поле | Тип | Описание |
 |---|---|---|
 | id | UUID PK | |
-| parentId | FK → EquipmentBrandModels nullable | Родительский узел; `NULL` только для `Brand` |
-| level | ENUM | Brand / Model |
-| name | JSON | Локализованное наименование узла: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| brand | JSON | Локализованное наименование бренда: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| model | JSON | Локализованное наименование модели: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
 | sortOrder | INT | Порядок отображения в UI |
 | createdAt | TIMESTAMP NOT NULL | |
 | createdBy | UUID NOT NULL | Без FK-ограничения |
@@ -174,13 +173,7 @@
 | deletedAt | TIMESTAMP nullable | |
 | deletedBy | UUID nullable | |
 
-> Правила целостности:
-> - запись уровня `Brand` имеет `parentId = NULL`
-> - запись уровня `Model` обязана ссылаться на родителя уровня `Brand`
-> - `Equipments.equipmentBrandId` должен ссылаться на запись уровня `Brand`
-> - `Equipments.equipmentModelId` должен ссылаться на запись уровня `Model`
-
-**Индексы / ограничения:** `parentId`; UNIQUE `(parentId, name)`
+**Индексы / ограничения:** UNIQUE `(brand, model)`
 
 ---
 
@@ -244,18 +237,16 @@
 
 ---
 
-### 2е. OrganizationalUnits
+### 2е. Divisions
 
-Иерархический справочник подразделений. Одна таблица хранит уровни `Division -> Group -> Department -> Section`.
+Справочник дивизионов.
 
 | Поле | Тип | Описание |
 |---|---|---|
 | id | UUID PK | |
-| parentId | FK → OrganizationalUnits nullable | Родительский узел; `NULL` только для `Division` |
-| level | ENUM | Division / Group / Department / Section |
-| code | VARCHAR nullable | Код подразделения / внешний идентификатор |
-| name | JSON | Локализованное наименование узла: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
-| sortOrder | INT | Порядок отображения внутри родителя |
+| code | VARCHAR nullable | Код дивизиона / внешний идентификатор |
+| name | JSON | Локализованное наименование дивизиона: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| sortOrder | INT | Порядок отображения в UI |
 | createdAt | TIMESTAMP NOT NULL | |
 | createdBy | UUID NOT NULL | Без FK-ограничения |
 | updatedAt | TIMESTAMP nullable | |
@@ -264,11 +255,72 @@
 | deletedAt | TIMESTAMP nullable | |
 | deletedBy | UUID nullable | |
 
-> Правило целостности: `Equipments.organizationalUnitId` должен ссылаться только на запись уровня `Section`.
+---
+
+### 2ж. Groups
+
+Справочник групп.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| divisionId | FK → Divisions | Родительский дивизион |
+| code | VARCHAR nullable | Код группы / внешний идентификатор |
+| name | JSON | Локализованное наименование группы: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| sortOrder | INT | Порядок отображения в UI |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID NOT NULL | Без FK-ограничения |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
 
 ---
 
-### 2ж. FleetManagePermissions
+### 2з. Departments
+
+Справочник департаментов.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| groupId | FK → Groups | Родительская группа |
+| code | VARCHAR nullable | Код департамента / внешний идентификатор |
+| name | JSON | Локализованное наименование департамента: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| sortOrder | INT | Порядок отображения в UI |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID NOT NULL | Без FK-ограничения |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
+
+---
+
+### 2и. Sections
+
+Справочник отделов / units.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| departmentId | FK → Departments | Родительский департамент |
+| code | VARCHAR nullable | Код отдела / unit / внешний идентификатор |
+| name | JSON | Локализованное наименование отдела: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| sortOrder | INT | Порядок отображения в UI |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID NOT NULL | Без FK-ограничения |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
+
+---
+
+### 2к. FleetManagePermissions
 
 *(Переименована из FleetDelegations; упрощена структура)*
 
@@ -301,13 +353,12 @@
 | fleetId | FK → Fleets | |
 | ownershipType | ENUM | Owned / LongTermRented / OnDemand |
 | tcoId | VARCHAR UNIQUE | ТШО-номер (обязателен для TCO) |
-| e1Id | VARCHAR nullable | Идентификатор техники во внешней системе JDE E1 |
+| jdeId | VARCHAR nullable | Идентификатор техники во внешней системе JDE E1 |
 | stateNumber | VARCHAR nullable | Госномер |
 | vin | VARCHAR nullable | VIN-код техники |
 | serialNumber | VARCHAR nullable | |
 | description | TEXT nullable | |
-| equipmentBrandId | FK → EquipmentBrandModels | Производитель техники; ссылка на уровень `Brand` |
-| equipmentModelId | FK → EquipmentBrandModels | Модель техники; ссылка на уровень `Model` |
+| brandModelId | FK → EquipmentBrandModels | Ссылка на комбинацию `бренд + модель` |
 | shareType | ENUM | Shared / SharedWithConditions / Assigned |
 | isCritical | BOOLEAN | Требует охраны (service de sécurité) при транспортировке |
 | yearOfManufacture | INT nullable | Год выпуска |
@@ -316,7 +367,7 @@
 | serviceZoneId | FK → ServiceZones | Сервисная зона |
 | costCenterId | FK → CostCenters | Финансовый ЦЗ |
 | baseLocationId | FK → Locations | Базовое местоположение |
-| organizationalUnitId | FK → OrganizationalUnits | Подразделение техники; ссылка только на уровень `Section` |
+| sectionId | FK → Sections | Подразделение техники; ссылка на отдел / unit |
 | createdAt | TIMESTAMP NOT NULL | |
 | createdBy | UUID NOT NULL | Без FK-ограничения |
 | updatedAt | TIMESTAMP nullable | |
@@ -751,8 +802,11 @@
 | 2в | Locations | Справочник базовых локаций техники |
 | 2г | CostCenters | Справочник финансовых ЦЗ |
 | 2д | ServiceZones | Справочник сервисных зон |
-| 2е | OrganizationalUnits | Иерархический справочник подразделений |
-| 2ж | FleetManagePermissions | Права управления флотом |
+| 2е | Divisions | Справочник дивизионов |
+| 2ж | Groups | Справочник групп |
+| 2з | Departments | Справочник департаментов |
+| 2и | Sections | Справочник отделов / units |
+| 2к | FleetManagePermissions | Права управления флотом |
 | 3 | Equipments | Единица техники (TCO + BP unified) |
 | 4 | EquipmentPhotos | Фотографии техники |
 | 5 | EquipmentStatuses | История состояний: Frozen / InRepair / Decommissioned |
@@ -777,7 +831,7 @@
 | 3 | BookingStatuses | История состояний брони |
 | 4 | BookingRequestStatuses | История состояний заявки |
 
-**Итого: 26 таблиц**
+**Итого: 30 таблиц**
 
 ---
 
@@ -803,7 +857,7 @@
 |---|---|---|
 | OQ-DB-1 | История изменений shareType у техники? | Не нужна |
 | OQ-DB-2 | Атрибут подразделения пользователя | Закрыт в v7: используется поле `Users.department` |
-| OQ-DB-3 | Аудит-поля | Закрыт в v8; актуализировано в v9: аудит-поля используются во всех 26 таблицах (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
+| OQ-DB-3 | Аудит-поля | Закрыт в v8; актуализировано в v9: аудит-поля используются во всех 30 таблицах (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
 | OQ-DB-4 | RequestStatusHistory нужна? | Да — добавлена |
 | OQ-DB-5 | BookingSnapshot | CLOSED: previousSnapshot убран в v5 |
 | OQ-DB-8 | Продление брони | CLOSED: статус Extended |
