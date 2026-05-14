@@ -11,10 +11,13 @@
 | # | Изменение | Затронутые таблицы |
 |---|---|---|
 | 1 | В `Bookings.status` добавлен промежуточный статус `ConfirmedByFo` для `LongTermRented` | Bookings, BookingStatuses |
-| 2 | Supervisor approval смоделирован через общий `Bookings.status`; отдельное поле `supervisorApprovalStatus` не используется | Bookings, BookingStatuses |
-| 3 | `BookingStatuses` расширена полями `supervisorApprovedBy`, `supervisorApprovedAt`, `supervisorComment` для хранения истории решений Supervisor | BookingStatuses |
-| 4 | Для `Bookings.justification` зафиксировано новое правило обязательности: `LongTermRented`, `Assigned`, `SharedWithConditions` | Bookings |
-| 5 | В схему добавлено бизнес-ограничение: `OnDemand` техника не может участвовать в booking workflow | Equipments, Bookings |
+| 2 | Supervisor approval смоделирован через общий `Bookings.status`; отдельное поле `supervisorApprovalStatus` не используется | Bookings |
+| 3 | В `Bookings` добавлено поле `workCenterId` как атрибут booking item / JDE step | Bookings |
+| 4 | Добавлена таблица авторизаций пользователей для booking `Assigned` техники | EquipmentBookingAuthorizations |
+| 5 | Добавлены таблицы `JdeWorkOrders` и `JdeWorkOrderSteps`; шаг WO = `WorkCenter` внутри заявки JDE | JdeWorkOrders, JdeWorkOrderSteps |
+| 6 | Для `BookingRequests` и `Bookings` добавлены nullable ссылки на JDE-источник: `jdeWorkOrderRefId`, `jdeWorkOrderStepRefId` | BookingRequests, Bookings |
+| 7 | Для `Bookings.justification` зафиксировано новое правило обязательности: `LongTermRented`, `Assigned`, `SharedWithConditions` | Bookings |
+| 8 | В схему добавлено бизнес-ограничение: `OnDemand` техника не может участвовать в booking workflow | Equipments, Bookings |
 
 Стандартный набор аудит-полей:
 
@@ -40,8 +43,12 @@
 | Тема | Решение |
 |---|---|
 | ConfirmedByFo | Для `LongTermRented` после подтверждения Fleet Owner бронь переходит в промежуточный статус `ConfirmedByFo` до финального решения `FleetOwners' Supervisor` |
-| Supervisor approval | Supervisor-этап моделируется через общий `Bookings.status`: `ConfirmedByFo` = pending Supervisor, `Confirmed` = approved, `Declined` = declined; детали решения хранятся в `BookingStatuses` |
-| BookingStatuses | Таблица хранит историю изменений статуса брони, включая данные решения `FleetOwners' Supervisor` |
+| Supervisor approval | Supervisor-этап моделируется через общий `Bookings.status`: `ConfirmedByFo` = pending Supervisor, `Confirmed` = approved, `Declined` = declined |
+| Booking work center | `WorkCenter` хранится на уровне `Bookings` как атрибут booking item / JDE step |
+| Assigned authorizations | Для `Assigned` техники используется отдельная таблица `EquipmentBookingAuthorizations`, связывающая пользователя и единицу техники |
+| JDE work orders | WO из JDE E1 хранится в таблице `JdeWorkOrders`; один WO содержит несколько шагов в `JdeWorkOrderSteps` |
+| JDE steps | Шаг WO — это `WorkCenter`, выполняемый последовательно; шаг однозначно определяется связкой `jdeWorkOrderId + workCenterId` |
+| JDE references in booking flow | `BookingRequests.jdeWorkOrderRefId` заполняется для заявок, созданных из WO; `Bookings.jdeWorkOrderStepRefId` указывает на конкретный шаг WO |
 | Booking justification | Поле `Bookings.justification` обязательно для `LongTermRented`, `Assigned`, `SharedWithConditions`; для остальных кейсов nullable |
 | OnDemand booking restriction | `Equipments.ownershipType = OnDemand` допускается только для showcase/catalog и не может использоваться в таблице `Bookings` |
 | EquipmentTypes.iconUrl | Добавлено поле URL иконки типа техники для Admin Panel и каталогов выбора |
@@ -620,6 +627,29 @@
 
 ---
 
+### 12б. EquipmentBookingAuthorizations
+
+Авторизации пользователей на booking `Assigned` техники.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| equipmentId | FK → Equipments | Единица техники со `shareType = Assigned` |
+| userId | FK → Users | Пользователь, которому разрешён booking |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID NOT NULL | Без FK-ограничения |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
+
+**Индексы / ограничения:** UNIQUE `(equipmentId, userId)`
+
+> **Правило:** booking `Assigned` техники разрешён только пользователям, имеющим активную запись в `EquipmentBookingAuthorizations`.
+
+---
+
 ### 13. SystemSettings
 
 | Поле | Тип | Описание |
@@ -697,6 +727,57 @@
 
 ## Блок Booking
 
+### 0а. JdeWorkOrders
+
+Импортированные Work Orders из JDE E1.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| jdeWorkOrderId | VARCHAR UNIQUE | Внешний ID / номер WO из JDE E1 |
+| workOrderName | VARCHAR nullable | Название WO |
+| workOrderStatus | VARCHAR nullable | Код / статус WO |
+| workOrderStatusDescription | VARCHAR nullable | Текстовое описание статуса WO |
+| priority | ENUM nullable | P1 / P2 / P3 / P4 |
+| sourcePayload | JSONB nullable | Сырой payload из JDE для трассировки |
+| lastSyncedAt | TIMESTAMP NOT NULL | Дата/время последней синхронизации |
+| isActive | BOOLEAN NOT NULL DEFAULT true | Актуальна ли запись WO |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID nullable | NULL для системной интеграции |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
+
+---
+
+### 0б. JdeWorkOrderSteps
+
+Шаги Work Order из JDE E1. В предметной области шаг = `WorkCenter`, выполняемый последовательно.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| jdeWorkOrderRefId | FK → JdeWorkOrders | Родительский WO |
+| workCenterId | FK → WorkCenters | Work Center / шаг WO |
+| stepName | VARCHAR nullable | Название шага |
+| stepVolume | INT nullable | Требуемое количество единиц техники |
+| startDt | TIMESTAMP nullable | Плановая дата/время начала шага |
+| endDt | TIMESTAMP nullable | Плановая дата/время окончания шага |
+| sourcePayload | JSONB nullable | Сырой payload шага из JDE |
+| lastSyncedAt | TIMESTAMP NOT NULL | Дата/время последней синхронизации |
+| isActive | BOOLEAN NOT NULL DEFAULT true | Актуален ли шаг |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID nullable | NULL для системной интеграции |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
+
+**Индексы / ограничения:** UNIQUE `(jdeWorkOrderRefId, workCenterId)`
+
 ### 1. BookingRequests
 
 Заявка на бронирование. Один Work Order — одна заявка.
@@ -706,6 +787,7 @@
 | id | UUID PK | |
 | requestNumber | SERIAL UNIQUE NOT NULL | Порядковый номер; отображается как REQ-YYYY-NNNNN |
 | type | ENUM NOT NULL | Regular / ServiceWork |
+| jdeWorkOrderRefId | UUID nullable FK → JdeWorkOrders | Ссылка на WO из JDE E1, если заявка создана на его основе |
 | status | ENUM NOT NULL | Draft / Submitted / InProgress / Completed / Cancelled — денормализованный кэш |
 | workOrderJdeId | VARCHAR nullable | Номер WO из JDE E1 |
 | location | VARCHAR nullable | Локация; обязательна для SCM Logistics вместо WO |
@@ -736,6 +818,8 @@
 | requestId | UUID NOT NULL FK → BookingRequests | |
 | equipmentId | UUID NOT NULL | ID техники (без FK-ограничения) |
 | fleetId | UUID NOT NULL | ID парка (без FK-ограничения) |
+| workCenterId | UUID nullable FK → WorkCenters | Work Center / JDE step code для конкретного booking item |
+| jdeWorkOrderStepRefId | UUID nullable FK → JdeWorkOrderSteps | Ссылка на конкретный шаг WO из JDE E1 |
 | status | ENUM NOT NULL | Draft / Submitted / ConfirmedByFo / Confirmed / TransportConfirmed / Declined / Revoked / Terminated / InProgress / Closed / EquipmentChanged / Extended — денормализованный кэш |
 | startDt | TIMESTAMP NOT NULL | Начало бронирования |
 | endDt | TIMESTAMP NOT NULL | Окончание бронирования |
@@ -766,6 +850,9 @@
 > **Правила:**
 > - `ConfirmedByFo` используется только для `LongTermRented`
 > - при `ownershipType = LongTermRented` поле `requiresSupervisorApproval = true`
+> - `workCenterId` является атрибутом booking item, а не заявки
+> - если заполнено `jdeWorkOrderStepRefId`, то `Bookings.workCenterId` должен совпадать с `JdeWorkOrderSteps.workCenterId`
+> - если заявка создана на основе JDE WO, то `BookingRequests.jdeWorkOrderRefId` заполняется, а `Bookings` могут ссылаться на конкретные шаги этого WO
 > - `OnDemand` техника не может участвовать в booking workflow и не должна попадать в `Bookings`
 > - `ConfirmedByFo` означает pending Supervisor approval
 > - `Confirmed` после `ConfirmedByFo` означает approved by Supervisor
@@ -788,9 +875,6 @@
 | status | ENUM NOT NULL | Текущий статус брони в момент записи |
 | changedBy | UUID NOT NULL | ID пользователя-инициатора (без FK-ограничения) |
 | changedAt | TIMESTAMP NOT NULL | Момент перехода |
-| supervisorApprovedBy | UUID nullable | ID `FleetOwners' Supervisor`, если переход связан с его решением |
-| supervisorApprovedAt | TIMESTAMP nullable | Дата/время решения `FleetOwners' Supervisor` |
-| supervisorComment | TEXT nullable | Комментарий `FleetOwners' Supervisor`; обязателен при Supervisor decline |
 | comment | TEXT nullable | Причина или контекст |
 | createdAt | TIMESTAMP NOT NULL | Технически ≡ changedAt |
 | createdBy | UUID NOT NULL | Технически ≡ changedBy |
@@ -860,6 +944,7 @@
 | 11 | MaintenancePartners | Справочник ДП по ТО |
 | 12 | EquipmentMaintenanceContracts | Связь техники и партнёра ТО |
 | 12а | EquipmentFeedbacks | Отзывы заявителей/SWP (FR-022) |
+| 12б | EquipmentBookingAuthorizations | Авторизации пользователей на booking `Assigned` техники |
 | 13 | SystemSettings | Глобальные настройки Admin Panel |
 | 14 | Users | Справочник пользователей (TCO + BP) |
 | 15 | BusinessPartners | Справочник бизнес-партнёров |
@@ -868,12 +953,14 @@
 
 | # | Таблица | Назначение |
 |---|---|---|
+| 0а | JdeWorkOrders | Импортированные Work Orders из JDE E1 |
+| 0б | JdeWorkOrderSteps | Шаги WO из JDE E1; шаг = Work Center |
 | 1 | BookingRequests | Заявка на бронирование |
 | 2 | Bookings | Атомарная единица бронирования |
 | 3 | BookingStatuses | История состояний брони |
 | 4 | BookingRequestStatuses | История состояний заявки |
 
-**Итого: 31 таблица**
+**Итого: 34 таблицы**
 
 ---
 
@@ -882,8 +969,10 @@
 | Поле Booking-блока | Ссылается на | Тип связи |
 |---|---|---|
 | BookingRequests.createdBy | Users.id | Внешний UUID, без FK-ограничения |
+| BookingRequests.jdeWorkOrderRefId | JdeWorkOrders.id | FK; nullable |
 | Bookings.equipmentId | Equipments.id | Внешний UUID, без FK-ограничения |
 | Bookings.fleetId | Fleets.id | Внешний UUID, без FK-ограничения |
+| Bookings.jdeWorkOrderStepRefId | JdeWorkOrderSteps.id | FK; nullable |
 | Bookings.transportBookingId | Bookings.id | Self-referencing FK; nullable |
 | BookingStatuses.changedBy | Users.id | Внешний UUID, без FK-ограничения |
 | BookingRequestStatuses.changedBy | Users.id | Внешний UUID, без FK-ограничения |
@@ -899,7 +988,7 @@
 |---|---|---|
 | OQ-DB-1 | История изменений shareType у техники? | Не нужна |
 | OQ-DB-2 | Атрибут подразделения пользователя | Закрыт в v7; актуализировано в v10: используется поле `Users.departmentId -> Departments` |
-| OQ-DB-3 | Аудит-поля | Закрыт в v8; актуализировано в v10: аудит-поля используются во всех 31 таблице (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
+| OQ-DB-3 | Аудит-поля | Закрыт в v8; актуализировано в v10: аудит-поля используются во всех 34 таблицах (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
 | OQ-DB-4 | RequestStatusHistory нужна? | Да — добавлена |
 | OQ-DB-5 | BookingSnapshot | CLOSED: previousSnapshot убран в v5 |
 | OQ-DB-8 | Продление брони | CLOSED: статус Extended |
