@@ -30,6 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request; availability updated | Confirmed | BRD v13 | Метод является точкой входа для выбора техники |
+| TCO Booking Tool | FR-NEW-38 | Search: TCO equipment number + model mandatory; госномер if present | Confirmed | BRD v13 | В результатах поиска должен возвращаться `stateNumber`, если он заполнен |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | В список не должны попадать заведомо недоступные для периода единицы |
 | TCO Booking Tool | FR-NEW-39 | Dynamic search filters by equipment type | Confirmed | BRD v13 | Метод принимает динамические фильтры |
 | TCO Booking Tool | FR-NEW-68 | System dynamically shows only type-specific characteristics | Confirmed | BRD v13 | Набор фильтров зависит от equipment type |
@@ -91,7 +92,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 1 | Идентификатор типа техники | `equipmentTypeId` | `uuid` | `-` | Если передан, должен существовать | — | Query param | |
 | 2 | Дата/время начала периода | `startDt` | `datetime` | `+` | Должна быть меньше `endDt` | — | Query param | |
 | 3 | Дата/время окончания периода | `endDt` | `datetime` | `+` | Должна быть больше `startDt` | — | Query param | |
-| 4 | Поисковая строка | `search` | `string` | `-` | Поиск по номеру, модели, бренду | — | Query param | |
+| 4 | Поисковая строка | `search` | `string` | `-` | Поиск по TCO-номеру, госномеру, модели, бренду | — | Query param | |
 | 5 | Тип владения | `ownershipType` | `enum` | `-` | `TcoOwned / LongTermRented` | — | Query param | `OnDemand` не допускается |
 | 6 | Тип доступности | `shareType` | `enum` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | |
 | 7 | Fleet Owner | `fleetOwnerUserId` | `uuid` | `-` | Если передан, должен соответствовать пользователю, назначенному на флот техники | — | Query param | Фильтр по `Fleets.userId` |
@@ -125,7 +126,7 @@ Content-Type: application/json
 | 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
 | 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | |
 
-`EquipmentSearchItem`: `id`, `equipmentNumber`, `equipmentTypeId`, `equipmentTypeName`, `brandName`, `modelName`, `ownershipType`, `shareType`, `requiresJustification`, `isBookable`, `bookabilityReason`, `baseLocationName`, `fleetOwner`, `workCenter`.
+`EquipmentSearchItem`: `id`, `equipmentNumber`, `stateNumber`, `equipmentTypeId`, `equipmentTypeName`, `brandName`, `modelName`, `ownershipType`, `shareType`, `requiresJustification`, `isBookable`, `bookabilityReason`, `baseLocationName`, `fleetOwner`, `workCenter`.
 
 `fleetOwner`: `userId`, `fullName`, `email`.
 
@@ -142,6 +143,7 @@ Content-Type: application/json
       {
         "id": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
         "equipmentNumber": "TCO-100245",
+        "stateNumber": "KZ 123 ABC 02",
         "equipmentTypeId": "7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111",
         "equipmentTypeName": {
           "En": "Excavator",
