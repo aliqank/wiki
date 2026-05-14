@@ -42,7 +42,7 @@
 2. Выбрать записи из `Equipments` WHERE `isDeleted = false`.
 3. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
 4. Исключить стационарную HDE из поиска Requestor.
-5. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, текстовому поиску и динамическим свойствам.
+5. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, текстовому поиску и динамическим свойствам.
 6. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
 7. Для периода проверить пересечения с активными записями `Bookings` со статусами, влияющими на доступность.
 8. Вернуть пагинированный список в общем `result wrapper`.
@@ -94,16 +94,17 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по номеру, модели, бренду | — | Query param | |
 | 5 | Тип владения | `ownershipType` | `enum` | `-` | `TcoOwned / LongTermRented` | — | Query param | `OnDemand` не допускается |
 | 6 | Тип доступности | `shareType` | `enum` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | |
-| 7 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |
-| 8 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
-| 9 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
+| 7 | Fleet Owner | `fleetOwnerUserId` | `uuid` | `-` | Если передан, должен соответствовать пользователю, назначенному на флот техники | — | Query param | Фильтр по `Fleets.userId` |
+| 8 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |
+| 9 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
+| 10 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
 ---
 
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&startDt=2026-05-20T08:00:00Z&endDt=2026-05-22T18:00:00Z&ownershipType=TcoOwned&page=1&limit=20
+GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&startDt=2026-05-20T08:00:00Z&endDt=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetOwnerUserId=4c9ad2d2-6df8-4f7b-87fe-36cefc100001&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
