@@ -64,8 +64,8 @@
 
 | Поле | Тип | Комментарий |
 |---|---|---|
-| `nameEn` | `nvarchar(255) null` | |
-| `nameRu` | `nvarchar(255) not null` | Базовое обязательное отображаемое имя |
+| `nameEn` | `nvarchar(255) not null` | Базовое обязательное отображаемое имя |
+| `nameRu` | `nvarchar(255) null` | |
 | `nameKz` | `nvarchar(255) null` | |
 
 ### 4. Уникальные индексы
@@ -113,8 +113,8 @@ where isDeleted = 0;
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
-| `nameEn` | `nvarchar(255) null` |
-| `nameRu` | `nvarchar(255) not null` |
+| `nameEn` | `nvarchar(255) not null` |
+| `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
 | `sortOrder` | `int not null default 0` |
 | `isActive` | `bit not null default 1` |
@@ -131,8 +131,8 @@ where isDeleted = 0;
 | Поле | Тип | Описание |
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
-| `nameEn` | `nvarchar(255) null` | |
-| `nameRu` | `nvarchar(255) not null` | |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
 | `nameKz` | `nvarchar(255) null` | |
 | `iconUrl` | `nvarchar(1000) null` | URL иконки типа техники |
 | `mobilityTypeId` | `uniqueidentifier FK -> ref_equipment_mobility_type` | |
@@ -147,8 +147,8 @@ where isDeleted = 0;
 | Поле | Тип | Описание |
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
-| `nameEn` | `nvarchar(255) null` | |
-| `nameRu` | `nvarchar(255) not null` | |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
 | `nameKz` | `nvarchar(255) null` | |
 | `fleetTypeId` | `uniqueidentifier FK -> ref_fleet_type` | |
 | `userId` | `uniqueidentifier` | Ответственный пользователь / владелец флота |
@@ -161,8 +161,8 @@ where isDeleted = 0;
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
-| `nameEn` | `nvarchar(255) null` |
-| `nameRu` | `nvarchar(255) not null` |
+| `nameEn` | `nvarchar(255) not null` |
+| `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
 | audit fields | см. conventions |
 
@@ -174,8 +174,8 @@ Filtered unique indexes:
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
-| `nameEn` | `nvarchar(255) null` |
-| `nameRu` | `nvarchar(255) not null` |
+| `nameEn` | `nvarchar(255) not null` |
+| `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
 | `sortOrder` | `int not null` |
 | audit fields | см. conventions |
@@ -186,8 +186,8 @@ Filtered unique indexes:
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `brandId` | `uniqueidentifier FK -> EquipmentBrands` |
-| `nameEn` | `nvarchar(255) null` |
-| `nameRu` | `nvarchar(255) not null` |
+| `nameEn` | `nvarchar(255) not null` |
+| `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
 | `sortOrder` | `int not null` |
 | audit fields | см. conventions |
@@ -203,8 +203,8 @@ Filtered unique indexes:
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
-| `nameEn` | `nvarchar(255) null` |
-| `nameRu` | `nvarchar(255) not null` |
+| `nameEn` | `nvarchar(255) not null` |
+| `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
 | `sortOrder` | `int not null default 0` |
 | Parent FK | `uniqueidentifier null` | Для иерархии `Groups -> Divisions`, `Departments -> Groups`, `Sections -> Departments` |
@@ -309,8 +309,8 @@ Filtered unique indexes:
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
-| `nameEn` | `nvarchar(255) null` |
-| `nameRu` | `nvarchar(255) not null` |
+| `nameEn` | `nvarchar(255) not null` |
+| `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
 | `dataTypeId` | `uniqueidentifier FK -> ref_property_data_type` |
 | `unitId` | `uniqueidentifier null FK -> MeasurementUnits` |
@@ -428,8 +428,8 @@ Filtered unique index:
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
-| `nameEn` | `nvarchar(255) null` |
-| `nameRu` | `nvarchar(255) not null` |
+| `nameEn` | `nvarchar(255) not null` |
+| `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
 | `description` | `nvarchar(max) null` |
 | `bin` | `nvarchar(100) not null` |

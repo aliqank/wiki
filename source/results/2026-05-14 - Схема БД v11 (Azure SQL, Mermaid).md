@@ -16,78 +16,91 @@ erDiagram
     ref_fleet_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_equipment_mobility_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_equipment_class {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_ownership_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_share_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_equipment_status_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_equipment_current_status {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_property_data_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_user_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_request_type {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_request_priority {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_booking_request_status {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
     ref_booking_status {
         uniqueidentifier id PK
         nvarchar code
+        nvarchar nameEn
         nvarchar nameRu
     }
 
