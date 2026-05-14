@@ -7,6 +7,7 @@
 > Типы данных адаптированы под Azure SQL: `uniqueidentifier`, `datetime2(3)`, `bit`, `nvarchar(max)`.  
 > `enum` заменены на `ref_*` таблицы.  
 > `name JSON` заменён на `nameEn`, `nameRu`, `nameKz`.
+> Для всех основных mutable таблиц в v11 предполагаются **system-versioned temporal tables**, кроме `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses`, которые остаются явными history/event tables.
 
 ---
 

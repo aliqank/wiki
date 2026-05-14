@@ -58,6 +58,39 @@
 - `updatedAt`, `updatedBy` всегда `NULL`
 - `changedAt` и `changedBy` остаются отдельными полями
 
+### 2а. Temporal tables
+
+Для Azure SQL рекомендуется использовать **system-versioned temporal tables** для большинства изменяемых business/master-data таблиц.
+
+Рекомендация v11:
+
+| Категория | Таблицы | Решение |
+|---|---|---|
+| Temporal tables включить | `EquipmentTypes`, `Fleets`, `WorkCenters`, `EquipmentBrands`, `EquipmentModels`, `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections`, `FleetManagePermissions`, `Equipments`, `EquipmentPhotos`, `MeasurementUnits`, `Properties`, `PropertyEnumValues`, `EquipmentTypeProperties`, `EquipmentProperties`, `MaintenancePartners`, `EquipmentMaintenanceContracts`, `EquipmentFeedbacks`, `EquipmentBookingAuthorizations`, `SystemSettings`, `Users`, `BusinessPartners`, `JdeWorkOrders`, `JdeWorkOrderSteps`, `BookingRequests`, `Bookings` | Включить temporal history |
+| Temporal tables не использовать | `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses` | Оставить явные append-only history/event tables |
+
+Причина исключений:
+- `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses` уже являются доменными history/event таблицами
+- для них temporal не даёт дополнительной ценности и только усложняет модель
+
+Стандарт для temporal tables:
+- добавить `ValidFrom datetime2(3) generated always as row start`
+- добавить `ValidTo datetime2(3) generated always as row end`
+- добавить `period for system_time (ValidFrom, ValidTo)`
+- включить `system_versioning = on`
+
+Пример:
+
+```sql
+alter table dbo.Bookings add
+    ValidFrom datetime2(3) generated always as row start not null,
+    ValidTo   datetime2(3) generated always as row end   not null,
+    period for system_time (ValidFrom, ValidTo);
+
+alter table dbo.Bookings
+set (system_versioning = on (history_table = dbo.BookingsHistory));
+```
+
 ### 3. Локализация
 
 Во всех таблицах, где в v10 использовался `name JSON`, в v11 используются:
