@@ -11,7 +11,7 @@
 | # | Изменение | Затронутые таблицы |
 |---|---|---|
 | 1 | В `EquipmentTypes` добавлено поле `iconUrl` | EquipmentTypes |
-| 2 | Добавлен плоский справочник связок `brand + model`; строковые поля `brand` / `model` заменены на один FK | EquipmentBrandModels, Equipments |
+| 2 | Добавлены отдельные справочники брендов и моделей; строковые поля `brand` / `model` заменены на два FK | EquipmentBrands, EquipmentModels, Equipments |
 | 3 | Добавлен справочник локаций; строковое поле `baseLocation` заменено на FK | Locations, Equipments |
 | 4 | Добавлен справочник cost centers; строковое поле `costCenter` заменено на FK | CostCenters, Equipments |
 | 5 | Добавлен справочник service zones; строковое поле `serviceZoneCode` заменено на FK | ServiceZones, Equipments |
@@ -42,7 +42,7 @@
 | Тема | Решение |
 |---|---|
 | EquipmentTypes.iconUrl | Добавлено поле URL иконки типа техники для Admin Panel и каталогов выбора |
-| Equipment brands / models | Производитель и модель хранятся как одна справочная запись `EquipmentBrandModels`; в `Equipments` хранится один FK `brandModelId` |
+| Equipment brands / models | Бренды и модели вынесены в отдельные справочники; `EquipmentModels` ссылается на `EquipmentBrands`; в `Equipments` хранятся `brandId` и `modelId` |
 | Base locations | Базовые местоположения вынесены в справочник `Locations`; строка `baseLocation` в `Equipments` заменена на `baseLocationId` |
 | Cost centers | Финансовые ЦЗ вынесены в справочник `CostCenters`; строка `costCenter` в `Equipments` заменена на `costCenterId` |
 | Service zones | Сервисные зоны вынесены в справочник `ServiceZones`; строка `serviceZoneCode` в `Equipments` заменена на `serviceZoneId` |
@@ -51,7 +51,7 @@
 | Локализация `name` | Все поля с именем `name` хранятся как `JSON` в формате `{ "En": "...", "Ru": "...", "Kz": "..." }` |
 | MaintenancePartners | Поле `contactInfo` разделено на отдельные поля `phoneNumber`, `email`, `address` |
 | Equipments usage targets | Добавлены поля `plannedEngineHoursPerDay` и `plannedMileagePerDay` — плановые значения использования техники в сутки, редактируются Fleet Owner |
-| Аудит-поля | Единый набор из 7 полей добавлен во все 30 таблиц. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
+| Аудит-поля | Единый набор из 7 полей добавлен во все 31 таблицу. Для log/history-таблиц updatedAt/updatedBy ожидаются как NULL. createdBy / updatedBy / deletedBy — UUID без FK-ограничения |
 | Users | Таблица хранит 2 типа пользователей: `internal` и `external`; `internal` создаются автоматически при авторизации, `external` — вручную. Общие поля: `id`, `fullName`, `email`, `jobTitle`, `isActive` + аудит; nullable-поля используются для разделения атрибутов по типам |
 | isDeleted в API | GET-методы Admin Panel по умолчанию фильтруют `WHERE isDeleted = false`; параметр не выставляется наружу |
 
@@ -155,15 +155,14 @@
 
 ---
 
-### 2б. EquipmentBrandModels
+### 2б. EquipmentBrands
 
-Справочник комбинаций `бренд + модель`.
+Справочник брендов техники.
 
 | Поле | Тип | Описание |
 |---|---|---|
 | id | UUID PK | |
-| brand | JSON | Локализованное наименование бренда: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
-| model | JSON | Локализованное наименование модели: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| name | JSON | Локализованное наименование бренда: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
 | sortOrder | INT | Порядок отображения в UI |
 | createdAt | TIMESTAMP NOT NULL | |
 | createdBy | UUID NOT NULL | Без FK-ограничения |
@@ -173,11 +172,31 @@
 | deletedAt | TIMESTAMP nullable | |
 | deletedBy | UUID nullable | |
 
-**Индексы / ограничения:** UNIQUE `(brand, model)`
+---
+
+### 2в. EquipmentModels
+
+Справочник моделей техники.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| id | UUID PK | |
+| brandId | FK → EquipmentBrands | Бренд модели |
+| name | JSON | Локализованное наименование модели: `{ "En": "...", "Ru": "...", "Kz": "..." }` |
+| sortOrder | INT | Порядок отображения в UI |
+| createdAt | TIMESTAMP NOT NULL | |
+| createdBy | UUID NOT NULL | Без FK-ограничения |
+| updatedAt | TIMESTAMP nullable | |
+| updatedBy | UUID nullable | |
+| isDeleted | BOOLEAN NOT NULL DEFAULT false | |
+| deletedAt | TIMESTAMP nullable | |
+| deletedBy | UUID nullable | |
+
+**Индексы / ограничения:** `brandId`; UNIQUE `(brandId, name)`
 
 ---
 
-### 2в. Locations
+### 2г. Locations
 
 Справочник базовых локаций техники.
 
@@ -197,7 +216,7 @@
 
 ---
 
-### 2г. CostCenters
+### 2д. CostCenters
 
 Справочник cost centers / финансовых ЦЗ.
 
@@ -217,7 +236,7 @@
 
 ---
 
-### 2д. ServiceZones
+### 2е. ServiceZones
 
 Справочник сервисных зон.
 
@@ -237,7 +256,7 @@
 
 ---
 
-### 2е. Divisions
+### 2ж. Divisions
 
 Справочник дивизионов.
 
@@ -257,7 +276,7 @@
 
 ---
 
-### 2ж. Groups
+### 2з. Groups
 
 Справочник групп.
 
@@ -278,7 +297,7 @@
 
 ---
 
-### 2з. Departments
+### 2и. Departments
 
 Справочник департаментов.
 
@@ -299,7 +318,7 @@
 
 ---
 
-### 2и. Sections
+### 2к. Sections
 
 Справочник отделов / units.
 
@@ -320,7 +339,7 @@
 
 ---
 
-### 2к. FleetManagePermissions
+### 2л. FleetManagePermissions
 
 *(Переименована из FleetDelegations; упрощена структура)*
 
@@ -358,7 +377,8 @@
 | vin | VARCHAR nullable | VIN-код техники |
 | serialNumber | VARCHAR nullable | |
 | description | TEXT nullable | |
-| brandModelId | FK → EquipmentBrandModels | Ссылка на комбинацию `бренд + модель` |
+| brandId | FK → EquipmentBrands | Бренд техники |
+| modelId | FK → EquipmentModels | Модель техники |
 | shareType | ENUM | Shared / SharedWithConditions / Assigned |
 | isCritical | BOOLEAN | Требует охраны (service de sécurité) при транспортировке |
 | yearOfManufacture | INT nullable | Год выпуска |
@@ -798,15 +818,16 @@
 | 1 | EquipmentTypes | Классификатор типов техники |
 | 2 | Fleets | Парки техники |
 | 2а | WorkCenters | Справочник производственных центров |
-| 2б | EquipmentBrandModels | Иерархический справочник производителей и моделей техники |
-| 2в | Locations | Справочник базовых локаций техники |
-| 2г | CostCenters | Справочник финансовых ЦЗ |
-| 2д | ServiceZones | Справочник сервисных зон |
-| 2е | Divisions | Справочник дивизионов |
-| 2ж | Groups | Справочник групп |
-| 2з | Departments | Справочник департаментов |
-| 2и | Sections | Справочник отделов / units |
-| 2к | FleetManagePermissions | Права управления флотом |
+| 2б | EquipmentBrands | Справочник брендов техники |
+| 2в | EquipmentModels | Справочник моделей техники |
+| 2г | Locations | Справочник базовых локаций техники |
+| 2д | CostCenters | Справочник финансовых ЦЗ |
+| 2е | ServiceZones | Справочник сервисных зон |
+| 2ж | Divisions | Справочник дивизионов |
+| 2з | Groups | Справочник групп |
+| 2и | Departments | Справочник департаментов |
+| 2к | Sections | Справочник отделов / units |
+| 2л | FleetManagePermissions | Права управления флотом |
 | 3 | Equipments | Единица техники (TCO + BP unified) |
 | 4 | EquipmentPhotos | Фотографии техники |
 | 5 | EquipmentStatuses | История состояний: Frozen / InRepair / Decommissioned |
@@ -831,7 +852,7 @@
 | 3 | BookingStatuses | История состояний брони |
 | 4 | BookingRequestStatuses | История состояний заявки |
 
-**Итого: 30 таблиц**
+**Итого: 31 таблица**
 
 ---
 
@@ -857,7 +878,7 @@
 |---|---|---|
 | OQ-DB-1 | История изменений shareType у техники? | Не нужна |
 | OQ-DB-2 | Атрибут подразделения пользователя | Закрыт в v7; актуализировано в v9: используется поле `Users.departmentId -> Departments` |
-| OQ-DB-3 | Аудит-поля | Закрыт в v8; актуализировано в v9: аудит-поля используются во всех 30 таблицах (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
+| OQ-DB-3 | Аудит-поля | Закрыт в v8; актуализировано в v9: аудит-поля используются во всех 31 таблице (createdAt, createdBy, updatedAt, updatedBy, isDeleted, deletedAt, deletedBy) |
 | OQ-DB-4 | RequestStatusHistory нужна? | Да — добавлена |
 | OQ-DB-5 | BookingSnapshot | CLOSED: previousSnapshot убран в v5 |
 | OQ-DB-8 | Продление брони | CLOSED: статус Extended |
