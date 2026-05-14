@@ -126,7 +126,7 @@ Content-Type: application/json
 | 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
 | 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | |
 
-`EquipmentSearchItem`: `id`, `equipmentNumber`, `stateNumber`, `equipmentTypeId`, `equipmentTypeName`, `brandName`, `modelName`, `ownershipType`, `shareType`, `requiresJustification`, `isBookable`, `bookabilityReason`, `baseLocationName`, `fleetOwner`, `workCenter`.
+`EquipmentSearchItem`: `id`, `equipmentNumber`, `stateNumber`, `equipmentTypeId`, `equipmentTypeName`, `brandName`, `modelName`, `ownershipType`, `shareType`, `requiresJustification`, `isBookable`, `bookabilityReason`, `previewPhotoUrl`, `baseLocationName`, `fleetOwner`, `workCenter`.
 
 `fleetOwner`: `userId`, `fullName`, `email`.
 
@@ -157,6 +157,7 @@ Content-Type: application/json
         "requiresJustification": true,
         "isBookable": true,
         "bookabilityReason": null,
+        "previewPhotoUrl": "https://cdn.example.com/equipment/c3b5af91-61f8-4bc0-bd88-d099d3e90001/preview.jpg",
         "fleetOwner": {
           "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
           "fullName": "Nurlan Sarsenov",
