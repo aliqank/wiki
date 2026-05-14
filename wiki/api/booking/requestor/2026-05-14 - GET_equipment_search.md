@@ -42,7 +42,7 @@
 2. Выбрать записи из `Equipments` WHERE `isDeleted = false`.
 3. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
 4. Исключить стационарную HDE из поиска Requestor.
-5. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, текстовому поиску и динамическим свойствам.
+5. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, `workCenterId`, текстовому поиску и динамическим свойствам.
 6. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
 7. Для периода проверить пересечения с активными записями `Bookings` со статусами, влияющими на доступность.
 8. Вернуть пагинированный список в общем `result wrapper`.
@@ -95,16 +95,17 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 5 | Тип владения | `ownershipType` | `enum` | `-` | `TcoOwned / LongTermRented` | — | Query param | `OnDemand` не допускается |
 | 6 | Тип доступности | `shareType` | `enum` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | |
 | 7 | Fleet Owner | `fleetOwnerUserId` | `uuid` | `-` | Если передан, должен соответствовать пользователю, назначенному на флот техники | — | Query param | Фильтр по `Fleets.userId` |
-| 8 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |
-| 9 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
-| 10 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
+| 8 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен соответствовать work center, на который можно бронировать технику | — | Query param | Фильтр по `EquipmentTypes.workCenterId` |
+| 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |
+| 10 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
+| 11 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
 ---
 
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&startDt=2026-05-20T08:00:00Z&endDt=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetOwnerUserId=4c9ad2d2-6df8-4f7b-87fe-36cefc100001&page=1&limit=20
+GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&startDt=2026-05-20T08:00:00Z&endDt=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetOwnerUserId=4c9ad2d2-6df8-4f7b-87fe-36cefc100001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -124,7 +125,11 @@ Content-Type: application/json
 | 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
 | 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | |
 
-`EquipmentSearchItem`: `id`, `equipmentNumber`, `equipmentTypeId`, `equipmentTypeName`, `brandName`, `modelName`, `ownershipType`, `shareType`, `requiresJustification`, `isBookable`, `bookabilityReason`, `baseLocationName`.
+`EquipmentSearchItem`: `id`, `equipmentNumber`, `equipmentTypeId`, `equipmentTypeName`, `brandName`, `modelName`, `ownershipType`, `shareType`, `requiresJustification`, `isBookable`, `bookabilityReason`, `baseLocationName`, `fleetOwner`, `workCenter`.
+
+`fleetOwner`: `userId`, `fullName`, `email`.
+
+`workCenter`: `id`, `code`, `name`.
 
 ---
 
@@ -150,6 +155,20 @@ Content-Type: application/json
         "requiresJustification": true,
         "isBookable": true,
         "bookabilityReason": null,
+        "fleetOwner": {
+          "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
+          "fullName": "Nurlan Sarsenov",
+          "email": "nurlan.sarsenov@tco.example"
+        },
+        "workCenter": {
+          "id": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
+          "code": "WC-100",
+          "name": {
+            "En": "Drilling Operations",
+            "Ru": "Буровые работы",
+            "Kz": "Бұрғылау жұмыстары"
+          }
+        },
         "baseLocationName": {
           "En": "Base A",
           "Ru": "База А",
