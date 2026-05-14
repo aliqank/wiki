@@ -11,9 +11,10 @@
 | # | Изменение | Затронутые таблицы |
 |---|---|---|
 | 1 | В `Bookings.status` добавлен промежуточный статус `ConfirmedByFo` для `LongTermRented` | Bookings, BookingStatuses |
-| 2 | В `Bookings` добавлены поля для approval-этапа `FleetOwners' Supervisor` | Bookings |
-| 3 | Для `Bookings.justification` зафиксировано новое правило обязательности: `LongTermRented`, `Assigned`, `SharedWithConditions` | Bookings |
-| 4 | В схему добавлено бизнес-ограничение: `OnDemand` техника не может участвовать в booking workflow | Equipments, Bookings |
+| 2 | Supervisor approval смоделирован через общий `Bookings.status`; отдельное поле `supervisorApprovalStatus` не используется | Bookings, BookingStatuses |
+| 3 | `BookingStatuses` расширена полями `supervisorApprovedBy`, `supervisorApprovedAt`, `supervisorComment` для хранения истории решений Supervisor | BookingStatuses |
+| 4 | Для `Bookings.justification` зафиксировано новое правило обязательности: `LongTermRented`, `Assigned`, `SharedWithConditions` | Bookings |
+| 5 | В схему добавлено бизнес-ограничение: `OnDemand` техника не может участвовать в booking workflow | Equipments, Bookings |
 
 Стандартный набор аудит-полей:
 
@@ -39,7 +40,8 @@
 | Тема | Решение |
 |---|---|
 | ConfirmedByFo | Для `LongTermRented` после подтверждения Fleet Owner бронь переходит в промежуточный статус `ConfirmedByFo` до финального решения `FleetOwners' Supervisor` |
-| Supervisor approval | В `Bookings` добавлены поля `requiresSupervisorApproval`, `supervisorApprovalStatus`, `supervisorApprovedBy`, `supervisorApprovedAt`, `supervisorComment` |
+| Supervisor approval | Supervisor-этап моделируется через общий `Bookings.status`: `ConfirmedByFo` = pending Supervisor, `Confirmed` = approved, `Declined` = declined; детали решения хранятся в `BookingStatuses` |
+| BookingStatuses | Таблица хранит историю изменений статуса брони, включая данные решения `FleetOwners' Supervisor` |
 | Booking justification | Поле `Bookings.justification` обязательно для `LongTermRented`, `Assigned`, `SharedWithConditions`; для остальных кейсов nullable |
 | OnDemand booking restriction | `Equipments.ownershipType = OnDemand` допускается только для showcase/catalog и не может использоваться в таблице `Bookings` |
 | EquipmentTypes.iconUrl | Добавлено поле URL иконки типа техники для Admin Panel и каталогов выбора |
@@ -741,7 +743,6 @@
 | actualEndDt | TIMESTAMP nullable | Фактическая дата окончания; вводится при закрытии брони |
 | justification | TEXT nullable | Обоснование; обязательно для LongTermRented, Assigned и SharedWithConditions |
 | requiresSupervisorApproval | BOOLEAN NOT NULL DEFAULT false | Требуется ли финальное approval от `FleetOwners' Supervisor`; true для `LongTermRented` |
-| supervisorApprovalStatus | ENUM nullable | Pending / Approved / Declined |
 | supervisorApprovedBy | UUID nullable | ID `FleetOwners' Supervisor` (без FK-ограничения) |
 | supervisorApprovedAt | TIMESTAMP nullable | Дата/время решения `FleetOwners' Supervisor` |
 | supervisorComment | TEXT nullable | Комментарий `FleetOwners' Supervisor`; обязателен при decline |
@@ -766,7 +767,9 @@
 > - `ConfirmedByFo` используется только для `LongTermRented`
 > - при `ownershipType = LongTermRented` поле `requiresSupervisorApproval = true`
 > - `OnDemand` техника не может участвовать в booking workflow и не должна попадать в `Bookings`
-> - при `supervisorApprovalStatus = Declined` поле `supervisorComment` обязательно
+> - `ConfirmedByFo` означает pending Supervisor approval
+> - `Confirmed` после `ConfirmedByFo` означает approved by Supervisor
+> - `Declined` после `ConfirmedByFo` означает declined by Supervisor; в этом случае `supervisorComment` обязательно
 
 **Индексы:** `requestId`, `equipmentId`, `fleetId`, `status`, `transportBookingId`; составной `(equipmentId, startDt, endDt)`
 
@@ -776,7 +779,7 @@
 
 *(Переименована из BookingStatusHistories)*
 
-Фиксирует каждое состояние брони. Запись создаётся при каждом изменении `Bookings.status`. Таблица **append-only**: записи не обновляются и не удаляются в штатном режиме.
+Фиксирует каждое состояние брони и является историей обработки booking item. Запись создаётся при каждом изменении `Bookings.status`. Таблица **append-only**: записи не обновляются и не удаляются в штатном режиме.
 
 | Поле | Тип | Описание |
 |---|---|---|
@@ -785,6 +788,9 @@
 | status | ENUM NOT NULL | Текущий статус брони в момент записи |
 | changedBy | UUID NOT NULL | ID пользователя-инициатора (без FK-ограничения) |
 | changedAt | TIMESTAMP NOT NULL | Момент перехода |
+| supervisorApprovedBy | UUID nullable | ID `FleetOwners' Supervisor`, если переход связан с его решением |
+| supervisorApprovedAt | TIMESTAMP nullable | Дата/время решения `FleetOwners' Supervisor` |
+| supervisorComment | TEXT nullable | Комментарий `FleetOwners' Supervisor`; обязателен при Supervisor decline |
 | comment | TEXT nullable | Причина или контекст |
 | createdAt | TIMESTAMP NOT NULL | Технически ≡ changedAt |
 | createdBy | UUID NOT NULL | Технически ≡ changedBy |
