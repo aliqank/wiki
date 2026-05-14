@@ -1,0 +1,127 @@
+# POST /approvals/bookings/{id}/change-equipment
+
+**Created:** 2026-05-14  
+**Last updated:** 2026-05-14  
+**Author:** OpenCode
+
+---
+
+## Карточка метода
+
+| Параметр | Значение |
+|---|---|
+| Описание | Заменить технику в брони |
+| Доступ только авторизованным пользователям | `+` |
+| Модуль системы | `Booking / Fleet Owner UI` |
+| Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/change-equipment` |
+| Метод запроса | `POST` |
+| Согласовано | |
+
+---
+
+## 1. Задачи, в рамках которых вносятся изменения в метод
+
+Новый метод. Позволяет FO заменить технику в еще не начавшейся брони.
+
+---
+
+## 2. Функциональные требования
+
+| Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
+|---|---|---|---|---|---|
+| TCO Booking Tool | FR-046 | FO can replace equipment before/after confirmation if booking not yet started | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-047 | FO cannot replace if booking revoked, terminated, or past end date | Confirmed | BRD v13 | Guard-условия |
+
+---
+
+## 3. Описание логики работы метода
+
+1. Проверить бронь и права доступа.
+2. Проверить, что бронь еще не началась и ее статус допускает замену.
+3. Проверить новую технику: тот же тип / допустимый бизнес-контекст, доступность на период, не `OnDemand`.
+4. Обновить `Bookings.equipmentId` и при необходимости `fleetId`.
+5. Обновить статус на `EquipmentChanged` и создать запись в `BookingStatuses`.
+6. Вернуть обновленную бронь.
+
+Сущности:
+- читаются: `Bookings`, `Equipments`
+- изменяются: `Bookings`, `BookingStatuses`
+
+---
+
+## 4. Разрешения доступа к методу
+
+| Наименование разрешения | Описание разрешения |
+|---|---|
+| `FleetOwner` | Замена техники в бронях своих флотов |
+
+---
+
+## 5. Настройки системы, используемые в методе
+
+| Наименование | Код | Тип значения | Описание | Значение по умолчанию |
+|---|---|---|---|---|
+| — | — | — | Не используются | — |
+
+---
+
+## 6. Ошибки, возвращаемые методом
+
+| Код | Описание ошибки |
+|---|---|
+| `UNAUTHORIZED` | Пользователь не авторизован |
+| `FORBIDDEN` | Нет доступа к брони |
+| `NOT_FOUND` | Бронь или новая техника не найдены |
+| `BOOKING_NOT_CHANGEABLE` | Бронь нельзя изменить |
+| `EQUIPMENT_NOT_AVAILABLE` | Новая техника недоступна |
+
+HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`
+
+---
+
+## 7. Параметры метода
+
+| № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
+| 2 | Идентификатор новой техники | `newEquipmentId` | `uuid` | `+` | Должен существовать | — | Request body | |
+| 3 | Комментарий | `comment` | `string` | `-` | — | — | Request body | |
+
+---
+
+## 8. Пример запроса
+
+```http
+POST /api/booking/v1/approvals/bookings/8c4c8b6d-7bc0-41fb-9038-422cf55d1111/change-equipment
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+```json
+{
+  "newEquipmentId": "7a5af8f7-6d0e-4b6f-ae68-f72906f70001",
+  "comment": "Replacement due to maintenance on initially reserved unit."
+}
+```
+
+---
+
+## 9. Возвращаемые данные
+
+В `value` возвращается объект `EquipmentChangeResult`: `id`, `equipmentId`, `status`.
+
+---
+
+## 10. Пример ответа
+
+```json
+{
+  "value": {
+    "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
+    "equipmentId": "7a5af8f7-6d0e-4b6f-ae68-f72906f70001",
+    "status": "EquipmentChanged"
+  },
+  "isSuccess": true,
+  "errors": []
+}
+```
