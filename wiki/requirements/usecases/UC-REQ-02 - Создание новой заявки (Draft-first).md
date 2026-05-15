@@ -40,12 +40,12 @@
 8. Пользователь нажимает кнопку `Добавить технику`.
 9. Frontend открывает модалку выбора техники.
 10. При первом открытии модалки frontend подтягивает базовые справочники фильтров:
-   - справочник типов техники;
-   - справочник fleet owners;
-   - справочник work centers;
-   - справочник / reference values для `ownershipType`;
-   - справочник / reference values для `shareType`.
-11. После выбора `equipmentType` frontend дополнительно подтягивает dynamic filters (properties), доступные для выбранного типа техники.
+   - справочник типов техники (`GET /api/booking/v1/reference/equipment-types`);
+   - справочник fleet owners (`GET /api/booking/v1/reference/fleet-owners`);
+   - справочник work centers (`GET /api/booking/v1/reference/work-centers`);
+   - справочник / reference values для `ownershipType` (`GET /api/booking/v1/reference/ownership-types`);
+   - справочник / reference values для `shareType` (`GET /api/booking/v1/reference/share-types`).
+11. После выбора `equipmentType` frontend дополнительно подтягивает dynamic filters (properties), доступные для выбранного типа техники (`GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`).
 12. При первом открытии модалки таблица техники пустая; случайный или произвольный список по умолчанию не показывается.
 13. Frontend вызывает `GET /equipment/search` после задания параметров поиска и передаёт фильтры:
    - тип техники;
@@ -106,4 +106,11 @@
 4. Полный detail flow заявки должен опираться на `GET /booking-requests/{id}`.
 5. `POST /booking-requests` создаёт именно пустой draft и не должен требовать обязательного заполнения business-полей на момент открытия формы.
 6. Обязательные поля проверяются на этапе `POST /booking-requests/{id}/submit`, а не на этапе создания draft.
-7. Для модалки выбора техники нужны отдельные read-only reference APIs для загрузки справочников фильтров. Если их ещё нет, они должны быть выделены отдельной задачей в API scope.
+7. Для модалки выбора техники нужны отдельные read-only reference APIs для загрузки справочников фильтров:
+   - `GET /api/booking/v1/reference/equipment-types`
+   - `GET /api/booking/v1/reference/fleet-owners`
+   - `GET /api/booking/v1/reference/work-centers`
+   - `GET /api/booking/v1/reference/ownership-types`
+   - `GET /api/booking/v1/reference/share-types`
+   - `GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`
+8. Если этих API ещё нет, они должны быть выделены отдельной задачей в API scope.
