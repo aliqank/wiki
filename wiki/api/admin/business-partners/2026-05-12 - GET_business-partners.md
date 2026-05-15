@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -102,26 +102,49 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается `PaginatedResult<BusinessPartnerListItem>`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-### Структура `BusinessPartnerListItem`
+### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор бизнес-партнёра | `id` | `uuid` | UUID v4 | — | `BusinessPartners.id` | |
-| 2 | Наименование | `name` | `object` | `LocalizedName` | — | `BusinessPartners.name` | `{ En, Ru, Kz }` |
-| 3 | Описание | `description` | `string` | string | `null` | `BusinessPartners.description` | |
-| 4 | БИН | `bin` | `string` | string | — | `BusinessPartners.bin` | |
-| 5 | Страна | `country` | `string` | string | `null` | `BusinessPartners.country` | |
-| 6 | Город | `city` | `string` | string | `null` | `BusinessPartners.city` | |
-| 7 | Адрес | `address` | `string` | string | `null` | `BusinessPartners.address` | |
-| 8 | Email | `email` | `string` | string | `null` | `BusinessPartners.email` | |
-| 9 | Телефон | `phoneNumber` | `string` | string | `null` | `BusinessPartners.phoneNumber` | |
-| 10 | Внешний ID | `externalId` | `string` | string | `null` | `BusinessPartners.externalId` | |
-| 11 | Активен ли партнёр | `isActive` | `bool` | boolean | `true` | `BusinessPartners.isActive` | |
-| 12 | Количество внешних пользователей | `externalUsersCount` | `int` | integer | `0` | COUNT(`Users`) | Нужен для guard удаления |
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
----
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
+
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Описание | description | string | string | — | response DTO |  |
+| 4 | БИН контрагента | bin | string | string | — | response DTO |  |
+| 5 | Страна | country | string | string | — | response DTO |  |
+| 6 | Город | city | string | string | — | response DTO |  |
+| 7 | Адрес | address | string | string | — | response DTO |  |
+| 8 | Email | email | string | string | — | response DTO |  |
+| 9 | Номер телефона | phoneNumber | string | string | — | response DTO |  |
+| 10 | Внешний идентификатор | externalId | string | string | — | response DTO |  |
+| 11 | Признак активности | isActive | bool | boolean | — | response DTO |  |
+| 12 | Количество внешних пользователей | externalUsersCount | int | integer | — | response DTO |  |
+
+### Структура `value.items[].name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

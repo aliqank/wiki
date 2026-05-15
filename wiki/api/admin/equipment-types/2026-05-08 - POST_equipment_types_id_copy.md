@@ -1,5 +1,5 @@
 **Created:** 2026-05-08  
-**Last updated:** 2026-05-08  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -107,28 +107,38 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper` (использовать во всех API).  
-В обёртке, в значении `value`, возвращается созданный объект типа `EquipmentType`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
 ### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `EquipmentType` | — | `EquipmentTypes` | Созданная копия типа |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе — пустой массив |
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Наименование | name | object | object | — | response DTO |  |
+| 1.3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 1.4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 1.5 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-### Структура `EquipmentType`
+### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор нового типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | Генерируется backend |
-| 2 | Наименование нового типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | Формируется на основе локализованного имени исходного типа с постфиксами `(copy)` / `(копия)` / `(көшірме)` |
-| 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | Скопировано из исходного типа |
-| 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | Скопировано из исходного типа |
-| 5 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | Всегда назначается как следующий доступный `sortOrder` |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 5 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
 
----
+### Структура `value.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

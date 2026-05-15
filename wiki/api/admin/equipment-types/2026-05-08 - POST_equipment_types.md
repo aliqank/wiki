@@ -1,5 +1,5 @@
 **Created:** 2026-05-08  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -155,32 +155,54 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper` (использовать во всех API).  
-В обёртке, в значении `value`, возвращается созданный объект типа `EquipmentType`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
 ### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `EquipmentType` | — | `EquipmentTypes` | Созданная запись |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе — пустой массив |
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Наименование | name | object | object | — | response DTO |  |
+| 1.3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 1.4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 1.5 | Класс техники | equipmentClass | string | string | — | response DTO |  |
+| 1.6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
+| 1.7 | Код work center | workCenterCode | string | string | — | response DTO |  |
+| 1.8 | Наименование work center | workCenterName | object | object | — | response DTO |  |
+| 1.9 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-### Структура `EquipmentType`
+### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | Генерируется backend |
-| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
-| 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
-| 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
-| 5 | Класс техники | `equipmentClass` | `enum` | `HDE / HDV` | — | `EquipmentTypes.equipmentClass` | |
-| 6 | Идентификатор work center | `workCenterId` | `uuid` | UUID v4 | `null` | `EquipmentTypes.workCenterId` | `null`, если тип техники не привязан к work center |
-| 7 | Код work center | `workCenterCode` | `string` | string | `null` | `WorkCenters.code` | `null`, если `workCenterId IS NULL` |
-| 8 | Наименование work center | `workCenterName` | `object` | `LocalizedName \| null` | `null` | `WorkCenters.name` | `null`, если `workCenterId IS NULL` |
-| 9 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | Фактическое значение (вычисленное или переданное) |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 5 | Класс техники | equipmentClass | string | string | — | response DTO |  |
+| 6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
+| 7 | Код work center | workCenterCode | string | string | — | response DTO |  |
+| 8 | Наименование work center | workCenterName | object | object | — | response DTO |  |
+| 9 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
 
----
+### Структура `value.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+
+### Структура `value.workCenterName`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

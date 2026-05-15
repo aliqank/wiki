@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -100,20 +100,43 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается `PaginatedResult<MaintenancePartnerListItem>`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-### Структура `MaintenancePartnerListItem`
+### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор партнера ТО | `id` | `uuid` | UUID v4 | — | `MaintenancePartners.id` | |
-| 2 | Название партнера | `name` | `object` | `LocalizedName` | — | `MaintenancePartners.name` | `{ En, Ru, Kz }` |
-| 3 | Контактный телефон | `phoneNumber` | `string` | string | `null` | `MaintenancePartners.phoneNumber` | |
-| 4 | Контактный email | `email` | `string` | string | `null` | `MaintenancePartners.email` | |
-| 5 | Адрес | `address` | `string` | string | `null` | `MaintenancePartners.address` | |
-| 6 | Количество контрактов | `contractsCount` | `int` | integer | `0` | COUNT(`EquipmentMaintenanceContracts`) | Нужен для guard удаления |
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
----
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
+
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Номер телефона | phoneNumber | string | string | — | response DTO |  |
+| 4 | Email | email | string | string | — | response DTO |  |
+| 5 | Адрес | address | string | string | — | response DTO |  |
+| 6 | Количество связанных контрактов | contractsCount | int | integer | — | response DTO |  |
+
+### Структура `value.items[].name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

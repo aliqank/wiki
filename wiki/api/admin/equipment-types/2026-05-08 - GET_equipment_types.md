@@ -1,7 +1,7 @@
 # GET /equipment-types
 
 **Created:** 2026-05-08  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -104,37 +104,56 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper` (использовать во всех API).  
-В обёртке, в значении `value`, возвращается `PaginatedResult`.  
-Тип элемента коллекции `items`: `EquipmentTypeListItem`
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-### Структура `result wrapper` + `PaginatedResult`
+### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `PaginatedResult<EquipmentTypeListItem>` | — | backend aggregation | Содержит `items` и `total` |
-| 1.1 | Элементы текущей страницы | `items` | `array<object>` | `EquipmentTypeListItem[]` | `[]` | `EquipmentTypes` + агрегаты | |
-| 1.2 | Общее количество записей | `total` | `int` | integer | `0` | COUNT по `EquipmentTypes` с учётом фильтра | Без учёта размера страницы |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе — пустой массив |
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-### Структура `EquipmentTypeListItem`
+### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | |
-| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
-| 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
-| 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
-| 5 | Класс техники | `equipmentClass` | `enum` | `HDE / HDV` | — | `EquipmentTypes.equipmentClass` | |
-| 6 | Идентификатор work center | `workCenterId` | `uuid` | UUID v4 | — | `EquipmentTypes.workCenterId` | Nullable, если тип техники не привязан к work center |
-| 7 | Код work center | `workCenterCode` | `string` | string | `null` | `WorkCenters.code` | Nullable, возвращается при наличии связи |
-| 8 | Наименование work center | `workCenterName` | `object` | `LocalizedName \| null` | `null` | `WorkCenters.name` | Nullable, возвращается при наличии связи |
-| 9 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | |
-| 10 | Количество характеристик типа | `propertiesCount` | `int` | integer | `0` | COUNT(`EquipmentTypeProperties`) | Нужен для колонки AP-01 |
-| 11 | Количество единиц техники типа | `equipmentsCount` | `int` | integer | `0` | COUNT(`Equipments`) | Нужен для колонки AP-01 и guard удаления |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
 
----
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 5 | Класс техники | equipmentClass | string | string | — | response DTO |  |
+| 6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
+| 7 | Код work center | workCenterCode | string | string | — | response DTO |  |
+| 8 | Наименование work center | workCenterName | object | object | — | response DTO |  |
+| 9 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 10 | Количество свойств | propertiesCount | int | integer | — | response DTO |  |
+| 11 | Количество единиц техники | equipmentsCount | int | integer | — | response DTO |  |
+
+### Структура `value.items[].name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+
+### Структура `value.items[].workCenterName`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

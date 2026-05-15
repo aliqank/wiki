@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -103,30 +103,41 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper` (использовать во всех API).  
-В обёртке, в значении `value`, возвращается `PaginatedResult`.  
-Тип элемента коллекции `items`: `WorkCenterListItem`
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-### Структура `result wrapper` + `PaginatedResult`
+### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `PaginatedResult<WorkCenterListItem>` | — | backend aggregation | Содержит `items` и `total` |
-| 1.1 | Элементы текущей страницы | `items` | `array<object>` | `WorkCenterListItem[]` | `[]` | `WorkCenters` + агрегаты | |
-| 1.2 | Общее количество записей | `total` | `int` | integer | `0` | COUNT по `WorkCenters` с учётом фильтра | Без учёта размера страницы |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе — пустой массив |
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-### Структура `WorkCenterListItem`
+### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор work center | `id` | `uuid` | UUID v4 | — | `WorkCenters.id` | |
-| 2 | Код work center | `code` | `string` | string | — | `WorkCenters.code` | |
-| 3 | Наименование work center | `name` | `object` | `LocalizedName` | — | `WorkCenters.name` | `{ En, Ru, Kz }` |
-| 4 | Количество типов техники | `equipmentTypesCount` | `int` | integer | `0` | COUNT(`EquipmentTypes`) | Нужен для guard удаления |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
 
----
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Код записи | code | string | string | — | response DTO |  |
+| 3 | Наименование | name | object | object | — | response DTO |  |
+| 4 | Количество типов техники | equipmentTypesCount | int | integer | — | response DTO |  |
+
+### Структура `value.items[].name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

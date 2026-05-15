@@ -1,7 +1,7 @@
 # GET /booking-requests/history
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -98,11 +98,44 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается `PaginatedResult<CompletedRequestHistoryItem>`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-`CompletedRequestHistoryItem`: `id`, `requestNumber`, `equipmentTypeName`, `bookingPeriodStartDt`, `bookingPeriodEndDt`, `status`, `workOrderJdeId`.
+### Структура `result wrapper`
 
----
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
+
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Номер заявки | requestNumber | string | string | — | response DTO |  |
+| 3 | Наименование типа техники | equipmentTypeName | object | object | — | response DTO |  |
+| 4 | Плановая дата и время начала брони | bookingPeriodStartDt | datetime | ISO 8601 | — | response DTO |  |
+| 5 | Плановая дата и время окончания брони | bookingPeriodEndDt | datetime | ISO 8601 | — | response DTO |  |
+| 6 | Текущий статус | status | string | string | — | response DTO |  |
+| 7 | Номер Work Order из JDE | workOrderJdeId | string | string | — | response DTO |  |
+
+### Структура `value.items[].equipmentTypeName`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

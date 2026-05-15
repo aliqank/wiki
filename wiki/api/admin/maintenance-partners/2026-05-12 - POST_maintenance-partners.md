@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -115,9 +115,40 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается созданный объект `MaintenancePartner`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
----
+### Структура `result wrapper`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 1.2 | Наименование | name | object | object | — | response DTO |  |
+| 1.3 | Номер телефона | phoneNumber | string | string | — | response DTO |  |
+| 1.4 | Email | email | string | string | — | response DTO |  |
+| 1.5 | Адрес | address | string | string | — | response DTO |  |
+| 1.6 | Количество связанных контрактов | contractsCount | int | integer | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Номер телефона | phoneNumber | string | string | — | response DTO |  |
+| 4 | Email | email | string | string | — | response DTO |  |
+| 5 | Адрес | address | string | string | — | response DTO |  |
+| 6 | Количество связанных контрактов | contractsCount | int | integer | — | response DTO |  |
+
+### Структура `value.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

@@ -1,5 +1,5 @@
 **Created:** 2026-05-08  
-**Last updated:** 2026-05-08  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -101,47 +101,79 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper` (использовать во всех API).  
-В обёртке, в значении `value`, возвращается объект типа `EquipmentTypeDetail`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
 ### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `EquipmentTypeDetail` | — | `EquipmentTypes` + joins | Полная карточка типа |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе — пустой массив |
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Наименование | name | object | object | — | response DTO |  |
+| 1.3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 1.4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 1.5 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 1.6 | Количество единиц техники | equipmentsCount | int | integer | — | response DTO |  |
+| 1.7 | Список свойств | properties | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-### Структура `EquipmentTypeDetail`
+### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | |
-| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
-| 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
-| 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
-| 5 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | |
-| 6 | Количество единиц техники типа | `equipmentsCount` | `int` | integer | `0` | COUNT(`Equipments`) | Нужен для guard удаления типа |
-| 7 | Список характеристик типа | `properties` | `array<object>` | `EquipmentTypePropertyItem[]` | `[]` | `EquipmentTypeProperties` + joins | Отсортирован по `sortOrder ASC` |
-| 7.1 | Идентификатор записи привязки характеристики | `etpId` | `uuid` | UUID v4 | — | `EquipmentTypeProperties.id` | |
-| 7.2 | Порядок отображения характеристики | `sortOrder` | `int` | integer | — | `EquipmentTypeProperties.sortOrder` | |
-| 7.3 | Обязательность характеристики | `isRequired` | `bool` | boolean | — | `EquipmentTypeProperties.isRequired` | |
-| 7.4 | Используется в фильтрах поиска | `isFilterable` | `bool` | boolean | — | `EquipmentTypeProperties.isFilterable` | |
-| 7.5 | Отображается в карточке техники | `isVisibleInCard` | `bool` | boolean | — | `EquipmentTypeProperties.isVisibleInCard` | |
-| 7.6 | Данные характеристики из справочника | `property` | `object` | `PropertyDetail` | — | `Properties` | |
-| 7.6.1 | Идентификатор характеристики | `id` | `uuid` | UUID v4 | — | `Properties.id` | |
-| 7.6.2 | Наименование характеристики | `name` | `object` | `LocalizedName` | — | `Properties.name` | `{ En, Ru, Kz }` |
-| 7.6.3 | Тип данных | `dataType` | `enum` | `number / double / text / boolean / enum` | — | `Properties.dataType` | |
-| 7.6.4 | Единица измерения (nullable) | `unit` | `object` | `MeasurementUnitRef \| null` | `null` | `MeasurementUnits` | `null` если `Properties.unitId IS NULL` |
-| 7.6.4.1 | Идентификатор единицы измерения | `id` | `uuid` | UUID v4 | — | `MeasurementUnits.id` | |
-| 7.6.4.2 | Код единицы измерения | `code` | `string` | string | — | `MeasurementUnits.code` | |
-| 7.6.4.3 | Отображаемое название | `displayName` | `string` | string | — | `MeasurementUnits.displayName` | |
-| 7.6.5 | Допустимые значения (только для enum) | `enumValues` | `array<object>` | `PropertyEnumValueRef[]` | `[]` | `PropertyEnumValues` | Пустой массив если `dataType ≠ enum` |
-| 7.6.5.1 | Идентификатор значения | `id` | `uuid` | UUID v4 | — | `PropertyEnumValues.id` | |
-| 7.6.5.2 | Значение | `value` | `string` | string | — | `PropertyEnumValues.value` | |
-| 7.6.5.3 | Порядок отображения | `sortOrder` | `int` | integer | — | `PropertyEnumValues.sortOrder` | |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 5 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 6 | Количество единиц техники | equipmentsCount | int | integer | — | response DTO |  |
+| 7 | Список свойств | properties | array<object> | object[] | — | response DTO | Коллекция объектов |
 
----
+### Структура `value.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+
+### Структура `value.properties[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор привязки свойства к типу техники | etpId | uuid | UUID v4 | — | response DTO |  |
+| 2 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 3 | Признак обязательности поля | isRequired | bool | boolean | — | response DTO |  |
+| 4 | Признак доступности свойства в фильтрах | isFilterable | bool | boolean | — | response DTO |  |
+| 5 | Признак отображения в карточке | isVisibleInCard | bool | boolean | — | response DTO |  |
+| 6 | Наименование свойства | property | object | object | — | response DTO |  |
+
+### Структура `value.properties[].property`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Тип данных свойства | dataType | string | string | — | response DTO |  |
+| 4 | Единица измерения | unit | object | object | — | response DTO |  |
+| 5 | Список enum-значений | enumValues | array<object> | array | `[]` | response DTO | Коллекция объектов |
+
+### Структура `value.properties[].property.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+
+### Структура `value.properties[].property.unit`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Код записи | code | string | string | — | response DTO |  |
+| 3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

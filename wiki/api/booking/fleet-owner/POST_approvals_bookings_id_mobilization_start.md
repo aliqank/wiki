@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/mobilization-start
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -103,9 +103,26 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается `MobilizationStartResult`: `id`, `status`, `actualStartDt`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
----
+### Структура `result wrapper`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Текущий статус | status | string | string | — | response DTO |  |
+| 1.3 | Фактическая дата и время начала | actualStartDt | datetime | ISO 8601 | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Текущий статус | status | string | string | — | response DTO |  |
+| 3 | Фактическая дата и время начала | actualStartDt | datetime | ISO 8601 | — | response DTO |  |
 
 ## 10. Пример ответа
 

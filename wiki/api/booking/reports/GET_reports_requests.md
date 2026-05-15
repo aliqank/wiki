@@ -1,7 +1,7 @@
 # GET /reports/requests
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -100,9 +100,33 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается `PaginatedResult<RequestReportItem>`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
----
+### Структура `result wrapper`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
+
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Номер заявки | requestNumber | string | string | — | response DTO |  |
+| 3 | Текущий статус | status | string | string | — | response DTO |  |
+| 4 | Тип сущности / заявки | type | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

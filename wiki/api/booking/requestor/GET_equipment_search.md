@@ -1,7 +1,7 @@
 # GET /equipment/search
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -115,24 +115,85 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper`.  
-В `value` возвращается `PaginatedResult<EquipmentSearchItem>`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
+
+### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `PaginatedResult<EquipmentSearchItem>` | — | backend aggregation | |
-| 1.1 | Элементы текущей страницы | `items` | `array<object>` | `EquipmentSearchItem[]` | `[]` | `Equipments` + вычисления | |
-| 1.2 | Общее количество записей | `total` | `int` | integer | `0` | backend | |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | |
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-`EquipmentSearchItem`: `id`, `equipmentNumber`, `stateNumber`, `equipmentTypeId`, `equipmentTypeName`, `brandName`, `modelName`, `ownershipType`, `shareType`, `requiresJustification`, `isBookable`, `bookabilityReason`, `previewPhotoUrl`, `baseLocationName`, `fleetOwner`, `workCenter`.
+### Структура `value`
 
-`fleetOwner`: `userId`, `fullName`, `email`.
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
 
-`workCenter`: `id`, `code`, `name`.
+### Структура `value.items[]`
 
----
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
+| 3 | Государственный регистрационный номер | stateNumber | string | string | — | response DTO |  |
+| 4 | Идентификатор типа техники | equipmentTypeId | uuid | UUID v4 | — | response DTO |  |
+| 5 | Наименование типа техники | equipmentTypeName | object | object | — | response DTO |  |
+| 6 | Наименование бренда | brandName | string | string | — | response DTO |  |
+| 7 | Наименование модели | modelName | string | string | — | response DTO |  |
+| 8 | Тип владения техникой | ownershipType | string | string | — | response DTO |  |
+| 9 | Тип доступности техники | shareType | string | string | — | response DTO |  |
+| 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | response DTO |  |
+| 11 | Признак доступности бронирования | isBookable | bool | boolean | — | response DTO |  |
+| 12 | Причина недоступности бронирования | bookabilityReason | null | — | `null` | response DTO |  |
+| 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | response DTO |  |
+| 14 | Владелец / ответственный fleet | fleetOwner | object | object | — | response DTO |  |
+| 15 | Рабочий центр | workCenter | object | object | — | response DTO |  |
+| 16 | Наименование базовой локации | baseLocationName | object | object | — | response DTO |  |
+
+### Структура `value.items[].baseLocationName`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+
+### Структура `value.items[].equipmentTypeName`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+
+### Структура `value.items[].fleetOwner`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | response DTO |  |
+| 2 | Полное имя пользователя | fullName | string | string | — | response DTO |  |
+| 3 | Email | email | string | string | — | response DTO |  |
+
+### Структура `value.items[].workCenter`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Код записи | code | string | string | — | response DTO |  |
+| 3 | Наименование | name | object | object | — | response DTO |  |
+
+### Структура `value.items[].workCenter.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

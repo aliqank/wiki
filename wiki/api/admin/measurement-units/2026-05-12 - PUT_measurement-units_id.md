@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -114,9 +114,30 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается обновлённый объект `MeasurementUnit`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
----
+### Структура `result wrapper`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 1.2 | Код записи | code | string | string | — | response DTO |  |
+| 1.3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
+| 1.4 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 1.5 | Количество свойств | propertiesCount | int | integer | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Код записи | code | string | string | — | response DTO |  |
+| 3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
+| 4 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 5 | Количество свойств | propertiesCount | int | integer | — | response DTO |  |
 
 ## 10. Пример ответа
 

@@ -1,7 +1,7 @@
 # PATCH /booking-requests/{id}
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -112,9 +112,30 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается обновленный объект `BookingRequest`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
----
+### Структура `result wrapper`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Номер заявки | requestNumber | string | string | — | response DTO |  |
+| 1.3 | Текущий статус | status | string | string | — | response DTO |  |
+| 1.4 | Приоритет | priority | string | string | — | response DTO |  |
+| 1.5 | Комментарии | comments | string | string | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Номер заявки | requestNumber | string | string | — | response DTO |  |
+| 3 | Текущий статус | status | string | string | — | response DTO |  |
+| 4 | Приоритет | priority | string | string | — | response DTO |  |
+| 5 | Комментарии | comments | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

@@ -1,7 +1,7 @@
 # GET /booking-requests/{id}/status-history
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -96,9 +96,24 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается коллекция `BookingRequestStatusHistoryItem[]`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
----
+### Структура `result wrapper`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | array<object> | object[] | — | backend aggregation |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Текущий статус | status | string | string | — | response DTO |  |
+| 3 | Дата и время изменения статуса | changedAt | datetime | ISO 8601 | — | response DTO |  |
+| 4 | Комментарий | comment | null | — | `null` | response DTO |  |
 
 ## 10. Пример ответа
 

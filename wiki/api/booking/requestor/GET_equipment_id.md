@@ -1,7 +1,7 @@
 # GET /equipment/{id}
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -96,11 +96,53 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper`. В `value` возвращается объект `BookingEquipmentCard`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-Основные поля `BookingEquipmentCard`: `id`, `equipmentNumber`, `equipmentType`, `brand`, `model`, `ownershipType`, `shareType`, `baseLocation`, `fleet`, `photos[]`, `properties[]`, `plannedEngineHoursPerDay`, `plannedMileagePerDay`.
+### Структура `result wrapper`
 
----
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
+| 1.3 | Тип техники | equipmentType | object | object | — | response DTO |  |
+| 1.4 | Бренд техники | brand | string | string | — | response DTO |  |
+| 1.5 | Модель техники | model | string | string | — | response DTO |  |
+| 1.6 | Тип владения техникой | ownershipType | string | string | — | response DTO |  |
+| 1.7 | Тип доступности техники | shareType | string | string | — | response DTO |  |
+| 1.8 | Список фотографий | photos | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 1.9 | Список свойств | properties | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
+| 3 | Тип техники | equipmentType | object | object | — | response DTO |  |
+| 4 | Бренд техники | brand | string | string | — | response DTO |  |
+| 5 | Модель техники | model | string | string | — | response DTO |  |
+| 6 | Тип владения техникой | ownershipType | string | string | — | response DTO |  |
+| 7 | Тип доступности техники | shareType | string | string | — | response DTO |  |
+| 8 | Список фотографий | photos | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 9 | Список свойств | properties | array<object> | array | `[]` | response DTO | Коллекция объектов |
+
+### Структура `value.equipmentType`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+
+### Структура `value.equipmentType.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

@@ -1,7 +1,7 @@
 # GET /approvals/bookings
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -97,11 +97,48 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается `PaginatedResult<FoApprovalListItem>`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-`FoApprovalListItem`: `id`, `requestId`, `requestNumber`, `equipmentId`, `equipmentNumber`, `equipmentTypeName`, `status`, `startDt`, `endDt`, `requiresSupervisorApproval`, `justification`.
+### Структура `result wrapper`
 
----
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
+
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | response DTO |  |
+| 3 | Номер заявки | requestNumber | string | string | — | response DTO |  |
+| 4 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | response DTO |  |
+| 5 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
+| 6 | Наименование типа техники | equipmentTypeName | object | object | — | response DTO |  |
+| 7 | Текущий статус | status | string | string | — | response DTO |  |
+| 8 | Дата и время начала | startDt | datetime | ISO 8601 | — | response DTO |  |
+| 9 | Дата и время окончания | endDt | datetime | ISO 8601 | — | response DTO |  |
+| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | response DTO |  |
+| 11 | Обоснование | justification | null | — | `null` | response DTO |  |
+
+### Структура `value.items[].equipmentTypeName`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

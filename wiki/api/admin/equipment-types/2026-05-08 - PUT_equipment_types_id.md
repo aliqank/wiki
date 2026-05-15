@@ -1,5 +1,5 @@
 **Created:** 2026-05-08  
-**Last updated:** 2026-05-08  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -120,29 +120,40 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper` (использовать во всех API).  
-В обёртке, в значении `value`, возвращается обновлённый объект типа `EquipmentType` (без списка характеристик `properties`).
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
 ### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `EquipmentType` | — | `EquipmentTypes` | Обновлённая запись без `properties` |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе — пустой массив |
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Наименование | name | object | object | — | response DTO |  |
+| 1.3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 1.4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 1.5 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 1.6 | Количество единиц техники | equipmentsCount | int | integer | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-### Структура `EquipmentType`
+### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор типа техники | `id` | `uuid` | UUID v4 | — | `EquipmentTypes.id` | |
-| 2 | Наименование типа техники | `name` | `object` | `LocalizedName` | — | `EquipmentTypes.name` | `{ En, Ru, Kz }` |
-| 3 | Тип мобильности | `mobilityType` | `enum` | `SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized` | — | `EquipmentTypes.mobilityType` | |
-| 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | boolean | — | `EquipmentTypes.requiresTransport` | |
-| 5 | Порядок отображения | `sortOrder` | `int` | integer | — | `EquipmentTypes.sortOrder` | |
-| 6 | Количество единиц техники типа | `equipmentsCount` | `int` | integer | `0` | COUNT(`Equipments`) | Нужен для guard удаления на frontend |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
+| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
+| 5 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 6 | Количество единиц техники | equipmentsCount | int | integer | — | response DTO |  |
 
----
+### Структура `value.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

@@ -1,7 +1,7 @@
 # POST /booking-requests/submit
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -150,13 +150,54 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается объект `BookingRequestSubmitResult`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-Основные поля: `id`, `requestNumber`, `type`, `status`, `jdeWorkOrderRefId`, `workOrderJdeId`, `location`, `workDescription`, `comments`, `priority`, `bookings[]`.
+### Структура `result wrapper`
 
-Элемент `bookings[]`: `id`, `equipmentId`, `status`, `startDt`, `endDt`, `justification`, `requiresSupervisorApproval`.
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Номер заявки | requestNumber | string | string | — | response DTO |  |
+| 1.3 | Тип сущности / заявки | type | string | string | — | response DTO |  |
+| 1.4 | Текущий статус | status | string | string | — | response DTO |  |
+| 1.5 | Идентификатор связанного Work Order | jdeWorkOrderRefId | uuid | UUID v4 | — | response DTO |  |
+| 1.6 | Номер Work Order из JDE | workOrderJdeId | string | string | — | response DTO |  |
+| 1.7 | Локация | location | null | — | `null` | response DTO |  |
+| 1.8 | Описание работ | workDescription | string | string | — | response DTO |  |
+| 1.9 | Комментарии | comments | string | string | — | response DTO |  |
+| 1.10 | Приоритет | priority | string | string | — | response DTO |  |
+| 1.11 | Список броней | bookings | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
----
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Номер заявки | requestNumber | string | string | — | response DTO |  |
+| 3 | Тип сущности / заявки | type | string | string | — | response DTO |  |
+| 4 | Текущий статус | status | string | string | — | response DTO |  |
+| 5 | Идентификатор связанного Work Order | jdeWorkOrderRefId | uuid | UUID v4 | — | response DTO |  |
+| 6 | Номер Work Order из JDE | workOrderJdeId | string | string | — | response DTO |  |
+| 7 | Локация | location | null | — | `null` | response DTO |  |
+| 8 | Описание работ | workDescription | string | string | — | response DTO |  |
+| 9 | Комментарии | comments | string | string | — | response DTO |  |
+| 10 | Приоритет | priority | string | string | — | response DTO |  |
+| 11 | Список броней | bookings | array<object> | object[] | — | response DTO | Коллекция объектов |
+
+### Структура `value.bookings[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | response DTO |  |
+| 3 | Текущий статус | status | string | string | — | response DTO |  |
+| 4 | Дата и время начала | startDt | datetime | ISO 8601 | — | response DTO |  |
+| 5 | Дата и время окончания | endDt | datetime | ISO 8601 | — | response DTO |  |
+| 6 | Обоснование | justification | string | string | — | response DTO |  |
+| 7 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | response DTO |  |
 
 ## 10. Пример ответа
 

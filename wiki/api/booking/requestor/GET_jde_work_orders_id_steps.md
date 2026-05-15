@@ -1,7 +1,7 @@
 # GET /jde/work-orders/{id}/steps
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -97,11 +97,36 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается коллекция `JdeWorkOrderStepItem[]`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-`JdeWorkOrderStepItem`: `id`, `workCenterId`, `workCenterCode`, `workCenterName`, `stepName`, `stepVolume`, `startDt`, `endDt`.
+### Структура `result wrapper`
 
----
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | array<object> | object[] | — | backend aggregation |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
+| 3 | Код work center | workCenterCode | string | string | — | response DTO |  |
+| 4 | Наименование work center | workCenterName | object | object | — | response DTO |  |
+| 5 | Наименование шага | stepName | string | string | — | response DTO |  |
+| 6 | Объём шага | stepVolume | int | integer | — | response DTO |  |
+| 7 | Дата и время начала | startDt | datetime | ISO 8601 | — | response DTO |  |
+| 8 | Дата и время окончания | endDt | datetime | ISO 8601 | — | response DTO |  |
+
+### Структура `value[].workCenterName`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 

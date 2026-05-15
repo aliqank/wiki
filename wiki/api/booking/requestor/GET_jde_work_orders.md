@@ -1,7 +1,7 @@
 # GET /jde/work-orders
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -97,11 +97,36 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-В `value` возвращается `PaginatedResult<JdeWorkOrderListItem>`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-`JdeWorkOrderListItem`: `id`, `jdeWorkOrderId`, `workOrderName`, `workOrderStatus`, `workOrderStatusDescription`, `priority`, `lastSyncedAt`.
+### Структура `result wrapper`
 
----
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 2 | Общее количество записей | total | int | integer | — | backend |  |
+
+### Структура `value.items[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 2 | Идентификатор Work Order в JDE | jdeWorkOrderId | string | string | — | response DTO |  |
+| 3 | Наименование Work Order | workOrderName | string | string | — | response DTO |  |
+| 4 | Статус Work Order | workOrderStatus | string | string | — | response DTO |  |
+| 5 | Описание статуса Work Order | workOrderStatusDescription | string | string | — | response DTO |  |
+| 6 | Приоритет | priority | string | string | — | response DTO |  |
+| 7 | Дата и время последней синхронизации | lastSyncedAt | datetime | ISO 8601 | — | response DTO |  |
 
 ## 10. Пример ответа
 

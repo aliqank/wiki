@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-12  
+**Last updated:** 2026-05-15  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -115,22 +115,58 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper` (использовать во всех API).  
-В обёртке, в значении `value`, возвращается обновлённый объект типа `EquipmentTypePropertyItem`.
+Возвращаемые данные обёрнуты в общий `result wrapper`.
 
 ### Структура `result wrapper`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Результат выполнения метода | `value` | `object` | `EquipmentTypePropertyItem` | — | `EquipmentTypeProperties` + joins | Обновлённая привязка |
-| 2 | Признак успешности | `isSuccess` | `bool` | boolean | — | backend | |
-| 3 | Ошибки | `errors` | `array<object>` | `ApiError[]` | `[]` | backend | При успешном ответе — пустой массив |
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
+| 1.1 | Идентификатор привязки свойства к типу техники | etpId | uuid | UUID v4 | — | response DTO |  |
+| 1.2 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 1.3 | Признак обязательности поля | isRequired | bool | boolean | — | response DTO |  |
+| 1.4 | Признак доступности свойства в фильтрах | isFilterable | bool | boolean | — | response DTO |  |
+| 1.5 | Признак отображения в карточке | isVisibleInCard | bool | boolean | — | response DTO |  |
+| 1.6 | Наименование свойства | property | object | object | — | response DTO |  |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
 
-### Структура `EquipmentTypePropertyItem`
+### Структура `value`
 
-Используется та же структура, что и в `GET /equipment-types/:id/properties`.
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор привязки свойства к типу техники | etpId | uuid | UUID v4 | — | response DTO |  |
+| 2 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 3 | Признак обязательности поля | isRequired | bool | boolean | — | response DTO |  |
+| 4 | Признак доступности свойства в фильтрах | isFilterable | bool | boolean | — | response DTO |  |
+| 5 | Признак отображения в карточке | isVisibleInCard | bool | boolean | — | response DTO |  |
+| 6 | Наименование свойства | property | object | object | — | response DTO |  |
 
----
+### Структура `value.property`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Наименование | name | object | object | — | response DTO |  |
+| 3 | Тип данных свойства | dataType | string | string | — | response DTO |  |
+| 4 | Единица измерения | unit | object | object | — | response DTO |  |
+| 5 | Список enum-значений | enumValues | array<object> | array | `[]` | response DTO | Коллекция объектов |
+
+### Структура `value.property.name`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
+| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+
+### Структура `value.property.unit`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
+| 2 | Код записи | code | string | string | — | response DTO |  |
+| 3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
 
 ## 10. Пример ответа
 
