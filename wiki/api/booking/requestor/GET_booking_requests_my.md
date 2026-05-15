@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить список собственных заявок текущего пользователя |
+| Описание | Получить список собственных незавершенных заявок текущего пользователя |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/my` |
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для страницы «Мои заявки» как summary API для списка заявок Requestor / SWP.
+Новый метод. Используется для страницы «Мои заявки» как summary API для списка незавершенных заявок Requestor / SWP.
 
 ---
 
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list |
+| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list незавершенных заявок |
 | TCO Booking Tool | FR-091 | Requestor/SWP can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие |
 
 ---
@@ -37,11 +37,13 @@
 ## 3. Описание логики работы метода
 
 1. Выбрать `BookingRequests` по `createdBy = currentUserId`.
-2. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
-3. Отсортировать по `createdAt DESC`.
-4. Для каждой заявки собрать summary-данные по связанным `Bookings`.
-5. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
-6. Вернуть пагинированный список.
+2. По умолчанию исключить terminal statuses заявки: `Completed` и `Cancelled`.
+3. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
+4. Если передан `status`, он должен относиться только к незавершённым статусам заявки.
+5. Отсортировать по `createdAt DESC`.
+6. Для каждой заявки собрать summary-данные по связанным `Bookings`.
+7. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
+8. Вернуть пагинированный список.
 
 Метод не возвращает полные детали заявки или полные карточки броней. Для этого используется `GET /booking-requests/{id}`.
 
@@ -83,7 +85,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Фильтр по статусу | `status` | `enum` | `-` | `Draft / Submitted / InProgress / Completed / Cancelled` | — | Query param | |
+| 1 | Фильтр по статусу незавершенной заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress` | — | Query param | Terminal statuses `Completed` и `Cancelled` в этом методе не используются |
 | 2 | Фильтр по типу заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
 | 3 | Фильтр по приоритету | `priority` | `enum` | `-` | `P1 / P2 / P3 / P4` | — | Query param | |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderJdeId`, `workDescription` | — | Query param | |
@@ -107,6 +109,8 @@ Content-Type: application/json
 ## 9. Возвращаемые данные
 
 Возвращаемые данные обёрнуты в общий `result wrapper`.
+
+Метод возвращает только незавершенные заявки. Завершенные и отмененные заявки должны запрашиваться через отдельный history/archive endpoint.
 
 ### Структура `result wrapper`
 
@@ -223,3 +227,11 @@ Content-Type: application/json
   "errors": []
 }
 ```
+
+---
+
+## Замечания
+
+1. Метод предназначен именно для страницы `Мои заявки` и возвращает только active / non-terminal requests.
+2. Для истории завершённых заявок должен использоваться отдельный endpoint `GET /booking-requests/history`.
+3. Поле `status` в query не должно использоваться для `Completed` и `Cancelled`.
