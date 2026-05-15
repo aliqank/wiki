@@ -124,7 +124,7 @@ Content-Type: application/json
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 3 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 4 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
-| 5 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 5 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 6 | Наименование типа техники | equipmentTypeName | object | object | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 7 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 | 8 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
@@ -151,7 +151,7 @@ Content-Type: application/json
         "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
         "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
-        "equipmentNumber": "TCO-100245",
+        "tcoId": "TCO-100245",
         "equipmentTypeName": {
           "En": "Excavator",
           "Ru": "Экскаватор",

@@ -135,7 +135,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | Equipments.id |  |
-| 2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 2 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 3 | Наименование типа техники | equipmentTypeName | object | object | — | EquipmentTypes |  |
 | 4 | Целевое значение | targetValue | int | integer | — | backend calculation / configured threshold |  |
 | 5 | Средний usage rate | averageUsageRate | decimal | decimal | — | backend report calculation from telemetry + bookings |  |
@@ -164,7 +164,7 @@ Content-Type: application/json
     "items": [
       {
         "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
-        "equipmentNumber": "TCO-100245",
+        "tcoId": "TCO-100245",
         "equipmentTypeName": {
           "En": "Excavator",
           "Ru": "Экскаватор",

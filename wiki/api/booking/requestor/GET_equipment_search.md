@@ -139,12 +139,12 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
-| 2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 2 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 3 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
 | 4 | Идентификатор типа техники | equipmentTypeId | uuid | UUID v4 | — | Equipments.equipmentTypeId |  |
 | 5 | Наименование типа техники | equipmentTypeName | object | object | — | EquipmentTypes |  |
-| 6 | Наименование бренда | brandName | string | string | — | EquipmentBrands |  |
-| 7 | Наименование модели | modelName | string | string | — | EquipmentModels |  |
+| 6 | Бренд техники | brand | string | string | — | EquipmentBrands |  |
+| 7 | Модель техники | model | string | string | — | EquipmentModels |  |
 | 8 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
 | 9 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
 | 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type |  |
@@ -203,7 +203,7 @@ Content-Type: application/json
     "items": [
       {
         "id": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
-        "equipmentNumber": "TCO-100245",
+        "tcoId": "TCO-100245",
         "stateNumber": "KZ 123 ABC 02",
         "equipmentTypeId": "7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111",
         "equipmentTypeName": {
@@ -211,8 +211,8 @@ Content-Type: application/json
           "Ru": "Экскаватор",
           "Kz": "Экскаватор"
         },
-        "brandName": "CAT",
-        "modelName": "320D",
+        "brand": "CAT",
+        "model": "320D",
         "ownershipType": "TcoOwned",
         "shareType": "SharedWithConditions",
         "requiresJustification": true,

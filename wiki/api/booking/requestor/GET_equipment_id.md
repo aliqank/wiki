@@ -104,7 +104,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
 | 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
-| 1.2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 1.2 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 1.3 | Тип техники | equipmentType | object | object | — | backend composition from Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentProperties + EquipmentPhotos + Locations + Fleets |  |
 | 1.4 | Бренд техники | brand | string | string | — | EquipmentBrands |  |
 | 1.5 | Модель техники | model | string | string | — | EquipmentModels |  |
@@ -120,7 +120,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
-| 2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 2 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 3 | Тип техники | equipmentType | object | object | — | backend composition from Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentProperties + EquipmentPhotos + Locations + Fleets |  |
 | 4 | Бренд техники | brand | string | string | — | EquipmentBrands |  |
 | 5 | Модель техники | model | string | string | — | EquipmentModels |  |
@@ -150,7 +150,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
-    "equipmentNumber": "TCO-100245",
+    "tcoId": "TCO-100245",
     "equipmentType": {
       "id": "7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111",
       "name": {

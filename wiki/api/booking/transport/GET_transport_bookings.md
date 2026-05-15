@@ -120,7 +120,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 3 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 3 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 4 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 
 ## 10. Пример ответа
@@ -132,7 +132,7 @@ Content-Type: application/json
       {
         "id": "aaabbbcc-dddd-4444-8888-123456780001",
         "requestNumber": "REQ-2026-00018",
-        "equipmentNumber": "TCO-200112",
+        "tcoId": "TCO-200112",
         "status": "Confirmed"
       }
     ],
