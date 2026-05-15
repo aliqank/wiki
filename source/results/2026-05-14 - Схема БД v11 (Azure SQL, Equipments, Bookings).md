@@ -1,8 +1,8 @@
 # Схема БД v11: Azure SQL adaptation for Equipments + Bookings
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
-**Author:** Telman Nurzhanov (SA)
+**Last updated:** 2026-05-15  
+**Автор документов:** Telman Nurzhanov (SA)
 
 ---
 
@@ -161,6 +161,8 @@ where isDeleted = 0;
 
 ### 1. EquipmentTypes
 
+Назначение: справочник типов техники. Определяет классификацию единиц техники, их mobility type, связь с Work Center и базовые поведенческие признаки типа.
+
 | Поле | Тип | Описание |
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
@@ -177,6 +179,8 @@ where isDeleted = 0;
 
 ### 2. Fleets
 
+Назначение: справочник флотов. Используется для группировки техники по владельцу/ответственной команде и для маршрутизации согласования.
+
 | Поле | Тип | Описание |
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
@@ -189,6 +193,8 @@ where isDeleted = 0;
 | audit fields | см. conventions | |
 
 ### 3. WorkCenters
+
+Назначение: справочник рабочих центров. Используется при сопоставлении типов техники, шагов JDE Work Order и booking-контекста.
 
 | Поле | Тип |
 |---|---|
@@ -204,6 +210,8 @@ Filtered unique indexes:
 
 ### 4. EquipmentBrands
 
+Назначение: справочник брендов/производителей техники. Нужен для нормализованного хранения производителя в карточке техники.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -214,6 +222,8 @@ Filtered unique indexes:
 | audit fields | см. conventions |
 
 ### 5. EquipmentModels
+
+Назначение: справочник моделей техники. Позволяет хранить модель отдельно от бренда и переиспользовать её в карточках техники.
 
 | Поле | Тип |
 |---|---|
@@ -232,6 +242,34 @@ Filtered unique indexes:
 
 Для этих таблиц используется единый паттерн:
 
+#### 6.1 Locations
+
+Назначение: справочник базовых локаций техники. Показывает, где техника базируется или откуда обычно предоставляется.
+
+#### 6.2 CostCenters
+
+Назначение: справочник cost center. Используется для организационной и финансовой привязки техники.
+
+#### 6.3 ServiceZones
+
+Назначение: справочник сервисных зон. Нужен для логистики, обслуживания и фильтрации техники по зоне ответственности.
+
+#### 6.4 Divisions
+
+Назначение: верхний уровень организационной иерархии, используемой в привязке техники и пользователей.
+
+#### 6.5 Groups
+
+Назначение: промежуточный уровень организационной иерархии между Division и Department.
+
+#### 6.6 Departments
+
+Назначение: справочник подразделений. Используется в отчетности, оргструктуре пользователей и привязке техники через Sections.
+
+#### 6.7 Sections
+
+Назначение: нижний уровень оргструктуры для unit-level привязки техники к конкретной части подразделения.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -248,6 +286,8 @@ Filtered unique indexes:
 
 ### 7. FleetManagePermissions
 
+Назначение: таблица прав управления fleet. Позволяет явно назначать пользователям доступ к управлению конкретным флотом, в том числе временный.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -257,6 +297,8 @@ Filtered unique indexes:
 | audit fields | см. conventions |
 
 ### 8. Equipments
+
+Назначение: основная таблица карточек техники. Хранит идентификационные данные, принадлежность, тип, статус, бренд/модель и организационную привязку каждой единицы техники.
 
 | Поле | Тип | Описание |
 |---|---|---|
@@ -295,6 +337,8 @@ Filtered unique indexes:
 
 ### 9. EquipmentPhotos
 
+Назначение: таблица фотографий техники. Позволяет хранить несколько изображений на одну единицу техники с сортировкой и признаком главного фото.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -305,6 +349,8 @@ Filtered unique indexes:
 | audit fields | см. conventions |
 
 ### 10. EquipmentStatuses
+
+Назначение: история статусов техники. Хранит интервалы заморозки, ремонта, вывода из эксплуатации и других состояний, влияющих на доступность техники.
 
 | Поле | Тип | Описание |
 |---|---|---|
@@ -329,6 +375,8 @@ Filtered unique indexes:
 
 ### 11. MeasurementUnits
 
+Назначение: справочник единиц измерения для dynamic characteristics. Используется там, где свойство техники имеет числовое значение с единицей измерения.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -338,6 +386,8 @@ Filtered unique indexes:
 | audit fields | см. conventions |
 
 ### 12. Properties
+
+Назначение: справочник определений dynamic characteristics. Описывает имя свойства, его тип данных и при необходимости единицу измерения.
 
 | Поле | Тип |
 |---|---|
@@ -351,6 +401,8 @@ Filtered unique indexes:
 
 ### 13. PropertyEnumValues
 
+Назначение: справочник возможных enum-значений для properties с типом enum.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -360,6 +412,8 @@ Filtered unique indexes:
 | audit fields | см. conventions |
 
 ### 14. EquipmentTypeProperties
+
+Назначение: таблица настройки свойств по типу техники. Определяет, какие dynamic characteristics доступны для конкретного типа техники и как они ведут себя в UI.
 
 | Поле | Тип |
 |---|---|
@@ -378,6 +432,8 @@ Filtered unique indexes:
 ### 15. EquipmentProperties
 
 `JSONB value` из v10 заменён на типизированные колонки.
+
+Назначение: значения dynamic characteristics для конкретной единицы техники. Таблица хранит фактические значения свойств, заданных через `EquipmentTypeProperties`.
 
 | Поле | Тип | Комментарий |
 |---|---|---|
@@ -399,12 +455,20 @@ Filtered unique indexes:
 
 ### 16. MaintenancePartners / EquipmentMaintenanceContracts
 
+#### 16.1 MaintenancePartners
+
+Назначение: справочник ремонтных и сервисных партнеров, которые обслуживают технику.
+
 `MaintenancePartners`:
 - `nameEn`, `nameRu`, `nameKz`
 - `phoneNumber nvarchar(100)`
 - `email nvarchar(255)`
 - `address nvarchar(500)`
 - audit fields
+
+#### 16.2 EquipmentMaintenanceContracts
+
+Назначение: связующая таблица между техникой и сервисным партнером. Позволяет хранить, кто и по какому виду сервиса обслуживает конкретную единицу техники.
 
 `EquipmentMaintenanceContracts`:
 - `equipmentId uniqueidentifier FK`
@@ -418,10 +482,18 @@ Filtered unique index:
 
 ### 17. EquipmentFeedbacks / EquipmentBookingAuthorizations
 
+#### 17.1 EquipmentFeedbacks
+
+Назначение: отзывы по технике, оставленные в контексте конкретной брони. Используется для накопления обратной связи по качеству и удобству эксплуатации техники.
+
 `EquipmentFeedbacks`:
 - `feedback nvarchar(max) not null`
 - `bookingId uniqueidentifier FK`
 - `equipmentId uniqueidentifier FK`
+
+#### 17.2 EquipmentBookingAuthorizations
+
+Назначение: таблица авторизаций пользователей на бронирование Assigned техники. Отделяет общую видимость техники от права её забронировать.
 
 `EquipmentBookingAuthorizations`:
 - `equipmentId uniqueidentifier FK`
@@ -434,6 +506,8 @@ Filtered unique index:
 
 ### 18. SystemSettings
 
+Назначение: системные настройки вида key-value. Используется для параметров, которые должны настраиваться через Admin Panel, а не быть захардкоженными.
+
 | Поле | Тип |
 |---|---|
 | `key` | `nvarchar(200) PK` |
@@ -441,6 +515,8 @@ Filtered unique index:
 | audit fields | см. conventions |
 
 ### 19. Users
+
+Назначение: справочник пользователей системы. Содержит идентификационные и организационные данные, необходимые для ролей, прав, согласования и привязки к BP.
 
 | Поле | Тип |
 |---|---|
@@ -457,6 +533,8 @@ Filtered unique index:
 | audit fields | см. conventions |
 
 ### 20. BusinessPartners
+
+Назначение: справочник внешних компаний и контрагентов. Используется в сценариях с BP, внешними пользователями и связанными reference-данными.
 
 | Поле | Тип |
 |---|---|
@@ -481,6 +559,8 @@ Filtered unique index:
 
 ### 21. JdeWorkOrders
 
+Назначение: локальное представление Work Order из JDE E1. Хранит синхронизированные данные WO, необходимые для создания и сопровождения Service Work Request.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -498,6 +578,8 @@ Filtered unique indexes:
 - `jdeWorkOrderId where isDeleted = 0`
 
 ### 22. JdeWorkOrderSteps
+
+Назначение: шаги конкретного JDE Work Order. Нужны для связки booking-запросов и конкретных рабочих центров внутри WO.
 
 | Поле | Тип |
 |---|---|
@@ -517,6 +599,8 @@ Filtered unique indexes:
 - `(jdeWorkOrderRefId, workCenterId) where isDeleted = 0`
 
 ### 23. BookingRequests
+
+Назначение: заголовок заявки на бронирование. Хранит request-level данные: тип заявки, номер, приоритет, инициатора, WO-контекст и текущий агрегированный статус.
 
 | Поле | Тип | Описание |
 |---|---|---|
@@ -543,6 +627,8 @@ Filtered unique indexes:
 - filtered index on `workOrderJdeId where isDeleted = 0 and workOrderJdeId is not null`
 
 ### 24. Bookings
+
+Назначение: отдельные booking items внутри заявки. Каждая запись соответствует одной единице техники и проходит собственный жизненный цикл согласования и исполнения.
 
 | Поле | Тип | Описание |
 |---|---|---|
@@ -579,6 +665,8 @@ Filtered unique indexes:
 
 ### 25. BookingStatuses
 
+Назначение: история смены статусов individual booking. Нужна как source of truth для аудита жизненного цикла брони.
+
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
@@ -596,6 +684,8 @@ Filtered unique indexes:
 | `deletedBy` | `uniqueidentifier null` |
 
 ### 26. BookingRequestStatuses
+
+Назначение: история смены статусов request-level сущности. Используется для аудита агрегированного жизненного цикла заявки.
 
 | Поле | Тип |
 |---|---|
