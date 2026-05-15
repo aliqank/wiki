@@ -12,12 +12,25 @@
 |---|---|
 | Область действия | Модальное окно `Новая заявка` |
 | Участник | Пользователь с ролью `Requestor` или `ServiceWorkProcessor` |
-| Покрываемые FR (BRD) | `FR-023`, `FR-027`, `FR-030`, `FR-031`, `FR-038`, `FR-040`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-38`, `FR-NEW-39`, `FR-NEW-48`, `FR-NEW-51`, `FR-NEW-68`, `FR-NEW-71` |
-| Покрываемые FR (Equipment block list) | `FR-010`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-50`, `AFR-01`, `AFR-02`, `AFR-03`, `AFR-07` |
+| Покрываемые FR (BRD) | `FR-023`, `FR-027`, `FR-030`, `FR-031`, `FR-038`, `FR-040`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-38`, `FR-NEW-39`, `FR-NEW-48`, `FR-NEW-50`, `FR-NEW-51`, `FR-NEW-68`, `FR-NEW-71` |
+| Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Нажатие кнопки `Добавить заявку` |
 | Ожидаемый результат | Создана новая draft-заявка, пользователь может добавить технику, сохранить черновик или отправить заявку |
 | Используемые API | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /jde/work-orders`, `GET /jde/work-orders/{id}/steps`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `DELETE /booking-requests/{id}/items/{bookingId}`, `POST /booking-requests/{id}/submit`, reference APIs for filter dictionaries |
+
+---
+
+## Декомпозиция
+
+Данный use case является родительским и декомпозируется на следующие под-use cases:
+
+1. `UC-REQ-02.1 - Создание пустого draft заявки`
+2. `UC-REQ-02.2 - Заполнение и редактирование шапки заявки`
+3. `UC-REQ-02.3 - Поиск техники для добавления в заявку`
+4. `UC-REQ-02.4 - Добавление техники в draft-заявку`
+5. `UC-REQ-02.5 - Редактирование брони или замена техники в draft`
+6. `UC-REQ-02.6 - Отправка draft-заявки`
 
 ---
 
