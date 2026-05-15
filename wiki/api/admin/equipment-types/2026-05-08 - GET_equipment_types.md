@@ -2,7 +2,7 @@
 
 **Created:** 2026-05-08  
 **Last updated:** 2026-05-12  
-**Author:** Telman Nurzhanov (SA)
+**Автор документов:** Telman Nurzhanov (SA)
 
 ---
 

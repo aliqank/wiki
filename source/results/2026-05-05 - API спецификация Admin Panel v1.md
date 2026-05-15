@@ -1,6 +1,7 @@
 # API спецификация: Admin Panel — HDV/HDE Booking Tool
 
 **Дата:** 2026-05-05  
+**Автор документов:** Telman Nurzhanov (SA)  
 **Основание:** ТЗ Admin Panel v2 (2026-05-04), Схема БД v5 (2026-05-04)  
 **Для кого:** Backend-разработчик, Frontend-разработчик  
 **Формат:** RESTful JSON API

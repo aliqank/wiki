@@ -2,7 +2,7 @@
 
 **Created:** 2026-05-14  
 **Last updated:** 2026-05-14  
-**Author:** OpenCode
+**Автор документов:** Telman Nurzhanov (SA)
 
 ---
 
