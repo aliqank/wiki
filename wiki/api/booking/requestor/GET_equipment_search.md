@@ -122,78 +122,78 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
-| 3 | Государственный регистрационный номер | stateNumber | string | string | — | response DTO |  |
-| 4 | Идентификатор типа техники | equipmentTypeId | uuid | UUID v4 | — | response DTO |  |
-| 5 | Наименование типа техники | equipmentTypeName | object | object | — | response DTO |  |
-| 6 | Наименование бренда | brandName | string | string | — | response DTO |  |
-| 7 | Наименование модели | modelName | string | string | — | response DTO |  |
-| 8 | Тип владения техникой | ownershipType | string | string | — | response DTO |  |
-| 9 | Тип доступности техники | shareType | string | string | — | response DTO |  |
-| 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | response DTO |  |
-| 11 | Признак доступности бронирования | isBookable | bool | boolean | — | response DTO |  |
-| 12 | Причина недоступности бронирования | bookabilityReason | null | — | `null` | response DTO |  |
-| 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | response DTO |  |
-| 14 | Владелец / ответственный fleet | fleetOwner | object | object | — | response DTO |  |
-| 15 | Рабочий центр | workCenter | object | object | — | response DTO |  |
-| 16 | Наименование базовой локации | baseLocationName | object | object | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
+| 2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 3 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
+| 4 | Идентификатор типа техники | equipmentTypeId | uuid | UUID v4 | — | Equipments.equipmentTypeId |  |
+| 5 | Наименование типа техники | equipmentTypeName | object | object | — | EquipmentTypes |  |
+| 6 | Наименование бренда | brandName | string | string | — | EquipmentBrands |  |
+| 7 | Наименование модели | modelName | string | string | — | EquipmentModels |  |
+| 8 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
+| 9 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
+| 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type |  |
+| 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
+| 12 | Причина недоступности бронирования | bookabilityReason | null | — | `null` | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
+| 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
+| 14 | Владелец / ответственный fleet | fleetOwner | object | object | — | Fleets + Users |  |
+| 15 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |
+| 16 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
 
 ### Структура `value.items[].baseLocationName`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | Locations |  |
+| 2 | Значение на русском языке | Ru | string | string | — | Locations |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | Locations |  |
 
 ### Структура `value.items[].equipmentTypeName`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | EquipmentTypes |  |
+| 2 | Значение на русском языке | Ru | string | string | — | EquipmentTypes |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | EquipmentTypes |  |
 
 ### Структура `value.items[].fleetOwner`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | response DTO |  |
-| 2 | Полное имя пользователя | fullName | string | string | — | response DTO |  |
-| 3 | Email | email | string | string | — | response DTO |  |
+| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
+| 2 | Полное имя пользователя | fullName | string | string | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
+| 3 | Email | email | string | string | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
 
 ### Структура `value.items[].workCenter`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Код записи | code | string | string | — | response DTO |  |
-| 3 | Наименование | name | object | object | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
+| 2 | Код записи | code | string | string | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
+| 3 | Наименование | name | object | object | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
 
 ### Структура `value.items[].workCenter.name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | Equipments |  |
+| 2 | Значение на русском языке | Ru | string | string | — | Equipments |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | Equipments |  |
 
 ## 10. Пример ответа
 

@@ -115,19 +115,19 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 1.2 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | response DTO |  |
-| 1.3 | Текущий статус | status | string | string | — | response DTO |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
+| 1.2 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + Equipments + BookingStatuses |  |
+| 1.3 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | response DTO |  |
-| 3 | Текущий статус | status | string | string | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
+| 2 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + Equipments + BookingStatuses |  |
+| 3 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 
 ## 10. Пример ответа
 

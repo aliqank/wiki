@@ -105,16 +105,16 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | array<object> | object[] | — | backend aggregation |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Текущий статус | status | string | string | — | response DTO |  |
-| 3 | Дата и время изменения статуса | changedAt | datetime | ISO 8601 | — | response DTO |  |
-| 4 | Комментарий | comment | null | — | `null` | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingStatuses.id |  |
+| 2 | Текущий статус | status | string | string | — | BookingStatuses + ref_booking_status |  |
+| 3 | Дата и время изменения статуса | changedAt | datetime | ISO 8601 | — | BookingStatuses.changedAt |  |
+| 4 | Комментарий | comment | null | — | `null` | BookingStatuses.comment |  |
 
 ## 10. Пример ответа
 

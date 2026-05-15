@@ -136,41 +136,41 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 1.2 | Наименование | name | object | object | — | response DTO |  |
-| 1.3 | Тип данных свойства | dataType | string | string | — | response DTO |  |
-| 1.4 | Единица измерения | unit | null | — | `null` | response DTO |  |
-| 1.5 | Список enum-значений | enumValues | array<object> | object[] | — | response DTO | Коллекция объектов |
-| 1.6 | Количество типов техники | equipmentTypesCount | int | integer | — | response DTO |  |
+| 1.1 | Идентификатор записи | id | string | string | — | Properties.id |  |
+| 1.2 | Наименование | name | object | object | — | Properties |  |
+| 1.3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 1.4 | Единица измерения | unit | null | — | `null` | MeasurementUnits |  |
+| 1.5 | Список enum-значений | enumValues | array<object> | object[] | — | PropertyEnumValues | Коллекция объектов |
+| 1.6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
-| 3 | Тип данных свойства | dataType | string | string | — | response DTO |  |
-| 4 | Единица измерения | unit | null | — | `null` | response DTO |  |
-| 5 | Список enum-значений | enumValues | array<object> | object[] | — | response DTO | Коллекция объектов |
-| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | Properties.id |  |
+| 2 | Наименование | name | object | object | — | Properties |  |
+| 3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 4 | Единица измерения | unit | null | — | `null` | MeasurementUnits |  |
+| 5 | Список enum-значений | enumValues | array<object> | object[] | — | PropertyEnumValues | Коллекция объектов |
+| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 
 ### Структура `value.name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | Properties |  |
+| 2 | Значение на русском языке | Ru | string | string | — | Properties |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | Properties |  |
 
 ### Структура `value.enumValues[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Properties.id |  |
 | 2 | Результат выполнения метода | value | string | string | — | backend aggregation |  |
-| 3 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 3 | Порядок сортировки | sortOrder | int | integer | — | Properties.sortOrder |  |
 
 ## 10. Пример ответа
 

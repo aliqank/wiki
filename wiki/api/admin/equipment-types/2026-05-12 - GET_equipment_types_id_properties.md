@@ -109,44 +109,44 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | array<object> | object[] | — | backend aggregation |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор привязки свойства к типу техники | etpId | uuid | UUID v4 | — | response DTO |  |
-| 2 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
-| 3 | Признак обязательности поля | isRequired | bool | boolean | — | response DTO |  |
-| 4 | Признак доступности свойства в фильтрах | isFilterable | bool | boolean | — | response DTO |  |
-| 5 | Признак отображения в карточке | isVisibleInCard | bool | boolean | — | response DTO |  |
-| 6 | Наименование свойства | property | object | object | — | response DTO |  |
+| 1 | Идентификатор привязки свойства к типу техники | etpId | uuid | UUID v4 | — | EquipmentTypeProperties.id |  |
+| 2 | Порядок сортировки | sortOrder | int | integer | — | EquipmentTypeProperties.sortOrder |  |
+| 3 | Признак обязательности поля | isRequired | bool | boolean | — | EquipmentTypeProperties.isRequired |  |
+| 4 | Признак доступности свойства в фильтрах | isFilterable | bool | boolean | — | EquipmentTypeProperties.isFilterable |  |
+| 5 | Признак отображения в карточке | isVisibleInCard | bool | boolean | — | EquipmentTypeProperties.isVisibleInCard |  |
+| 6 | Наименование свойства | property | object | object | — | Properties |  |
 
 ### Структура `value[].property`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
-| 3 | Тип данных свойства | dataType | string | string | — | response DTO |  |
-| 4 | Единица измерения | unit | object | object | — | response DTO |  |
-| 5 | Список enum-значений | enumValues | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 1 | Идентификатор записи | id | string | string | — | EquipmentTypeProperties.id |  |
+| 2 | Наименование | name | object | object | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
+| 3 | Тип данных свойства | dataType | string | string | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
+| 4 | Единица измерения | unit | object | object | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
+| 5 | Список enum-значений | enumValues | array<object> | object[] | `[]` | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues | Коллекция объектов |
 
 ### Структура `value[].property.name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
+| 2 | Значение на русском языке | Ru | string | string | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
 
 ### Структура `value[].property.unit`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Код записи | code | string | string | — | response DTO |  |
-| 3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | EquipmentTypeProperties.id |  |
+| 2 | Код записи | code | string | string | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
+| 3 | Отображаемое наименование | displayName | string | string | — | backend composition from EquipmentTypes + EquipmentTypeProperties + Properties + MeasurementUnits + PropertyEnumValues |  |
 
 ## 10. Пример ответа
 

@@ -122,29 +122,29 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 1.2 | Код записи | code | string | string | — | response DTO |  |
-| 1.3 | Наименование | name | object | object | — | response DTO |  |
-| 1.4 | Количество типов техники | equipmentTypesCount | int | integer | — | response DTO |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | WorkCenters.id |  |
+| 1.2 | Код записи | code | string | string | — | WorkCenters.code |  |
+| 1.3 | Наименование | name | object | object | — | WorkCenters |  |
+| 1.4 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypes) |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Код записи | code | string | string | — | response DTO |  |
-| 3 | Наименование | name | object | object | — | response DTO |  |
-| 4 | Количество типов техники | equipmentTypesCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | WorkCenters.id |  |
+| 2 | Код записи | code | string | string | — | WorkCenters.code |  |
+| 3 | Наименование | name | object | object | — | WorkCenters |  |
+| 4 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypes) |  |
 
 ### Структура `value.name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | WorkCenters |  |
+| 2 | Значение на русском языке | Ru | string | string | — | WorkCenters |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | WorkCenters |  |
 
 ## 10. Пример ответа
 

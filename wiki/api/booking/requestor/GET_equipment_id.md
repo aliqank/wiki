@@ -103,46 +103,46 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 1.2 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
-| 1.3 | Тип техники | equipmentType | object | object | — | response DTO |  |
-| 1.4 | Бренд техники | brand | string | string | — | response DTO |  |
-| 1.5 | Модель техники | model | string | string | — | response DTO |  |
-| 1.6 | Тип владения техникой | ownershipType | string | string | — | response DTO |  |
-| 1.7 | Тип доступности техники | shareType | string | string | — | response DTO |  |
-| 1.8 | Список фотографий | photos | array<object> | array | `[]` | response DTO | Коллекция объектов |
-| 1.9 | Список свойств | properties | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
+| 1.2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 1.3 | Тип техники | equipmentType | object | object | — | backend composition from Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentProperties + EquipmentPhotos + Locations + Fleets |  |
+| 1.4 | Бренд техники | brand | string | string | — | EquipmentBrands |  |
+| 1.5 | Модель техники | model | string | string | — | EquipmentModels |  |
+| 1.6 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
+| 1.7 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
+| 1.8 | Список фотографий | photos | array<object> | object[] | `[]` | EquipmentPhotos | Коллекция объектов |
+| 1.9 | Список свойств | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Коллекция объектов |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
-| 3 | Тип техники | equipmentType | object | object | — | response DTO |  |
-| 4 | Бренд техники | brand | string | string | — | response DTO |  |
-| 5 | Модель техники | model | string | string | — | response DTO |  |
-| 6 | Тип владения техникой | ownershipType | string | string | — | response DTO |  |
-| 7 | Тип доступности техники | shareType | string | string | — | response DTO |  |
-| 8 | Список фотографий | photos | array<object> | array | `[]` | response DTO | Коллекция объектов |
-| 9 | Список свойств | properties | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
+| 2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 3 | Тип техники | equipmentType | object | object | — | backend composition from Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentProperties + EquipmentPhotos + Locations + Fleets |  |
+| 4 | Бренд техники | brand | string | string | — | EquipmentBrands |  |
+| 5 | Модель техники | model | string | string | — | EquipmentModels |  |
+| 6 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
+| 7 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
+| 8 | Список фотографий | photos | array<object> | object[] | `[]` | EquipmentPhotos | Коллекция объектов |
+| 9 | Список свойств | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Коллекция объектов |
 
 ### Структура `value.equipmentType`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
+| 2 | Наименование | name | object | object | — | backend composition from Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentProperties + EquipmentPhotos + Locations + Fleets |  |
 
 ### Структура `value.equipmentType.name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | Equipments |  |
+| 2 | Значение на русском языке | Ru | string | string | — | Equipments |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | Equipments |  |
 
 ## 10. Пример ответа
 

@@ -110,27 +110,27 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from MeasurementUnits + Properties | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from MeasurementUnits + Properties | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Код записи | code | string | string | — | response DTO |  |
-| 3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
-| 4 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
-| 5 | Количество свойств | propertiesCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | MeasurementUnits |  |
+| 2 | Код записи | code | string | string | — | MeasurementUnits |  |
+| 3 | Отображаемое наименование | displayName | string | string | — | MeasurementUnits |  |
+| 4 | Порядок сортировки | sortOrder | int | integer | — | MeasurementUnits |  |
+| 5 | Количество свойств | propertiesCount | int | integer | — | backend composition from MeasurementUnits + Properties |  |
 
 ## 10. Пример ответа
 

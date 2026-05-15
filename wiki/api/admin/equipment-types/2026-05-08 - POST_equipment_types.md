@@ -162,47 +162,47 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 1.2 | Наименование | name | object | object | — | response DTO |  |
-| 1.3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
-| 1.4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
-| 1.5 | Класс техники | equipmentClass | string | string | — | response DTO |  |
-| 1.6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
-| 1.7 | Код work center | workCenterCode | string | string | — | response DTO |  |
-| 1.8 | Наименование work center | workCenterName | object | object | — | response DTO |  |
-| 1.9 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | EquipmentTypes.id |  |
+| 1.2 | Наименование | name | object | object | — | EquipmentTypes |  |
+| 1.3 | Тип мобильности техники | mobilityType | string | string | — | EquipmentTypes + ref_equipment_mobility_type |  |
+| 1.4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | EquipmentTypes.requiresTransport |  |
+| 1.5 | Класс техники | equipmentClass | string | string | — | EquipmentTypes + ref_equipment_class |  |
+| 1.6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | WorkCenters.id |  |
+| 1.7 | Код work center | workCenterCode | string | string | — | WorkCenters.code |  |
+| 1.8 | Наименование work center | workCenterName | object | object | — | WorkCenters |  |
+| 1.9 | Порядок сортировки | sortOrder | int | integer | — | EquipmentTypes.sortOrder |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
-| 3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
-| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
-| 5 | Класс техники | equipmentClass | string | string | — | response DTO |  |
-| 6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
-| 7 | Код work center | workCenterCode | string | string | — | response DTO |  |
-| 8 | Наименование work center | workCenterName | object | object | — | response DTO |  |
-| 9 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | EquipmentTypes.id |  |
+| 2 | Наименование | name | object | object | — | EquipmentTypes |  |
+| 3 | Тип мобильности техники | mobilityType | string | string | — | EquipmentTypes + ref_equipment_mobility_type |  |
+| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | EquipmentTypes.requiresTransport |  |
+| 5 | Класс техники | equipmentClass | string | string | — | EquipmentTypes + ref_equipment_class |  |
+| 6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | WorkCenters.id |  |
+| 7 | Код work center | workCenterCode | string | string | — | WorkCenters.code |  |
+| 8 | Наименование work center | workCenterName | object | object | — | WorkCenters |  |
+| 9 | Порядок сортировки | sortOrder | int | integer | — | EquipmentTypes.sortOrder |  |
 
 ### Структура `value.name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | EquipmentTypes |  |
+| 2 | Значение на русском языке | Ru | string | string | — | EquipmentTypes |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | EquipmentTypes |  |
 
 ### Структура `value.workCenterName`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | EquipmentTypes |  |
+| 2 | Значение на русском языке | Ru | string | string | — | EquipmentTypes |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | EquipmentTypes |  |
 
 ## 10. Пример ответа
 

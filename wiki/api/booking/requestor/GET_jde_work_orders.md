@@ -104,29 +104,29 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from JdeWorkOrders | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from JdeWorkOrders | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Идентификатор Work Order в JDE | jdeWorkOrderId | string | string | — | response DTO |  |
-| 3 | Наименование Work Order | workOrderName | string | string | — | response DTO |  |
-| 4 | Статус Work Order | workOrderStatus | string | string | — | response DTO |  |
-| 5 | Описание статуса Work Order | workOrderStatusDescription | string | string | — | response DTO |  |
-| 6 | Приоритет | priority | string | string | — | response DTO |  |
-| 7 | Дата и время последней синхронизации | lastSyncedAt | datetime | ISO 8601 | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | JdeWorkOrders.id |  |
+| 2 | Идентификатор Work Order в JDE | jdeWorkOrderId | string | string | — | JdeWorkOrders.jdeWorkOrderId |  |
+| 3 | Наименование Work Order | workOrderName | string | string | — | JdeWorkOrders.workOrderName |  |
+| 4 | Статус Work Order | workOrderStatus | string | string | — | JdeWorkOrders.workOrderStatus |  |
+| 5 | Описание статуса Work Order | workOrderStatusDescription | string | string | — | JdeWorkOrders.workOrderStatusDescription |  |
+| 6 | Приоритет | priority | string | string | — | JdeWorkOrders + ref_request_priority |  |
+| 7 | Дата и время последней синхронизации | lastSyncedAt | datetime | ISO 8601 | — | JdeWorkOrders.lastSyncedAt |  |
 
 ## 10. Пример ответа
 

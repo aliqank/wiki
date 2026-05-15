@@ -107,36 +107,36 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from MaintenancePartners + EquipmentMaintenanceContracts | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from MaintenancePartners + EquipmentMaintenanceContracts | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
-| 3 | Номер телефона | phoneNumber | string | string | — | response DTO |  |
-| 4 | Email | email | string | string | — | response DTO |  |
-| 5 | Адрес | address | string | string | — | response DTO |  |
-| 6 | Количество связанных контрактов | contractsCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | MaintenancePartners |  |
+| 2 | Наименование | name | object | object | — | MaintenancePartners |  |
+| 3 | Номер телефона | phoneNumber | string | string | — | MaintenancePartners |  |
+| 4 | Email | email | string | string | — | MaintenancePartners |  |
+| 5 | Адрес | address | string | string | — | MaintenancePartners |  |
+| 6 | Количество связанных контрактов | contractsCount | int | integer | — | COUNT(EquipmentMaintenanceContracts) |  |
 
 ### Структура `value.items[].name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | MaintenancePartners |  |
+| 2 | Значение на русском языке | Ru | string | string | — | MaintenancePartners |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | MaintenancePartners |  |
 
 ## 10. Пример ответа
 

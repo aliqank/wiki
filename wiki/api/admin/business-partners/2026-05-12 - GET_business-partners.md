@@ -109,42 +109,42 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from BusinessPartners + Users | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from BusinessPartners + Users | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
-| 3 | Описание | description | string | string | — | response DTO |  |
-| 4 | БИН контрагента | bin | string | string | — | response DTO |  |
-| 5 | Страна | country | string | string | — | response DTO |  |
-| 6 | Город | city | string | string | — | response DTO |  |
-| 7 | Адрес | address | string | string | — | response DTO |  |
-| 8 | Email | email | string | string | — | response DTO |  |
-| 9 | Номер телефона | phoneNumber | string | string | — | response DTO |  |
-| 10 | Внешний идентификатор | externalId | string | string | — | response DTO |  |
-| 11 | Признак активности | isActive | bool | boolean | — | response DTO |  |
-| 12 | Количество внешних пользователей | externalUsersCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | BusinessPartners |  |
+| 2 | Наименование | name | object | object | — | BusinessPartners |  |
+| 3 | Описание | description | string | string | — | BusinessPartners |  |
+| 4 | БИН контрагента | bin | string | string | — | BusinessPartners |  |
+| 5 | Страна | country | string | string | — | BusinessPartners |  |
+| 6 | Город | city | string | string | — | BusinessPartners |  |
+| 7 | Адрес | address | string | string | — | BusinessPartners |  |
+| 8 | Email | email | string | string | — | BusinessPartners |  |
+| 9 | Номер телефона | phoneNumber | string | string | — | BusinessPartners |  |
+| 10 | Внешний идентификатор | externalId | string | string | — | BusinessPartners |  |
+| 11 | Признак активности | isActive | bool | boolean | — | BusinessPartners |  |
+| 12 | Количество внешних пользователей | externalUsersCount | int | integer | — | backend composition from BusinessPartners + Users |  |
 
 ### Структура `value.items[].name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | BusinessPartners |  |
+| 2 | Значение на русском языке | Ru | string | string | — | BusinessPartners |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | BusinessPartners |  |
 
 ## 10. Пример ответа
 

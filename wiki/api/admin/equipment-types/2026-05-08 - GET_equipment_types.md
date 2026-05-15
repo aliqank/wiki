@@ -111,49 +111,49 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from EquipmentTypes + WorkCenters + EquipmentTypeProperties + Equipments | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from EquipmentTypes + WorkCenters + EquipmentTypeProperties + Equipments | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
-| 3 | Тип мобильности техники | mobilityType | string | string | — | response DTO |  |
-| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | response DTO |  |
-| 5 | Класс техники | equipmentClass | string | string | — | response DTO |  |
-| 6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
-| 7 | Код work center | workCenterCode | string | string | — | response DTO |  |
-| 8 | Наименование work center | workCenterName | object | object | — | response DTO |  |
-| 9 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
-| 10 | Количество свойств | propertiesCount | int | integer | — | response DTO |  |
-| 11 | Количество единиц техники | equipmentsCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | EquipmentTypes.id |  |
+| 2 | Наименование | name | object | object | — | EquipmentTypes |  |
+| 3 | Тип мобильности техники | mobilityType | string | string | — | EquipmentTypes + ref_equipment_mobility_type |  |
+| 4 | Признак необходимости транспортировки | requiresTransport | bool | boolean | — | EquipmentTypes.requiresTransport |  |
+| 5 | Класс техники | equipmentClass | string | string | — | EquipmentTypes + ref_equipment_class |  |
+| 6 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | WorkCenters.id |  |
+| 7 | Код work center | workCenterCode | string | string | — | WorkCenters.code |  |
+| 8 | Наименование work center | workCenterName | object | object | — | WorkCenters |  |
+| 9 | Порядок сортировки | sortOrder | int | integer | — | EquipmentTypes.sortOrder |  |
+| 10 | Количество свойств | propertiesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
+| 11 | Количество единиц техники | equipmentsCount | int | integer | — | backend composition from EquipmentTypes + WorkCenters + EquipmentTypeProperties + Equipments |  |
 
 ### Структура `value.items[].name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | EquipmentTypes |  |
+| 2 | Значение на русском языке | Ru | string | string | — | EquipmentTypes |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | EquipmentTypes |  |
 
 ### Структура `value.items[].workCenterName`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | EquipmentTypes |  |
+| 2 | Значение на русском языке | Ru | string | string | — | EquipmentTypes |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | EquipmentTypes |  |
 
 ## 10. Пример ответа
 

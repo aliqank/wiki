@@ -101,27 +101,27 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 1.2 | Текущий статус | status | string | string | — | response DTO |  |
-| 1.3 | Дата и время начала | startDt | datetime | ISO 8601 | — | response DTO |  |
-| 1.4 | Дата и время окончания | endDt | datetime | ISO 8601 | — | response DTO |  |
-| 1.5 | Обоснование | justification | null | — | `null` | response DTO |  |
-| 1.6 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | response DTO |  |
-| 1.7 | История изменений | history | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
+| 1.2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 1.3 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
+| 1.4 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
+| 1.5 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
+| 1.6 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
+| 1.7 | История изменений | history | array<object> | object[] | `[]` | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos | Коллекция объектов |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Текущий статус | status | string | string | — | response DTO |  |
-| 3 | Дата и время начала | startDt | datetime | ISO 8601 | — | response DTO |  |
-| 4 | Дата и время окончания | endDt | datetime | ISO 8601 | — | response DTO |  |
-| 5 | Обоснование | justification | null | — | `null` | response DTO |  |
-| 6 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | response DTO |  |
-| 7 | История изменений | history | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
+| 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 3 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
+| 4 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
+| 5 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
+| 6 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
+| 7 | История изменений | history | array<object> | object[] | `[]` | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos | Коллекция объектов |
 
 ## 10. Пример ответа
 

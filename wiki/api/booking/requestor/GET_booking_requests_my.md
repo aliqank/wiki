@@ -113,57 +113,57 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + WorkCenters + Fleets + Users | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + WorkCenters + Fleets + Users | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Номер заявки | requestNumber | string | string | — | response DTO |  |
-| 3 | Тип сущности / заявки | type | string | string | — | response DTO |  |
-| 4 | Текущий статус | status | string | string | — | response DTO |  |
-| 5 | Приоритет | priority | string | string | — | response DTO |  |
-| 6 | Номер Work Order из JDE | workOrderJdeId | string | string | — | response DTO |  |
-| 7 | Дата и время создания | createdAt | datetime | ISO 8601 | — | response DTO |  |
-| 8 | Данные реквестора | requestor | object | object | — | response DTO |  |
-| 9 | Количество броней | bookingsCount | int | integer | — | response DTO |  |
-| 10 | Сводный список броней | bookingSummaries | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
+| 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
+| 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
+| 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
+| 5 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
+| 6 | Номер Work Order из JDE | workOrderJdeId | string | string | — | BookingRequests.workOrderJdeId |  |
+| 7 | Дата и время создания | createdAt | datetime | ISO 8601 | — | BookingRequests.createdAt |  |
+| 8 | Данные реквестора | requestor | object | object | — | Users |  |
+| 9 | Количество броней | bookingsCount | int | integer | — | COUNT(Bookings) |  |
+| 10 | Сводный список броней | bookingSummaries | array<object> | object[] | — | backend composition from Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + WorkCenters + Fleets + Users | Коллекция объектов |
 
 ### Структура `value.items[].requestor`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Полное имя пользователя | fullName | string | string | — | response DTO |  |
-| 3 | Email | email | string | string | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Users.id |  |
+| 2 | Полное имя пользователя | fullName | string | string | — | Users.fullName |  |
+| 3 | Email | email | string | string | — | Users.email |  |
 
 ### Структура `value.items[].bookingSummaries[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Тип техники | equipmentType | string | string | — | response DTO |  |
-| 3 | Марка и модель техники | brandModel | string | string | — | response DTO |  |
-| 4 | ТШО-номер техники | tcoId | string | string | — | response DTO |  |
-| 5 | Государственный регистрационный номер | stateNumber | string | string | — | response DTO |  |
-| 6 | Рабочий центр | workCenter | string | string | — | response DTO |  |
-| 7 | Владелец / ответственный fleet | fleetOwner | string | string | — | response DTO |  |
-| 8 | Плановая дата и время начала | plannedStartDt | datetime | ISO 8601 | — | response DTO |  |
-| 9 | Плановая дата и время окончания | plannedEndDt | datetime | ISO 8601 | — | response DTO |  |
-| 10 | Фактическая дата и время начала | actualStartDt | null | — | `null` | response DTO |  |
-| 11 | Фактическая дата и время окончания | actualEndDt | null | — | `null` | response DTO |  |
-| 12 | Текущий статус | status | string | string | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
+| 2 | Тип техники | equipmentType | string | string | — | EquipmentTypes |  |
+| 3 | Марка и модель техники | brandModel | string | string | — | Equipments + EquipmentBrands + EquipmentModels |  |
+| 4 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
+| 5 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
+| 6 | Рабочий центр | workCenter | string | string | — | WorkCenters |  |
+| 7 | Владелец / ответственный fleet | fleetOwner | string | string | — | Fleets + Users |  |
+| 8 | Плановая дата и время начала | plannedStartDt | datetime | ISO 8601 | — | Bookings.startDt |  |
+| 9 | Плановая дата и время окончания | plannedEndDt | datetime | ISO 8601 | — | Bookings.endDt |  |
+| 10 | Фактическая дата и время начала | actualStartDt | null | — | `null` | Bookings.actualStartDt |  |
+| 11 | Фактическая дата и время окончания | actualEndDt | null | — | `null` | Bookings.actualEndDt |  |
+| 12 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 
 ## 10. Пример ответа
 

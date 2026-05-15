@@ -111,44 +111,44 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Properties + MeasurementUnits + PropertyEnumValues + EquipmentTypeProperties | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Properties + MeasurementUnits + PropertyEnumValues + EquipmentTypeProperties | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Наименование | name | object | object | — | response DTO |  |
-| 3 | Тип данных свойства | dataType | string | string | — | response DTO |  |
-| 4 | Единица измерения | unit | object | object | — | response DTO |  |
-| 5 | Количество enum-значений | enumValuesCount | int | integer | — | response DTO |  |
-| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | Properties.id |  |
+| 2 | Наименование | name | object | object | — | Properties |  |
+| 3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 4 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
+| 5 | Количество enum-значений | enumValuesCount | int | integer | — | COUNT(PropertyEnumValues) |  |
+| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 
 ### Структура `value.items[].name`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | Properties |  |
+| 2 | Значение на русском языке | Ru | string | string | — | Properties |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | Properties |  |
 
 ### Структура `value.items[].unit`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Код записи | code | string | string | — | response DTO |  |
-| 3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | Properties.id |  |
+| 2 | Код записи | code | string | string | — | backend composition from Properties + MeasurementUnits + PropertyEnumValues + EquipmentTypeProperties |  |
+| 3 | Отображаемое наименование | displayName | string | string | — | backend composition from Properties + MeasurementUnits + PropertyEnumValues + EquipmentTypeProperties |  |
 
 ## 10. Пример ответа
 

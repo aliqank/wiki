@@ -107,48 +107,48 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Период отчёта | period | object | object | — | response DTO |  |
-| 1.2 | Выбранная вкладка отчёта | tab | string | string | — | response DTO |  |
-| 1.3 | Гранулярность отчёта | granularity | string | string | — | response DTO |  |
-| 1.4 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Период отчёта | period | object | object | — | report filter / backend request echo |  |
+| 1.2 | Выбранная вкладка отчёта | tab | string | string | — | report filter / backend request echo |  |
+| 1.3 | Гранулярность отчёта | granularity | string | string | — | report filter / backend request echo |  |
+| 1.4 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Equipments + EquipmentTypes + Bookings + внешние | Коллекция объектов |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Период отчёта | period | object | object | — | response DTO |  |
-| 2 | Выбранная вкладка отчёта | tab | string | string | — | response DTO |  |
-| 3 | Гранулярность отчёта | granularity | string | string | — | response DTO |  |
-| 4 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Период отчёта | period | object | object | — | report filter / backend request echo |  |
+| 2 | Выбранная вкладка отчёта | tab | string | string | — | report filter / backend request echo |  |
+| 3 | Гранулярность отчёта | granularity | string | string | — | report filter / backend request echo |  |
+| 4 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Equipments + EquipmentTypes + Bookings + внешние | Коллекция объектов |
 
 ### Структура `value.period`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Дата начала периода | from | date | YYYY-MM-DD | — | response DTO |  |
-| 2 | Дата окончания периода | to | date | YYYY-MM-DD | — | response DTO |  |
+| 1 | Дата начала периода | from | date | YYYY-MM-DD | — | report filter / backend request echo |  |
+| 2 | Дата окончания периода | to | date | YYYY-MM-DD | — | report filter / backend request echo |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | response DTO |  |
-| 2 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
-| 3 | Наименование типа техники | equipmentTypeName | object | object | — | response DTO |  |
-| 4 | Целевое значение | targetValue | int | integer | — | response DTO |  |
-| 5 | Средний usage rate | averageUsageRate | decimal | decimal | — | response DTO |  |
-| 6 | Количество броней | bookingCount | int | integer | — | response DTO |  |
-| 7 | Ячейки отчётного периода | cells | array<object> | array | `[]` | response DTO | Коллекция объектов |
+| 1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | Equipments.id |  |
+| 2 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 3 | Наименование типа техники | equipmentTypeName | object | object | — | EquipmentTypes |  |
+| 4 | Целевое значение | targetValue | int | integer | — | backend calculation / configured threshold |  |
+| 5 | Средний usage rate | averageUsageRate | decimal | decimal | — | backend report calculation from telemetry + bookings |  |
+| 6 | Количество броней | bookingCount | int | integer | — | COUNT(Bookings) |  |
+| 7 | Ячейки отчётного периода | cells | array<object> | object[] | `[]` | backend composition from Equipments + EquipmentTypes + Bookings + внешние | Коллекция объектов |
 
 ### Структура `value.items[].equipmentTypeName`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | EquipmentTypes |  |
+| 2 | Значение на русском языке | Ru | string | string | — | EquipmentTypes |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | EquipmentTypes |  |
 
 ## 10. Пример ответа
 

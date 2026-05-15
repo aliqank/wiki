@@ -105,28 +105,28 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | array<object> | object[] | — | backend aggregation |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
-| 3 | Код work center | workCenterCode | string | string | — | response DTO |  |
-| 4 | Наименование work center | workCenterName | object | object | — | response DTO |  |
-| 5 | Наименование шага | stepName | string | string | — | response DTO |  |
-| 6 | Объём шага | stepVolume | int | integer | — | response DTO |  |
-| 7 | Дата и время начала | startDt | datetime | ISO 8601 | — | response DTO |  |
-| 8 | Дата и время окончания | endDt | datetime | ISO 8601 | — | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | JdeWorkOrderSteps.id |  |
+| 2 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | WorkCenters.id |  |
+| 3 | Код work center | workCenterCode | string | string | — | WorkCenters.code |  |
+| 4 | Наименование work center | workCenterName | object | object | — | WorkCenters |  |
+| 5 | Наименование шага | stepName | string | string | — | JdeWorkOrderSteps.stepName |  |
+| 6 | Объём шага | stepVolume | int | integer | — | JdeWorkOrderSteps.stepVolume |  |
+| 7 | Дата и время начала | startDt | datetime | ISO 8601 | — | JdeWorkOrderSteps.startDt |  |
+| 8 | Дата и время окончания | endDt | datetime | ISO 8601 | — | JdeWorkOrderSteps.endDt |  |
 
 ### Структура `value[].workCenterName`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | WorkCenters |  |
+| 2 | Значение на русском языке | Ru | string | string | — | WorkCenters |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | WorkCenters |  |
 
 ## 10. Пример ответа
 

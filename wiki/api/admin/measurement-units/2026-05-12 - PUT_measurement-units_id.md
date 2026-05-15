@@ -121,23 +121,23 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 1.2 | Код записи | code | string | string | — | response DTO |  |
-| 1.3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
-| 1.4 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
-| 1.5 | Количество свойств | propertiesCount | int | integer | — | response DTO |  |
+| 1.1 | Идентификатор записи | id | string | string | — | MeasurementUnits |  |
+| 1.2 | Код записи | code | string | string | — | MeasurementUnits |  |
+| 1.3 | Отображаемое наименование | displayName | string | string | — | MeasurementUnits |  |
+| 1.4 | Порядок сортировки | sortOrder | int | integer | — | MeasurementUnits |  |
+| 1.5 | Количество свойств | propertiesCount | int | integer | — | backend composition from MeasurementUnits + Properties |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | string | string | — | response DTO |  |
-| 2 | Код записи | code | string | string | — | response DTO |  |
-| 3 | Отображаемое наименование | displayName | string | string | — | response DTO |  |
-| 4 | Порядок сортировки | sortOrder | int | integer | — | response DTO |  |
-| 5 | Количество свойств | propertiesCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор записи | id | string | string | — | MeasurementUnits |  |
+| 2 | Код записи | code | string | string | — | MeasurementUnits |  |
+| 3 | Отображаемое наименование | displayName | string | string | — | MeasurementUnits |  |
+| 4 | Порядок сортировки | sortOrder | int | integer | — | MeasurementUnits |  |
+| 5 | Количество свойств | propertiesCount | int | integer | — | backend composition from MeasurementUnits + Properties |  |
 
 ## 10. Пример ответа
 

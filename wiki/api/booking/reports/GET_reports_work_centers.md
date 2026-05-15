@@ -105,28 +105,28 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + WorkCenters | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + WorkCenters | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | response DTO |  |
-| 2 | Код work center | workCenterCode | string | string | — | response DTO |  |
-| 3 | Количество заявок | requestsCount | int | integer | — | response DTO |  |
-| 4 | Количество броней | bookingsCount | int | integer | — | response DTO |  |
-| 5 | Количество подтверждённых записей | confirmedCount | int | integer | — | response DTO |  |
-| 6 | Количество закрытых записей | closedCount | int | integer | — | response DTO |  |
+| 1 | Идентификатор work center | workCenterId | uuid | UUID v4 | — | WorkCenters.id |  |
+| 2 | Код work center | workCenterCode | string | string | — | WorkCenters.code |  |
+| 3 | Количество заявок | requestsCount | int | integer | — | COUNT(BookingRequests) |  |
+| 4 | Количество броней | bookingsCount | int | integer | — | COUNT(Bookings) |  |
+| 5 | Количество подтверждённых записей | confirmedCount | int | integer | — | COUNT(Bookings) |  |
+| 6 | Количество закрытых записей | closedCount | int | integer | — | COUNT(Bookings) |  |
 
 ## 10. Пример ответа
 

@@ -104,41 +104,41 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets | Коллекция объектов |
 | 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
-| 3 | Ошибки | errors | array<object> | array | `[]` | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
 ### Структура `value`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | response DTO | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | response DTO |  |
-| 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | response DTO |  |
-| 3 | Номер заявки | requestNumber | string | string | — | response DTO |  |
-| 4 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | response DTO |  |
-| 5 | Номер техники | equipmentNumber | string | string | — | response DTO |  |
-| 6 | Наименование типа техники | equipmentTypeName | object | object | — | response DTO |  |
-| 7 | Текущий статус | status | string | string | — | response DTO |  |
-| 8 | Дата и время начала | startDt | datetime | ISO 8601 | — | response DTO |  |
-| 9 | Дата и время окончания | endDt | datetime | ISO 8601 | — | response DTO |  |
-| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | response DTO |  |
-| 11 | Обоснование | justification | null | — | `null` | response DTO |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
+| 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 3 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
+| 4 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 5 | Номер техники | equipmentNumber | string | string | — | Equipments.tcoId |  |
+| 6 | Наименование типа техники | equipmentTypeName | object | object | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 7 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 8 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 9 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
+| 11 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
 
 ### Структура `value.items[].equipmentTypeName`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Значение на английском языке | En | string | string | — | response DTO |  |
-| 2 | Значение на русском языке | Ru | string | string | — | response DTO |  |
-| 3 | Значение на казахском языке | Kz | string | string | — | response DTO |  |
+| 1 | Значение на английском языке | En | string | string | — | Bookings |  |
+| 2 | Значение на русском языке | Ru | string | string | — | Bookings |  |
+| 3 | Значение на казахском языке | Kz | string | string | — | Bookings |  |
 
 ## 10. Пример ответа
 
