@@ -15,7 +15,7 @@
 | Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Нажатие кнопки `Добавить заявку` |
 | Ожидаемый результат | Создана новая draft-заявка, пользователь может добавить технику, сохранить черновик или отправить заявку |
-| Используемые API | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /jde/work-orders`, `GET /jde/work-orders/{id}/steps`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `DELETE /booking-requests/{id}/items/{bookingId}`, `POST /booking-requests/{id}/submit` |
+| Используемые API | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /jde/work-orders`, `GET /jde/work-orders/{id}/steps`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `DELETE /booking-requests/{id}/items/{bookingId}`, `POST /booking-requests/{id}/submit`, reference APIs for filter dictionaries |
 
 ---
 
@@ -23,7 +23,7 @@
 
 1. Пользователь нажимает кнопку `Добавить заявку`.
 2. Frontend вызывает `POST /booking-requests`.
-3. Backend создаёт draft-заявку и возвращает `id` и `requestNumber`.
+3. Backend создаёт пустую draft-заявку и возвращает `id` и `requestNumber`.
 4. Frontend открывает окно `Новая заявка` и показывает номер, сгенерированный системой.
 5. Пользователь заполняет request-level поля:
    - `default work order`;
@@ -32,10 +32,22 @@
    - локация;
    - описание работ;
    - комментарий.
-6. Frontend сохраняет изменения request-level полей через `PATCH /booking-requests/{id}`.
-7. Пользователь нажимает кнопку `Добавить технику`.
-8. Frontend открывает модалку выбора техники.
-9. Frontend вызывает `GET /equipment/search` и передаёт фильтры:
+6. Если пользователь включает `default work order`, frontend:
+   - блокирует ручной ввод номера Work Order;
+   - передаёт на backend `isDefaultWorkOrder = true`;
+   - передаёт `workOrderNumber = null`.
+7. Frontend сохраняет изменения request-level полей через debounced autosave (`PATCH /booking-requests/{id}`) после изменения значений пользователем.
+8. Пользователь нажимает кнопку `Добавить технику`.
+9. Frontend открывает модалку выбора техники.
+10. При первом открытии модалки frontend подтягивает базовые справочники фильтров:
+   - справочник типов техники;
+   - справочник fleet owners;
+   - справочник work centers;
+   - справочник / reference values для `ownershipType`;
+   - справочник / reference values для `shareType`.
+11. После выбора `equipmentType` frontend дополнительно подтягивает dynamic filters (properties), доступные для выбранного типа техники.
+12. При первом открытии модалки таблица техники пустая; случайный или произвольный список по умолчанию не показывается.
+13. Frontend вызывает `GET /equipment/search` после задания параметров поиска и передаёт фильтры:
    - тип техники;
    - дата начала брони;
    - дата окончания брони;
@@ -44,15 +56,15 @@
    - госномер или ТШО ID;
    - `shareType` / `ownershipType`;
    - dynamic properties.
-10. Пользователь выбирает одну или несколько единиц техники.
-11. Если для конкретной единицы техники требуется `justification`, пользователь заполняет его на уровне booking item.
-12. Frontend создаёт booking item-ы через `POST /booking-requests/{id}/items`.
-13. Пользователь продолжает редактирование draft-заявки до тех пор, пока не сформирует нужный состав item-ов.
-14. Пользователь выбирает одно из действий:
+14. Пользователь выбирает одну или несколько единиц техники.
+15. Frontend создаёт booking item-ы через `POST /booking-requests/{id}/items`.
+16. Если для конкретной единицы техники требуется `justification`, система помечает такой item как незавершённый до заполнения обязательного поля.
+17. Пользователь продолжает редактирование draft-заявки до тех пор, пока не сформирует нужный состав item-ов.
+18. Пользователь выбирает одно из действий:
    - оставить заявку в статусе draft;
    - отправить заявку.
-15. При отправке frontend вызывает `POST /booking-requests/{id}/submit`.
-16. Backend валидирует заявку, проверяет обязательные поля, item-level justification и переводит заявку в submitted flow.
+19. При отправке frontend вызывает `POST /booking-requests/{id}/submit`.
+20. Backend валидирует заявку, проверяет обязательные request-level поля, item-level justification и переводит заявку в submitted flow.
 
 ---
 
@@ -65,16 +77,22 @@
    Модалка выбора техники показывает пустой результат поиска.
 
 3. Для выбранной техники обязательен `justification`, но пользователь его не заполнил.
-   Система не позволяет отправить заявку до исправления ошибки.
+   Item остаётся незавершённым, а система не позволяет отправить заявку до исправления ошибки.
 
 4. Пользователь удаляет ранее добавленный booking item.
    Frontend вызывает `DELETE /booking-requests/{id}/items/{bookingId}`.
 
 5. Пользователь использует `Default Work Order`.
-   Поле номера Work Order перестаёт быть обязательным по правилам бизнес-валидации.
+   Поле номера Work Order блокируется, а backend получает `isDefaultWorkOrder = true` и `workOrderNumber = null`.
 
 6. Пользователь сохраняет заявку как draft и возвращается к ней позже.
    Дальнейшая работа выполняется через `GET /booking-requests/{id}` и `PATCH /booking-requests/{id}`.
+
+7. Пользователь меняет фильтры в модалке выбора техники.
+   Frontend повторно вызывает `GET /equipment/search` при каждом изменении фильтра или поисковой строки.
+
+8. Справочники фильтров не удалось загрузить.
+   Frontend показывает ошибку в модалке выбора техники и не позволяет выполнить поиск до успешной загрузки обязательных reference-данных.
 
 ---
 
@@ -86,3 +104,6 @@
    - request-level: header заявки;
    - booking-level: отдельные item-ы.
 4. Полный detail flow заявки должен опираться на `GET /booking-requests/{id}`.
+5. `POST /booking-requests` создаёт именно пустой draft и не должен требовать обязательного заполнения business-полей на момент открытия формы.
+6. Обязательные поля проверяются на этапе `POST /booking-requests/{id}/submit`, а не на этапе создания draft.
+7. Для модалки выбора техники нужны отдельные read-only reference APIs для загрузки справочников фильтров. Если их ещё нет, они должны быть выделены отдельной задачей в API scope.
