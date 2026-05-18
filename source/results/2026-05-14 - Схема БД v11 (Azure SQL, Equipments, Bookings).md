@@ -240,49 +240,139 @@ Filtered unique indexes:
 
 ### 6. Locations / CostCenters / ServiceZones / Divisions / Groups / Departments / Sections
 
-Для этих таблиц используется единый паттерн:
+Ниже таблицы расписаны отдельно, так как они относятся к разным типам справочников:
+- `Locations`, `CostCenters`, `ServiceZones` - плоские справочники без иерархии;
+- `Divisions`, `Groups`, `Departments`, `Sections` - оргструктура с явными отдельными FK между уровнями.
 
 #### 6.1 Locations
 
 Назначение: справочник базовых локаций техники. Показывает, где техника базируется или откуда обычно предоставляется.
 
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | `uniqueidentifier PK` | |
+| `code` | `nvarchar(100) not null` | Код локации / внешний идентификатор |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
+| `nameKz` | `nvarchar(255) null` | |
+| `sortOrder` | `int not null default 0` | Порядок отображения в UI |
+| audit fields | см. conventions | |
+
+Filtered unique indexes:
+- `code where isDeleted = 0`
+
 #### 6.2 CostCenters
 
-Назначение: справочник cost center. Используется для организационной и финансовой привязки техники.
+Назначение: справочник cost centers / финансовых ЦЗ. Используется для организационной и финансовой привязки техники.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | `uniqueidentifier PK` | |
+| `code` | `nvarchar(100) not null` | Код cost center из JDE |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
+| `nameKz` | `nvarchar(255) null` | |
+| `sortOrder` | `int not null default 0` | Порядок отображения в UI |
+| audit fields | см. conventions | |
+
+Filtered unique indexes:
+- `code where isDeleted = 0`
 
 #### 6.3 ServiceZones
 
 Назначение: справочник сервисных зон. Нужен для логистики, обслуживания и фильтрации техники по зоне ответственности.
 
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | `uniqueidentifier PK` | |
+| `code` | `nvarchar(100) not null` | Код сервисной зоны |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
+| `nameKz` | `nvarchar(255) null` | |
+| `sortOrder` | `int not null default 0` | Порядок отображения в UI |
+| audit fields | см. conventions | |
+
+Filtered unique indexes:
+- `code where isDeleted = 0`
+
 #### 6.4 Divisions
 
 Назначение: верхний уровень организационной иерархии, используемой в привязке техники и пользователей.
 
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | `uniqueidentifier PK` | |
+| `code` | `nvarchar(100) null` | Код дивизиона / внешний идентификатор |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
+| `nameKz` | `nvarchar(255) null` | |
+| `sortOrder` | `int not null default 0` | Порядок отображения в UI |
+| audit fields | см. conventions | |
+
+Filtered unique indexes:
+- `code where isDeleted = 0 and code is not null`
+
 #### 6.5 Groups
 
-Назначение: промежуточный уровень организационной иерархии между Division и Department.
+Назначение: промежуточный уровень организационной иерархии между `Divisions` и `Departments`.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | `uniqueidentifier PK` | |
+| `divisionId` | `uniqueidentifier FK -> Divisions` | Родительский дивизион |
+| `code` | `nvarchar(100) null` | Код группы / внешний идентификатор |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
+| `nameKz` | `nvarchar(255) null` | |
+| `sortOrder` | `int not null default 0` | Порядок отображения в UI |
+| audit fields | см. conventions | |
+
+Filtered unique indexes:
+- `code where isDeleted = 0 and code is not null`
+- при необходимости: составной индекс по `divisionId`
 
 #### 6.6 Departments
 
-Назначение: справочник подразделений. Используется в отчетности, оргструктуре пользователей и привязке техники через Sections.
+Назначение: справочник подразделений. Используется в отчетности, оргструктуре пользователей и привязке техники через `Sections`.
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | `uniqueidentifier PK` | |
+| `groupId` | `uniqueidentifier FK -> Groups` | Родительская группа |
+| `code` | `nvarchar(100) null` | Код департамента / внешний идентификатор |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
+| `nameKz` | `nvarchar(255) null` | |
+| `sortOrder` | `int not null default 0` | Порядок отображения в UI |
+| audit fields | см. conventions | |
+
+Filtered unique indexes:
+- `code where isDeleted = 0 and code is not null`
+- при необходимости: составной индекс по `groupId`
 
 #### 6.7 Sections
 
 Назначение: нижний уровень оргструктуры для unit-level привязки техники к конкретной части подразделения.
 
-| Поле | Тип |
-|---|---|
-| `id` | `uniqueidentifier PK` |
-| `code` | `nvarchar(100) not null` |
-| `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
-| `sortOrder` | `int not null default 0` |
-| Parent FK | `uniqueidentifier null` | Для иерархии `Groups -> Divisions`, `Departments -> Groups`, `Sections -> Departments` |
-| audit fields | см. conventions |
+| Поле | Тип | Описание |
+|---|---|---|
+| `id` | `uniqueidentifier PK` | |
+| `departmentId` | `uniqueidentifier FK -> Departments` | Родительский департамент |
+| `code` | `nvarchar(100) null` | Код отдела / unit / внешний идентификатор |
+| `nameEn` | `nvarchar(255) not null` | |
+| `nameRu` | `nvarchar(255) null` | |
+| `nameKz` | `nvarchar(255) null` | |
+| `sortOrder` | `int not null default 0` | Порядок отображения в UI |
+| audit fields | см. conventions | |
 
 Filtered unique indexes:
-- `code where isDeleted = 0`
+- `code where isDeleted = 0 and code is not null`
+- при необходимости: составной индекс по `departmentId`
+
+Замечание по parent-связям:
+- у `Locations`, `CostCenters`, `ServiceZones` поля `Parent` / `parentId` быть не должно;
+- в оргструктуре не нужен единый абстрактный `Parent FK`, потому что связь типизирована по уровням: `Groups.divisionId`, `Departments.groupId`, `Sections.departmentId`;
+- nullable FK технически допустим в SQL Server, но для обязательной иерархии в этой модели такие связи должны быть `not null`, кроме случаев, когда бизнес явно допускает "осиротевшую" запись.
 
 ### 7. FleetManagePermissions
 
