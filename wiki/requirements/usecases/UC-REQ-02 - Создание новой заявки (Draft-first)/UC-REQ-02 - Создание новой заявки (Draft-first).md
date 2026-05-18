@@ -15,7 +15,7 @@
 | Покрываемые FR (BRD) | `FR-023`, `FR-027`, `FR-030`, `FR-031`, `FR-038`, `FR-040`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-38`, `FR-NEW-39`, `FR-NEW-48`, `FR-NEW-50`, `FR-NEW-51`, `FR-NEW-68`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
-| Триггер | Нажатие кнопки `Добавить заявку` |
+| Триггер | Нажатие кнопки `Создать заявку` |
 | Ожидаемый результат | Создана новая draft-заявка, пользователь может добавить технику, сохранить черновик или отправить заявку |
 | Используемые API | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /jde/work-orders`, `GET /jde/work-orders/{id}/steps`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `DELETE /booking-requests/{id}/items/{bookingId}`, `POST /booking-requests/{id}/submit`, reference APIs for filter dictionaries |
 
@@ -36,7 +36,7 @@
 
 ## Основной сценарий
 
-1. Пользователь нажимает кнопку `Добавить заявку`.
+1. Пользователь нажимает кнопку `Создать заявку`.
 2. Frontend вызывает `POST /booking-requests`.
 3. Backend создаёт пустую draft-заявку и возвращает `id` и `requestNumber`.
 4. Frontend открывает окно `Новая заявка` и показывает номер, сгенерированный системой.

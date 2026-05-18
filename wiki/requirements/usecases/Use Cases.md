@@ -14,7 +14,7 @@
 |---|---|---|---|---|
 | `UC-REQ-01` | Просмотр моих заявок | Страница `Мои заявки` | `BRD: FR-025, FR-091` | `GET /booking-requests/my`, `GET /booking-requests/{id}` |
 | `UC-REQ-02` | Создание новой заявки (Draft-first) | Модальное окно `Новая заявка` | `BRD: FR-023, FR-027, FR-030, FR-031, FR-038, FR-040, FR-NEW-04, FR-NEW-08, FR-NEW-11, FR-NEW-12, FR-NEW-13, FR-NEW-14, FR-NEW-15, FR-NEW-16, FR-NEW-17, FR-NEW-38, FR-NEW-39, FR-NEW-48, FR-NEW-50, FR-NEW-51, FR-NEW-68, FR-NEW-71` | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `POST /booking-requests/{id}/submit` |
-| `UC-REQ-02.1` | Создание пустого draft заявки | Кнопка `Добавить заявку` | `BRD: FR-023, FR-027, FR-030` | `POST /booking-requests` |
+| `UC-REQ-02.1` | Создание пустого draft заявки | Кнопка `Создать заявку` | `BRD: FR-023, FR-027, FR-030` | `POST /booking-requests` |
 | `UC-REQ-02.2` | Заполнение и редактирование шапки заявки | Модальное окно `Новая заявка` | `BRD: FR-027, FR-NEW-11, FR-NEW-12, FR-NEW-13, FR-NEW-14, FR-NEW-48, FR-NEW-51` | `PATCH /booking-requests/{id}`, `GET /jde/work-orders`, `GET /jde/work-orders/{id}/steps` |
 | `UC-REQ-02.3` | Поиск техники для добавления в заявку | Модалка `Добавить технику` | `BRD: FR-031, FR-040, FR-NEW-38, FR-NEW-39, FR-NEW-50, FR-NEW-68` | `GET /equipment/search`, reference APIs |
 | `UC-REQ-02.4` | Добавление техники в draft-заявку | Модалка `Добавить технику` | `BRD: FR-031, FR-038, FR-NEW-04, FR-NEW-08, FR-NEW-15, FR-NEW-71` | `POST /booking-requests/{id}/items` |
