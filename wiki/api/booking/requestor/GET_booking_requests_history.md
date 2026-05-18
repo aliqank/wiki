@@ -105,8 +105,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes | Коллекция объектов |
-| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
@@ -127,7 +125,7 @@ Content-Type: application/json
 | 4 | Плановая дата и время начала брони | bookingPeriodStartDt | datetime | ISO 8601 | — | Bookings.startDt |  |
 | 5 | Плановая дата и время окончания брони | bookingPeriodEndDt | datetime | ISO 8601 | — | Bookings.endDt |  |
 | 6 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 7 | Номер Work Order из JDE | workOrderJdeId | string | string | — | BookingRequests.workOrderJdeId |  |
+| 7 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
 ### Структура `value.items[].equipmentTypeName`
 
@@ -154,7 +152,7 @@ Content-Type: application/json
         "bookingPeriodStartDt": "2026-05-20T08:00:00Z",
         "bookingPeriodEndDt": "2026-05-22T18:00:00Z",
         "status": "Completed",
-        "workOrderJdeId": "WO-10025"
+        "workOrderNumber": "WO-10025"
       }
     ],
     "total": 1

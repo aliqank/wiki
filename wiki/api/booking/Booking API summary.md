@@ -23,6 +23,12 @@ Base URL: `/api/booking/v1`
 | `GET` | `/equipment/search` | Поиск техники для создания заявки |
 | `GET` | `/equipment/{id}` | Получить карточку техники в booking-контексте |
 | `GET` | `/equipment/{id}/load-summary` | Получить загрузку техники на выбранный период |
+| `GET` | `/reference/equipment-types` | Получить справочник типов техники для фильтра поиска |
+| `GET` | `/reference/fleet-owners` | Получить справочник fleet owners для фильтра поиска |
+| `GET` | `/reference/work-centers` | Получить справочник work centers для фильтра поиска |
+| `GET` | `/reference/ownership-types` | Получить справочник ownership types для фильтра поиска |
+| `GET` | `/reference/share-types` | Получить справочник share types для фильтра поиска |
+| `GET` | `/reference/equipment-types/{equipmentTypeId}/properties` | Получить динамические свойства выбранного типа техники |
 | `GET` | `/jde/work-orders` | Получить список WO из JDE |
 | `GET` | `/jde/work-orders/{id}/steps` | Получить шаги выбранного WO |
 | `POST` | `/booking-requests` | Создать черновик заявки |

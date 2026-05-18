@@ -291,7 +291,7 @@ erDiagram
         uniqueidentifier requestTypeId FK
         uniqueidentifier jdeWorkOrderRefId FK
         uniqueidentifier statusId FK
-        nvarchar workOrderJdeId
+        nvarchar workOrderNumber
         nvarchar location
         nvarchar workDescription
         nvarchar comments

@@ -39,7 +39,7 @@
 | Статус техники (EquipmentStatuses) | Одна таблица вместо трёх (EquipmentFreezes + EquipmentRepairHistory + decommission); хранит историю всех состояний; активная запись определяет текущий статус |
 | currentStatus в Equipments | Не хранимое поле — вычисляется при запросе из EquipmentStatuses (логика вычисления описана в разделе Equipments) |
 | FleetManagePermissions | Переименована из FleetDelegations, упрощена: id, fleetId, userId, createdAt, expiresAt |
-| isDefaultWorkOrder в BookingRequests | Убрано; workOrderJdeId остаётся nullable |
+| isDefaultWorkOrder в BookingRequests | Убрано; workOrderNumber остаётся nullable |
 | isExternal в Fleets | Убрано |
 | status в BookingRequests и Bookings | Хранится как денормализованный кэш; обновляется атомарно (в одной транзакции) вместе с вставкой в BookingRequestStatuses / BookingStatuses. Источник правды — история. |
 | BookingRequestStatuses (переименование) | RequestStatusHistories переименована в BookingRequestStatuses; семантика изменена: `oldStatus` + `newStatus` → `status` (текущий статус заявки в момент записи; аналогично BookingStatuses) |
@@ -320,7 +320,7 @@
 | requestNumber | SERIAL UNIQUE NOT NULL | Порядковый номер; отображается как REQ-YYYY-NNNNN |
 | type | ENUM NOT NULL | Regular / ServiceWork |
 | status | ENUM NOT NULL | Draft / Submitted / InProgress / Completed / Cancelled — денормализованный кэш; синхронизируется с BookingRequestStatuses в одной транзакции |
-| workOrderJdeId | VARCHAR nullable | Номер WO из JDE E1 |
+| workOrderNumber | VARCHAR nullable | Номер WO из JDE E1 |
 | location | VARCHAR nullable | Локация; обязательна для SCM Logistics вместо WO |
 | workDescription | VARCHAR NOT NULL | Описание работ |
 | comments | TEXT nullable | |
@@ -330,7 +330,7 @@
 
 > **Жизненный цикл:** Draft → Submitted → InProgress → Completed; Cancelled — из Draft
 
-**Индексы:** `createdBy`, `status`, `requestNumber`; partial на `workOrderJdeId WHERE workOrderJdeId IS NOT NULL`
+**Индексы:** `createdBy`, `status`, `requestNumber`; partial на `workOrderNumber WHERE workOrderNumber IS NOT NULL`
 
 ---
 

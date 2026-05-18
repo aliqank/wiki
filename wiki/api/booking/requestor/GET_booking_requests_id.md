@@ -103,14 +103,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
-| 1.2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 1.3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
-| 1.4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 1.5 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
-| 1.6 | Описание работ | workDescription | string | string | — | BookingRequests.workDescription |  |
-| 1.7 | Комментарии | comments | string | string | — | BookingRequests.comments |  |
-| 1.8 | Список броней | bookings | array<object> | object[] | `[]` | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes | Коллекция объектов |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 

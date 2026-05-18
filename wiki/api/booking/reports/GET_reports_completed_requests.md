@@ -108,8 +108,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes | Коллекция объектов |
-| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
@@ -127,7 +125,7 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 4 | Номер Work Order из JDE | workOrderJdeId | string | string | — | BookingRequests.workOrderJdeId |  |
+| 4 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
 ## 10. Пример ответа
 
@@ -139,7 +137,7 @@ Content-Type: application/json
         "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
         "status": "Completed",
-        "workOrderJdeId": "WO-10025"
+        "workOrderNumber": "WO-10025"
       }
     ],
     "total": 1

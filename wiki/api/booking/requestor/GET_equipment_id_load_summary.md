@@ -106,11 +106,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 1.2 | Дата и время начала периода | periodStartDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 1.3 | Дата и время окончания периода | periodEndDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 1.4 | Количество активных броней в периоде | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 1.5 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + Equipments | Коллекция объектов |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 

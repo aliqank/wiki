@@ -88,7 +88,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 | 1 | Фильтр по статусу незавершенной заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress` | — | Query param | Terminal statuses `Completed` и `Cancelled` в этом методе не используются |
 | 2 | Фильтр по типу заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
 | 3 | Фильтр по приоритету | `priority` | `enum` | `-` | `P1 / P2 / P3 / P4` | — | Query param | |
-| 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderJdeId`, `workDescription` | — | Query param | |
+| 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderNumber`, `workDescription` | — | Query param | |
 | 5 | Дата создания заявки: начало диапазона | `createdFrom` | `date` | `-` | `<= createdTo`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |
 | 6 | Дата создания заявки: конец диапазона | `createdTo` | `date` | `-` | `>= createdFrom`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |
 | 7 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |
@@ -117,8 +117,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | PaginatedResult | — | backend aggregation |  |
-| 1.1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + WorkCenters + Fleets + Users | Коллекция объектов |
-| 1.2 | Общее количество записей | total | int | integer | — | backend |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
@@ -138,7 +136,7 @@ Content-Type: application/json
 | 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 | 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
 | 5 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
-| 6 | Номер Work Order из JDE | workOrderJdeId | string | string | — | BookingRequests.workOrderJdeId |  |
+| 6 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 | 7 | Дата и время создания | createdAt | datetime | ISO 8601 | — | BookingRequests.createdAt |  |
 | 8 | Данные реквестора | requestor | object | object | — | Users |  |
 | 9 | Количество броней | bookingsCount | int | integer | — | COUNT(Bookings) |  |
@@ -181,7 +179,7 @@ Content-Type: application/json
         "type": "Regular",
         "status": "Submitted",
         "priority": "P2",
-        "workOrderJdeId": "WO-10025",
+        "workOrderNumber": "WO-10025",
         "createdAt": "2026-05-14T09:15:00Z",
         "requestor": {
           "id": "11111111-1111-1111-1111-111111111111",

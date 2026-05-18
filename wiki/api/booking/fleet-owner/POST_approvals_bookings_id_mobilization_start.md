@@ -110,9 +110,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
-| 1.2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 1.3 | Фактическая дата и время начала | actualStartDt | datetime | ISO 8601 | — | Bookings.actualStartDt |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 

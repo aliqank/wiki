@@ -619,7 +619,7 @@ Filtered unique indexes:
 | `requestTypeId` | `uniqueidentifier FK -> ref_request_type` | |
 | `jdeWorkOrderRefId` | `uniqueidentifier null FK -> JdeWorkOrders` | |
 | `statusId` | `uniqueidentifier FK -> ref_booking_request_status` | Денормализованный текущий статус |
-| `workOrderJdeId` | `nvarchar(100) null` | |
+| `workOrderNumber` | `nvarchar(100) null` | |
 | `location` | `nvarchar(255) null` | |
 | `workDescription` | `nvarchar(1000) not null` | |
 | `comments` | `nvarchar(max) null` | |
@@ -634,7 +634,7 @@ Filtered unique indexes:
 
 Индексы:
 - `createdBy`, `statusId`, `requestNumber`
-- filtered index on `workOrderJdeId where isDeleted = 0 and workOrderJdeId is not null`
+- filtered index on `workOrderNumber where isDeleted = 0 and workOrderNumber is not null`
 
 ### 24. Bookings
 

@@ -608,7 +608,7 @@
 | Статус | BookingRequests.status | Бейдж с цветовым кодированием |
 | Приоритет | priority | P1–P4 с цветовым кодированием |
 | Тип | type | Regular / ServiceWork |
-| WO / Локация | workOrderJdeId / location | WO если заполнен; иначе — location |
+| WO / Локация | workOrderNumber / location | WO если заполнен; иначе — location |
 | Описание работ | workDescription | Обрезать до 80 символов |
 | Дата создания | createdAt | |
 | Броней | COUNT(Bookings) | Число единиц техники в заявке |

@@ -85,7 +85,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор заявки | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
 | 2 | Идентификатор WO | `jdeWorkOrderRefId` | `uuid` | `-` | Если передан, WO должен существовать | — | Request body | |
-| 3 | Номер WO | `workOrderJdeId` | `string` | `-` | Должен соответствовать WO | — | Request body | |
+| 3 | Номер WO | `workOrderNumber` | `string` | `-` | Должен соответствовать WO | — | Request body | |
 | 4 | Локация | `location` | `string` | `-` | — | — | Request body | |
 | 5 | Описание работ | `workDescription` | `string` | `-` | Если передан, не должен быть пустым | — | Request body | |
 | 6 | Комментарии | `comments` | `string` | `-` | — | — | Request body | |
@@ -119,11 +119,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
-| 1.2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 1.3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 1.4 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
-| 1.5 | Комментарии | comments | string | string | — | BookingRequests.comments |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 

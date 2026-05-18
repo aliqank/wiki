@@ -131,17 +131,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
-| 1.2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 1.3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
-| 1.4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 1.5 | Идентификатор связанного Work Order | jdeWorkOrderRefId | null | — | `null` | backend composition from JdeWorkOrders + BookingRequests + BookingRequestStatuses | Для draft может отсутствовать |
-| 1.6 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderJdeId | Для draft может отсутствовать |
-| 1.7 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
-| 1.8 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
-| 1.9 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |
-| 1.10 | Комментарии | comments | null | — | `null` | BookingRequests.comments | Для draft может отсутствовать |
-| 1.11 | Приоритет | priority | null | — | `null` | BookingRequests + ref_request_priority | Для draft может отсутствовать |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
@@ -154,7 +143,7 @@ Content-Type: application/json
 | 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 | 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
 | 5 | Идентификатор связанного Work Order | jdeWorkOrderRefId | null | — | `null` | backend composition from JdeWorkOrders + BookingRequests + BookingRequestStatuses | Для draft может отсутствовать |
-| 6 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderJdeId | Для draft может отсутствовать |
+| 6 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderNumber | Для draft может отсутствовать |
 | 7 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
 | 8 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
 | 9 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |

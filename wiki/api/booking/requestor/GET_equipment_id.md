@@ -103,15 +103,6 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
-| 1.1 | Идентификатор записи | id | uuid | UUID v4 | — | Equipments.id |  |
-| 1.2 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
-| 1.3 | Тип техники | equipmentType | object | object | — | backend composition from Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentProperties + EquipmentPhotos + Locations + Fleets |  |
-| 1.4 | Бренд техники | brand | string | string | — | EquipmentBrands |  |
-| 1.5 | Модель техники | model | string | string | — | EquipmentModels |  |
-| 1.6 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
-| 1.7 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
-| 1.8 | Список фотографий | photos | array<object> | object[] | `[]` | EquipmentPhotos | Коллекция объектов |
-| 1.9 | Список свойств | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Коллекция объектов |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 

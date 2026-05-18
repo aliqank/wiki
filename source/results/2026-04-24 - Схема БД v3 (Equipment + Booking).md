@@ -369,7 +369,7 @@
 | requestNumber | SERIAL UNIQUE NOT NULL | Порядковый номер (INT); отображается в UI как REQ-YYYY-NNNNN |
 | type | ENUM NOT NULL | Regular / ServiceWork |
 | status | ENUM NOT NULL | Draft / Submitted / InProgress / Completed / Cancelled |
-| workOrderJdeId | VARCHAR nullable | Номер WO из JDE E1; обязателен для Maintenance / Railroad / Operations |
+| workOrderNumber | VARCHAR nullable | Номер WO из JDE E1; обязателен для Maintenance / Railroad / Operations |
 | isDefaultWorkOrder | BOOLEAN NOT NULL DEFAULT FALSE | TRUE — подразделение не работает в JDE, номер WO не требуется (FR-NEW-51) |
 | location | VARCHAR nullable | Локация; обязательна для SCM Logistics вместо WO |
 | workDescription | VARCHAR NOT NULL | Описание работ (~50 символов, мягкое ограничение) |
@@ -385,7 +385,7 @@
 > - **Completed** → все активные брони закрыты
 > - **Cancelled** → отменена заявителем до отправки
 
-**Индексы:** `createdBy`, `status`, `requestNumber`; partial на `workOrderJdeId WHERE workOrderJdeId IS NOT NULL`
+**Индексы:** `createdBy`, `status`, `requestNumber`; partial на `workOrderNumber WHERE workOrderNumber IS NOT NULL`
 
 ---
 
