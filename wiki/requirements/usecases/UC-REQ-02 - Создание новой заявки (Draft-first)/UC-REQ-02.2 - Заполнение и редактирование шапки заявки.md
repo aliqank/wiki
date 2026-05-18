@@ -23,10 +23,11 @@
 ## Основной сценарий
 
 1. Пользователь редактирует request-level поля: `workOrderNumber`, `priority`, `location`, `workDescription`, `comments`.
-2. Если нужен выбор WO из JDE, frontend вызывает `GET /jde/work-orders` и при необходимости `GET /jde/work-orders/{id}/steps`.
-3. Если пользователь включает `Default Work Order`, frontend передаёт `isDefaultWorkOrder = true`, а `workOrderNumber = null`.
-4. Frontend сохраняет изменения через debounced autosave: `PATCH /booking-requests/{id}`.
-5. Backend обновляет header draft-заявки.
+2. На текущем этапе шаг выбора WO из JDE в базовом сценарии можно пропустить; идём по самому базовому пути заполнения шапки заявки.
+3. Если позже потребуется выбор WO из JDE, frontend вызывает `GET /jde/work-orders` и при необходимости `GET /jde/work-orders/{id}/steps`.
+4. Если пользователь включает `Default Work Order`, frontend передаёт `isDefaultWorkOrder = true`, а `workOrderNumber = null`.
+5. Frontend сохраняет изменения через debounced autosave: `PATCH /booking-requests/{id}`.
+6. Backend обновляет header draft-заявки.
 
 ---
 

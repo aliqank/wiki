@@ -39,7 +39,7 @@
 1. Проверить существование WO в `JdeWorkOrders`.
 2. Выбрать активные записи из `JdeWorkOrderSteps` по `jdeWorkOrderRefId`.
 3. Подтянуть `WorkCenters` для возврата кода и наименования шага.
-4. Отсортировать шаги по `startDt ASC`, затем по `workCenterId ASC`.
+4. Отсортировать шаги по `plannedStartDateTime ASC`, затем по `workCenterId ASC`.
 5. Вернуть коллекцию шагов в общем `result wrapper`.
 
 Сущности, участвующие в методе:
@@ -117,8 +117,8 @@ Content-Type: application/json
 | 4 | Наименование work center | workCenterName | object | object | — | WorkCenters |  |
 | 5 | Наименование шага | stepName | string | string | — | JdeWorkOrderSteps.stepName |  |
 | 6 | Объём шага | stepVolume | int | integer | — | JdeWorkOrderSteps.stepVolume |  |
-| 7 | Дата и время начала | startDt | datetime | ISO 8601 | — | JdeWorkOrderSteps.startDt |  |
-| 8 | Дата и время окончания | endDt | datetime | ISO 8601 | — | JdeWorkOrderSteps.endDt |  |
+| 7 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | JdeWorkOrderSteps.plannedStartDateTime |  |
+| 8 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | JdeWorkOrderSteps.plannedEndDateTime |  |
 
 ### Структура `value[].workCenterName`
 
@@ -144,8 +144,8 @@ Content-Type: application/json
       },
       "stepName": "Excavation",
       "stepVolume": 2,
-      "startDt": "2026-05-20T08:00:00Z",
-      "endDt": "2026-05-22T18:00:00Z"
+      "plannedStartDateTime": "2026-05-20T08:00:00Z",
+      "plannedEndDateTime": "2026-05-22T18:00:00Z"
     }
   ],
   "isSuccess": true,

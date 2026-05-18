@@ -36,7 +36,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить существование техники.
-2. Провалидировать `startDt` и `endDt`.
+2. Провалидировать `plannedStartDateTime` и `plannedEndDateTime`.
 3. Выбрать из `Bookings` записи по `equipmentId = :id`, пересекающиеся с заданным периодом.
 4. Включить только статусы, релевантные для анализа загрузки: `Submitted`, `ConfirmedByFo`, `Confirmed`, `TransportConfirmed`, `InProgress`, `Extended`.
 5. Вернуть summary с кратким списком пересечений и агрегатами по количеству записей.
@@ -82,15 +82,15 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор техники | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Дата/время начала периода | `startDt` | `datetime` | `+` | Меньше `endDt` | — | Query param | |
-| 3 | Дата/время окончания периода | `endDt` | `datetime` | `+` | Больше `startDt` | — | Query param | |
+| 2 | Плановая дата/время начала периода | `plannedStartDateTime` | `datetime` | `+` | Меньше `plannedEndDateTime` | — | Query param | |
+| 3 | Плановая дата/время окончания периода | `plannedEndDateTime` | `datetime` | `+` | Больше `plannedStartDateTime` | — | Query param | |
 
 ---
 
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/equipment/c3b5af91-61f8-4bc0-bd88-d099d3e90001/load-summary?startDt=2026-05-20T08:00:00Z&endDt=2026-05-22T18:00:00Z
+GET /api/booking/v1/equipment/c3b5af91-61f8-4bc0-bd88-d099d3e90001/load-summary?plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -114,8 +114,8 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 2 | Дата и время начала периода | periodStartDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 3 | Дата и время окончания периода | periodEndDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 2 | Дата и время начала периода | periodStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 3 | Дата и время окончания периода | periodEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 4 | Количество активных броней в периоде | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 5 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + Equipments | Коллекция объектов |
 
@@ -127,8 +127,8 @@ Content-Type: application/json
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 3 | Номер заявки | requestNumber | string | string | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 4 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 5 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 6 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 
 ## 10. Пример ответа
 
@@ -136,8 +136,8 @@ Content-Type: application/json
 {
   "value": {
     "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
-    "periodStartDt": "2026-05-20T08:00:00Z",
-    "periodEndDt": "2026-05-22T18:00:00Z",
+    "periodStartDateTime": "2026-05-20T08:00:00Z",
+    "periodEndDateTime": "2026-05-22T18:00:00Z",
     "activeBookingsCount": 2,
     "items": [
       {
@@ -145,8 +145,8 @@ Content-Type: application/json
         "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
         "status": "Confirmed",
-        "startDt": "2026-05-20T06:00:00Z",
-        "endDt": "2026-05-21T18:00:00Z"
+        "plannedStartDateTime": "2026-05-20T06:00:00Z",
+        "plannedEndDateTime": "2026-05-21T18:00:00Z"
       }
     ]
   },

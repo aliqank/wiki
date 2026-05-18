@@ -108,8 +108,8 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 3 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes |  |
-| 4 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes |  |
+| 3 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes |  |
+| 4 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes |  |
 
 ## 10. Пример ответа
 
@@ -118,8 +118,8 @@ Content-Type: application/json
   "value": {
     "id": "aaabbbcc-dddd-4444-8888-123456780001",
     "status": "Confirmed",
-    "startDt": "2026-05-25T08:00:00Z",
-    "endDt": "2026-05-25T18:00:00Z"
+    "plannedStartDateTime": "2026-05-25T08:00:00Z",
+    "plannedEndDateTime": "2026-05-25T18:00:00Z"
   },
   "isSuccess": true,
   "errors": []

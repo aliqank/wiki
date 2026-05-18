@@ -43,11 +43,13 @@
 3. Для каждого элемента проверить существование техники и получить ее атрибуты `ownershipType`, `shareType`, `fleetId`.
 4. Для каждого элемента проверить, что техника не относится к `OnDemand`.
 5. Для каждого элемента проверить доступность на выбранный период.
+   Под доступностью в рамках текущего базового сценария понимается, что в `EquipmentStatuses` нет активных записей, пересекающихся с периодом брони.
 6. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, потребовать `justification` на уровне конкретного элемента.
 7. Если техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
-8. Если передан `jdeWorkOrderStepRefId`, проверить существование шага WO и согласованность `workCenterId`.
-9. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`.
-10. Вернуть список booking item-ов, созданных в текущем batch-добавлении.
+8. На текущем этапе в базовом сценарии поле `jdeWorkOrderStepRefId` можно не передавать.
+9. Если позже `jdeWorkOrderStepRefId` будет использоваться, нужно проверить существование шага WO и согласованность `workCenterId`.
+10. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`.
+11. Вернуть список booking item-ов, созданных в текущем batch-добавлении.
 
 Сущности, участвующие в методе:
 - читаются: `BookingRequests`, `Equipments`, `EquipmentBookingAuthorizations`, `Bookings`, `JdeWorkOrderSteps`
@@ -95,10 +97,10 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | 1 | Идентификатор заявки | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
 | 2 | Список добавляемых позиций | `items` | `array<object>` | `+` | Минимум 1 элемент | `[]` | Request body | Один элемент = одна создаваемая бронь |
 | 2.1 | Идентификатор техники | `items[].equipmentId` | `uuid` | `+` | Должен существовать | — | Request body | |
-| 2.2 | Дата/время начала | `items[].startDt` | `datetime` | `+` | Меньше `items[].endDt` | — | Request body | |
-| 2.3 | Дата/время окончания | `items[].endDt` | `datetime` | `+` | Больше `items[].startDt` | — | Request body | |
+| 2.2 | Плановая дата/время начала | `items[].plannedStartDateTime` | `datetime` | `+` | Меньше `items[].plannedEndDateTime` | — | Request body | |
+| 2.3 | Плановая дата/время окончания | `items[].plannedEndDateTime` | `datetime` | `+` | Больше `items[].plannedStartDateTime` | — | Request body | |
 | 2.4 | Work Center | `items[].workCenterId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | |
-| 2.5 | Шаг WO | `items[].jdeWorkOrderStepRefId` | `uuid` | `-` | Если передан, должен существовать и относиться к WO заявки | — | Request body | |
+| 2.5 | Шаг WO | `items[].jdeWorkOrderStepRefId` | `uuid` | `-` | В базовом сценарии можно не передавать; если передан, должен существовать и относиться к WO заявки | — | Request body | |
 | 2.6 | Обоснование | `items[].justification` | `string` | `-` | Обязательно для `LongTermRented`, `Assigned`, `SharedWithConditions` | — | Request body | |
 
 ---
@@ -116,18 +118,16 @@ Content-Type: application/json
   "items": [
     {
       "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
-      "startDt": "2026-05-20T08:00:00Z",
-      "endDt": "2026-05-22T18:00:00Z",
+      "plannedStartDateTime": "2026-05-20T08:00:00Z",
+      "plannedEndDateTime": "2026-05-22T18:00:00Z",
       "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
-      "jdeWorkOrderStepRefId": "d8975a3d-a1a0-4f78-878c-e854ff560001",
       "justification": "Required specialized bucket setup for this trench segment."
     },
     {
       "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90002",
-      "startDt": "2026-05-20T08:00:00Z",
-      "endDt": "2026-05-22T18:00:00Z",
+      "plannedStartDateTime": "2026-05-20T08:00:00Z",
+      "plannedEndDateTime": "2026-05-22T18:00:00Z",
       "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
-      "jdeWorkOrderStepRefId": "d8975a3d-a1a0-4f78-878c-e854ff560002",
       "justification": "Required for parallel work on adjacent segment."
     }
   ]
@@ -156,8 +156,8 @@ Content-Type: application/json
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | BookingRequests.id |  |
 | 3 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
 | 4 | Текущий статус | status | string | string | — | Bookings + ref_booking_status |  |
-| 5 | Дата и время начала | startDt | datetime | ISO 8601 | — | Bookings.startDt |  |
-| 6 | Дата и время окончания | endDt | datetime | ISO 8601 | — | Bookings.endDt |  |
+| 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 7 | Обоснование | justification | string | string | — | Bookings.justification |  |
 | 8 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
 
@@ -171,8 +171,8 @@ Content-Type: application/json
       "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
       "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
       "status": "Draft",
-      "startDt": "2026-05-20T08:00:00Z",
-      "endDt": "2026-05-22T18:00:00Z",
+      "plannedStartDateTime": "2026-05-20T08:00:00Z",
+      "plannedEndDateTime": "2026-05-22T18:00:00Z",
       "justification": "Required specialized bucket setup for this trench segment.",
       "requiresSupervisorApproval": false
     },
@@ -181,8 +181,8 @@ Content-Type: application/json
       "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
       "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90002",
       "status": "Draft",
-      "startDt": "2026-05-20T08:00:00Z",
-      "endDt": "2026-05-22T18:00:00Z",
+      "plannedStartDateTime": "2026-05-20T08:00:00Z",
+      "plannedEndDateTime": "2026-05-22T18:00:00Z",
       "justification": "Required for parallel work on adjacent segment.",
       "requiresSupervisorApproval": false
     }
@@ -197,3 +197,5 @@ Content-Type: application/json
 1. Контракт метода описан как batch create: один вызов может добавить несколько единиц техники.
 2. Один элемент в `items[]` соответствует одной создаваемой записи в `Bookings`.
 3. В `value` возвращаются только брони, созданные в текущем вызове метода, а не полный список всех броней заявки.
+4. В базовом сценарии поле `jdeWorkOrderStepRefId` можно не передавать.
+5. Под доступностью в базовом сценарии понимается отсутствие активных записей в `EquipmentStatuses`, пересекающихся с периодом брони.

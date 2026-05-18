@@ -38,8 +38,8 @@
 
 1. Проверить существование брони и права доступа.
 2. Разрешить продление только для подтвержденной активной брони.
-3. Провалидировать новый `endDt` и доступность техники на добавляемый период.
-4. Обновить `Bookings.endDt`.
+3. Провалидировать новый `newPlannedEndDateTime` и доступность техники на добавляемый период.
+4. Обновить `Bookings.plannedEndDateTime`.
 5. Обновить `Bookings.status = Submitted` и создать запись в `BookingStatuses` с комментарием о продлении.
 6. Вернуть обновленную бронь.
 
@@ -76,7 +76,7 @@
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_EXTENDABLE` | Бронь нельзя продлить |
 | `EQUIPMENT_NOT_AVAILABLE` | Техника недоступна на новый период |
-| `VALIDATION_ERROR` | Невалидный `newEndDt` |
+| `VALIDATION_ERROR` | Невалидный `newPlannedEndDateTime` |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
 
@@ -87,7 +87,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Новая дата/время окончания | `newEndDt` | `datetime` | `+` | Должна быть больше текущего `endDt` | — | Request body | |
+| 2 | Новая плановая дата/время окончания | `newPlannedEndDateTime` | `datetime` | `+` | Должна быть больше текущего `plannedEndDateTime` | — | Request body | |
 | 3 | Комментарий к продлению | `comment` | `string` | `-` | — | — | Request body | |
 
 ---
@@ -102,7 +102,7 @@ Content-Type: application/json
 
 ```json
 {
-  "newEndDt": "2026-05-23T18:00:00Z",
+  "newPlannedEndDateTime": "2026-05-23T18:00:00Z",
   "comment": "Need one additional shift for trench completion."
 }
 ```
@@ -127,8 +127,8 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | backend composition from Bookings + BookingStatuses |  |
 | 2 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingStatuses |  |
-| 3 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
-| 4 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
+| 3 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
+| 4 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
 
 ## 10. Пример ответа
 
@@ -137,8 +137,8 @@ Content-Type: application/json
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
     "status": "Submitted",
-    "startDt": "2026-05-20T08:00:00Z",
-    "endDt": "2026-05-23T18:00:00Z"
+    "plannedStartDateTime": "2026-05-20T08:00:00Z",
+    "plannedEndDateTime": "2026-05-23T18:00:00Z"
   },
   "isSuccess": true,
   "errors": []

@@ -54,6 +54,7 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar iconUrl
     }
 
     ref_equipment_current_status {
@@ -174,7 +175,7 @@ erDiagram
         uniqueidentifier shareTypeId FK
         bit isCritical
         int yearOfManufacture
-        decimal plannedEngineHoursPerDay
+        decimal plannedMotohourPerDay
         decimal plannedMileagePerDay
         uniqueidentifier serviceZoneId FK
         uniqueidentifier costCenterId FK
@@ -278,8 +279,8 @@ erDiagram
         uniqueidentifier workCenterId FK
         nvarchar stepName
         int stepVolume
-        datetime2 startDt
-        datetime2 endDt
+        datetime2 plannedStartDateTime
+        datetime2 plannedEndDateTime
         nvarchar sourcePayload
         datetime2 lastSyncedAt
         bit isActive
@@ -313,10 +314,10 @@ erDiagram
         uniqueidentifier workCenterId FK
         uniqueidentifier jdeWorkOrderStepRefId FK
         uniqueidentifier statusId FK
-        datetime2 startDt
-        datetime2 endDt
-        datetime2 actualStartDt
-        datetime2 actualEndDt
+        datetime2 plannedStartDateTime
+        datetime2 plannedEndDateTime
+        datetime2 actualStartDateTime
+        datetime2 actualEndDateTime
         nvarchar justification
         bit requiresSupervisorApproval
         uniqueidentifier supervisorApprovedBy

@@ -37,7 +37,7 @@
 
 1. Проверить бронь и права доступа.
 2. Разрешить действие только для брони в статусе `Confirmed` или `TransportConfirmed`.
-3. Установить `actualStartDt` = текущее время или значение из запроса.
+3. Установить `actualStartDateTime` = текущее время или значение из запроса.
 4. Обновить `Bookings.status = InProgress`.
 5. Создать запись в `BookingStatuses`.
 
@@ -81,7 +81,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Фактическая дата/время старта | `actualStartDt` | `datetime` | `-` | Если не передано, backend использует текущее время | now | Request body | |
+| 2 | Фактическая дата/время старта | `actualStartDateTime` | `datetime` | `-` | Если не передано, backend использует текущее время | now | Request body | |
 
 ---
 
@@ -95,7 +95,7 @@ Content-Type: application/json
 
 ```json
 {
-  "actualStartDt": "2026-05-20T08:05:00Z"
+  "actualStartDateTime": "2026-05-20T08:05:00Z"
 }
 ```
 
@@ -119,7 +119,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 3 | Фактическая дата и время начала | actualStartDt | datetime | ISO 8601 | — | Bookings.actualStartDt |  |
+| 3 | Фактическая дата и время начала | actualStartDateTime | datetime | ISO 8601 | — | Bookings.actualStartDateTime |  |
 
 ## 10. Пример ответа
 
@@ -128,7 +128,7 @@ Content-Type: application/json
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
     "status": "InProgress",
-    "actualStartDt": "2026-05-20T08:05:00Z"
+    "actualStartDateTime": "2026-05-20T08:05:00Z"
   },
   "isSuccess": true,
   "errors": []

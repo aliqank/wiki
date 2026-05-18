@@ -125,8 +125,8 @@ Content-Type: application/json
 | 5 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 6 | Наименование типа техники | equipmentTypeName | object | object | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 7 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 8 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
-| 9 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 8 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 9 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
 | 11 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
 
@@ -156,8 +156,8 @@ Content-Type: application/json
           "Kz": "Экскаватор"
         },
         "status": "Submitted",
-        "startDt": "2026-05-20T08:00:00Z",
-        "endDt": "2026-05-22T18:00:00Z",
+        "plannedStartDateTime": "2026-05-20T08:00:00Z",
+        "plannedEndDateTime": "2026-05-22T18:00:00Z",
         "requiresSupervisorApproval": false,
         "justification": null
       }

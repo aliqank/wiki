@@ -46,7 +46,7 @@
 3. Для каждого item проверить:
    - существование техники;
    - допустимость `ownershipType` для booking workflow;
-   - валидность `startDt` / `endDt`;
+   - валидность `plannedStartDateTime` / `plannedEndDateTime`;
    - доступность техники на период;
    - обязательность `justification` для `LongTermRented`, `Assigned`, `SharedWithConditions`;
    - наличие авторизации в `EquipmentBookingAuthorizations` для `Assigned`;
@@ -110,8 +110,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | 6 | Приоритет | `priority` | `enum` | `+` | `P1 / P2 / P3 / P4` | — | Request body | |
 | 7 | Список booking item-ов | `items` | `array<object>` | `+` | Минимум 1 элемент | `[]` | Request body | |
 | 7.1 | Идентификатор техники | `items[].equipmentId` | `uuid` | `+` | Должен существовать | — | Request body | |
-| 7.2 | Дата/время начала | `items[].startDt` | `datetime` | `+` | Меньше `endDt` | — | Request body | |
-| 7.3 | Дата/время окончания | `items[].endDt` | `datetime` | `+` | Больше `startDt` | — | Request body | |
+| 7.2 | Плановая дата/время начала | `items[].plannedStartDateTime` | `datetime` | `+` | Меньше `items[].plannedEndDateTime` | — | Request body | |
+| 7.3 | Плановая дата/время окончания | `items[].plannedEndDateTime` | `datetime` | `+` | Больше `items[].plannedStartDateTime` | — | Request body | |
 | 7.4 | Work Center | `items[].workCenterId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | |
 | 7.5 | Шаг WO | `items[].jdeWorkOrderStepRefId` | `uuid` | `-` | Если передан, должен существовать и относиться к WO | — | Request body | |
 | 7.6 | Обоснование | `items[].justification` | `string` | `-` | Обязательно для `LongTermRented`, `Assigned`, `SharedWithConditions` | — | Request body | |
@@ -136,8 +136,8 @@ Content-Type: application/json
   "items": [
     {
       "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
-      "startDt": "2026-05-20T08:00:00Z",
-      "endDt": "2026-05-22T18:00:00Z",
+      "plannedStartDateTime": "2026-05-20T08:00:00Z",
+      "plannedEndDateTime": "2026-05-22T18:00:00Z",
       "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
       "jdeWorkOrderStepRefId": "d8975a3d-a1a0-4f78-878c-e854ff560001",
       "justification": "Required specialized bucket setup for this trench segment."
@@ -183,8 +183,8 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from JdeWorkOrders + JdeWorkOrderSteps + BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + BookingRequestStatuses + BookingStatuses |  |
 | 3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 4 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from JdeWorkOrders + JdeWorkOrderSteps + BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + BookingRequestStatuses + BookingStatuses |  |
-| 5 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from JdeWorkOrders + JdeWorkOrderSteps + BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + BookingRequestStatuses + BookingStatuses |  |
+| 4 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from JdeWorkOrders + JdeWorkOrderSteps + BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + BookingRequestStatuses + BookingStatuses |  |
+| 5 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from JdeWorkOrders + JdeWorkOrderSteps + BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + BookingRequestStatuses + BookingStatuses |  |
 | 6 | Обоснование | justification | string | string | — | backend composition from JdeWorkOrders + JdeWorkOrderSteps + BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + BookingRequestStatuses + BookingStatuses |  |
 | 7 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from JdeWorkOrders + JdeWorkOrderSteps + BookingRequests + Equipments + EquipmentBookingAuthorizations + Bookings + BookingRequestStatuses + BookingStatuses |  |
 
@@ -208,8 +208,8 @@ Content-Type: application/json
         "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
         "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
         "status": "Submitted",
-        "startDt": "2026-05-20T08:00:00Z",
-        "endDt": "2026-05-22T18:00:00Z",
+        "plannedStartDateTime": "2026-05-20T08:00:00Z",
+        "plannedEndDateTime": "2026-05-22T18:00:00Z",
         "justification": "Required specialized bucket setup for this trench segment.",
         "requiresSupervisorApproval": false
       }

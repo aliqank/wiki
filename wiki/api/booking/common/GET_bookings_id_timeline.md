@@ -37,7 +37,7 @@
 
 1. Проверить доступ к брони.
 2. Собрать историю из `BookingStatuses`.
-3. Добавить служебные события из основной записи `Bookings`: `actualStartDt`, `actualEndDt`, `supervisorApprovedAt` при наличии.
+3. Добавить служебные события из основной записи `Bookings`: `actualStartDateTime`, `actualEndDateTime`, `supervisorApprovedAt` при наличии.
 4. Вернуть отсортированный timeline.
 
 Сущности:

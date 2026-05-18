@@ -1,7 +1,7 @@
 # Схема БД v11: Azure SQL adaptation for Equipments + Bookings
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-18  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -22,6 +22,9 @@
 | 10 | `JSONB sourcePayload` в JDE-таблицах заменён на `nvarchar(max)` | JSON хранится как raw payload text |
 | 11 | Добавлен `Equipments.currentStatusId` | Денормализованный кэш текущего статуса техники |
 | 12 | Уникальные ограничения приведены к filtered unique indexes | С учетом soft delete (`isDeleted = 0`) |
+| 13 | `Equipments.plannedEngineHoursPerDay` переименован в `plannedMotohourPerDay` | Термин приведён к предметной области моточасов |
+| 14 | `iconUrl` добавлено в `ref_equipment_status_type`, а не в `EquipmentStatuses` | Иконка относится к типу статуса, а не к history-записи |
+| 15 | Неявные поля `startDt` / `endDt` переименованы в `plannedStartDateTime` / `plannedEndDateTime` | Для `JdeWorkOrderSteps` и `Bookings` |
 
 ---
 
@@ -149,6 +152,7 @@ where isDeleted = 0;
 | `nameEn` | `nvarchar(255) not null` |
 | `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |
+| `iconUrl` | `nvarchar(1000) null` |
 | `sortOrder` | `int not null default 0` |
 | `isActive` | `bit not null default 1` |
 
@@ -418,7 +422,7 @@ Filtered unique indexes:
 | `shareTypeId` | `uniqueidentifier FK -> ref_share_type` | |
 | `isCritical` | `bit not null` | Требует охраны при транспортировке |
 | `yearOfManufacture` | `int null` | |
-| `plannedEngineHoursPerDay` | `decimal(18,4) null` | |
+| `plannedMotohourPerDay` | `decimal(18,4) null` | Плановое количество моточасов в день |
 | `plannedMileagePerDay` | `decimal(18,4) null` | |
 | `serviceZoneId` | `uniqueidentifier FK -> ServiceZones` | |
 | `costCenterId` | `uniqueidentifier FK -> CostCenters` | |
@@ -468,6 +472,9 @@ Filtered unique indexes:
 Индексы:
 - `(equipmentId, statusTypeId)`
 - filtered index on active statuses per business rules
+
+Замечание:
+- иконка статуса должна храниться в `ref_equipment_status_type.iconUrl`, так как это атрибут типа статуса, а не конкретной исторической записи `EquipmentStatuses`
 
 ---
 
@@ -688,8 +695,8 @@ Filtered unique indexes:
 | `workCenterId` | `uniqueidentifier FK -> WorkCenters` |
 | `stepName` | `nvarchar(255) null` |
 | `stepVolume` | `int null` |
-| `startDt` | `datetime2(3) null` |
-| `endDt` | `datetime2(3) null` |
+| `plannedStartDateTime` | `datetime2(3) null` |
+| `plannedEndDateTime` | `datetime2(3) null` |
 | `sourcePayload` | `nvarchar(max) null` |
 | `lastSyncedAt` | `datetime2(3) not null` |
 | `isActive` | `bit not null default 1` |
@@ -739,10 +746,10 @@ Filtered unique indexes:
 | `workCenterId` | `uniqueidentifier null FK -> WorkCenters` | |
 | `jdeWorkOrderStepRefId` | `uniqueidentifier null FK -> JdeWorkOrderSteps` | |
 | `statusId` | `uniqueidentifier FK -> ref_booking_status` | Денормализованный текущий статус |
-| `startDt` | `datetime2(3) not null` | |
-| `endDt` | `datetime2(3) not null` | |
-| `actualStartDt` | `datetime2(3) null` | |
-| `actualEndDt` | `datetime2(3) null` | |
+| `plannedStartDateTime` | `datetime2(3) not null` | Плановая дата и время начала брони |
+| `plannedEndDateTime` | `datetime2(3) not null` | Плановая дата и время окончания брони |
+| `actualStartDateTime` | `datetime2(3) null` | |
+| `actualEndDateTime` | `datetime2(3) null` | |
 | `justification` | `nvarchar(max) null` | |
 | `requiresSupervisorApproval` | `bit not null default 0` | |
 | `supervisorApprovedBy` | `uniqueidentifier null` | |
@@ -761,7 +768,7 @@ Filtered unique indexes:
 
 Индексы:
 - `requestId`, `equipmentId`, `fleetId`, `statusId`, `transportBookingId`
-- составной `(equipmentId, startDt, endDt)`
+- составной `(equipmentId, plannedStartDateTime, plannedEndDateTime)`
 
 ### 25. BookingStatuses
 

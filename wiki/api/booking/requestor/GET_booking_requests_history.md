@@ -122,8 +122,8 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Наименование типа техники | equipmentTypeName | object | object | — | EquipmentTypes |  |
-| 4 | Плановая дата и время начала брони | bookingPeriodStartDt | datetime | ISO 8601 | — | Bookings.startDt |  |
-| 5 | Плановая дата и время окончания брони | bookingPeriodEndDt | datetime | ISO 8601 | — | Bookings.endDt |  |
+| 4 | Плановая дата и время начала брони | bookingPeriodStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 5 | Плановая дата и время окончания брони | bookingPeriodEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 6 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
 | 7 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
@@ -149,8 +149,8 @@ Content-Type: application/json
           "Ru": "Экскаватор",
           "Kz": "Экскаватор"
         },
-        "bookingPeriodStartDt": "2026-05-20T08:00:00Z",
-        "bookingPeriodEndDt": "2026-05-22T18:00:00Z",
+        "bookingPeriodStartDateTime": "2026-05-20T08:00:00Z",
+        "bookingPeriodEndDateTime": "2026-05-22T18:00:00Z",
         "status": "Completed",
         "workOrderNumber": "WO-10025"
       }

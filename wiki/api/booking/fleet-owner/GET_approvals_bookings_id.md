@@ -110,8 +110,8 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 3 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
-| 4 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
+| 3 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
+| 4 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
 | 5 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
 | 6 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
 | 7 | История изменений | history | array<object> | object[] | `[]` | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos | Коллекция объектов |
@@ -123,8 +123,8 @@ Content-Type: application/json
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
     "status": "Submitted",
-    "startDt": "2026-05-20T08:00:00Z",
-    "endDt": "2026-05-22T18:00:00Z",
+    "plannedStartDateTime": "2026-05-20T08:00:00Z",
+    "plannedEndDateTime": "2026-05-22T18:00:00Z",
     "justification": null,
     "requiresSupervisorApproval": false,
     "history": []

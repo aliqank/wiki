@@ -161,10 +161,10 @@ Content-Type: application/json
 | 5 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
 | 6 | Рабочий центр | workCenter | string | string | — | WorkCenters |  |
 | 7 | Владелец / ответственный fleet | fleetOwner | string | string | — | Fleets + Users |  |
-| 8 | Плановая дата и время начала | plannedStartDt | datetime | ISO 8601 | — | Bookings.startDt |  |
-| 9 | Плановая дата и время окончания | plannedEndDt | datetime | ISO 8601 | — | Bookings.endDt |  |
-| 10 | Фактическая дата и время начала | actualStartDt | null | — | `null` | Bookings.actualStartDt |  |
-| 11 | Фактическая дата и время окончания | actualEndDt | null | — | `null` | Bookings.actualEndDt |  |
+| 8 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 9 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
+| 10 | Фактическая дата и время начала | actualStartDateTime | null | — | `null` | Bookings.actualStartDateTime |  |
+| 11 | Фактическая дата и время окончания | actualEndDateTime | null | — | `null` | Bookings.actualEndDateTime |  |
 | 12 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 
 ## 10. Пример ответа
@@ -196,10 +196,10 @@ Content-Type: application/json
             "stateNumber": "A123BC",
             "workCenter": "BHOE",
             "fleetOwner": "Maintenance Fleet",
-            "plannedStartDt": "2026-05-20T08:00:00Z",
-            "plannedEndDt": "2026-05-22T20:00:00Z",
-            "actualStartDt": null,
-            "actualEndDt": null,
+            "plannedStartDateTime": "2026-05-20T08:00:00Z",
+            "plannedEndDateTime": "2026-05-22T20:00:00Z",
+            "actualStartDateTime": null,
+            "actualEndDateTime": null,
             "status": "Submitted"
           },
           {
@@ -210,10 +210,10 @@ Content-Type: application/json
             "stateNumber": "B456CD",
             "workCenter": "HYDR",
             "fleetOwner": "Operations Fleet",
-            "plannedStartDt": "2026-05-21T08:00:00Z",
-            "plannedEndDt": "2026-05-21T18:00:00Z",
-            "actualStartDt": null,
-            "actualEndDt": null,
+            "plannedStartDateTime": "2026-05-21T08:00:00Z",
+            "plannedEndDateTime": "2026-05-21T18:00:00Z",
+            "actualStartDateTime": null,
+            "actualEndDateTime": null,
             "status": "Submitted"
           }
         ]

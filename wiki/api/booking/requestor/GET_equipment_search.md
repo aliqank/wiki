@@ -39,7 +39,7 @@
 
 ## 3. Описание логики работы метода
 
-1. Принять query params поиска, включая период `startDt` / `endDt`.
+1. Принять query params поиска, включая период `plannedStartDateTime` / `plannedEndDateTime`.
 2. Выбрать записи из `Equipments` WHERE `isDeleted = false`.
 3. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
 4. Исключить стационарную HDE из поиска Requestor.
@@ -90,8 +90,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор типа техники | `equipmentTypeId` | `uuid` | `-` | Если передан, должен существовать | — | Query param | |
-| 2 | Дата/время начала периода | `startDt` | `datetime` | `+` | Должна быть меньше `endDt` | — | Query param | |
-| 3 | Дата/время окончания периода | `endDt` | `datetime` | `+` | Должна быть больше `startDt` | — | Query param | |
+| 2 | Плановая дата/время начала периода | `plannedStartDateTime` | `datetime` | `+` | Должна быть меньше `plannedEndDateTime` | — | Query param | |
+| 3 | Плановая дата/время окончания периода | `plannedEndDateTime` | `datetime` | `+` | Должна быть больше `plannedStartDateTime` | — | Query param | |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по TCO-номеру, госномеру, модели, бренду | — | Query param | |
 | 5 | Тип владения | `ownershipType` | `enum` | `-` | `TcoOwned / LongTermRented` | — | Query param | `OnDemand` не допускается |
 | 6 | Тип доступности | `shareType` | `enum` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | |
@@ -106,7 +106,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&startDt=2026-05-20T08:00:00Z&endDt=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetOwnerUserId=4c9ad2d2-6df8-4f7b-87fe-36cefc100001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&page=1&limit=20
+GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetOwnerUserId=4c9ad2d2-6df8-4f7b-87fe-36cefc100001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```

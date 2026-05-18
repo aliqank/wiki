@@ -39,7 +39,7 @@
 1. Проверить бронь и права доступа.
 2. Проверить, что статус брони допускает изменение периода.
 3. Провалидировать новый диапазон дат и доступность техники.
-4. Обновить `startDt`, `endDt`.
+4. Обновить `plannedStartDateTime`, `plannedEndDateTime`.
 5. Создать запись в `BookingStatuses` с комментарием.
 6. Вернуть обновленную бронь.
 
@@ -85,8 +85,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Новая дата/время начала | `startDt` | `datetime` | `+` | Меньше `endDt` | — | Request body | |
-| 3 | Новая дата/время окончания | `endDt` | `datetime` | `+` | Больше `startDt` | — | Request body | |
+| 2 | Новая плановая дата/время начала | `plannedStartDateTime` | `datetime` | `+` | Меньше `plannedEndDateTime` | — | Request body | |
+| 3 | Новая плановая дата/время окончания | `plannedEndDateTime` | `datetime` | `+` | Больше `plannedStartDateTime` | — | Request body | |
 | 4 | Комментарий | `comment` | `string` | `-` | — | — | Request body | |
 
 ---
@@ -101,8 +101,8 @@ Content-Type: application/json
 
 ```json
 {
-  "startDt": "2026-05-20T10:00:00Z",
-  "endDt": "2026-05-22T20:00:00Z",
+  "plannedStartDateTime": "2026-05-20T10:00:00Z",
+  "plannedEndDateTime": "2026-05-22T20:00:00Z",
   "comment": "Shifted due to site access window."
 }
 ```
@@ -126,8 +126,8 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
-| 2 | Дата и время начала | startDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
-| 3 | Дата и время окончания | endDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
+| 2 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
+| 3 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingStatuses |  |
 | 4 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 
 ## 10. Пример ответа
@@ -136,8 +136,8 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "startDt": "2026-05-20T10:00:00Z",
-    "endDt": "2026-05-22T20:00:00Z",
+    "plannedStartDateTime": "2026-05-20T10:00:00Z",
+    "plannedEndDateTime": "2026-05-22T20:00:00Z",
     "status": "Confirmed"
   },
   "isSuccess": true,

@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-29 | Three-step Unwheeled flow | Confirmed | BRD v13 | Транспорт может отклонить запрос |
-| TCO Booking Tool | FR-NEW-30 | If transport unavailable, nearest date proposed | Pending | BRD v13 | Метод поддерживает `proposedStartDt` как опциональное поле |
+| TCO Booking Tool | FR-NEW-30 | If transport unavailable, nearest date proposed | Pending | BRD v13 | Метод поддерживает `proposedStartDateTime` как опциональное поле |
 
 ---
 
@@ -40,7 +40,7 @@
 2. Разрешить decline только если ожидается решение транспортной роли.
 3. Потребовать `reason`.
 4. Не менять основную бронь на `Declined`; вернуть ее на шаг FO с записью в `BookingStatuses` и комментарием транспортной роли.
-5. Если передана `proposedStartDt`, сохранить ее в комментарии/metadata до финального отдельного проектного решения.
+5. Если передана `proposedStartDateTime`, сохранить ее в комментарии/metadata до финального отдельного проектного решения.
 6. Вернуть результат.
 
 Сущности:
@@ -85,7 +85,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
 | 2 | Причина отказа | `reason` | `string` | `+` | Непустая строка | — | Request body | |
-| 3 | Предлагаемая ближайшая дата | `proposedStartDt` | `datetime` | `-` | Должна быть в будущем | — | Request body | Pending rule |
+| 3 | Предлагаемая ближайшая дата | `proposedStartDateTime` | `datetime` | `-` | Должна быть в будущем | — | Request body | Pending rule |
 
 ---
 
@@ -100,7 +100,7 @@ Content-Type: application/json
 ```json
 {
   "reason": "No transport crew available for requested date.",
-  "proposedStartDt": "2026-05-26T08:00:00Z"
+  "proposedStartDateTime": "2026-05-26T08:00:00Z"
 }
 ```
 
@@ -133,7 +133,7 @@ Content-Type: application/json
   "value": {
     "id": "aaabbbcc-dddd-4444-8888-123456780001",
     "status": "Confirmed",
-    "comment": "Transport declined: No transport crew available for requested date. ProposedStartDt=2026-05-26T08:00:00Z"
+    "comment": "Transport declined: No transport crew available for requested date. ProposedStartDateTime=2026-05-26T08:00:00Z"
   },
   "isSuccess": true,
   "errors": []

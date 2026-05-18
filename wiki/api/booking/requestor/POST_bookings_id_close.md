@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-32 | Booking closure is manual only | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-NEW-33 | At close: Requestor inputs actual start/end time | Confirmed | BRD v13 | Заполняются `actualStartDt`, `actualEndDt` |
+| TCO Booking Tool | FR-NEW-33 | At close: Requestor inputs actual start/end time | Confirmed | BRD v13 | Заполняются `actualStartDateTime`, `actualEndDateTime` |
 
 ---
 
@@ -38,8 +38,8 @@
 
 1. Проверить существование брони и права доступа.
 2. Разрешить close только для активной подтвержденной / in-progress брони.
-3. Провалидировать `actualStartDt` и `actualEndDt`.
-4. Обновить `Bookings.status = Closed`, заполнить `actualStartDt`, `actualEndDt`.
+3. Провалидировать `actualStartDateTime` и `actualEndDateTime`.
+4. Обновить `Bookings.status = Closed`, заполнить `actualStartDateTime`, `actualEndDateTime`.
 5. Создать запись в `BookingStatuses`.
 6. Пересчитать статус заявки; если это последняя активная бронь, перевести заявку в `Completed`.
 
@@ -86,8 +86,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Фактическая дата/время начала | `actualStartDt` | `datetime` | `+` | Меньше либо равно `actualEndDt` | — | Request body | |
-| 3 | Фактическая дата/время окончания | `actualEndDt` | `datetime` | `+` | Больше либо равно `actualStartDt` | — | Request body | |
+| 2 | Фактическая дата/время начала | `actualStartDateTime` | `datetime` | `+` | Меньше либо равно `actualEndDateTime` | — | Request body | |
+| 3 | Фактическая дата/время окончания | `actualEndDateTime` | `datetime` | `+` | Больше либо равно `actualStartDateTime` | — | Request body | |
 
 ---
 
@@ -101,8 +101,8 @@ Content-Type: application/json
 
 ```json
 {
-  "actualStartDt": "2026-05-20T08:10:00Z",
-  "actualEndDt": "2026-05-22T17:25:00Z"
+  "actualStartDateTime": "2026-05-20T08:10:00Z",
+  "actualEndDateTime": "2026-05-22T17:25:00Z"
 }
 ```
 
@@ -126,8 +126,8 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
 | 2 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
-| 3 | Фактическая дата и время начала | actualStartDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
-| 4 | Фактическая дата и время окончания | actualEndDt | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
+| 3 | Фактическая дата и время начала | actualStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
+| 4 | Фактическая дата и время окончания | actualEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
 
 ## 10. Пример ответа
 
@@ -136,8 +136,8 @@ Content-Type: application/json
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
     "status": "Closed",
-    "actualStartDt": "2026-05-20T08:10:00Z",
-    "actualEndDt": "2026-05-22T17:25:00Z"
+    "actualStartDateTime": "2026-05-20T08:10:00Z",
+    "actualEndDateTime": "2026-05-22T17:25:00Z"
   },
   "isSuccess": true,
   "errors": []
