@@ -139,10 +139,11 @@ Content-Type: application/json
 | 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 12 | Конфликты с опубликованными бронями | publishedConflicts | object | object | — | backend overlap check against published bookings | Учитываются только опубликованные брони с пересечением диапазона дат; черновики не учитываются |
-| 13 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
-| 14 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
-| 15 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend business rule |  |
-| 16 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
+| 13 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
+| 14 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
+| 15 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
+| 16 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend business rule |  |
+| 17 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
 
 ### Структура `value.bookings[].fleetOwner`
 
@@ -197,6 +198,7 @@ Content-Type: application/json
           "hasPublishedConflicts": true,
           "publishedConflictsCount": 2
         },
+        "workCenterCode": "BHOE",
         "fleetOwner": {
           "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
           "fullName": "Nurlan Sarsenov",
@@ -228,6 +230,7 @@ Content-Type: application/json
           "hasPublishedConflicts": false,
           "publishedConflictsCount": 0
         },
+        "workCenterCode": "HYDR",
         "fleetOwner": {
           "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
           "fullName": "Nurlan Sarsenov",

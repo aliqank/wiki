@@ -161,7 +161,7 @@ Content-Type: application/json
 | 5 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
 | 6 | Описание техники | equipmentDescription | string | string | — | Equipments.description | Описание/комментарий по единице техники |
 | 7 | Конфликты с опубликованными бронями | publishedConflicts | object | object | — | backend overlap check against published bookings | Учитываются только опубликованные брони с пересечением диапазона дат; черновики не учитываются |
-| 8 | Рабочий центр | workCenter | string | string | — | WorkCenters |  |
+| 8 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
 | 9 | Владелец / ответственный fleet | fleetOwner | string | string | — | Fleets + Users |  |
 | 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
@@ -208,7 +208,7 @@ Content-Type: application/json
               "hasPublishedConflicts": true,
               "publishedConflictsCount": 2
             },
-            "workCenter": "BHOE",
+            "workCenterCode": "BHOE",
             "fleetOwner": "Maintenance Fleet",
             "plannedStartDateTime": "2026-05-20T08:00:00Z",
             "plannedEndDateTime": "2026-05-22T20:00:00Z",
@@ -227,7 +227,7 @@ Content-Type: application/json
               "hasPublishedConflicts": false,
               "publishedConflictsCount": 0
             },
-            "workCenter": "HYDR",
+            "workCenterCode": "HYDR",
             "fleetOwner": "Operations Fleet",
             "plannedStartDateTime": "2026-05-21T08:00:00Z",
             "plannedEndDateTime": "2026-05-21T18:00:00Z",
