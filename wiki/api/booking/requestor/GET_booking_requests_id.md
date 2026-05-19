@@ -1,7 +1,7 @@
 # GET /booking-requests/{id}
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-19  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -134,13 +134,15 @@ Content-Type: application/json
 | 5 | Марка и модель | brandModel | string | string | — | EquipmentBrands + EquipmentModels |  |
 | 6 | Номер ТШО | tcoId | string | string | — | Equipments.tcoId |  |
 | 7 | ГРНЗ | stateNumber | string | string | — | Equipments.stateNumber |  |
-| 8 | Данные Fleet Owner | fleetOwner | object | object | — | Fleets + Users |  |
-| 9 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
-| 10 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
-| 11 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
-| 12 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
-| 13 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend business rule |  |
-| 14 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
+| 8 | Описание техники | equipmentDescription | string | string | — | Equipments.description | Описание/комментарий по единице техники |
+| 9 | Данные Fleet Owner | fleetOwner | object | object | — | Fleets + Users |  |
+| 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
+| 12 | Конфликты с опубликованными бронями | publishedConflicts | object | object | — | backend overlap check against published bookings | Учитываются только опубликованные брони с пересечением диапазона дат; черновики не учитываются |
+| 13 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
+| 14 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
+| 15 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend business rule |  |
+| 16 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
 
 ### Структура `value.bookings[].fleetOwner`
 
@@ -150,6 +152,13 @@ Content-Type: application/json
 | 2 | Полное имя | fullName | string | string | — | Users.fullName |  |
 | 3 | Email | email | string | string | — | Users.email |  |
 | 4 | Наименование fleet | fleetName | string | string | — | Fleets.nameEn / localized projection |  |
+
+### Структура `value.bookings[].publishedConflicts`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Наличие конфликтов с опубликованными бронями | hasPublishedConflicts | bool | boolean | `false` | backend overlap check against published bookings | `true`, если есть хотя бы одна опубликованная бронь по этой же технике с пересечением диапазона дат; черновики не учитываются |
+| 2 | Количество конфликтов с опубликованными бронями | publishedConflictsCount | int | integer | `0` | backend aggregation | Количество опубликованных броней по этой же технике с пересечением диапазона дат; черновики не учитываются |
 
 ### Структура `value.bookings[].properties[]`
 
@@ -183,6 +192,11 @@ Content-Type: application/json
         "brandModel": "CAT 320D",
         "tcoId": "TCO-100245",
         "stateNumber": "KZ 123 ABC 02",
+        "equipmentDescription": "Tracked excavator with trenching bucket and reinforced undercarriage.",
+        "publishedConflicts": {
+          "hasPublishedConflicts": true,
+          "publishedConflictsCount": 2
+        },
         "fleetOwner": {
           "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
           "fullName": "Nurlan Sarsenov",
@@ -209,6 +223,11 @@ Content-Type: application/json
         "brandModel": "Komatsu PC200",
         "tcoId": "TCO-100246",
         "stateNumber": "KZ 456 DEF 02",
+        "equipmentDescription": "Hydraulic excavator configured for parallel earthworks on adjacent segment.",
+        "publishedConflicts": {
+          "hasPublishedConflicts": false,
+          "publishedConflictsCount": 0
+        },
         "fleetOwner": {
           "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
           "fullName": "Nurlan Sarsenov",

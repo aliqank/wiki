@@ -159,13 +159,22 @@ Content-Type: application/json
 | 3 | Марка и модель техники | brandModel | string | string | — | Equipments + EquipmentBrands + EquipmentModels |  |
 | 4 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 5 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
-| 6 | Рабочий центр | workCenter | string | string | — | WorkCenters |  |
-| 7 | Владелец / ответственный fleet | fleetOwner | string | string | — | Fleets + Users |  |
-| 8 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
-| 9 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
-| 10 | Фактическая дата и время начала | actualStartDateTime | null | — | `null` | Bookings.actualStartDateTime |  |
-| 11 | Фактическая дата и время окончания | actualEndDateTime | null | — | `null` | Bookings.actualEndDateTime |  |
-| 12 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 6 | Описание техники | equipmentDescription | string | string | — | Equipments.description | Описание/комментарий по единице техники |
+| 7 | Конфликты с опубликованными бронями | publishedConflicts | object | object | — | backend overlap check against published bookings | Учитываются только опубликованные брони с пересечением диапазона дат; черновики не учитываются |
+| 8 | Рабочий центр | workCenter | string | string | — | WorkCenters |  |
+| 9 | Владелец / ответственный fleet | fleetOwner | string | string | — | Fleets + Users |  |
+| 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
+| 12 | Фактическая дата и время начала | actualStartDateTime | null | — | `null` | Bookings.actualStartDateTime |  |
+| 13 | Фактическая дата и время окончания | actualEndDateTime | null | — | `null` | Bookings.actualEndDateTime |  |
+| 14 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+
+### Структура `value.items[].bookingSummaries[].publishedConflicts`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Наличие конфликтов с опубликованными бронями | hasPublishedConflicts | bool | boolean | `false` | backend overlap check against published bookings | `true`, если есть хотя бы одна опубликованная бронь по этой же технике с пересечением диапазона дат; черновики не учитываются |
+| 2 | Количество конфликтов с опубликованными бронями | publishedConflictsCount | int | integer | `0` | backend aggregation | Количество опубликованных броней по этой же технике с пересечением диапазона дат; черновики не учитываются |
 
 ## 10. Пример ответа
 
@@ -194,6 +203,11 @@ Content-Type: application/json
             "brandModel": "CAT 320",
             "tcoId": "TCO-12345",
             "stateNumber": "A123BC",
+            "equipmentDescription": "Tracked excavator with standard bucket for trench preparation works.",
+            "publishedConflicts": {
+              "hasPublishedConflicts": true,
+              "publishedConflictsCount": 2
+            },
             "workCenter": "BHOE",
             "fleetOwner": "Maintenance Fleet",
             "plannedStartDateTime": "2026-05-20T08:00:00Z",
@@ -208,6 +222,11 @@ Content-Type: application/json
             "brandModel": "HOWO 6x4",
             "tcoId": "TCO-98765",
             "stateNumber": "B456CD",
+            "equipmentDescription": "Water truck configured for dust suppression and site support.",
+            "publishedConflicts": {
+              "hasPublishedConflicts": false,
+              "publishedConflictsCount": 0
+            },
             "workCenter": "HYDR",
             "fleetOwner": "Operations Fleet",
             "plannedStartDateTime": "2026-05-21T08:00:00Z",
