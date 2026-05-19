@@ -1,7 +1,7 @@
 # Use Cases
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-19  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -20,6 +20,7 @@
 | `UC-REQ-02.4` | Добавление техники в draft-заявку | Окно `Добавить технику` | `BRD: FR-031, FR-038, FR-NEW-04, FR-NEW-08, FR-NEW-15, FR-NEW-71` | `POST /booking-requests/{id}/items` |
 | `UC-REQ-02.5` | Редактирование брони или замена техники в draft | Карточка booking item в draft | `BRD: FR-027, FR-031, FR-038, FR-040, FR-NEW-04, FR-NEW-08, FR-NEW-71` | `PATCH /booking-requests/{id}/items/{bookingId}`, `GET /equipment/search` |
 | `UC-REQ-02.6` | Отправка draft-заявки | Модальное окно `Новая заявка` | `BRD: FR-023, FR-027, FR-NEW-08, FR-NEW-16, FR-NEW-17, FR-NEW-71` | `POST /booking-requests/{id}/submit` |
+| `UC-FO-01` | Просмотр списка броней Fleet Owner | Страница `Approvals` → view `Bookings` | `BRD: FR-092, FR-043` | `GET /approvals/bookings`, `GET /approvals/bookings/{id}` |
 
 ---
 
@@ -33,3 +34,4 @@
 - `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.4 - Добавление техники в draft-заявку.md`
 - `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.5 - Редактирование брони или замена техники в draft.md`
 - `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.6 - Отправка draft-заявки.md`
+- `UC-FO-01 - Просмотр списка броней Fleet Owner.md`
