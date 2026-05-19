@@ -167,7 +167,10 @@ Content-Type: application/json
 | 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 12 | Фактическая дата и время начала | actualStartDateTime | null | — | `null` | Bookings.actualStartDateTime |  |
 | 13 | Фактическая дата и время окончания | actualEndDateTime | null | — | `null` | Bookings.actualEndDateTime |  |
-| 14 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 14 | Обоснование | justification | string | string | — | Bookings.justification | Для draft-item может быть пустым до позднего заполнения |
+| 15 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
+| 16 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
+| 17 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 
 ### Структура `value.items[].bookingSummaries[].publishedConflicts`
 
@@ -214,6 +217,9 @@ Content-Type: application/json
             "plannedEndDateTime": "2026-05-22T20:00:00Z",
             "actualStartDateTime": null,
             "actualEndDateTime": null,
+            "justification": null,
+            "requiresJustification": true,
+            "isComplete": false,
             "status": "Submitted"
           },
           {
@@ -233,6 +239,9 @@ Content-Type: application/json
             "plannedEndDateTime": "2026-05-21T18:00:00Z",
             "actualStartDateTime": null,
             "actualEndDateTime": null,
+            "justification": "Dust suppression required for road preparation.",
+            "requiresJustification": true,
+            "isComplete": true,
             "status": "Submitted"
           }
         ]

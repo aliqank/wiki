@@ -25,7 +25,7 @@
 1. Пользователь открывает booking item на редактирование.
 2. Если требуется изменить только период брони, `justification`, `workCenterId` или `jdeWorkOrderStepRefId`, frontend вызывает `PATCH /booking-requests/{id}/items/{bookingId}`.
 3. Если пользователь редактирует inline-поле `justification`, frontend сохраняет его автоматически через `PATCH /booking-requests/{id}/items/{bookingId}` без отдельной кнопки `Сохранить`.
-4. Если требуется заменить технику, frontend повторно открывает модалку выбора техники.
+4. Если требуется заменить технику, frontend повторно открывает окно выбора техники.
 5. Frontend повторно вызывает `GET /equipment/search` с актуальным периодом и фильтрами.
 6. Пользователь выбирает новую технику.
 7. Frontend вызывает `PATCH /booking-requests/{id}/items/{bookingId}` и передаёт обновлённые `equipmentId`, `plannedStartDateTime`, `plannedEndDateTime`, `justification`, `workCenterId`, `jdeWorkOrderStepRefId`.

@@ -10,11 +10,11 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Модалка `Добавить технику` |
+| Область действия | Окно `Добавить технику` |
 | Участник | `Requestor`, `ServiceWorkProcessor` |
 | Покрываемые FR (BRD) | `FR-031`, `FR-040`, `FR-NEW-38`, `FR-NEW-39`, `FR-NEW-50`, `FR-NEW-68` |
 | Покрываемые FR (Additional list) | — |
-| Триггер | Открытие модалки `Добавить технику` |
+| Триггер | Открытие окна `Добавить технику` |
 | Ожидаемый результат | Пользователь видит доступные фильтры и может выполнить поиск техники |
 | Используемые API | `GET /equipment/search`, `GET /api/booking/v1/reference/equipment-types`, `GET /api/booking/v1/reference/fleet-owners`, `GET /api/booking/v1/reference/work-centers`, `GET /api/booking/v1/reference/ownership-types`, `GET /api/booking/v1/reference/share-types`, `GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties` |
 
@@ -22,7 +22,7 @@
 
 ## Основной сценарий
 
-1. Пользователь открывает модалку `Добавить технику`.
+1. Пользователь открывает окно `Добавить технику`.
 2. Frontend загружает базовые справочники фильтров:
    - `GET /api/booking/v1/reference/equipment-types`;
    - `GET /api/booking/v1/reference/fleet-owners`;

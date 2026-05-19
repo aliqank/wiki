@@ -32,7 +32,6 @@ Base URL: `/api/booking/v1`
 | `GET` | `/jde/work-orders` | Получить список WO из JDE |
 | `GET` | `/jde/work-orders/{id}/steps` | Получить шаги выбранного WO |
 | `POST` | `/booking-requests` | Создать черновик заявки |
-| `POST` | `/booking-requests/submit` | Создать заявку с бронями и сразу отправить ее |
 | `GET` | `/booking-requests/{id}` | Получить детали заявки |
 | `GET` | `/booking-requests/my` | Получить список собственных заявок |
 | `PATCH` | `/booking-requests/{id}` | Обновить черновик заявки |
