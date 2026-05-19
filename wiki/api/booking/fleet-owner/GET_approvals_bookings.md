@@ -1,7 +1,7 @@
 # GET /approvals/bookings
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-19  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -36,13 +36,14 @@
 
 ## 3. Описание логики работы метода
 
-1. Определить список флотов, доступных текущему FO через AAD-группы.
-2. Выбрать `Bookings` по этим флотам со статусами `Submitted`, `ConfirmedByFo`, `Extended`, `TransportConfirmed` по фильтру экрана.
-3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`.
-4. Вернуть пагинированный список.
+1. Определить список флотов, доступных текущему FO через AAD-группы, а также технику, доступную ему по делегированию.
+2. Выбрать `Bookings` по этим флотам и/или по доступной технике со статусами, допустимыми для view `Bookings`, по фильтру экрана.
+3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `Users`.
+4. Для каждого booking вычислить таймер с момента submit.
+5. Вернуть пагинированный список.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `Fleets`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `Fleets`, `Users`
 - изменений нет
 
 ---
@@ -78,17 +79,20 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Статус брони | `status` | `enum` | `-` | Статусы approval queue | — | Query param | |
-| 2 | Поисковая строка | `search` | `string` | `-` | Поиск по request number / equipment number | — | Query param | |
-| 3 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |
-| 4 | Размер страницы | `limit` | `int` | `-` | >= 1 | `20` | Query param | |
+| 1 | Статус брони | `status` | `enum` | `-` | Статусы approval queue для view `Bookings` | — | Query param | |
+| 2 | Тип заявки | `requestType` | `enum` | `-` | Допустимые типы `BookingRequest` | — | Query param | |
+| 3 | Период заявок: начало | `createdFrom` | `date` | `-` | Если передан, должен быть <= `createdTo` | — | Query param | Фильтр по дате создания брони |
+| 4 | Период заявок: конец | `createdTo` | `date` | `-` | Если передан, должен быть >= `createdFrom` | — | Query param | Фильтр по дате создания брони |
+| 5 | Номер Work Order | `workOrderNumber` | `string` | `-` | Partial search | — | Query param | Поиск только по `workOrderNumber` |
+| 6 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |
+| 7 | Размер страницы | `limit` | `int` | `-` | >= 1 | `20` | Query param | |
 
 ---
 
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/approvals/bookings?status=Submitted&page=1&limit=20
+GET /api/booking/v1/approvals/bookings?status=Submitted&requestType=Regular&workOrderNumber=WO-10025&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -121,14 +125,22 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 3 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 4 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
-| 5 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
-| 6 | Наименование типа техники | equipmentTypeName | object | object | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
-| 7 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 8 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
-| 9 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
-| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
-| 11 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
+| 4 | Requestor | requestor | string | string | — | Users.fullName |  |
+| 5 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
+| 6 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
+| 7 | Дата создания брони | bookingCreatedAt | datetime | ISO 8601 | — | Bookings.createdAt |  |
+| 8 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 9 | Подвижность техники | mobilityType | string | string | — | EquipmentTypes.mobilityType |  |
+| 10 | Тип техники | equipmentTypeName | object | object | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 11 | Марка и модель | brandModel | string | string | — | EquipmentBrands + EquipmentModels |  |
+| 12 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
+| 13 | ГРНЗ | stateNumber | string | string | — | Equipments.stateNumber |  |
+| 14 | Текущий статус брони | status | string | string | — | Bookings + BookingStatuses |  |
+| 15 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 16 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
+| 17 | Таймер с момента submit | timeSinceSubmitSec | int | integer | — | backend calculation from BookingStatuses / submit timestamp | Возраст брони в очереди FO в секундах |
+| 18 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
+| 19 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
 
 ### Структура `value.items[].equipmentTypeName`
 
@@ -148,16 +160,24 @@ Content-Type: application/json
         "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
         "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
+        "requestor": "Telman Nurzhanov",
+        "workOrderNumber": "WO-10025",
+        "priority": "P2",
+        "bookingCreatedAt": "2026-05-14T09:20:00Z",
         "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
+        "mobilityType": "SelfPropelled",
         "tcoId": "TCO-100245",
         "equipmentTypeName": {
           "En": "Excavator",
           "Ru": "Экскаватор",
           "Kz": "Экскаватор"
         },
+        "brandModel": "CAT 320D",
+        "stateNumber": "KZ 123 ABC 02",
         "status": "Submitted",
         "plannedStartDateTime": "2026-05-20T08:00:00Z",
         "plannedEndDateTime": "2026-05-22T18:00:00Z",
+        "timeSinceSubmitSec": 86400,
         "requiresSupervisorApproval": false,
         "justification": null
       }
