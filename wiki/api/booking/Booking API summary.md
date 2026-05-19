@@ -1,7 +1,7 @@
 # Booking API summary
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-19  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -39,6 +39,7 @@ Base URL: `/api/booking/v1`
 | `POST` | `/booking-requests/{id}/submit` | Отправить заявку |
 | `POST` | `/booking-requests/{id}/cancel` | Отменить черновик |
 | `POST` | `/booking-requests/{id}/items` | Добавить booking item в черновик |
+| `PATCH` | `/booking-requests/{id}/items/{bookingId}` | Обновить booking item в черновике |
 | `DELETE` | `/booking-requests/{id}/items/{bookingId}` | Удалить booking item из черновика |
 | `POST` | `/bookings/{id}/revoke` | Отозвать бронь до решения FO |
 | `POST` | `/bookings/{id}/extend` | Запросить продление брони |

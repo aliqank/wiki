@@ -1,0 +1,178 @@
+# PATCH /booking-requests/{id}/items/{bookingId}
+
+**Created:** 2026-05-19  
+**Last updated:** 2026-05-19  
+**Автор документов:** Telman Nurzhanov (SA)
+
+---
+
+## Карточка метода
+
+| Параметр | Значение |
+|---|---|
+| Описание | Обновить booking item в черновике заявки |
+| Доступ только авторизованным пользователям | `+` |
+| Модуль системы | `Booking / Requestor UI` |
+| Endpoint URL | `/api/booking/v1/booking-requests/{id}/items/{bookingId}` |
+| Метод запроса | `PATCH` |
+| Согласовано | |
+
+---
+
+## 1. Задачи, в рамках которых вносятся изменения в метод
+
+Новый метод. Используется для редактирования периода, `justification`, `workCenterId`, `jdeWorkOrderStepRefId` и/или замены `equipmentId` у существующего booking item в draft-заявке без удаления и повторного создания всей заявки.
+
+---
+
+## 2. Функциональные требования
+
+| Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
+|---|---|---|---|---|---|
+| TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Редактирование item в draft |
+| TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Замена техники внутри item |
+| TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Обновляется одна существующая бронь |
+| TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Проверка доступности при изменении обязательна |
+| TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Проверка justification |
+
+---
+
+## 3. Описание логики работы метода
+
+1. Проверить существование draft-заявки, booking item и права доступа.
+2. Разрешить редактирование только если `BookingRequests.status = Draft` и `Bookings.status = Draft`.
+3. Обновить только переданные поля; для непереданных полей использовать текущие значения booking item.
+4. Если меняется `equipmentId`, проверить существование новой техники и получить ее атрибуты `ownershipType`, `shareType`, `fleetId`.
+5. Для итогового набора значений проверить, что техника не относится к `OnDemand`.
+6. Для итогового набора значений проверить доступность техники на выбранный период.
+   Под доступностью в рамках текущего базового сценария понимается, что в `EquipmentStatuses` нет активных записей, пересекающихся с периодом брони.
+7. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, потребовать `justification` на уровне конкретного item.
+8. Если итоговая техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
+9. Если передан `jdeWorkOrderStepRefId`, проверить существование шага WO и согласованность `workCenterId`.
+10. Сохранить изменения в существующей записи `Bookings`.
+11. Вернуть обновленный booking item.
+
+Сущности, участвующие в методе:
+- читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentBookingAuthorizations`, `JdeWorkOrderSteps`
+- изменяются: `Bookings`
+
+---
+
+## 4. Разрешения доступа к методу
+
+| Наименование разрешения | Описание разрешения |
+|---|---|
+| `Requestor` | Редактирование item в своей draft-заявке |
+| `ServiceWorkProcessor` | Редактирование item в draft SWR |
+
+---
+
+## 5. Настройки системы, используемые в методе
+
+| Наименование | Код | Тип значения | Описание | Значение по умолчанию |
+|---|---|---|---|---|
+| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Проверка даты | Конфигурируется Admin |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка периода | Конфигурируется Admin |
+
+---
+
+## 6. Ошибки, возвращаемые методом
+
+| Код | Описание ошибки |
+|---|---|
+| `UNAUTHORIZED` | Пользователь не авторизован |
+| `FORBIDDEN` | Нет доступа к заявке или технике |
+| `NOT_FOUND` | Заявка, booking item, техника или шаг WO не найдены |
+| `REQUEST_NOT_EDITABLE` | Заявка или booking item не в статусе `Draft` |
+| `EQUIPMENT_NOT_AVAILABLE` | Итоговая техника недоступна на выбранный период |
+| `VALIDATION_ERROR` | Не пройдены бизнес-валидации |
+
+HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
+
+---
+
+## 7. Параметры метода
+
+| № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор заявки | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
+| 2 | Идентификатор booking item | `bookingId` | `uuid` | `+` | Должен существовать и принадлежать заявке | — | Path param | |
+| 3 | Идентификатор техники | `equipmentId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | Если не передан, сохраняется текущее значение |
+| 4 | Плановая дата/время начала | `plannedStartDateTime` | `datetime` | `-` | Для итогового набора значений должно быть меньше `plannedEndDateTime` | — | Request body | Если не передан, сохраняется текущее значение |
+| 5 | Плановая дата/время окончания | `plannedEndDateTime` | `datetime` | `-` | Для итогового набора значений должно быть больше `plannedStartDateTime` | — | Request body | Если не передан, сохраняется текущее значение |
+| 6 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | Если не передан, сохраняется текущее значение |
+| 7 | Шаг WO | `jdeWorkOrderStepRefId` | `uuid` | `-` | Если передан, должен существовать и относиться к WO заявки | — | Request body | Если не передан, сохраняется текущее значение |
+| 8 | Обоснование | `justification` | `string` | `-` | Обязательно для итоговой техники `LongTermRented`, `Assigned`, `SharedWithConditions` | — | Request body | Если не передан, сохраняется текущее значение |
+
+---
+
+## 8. Пример запроса
+
+```http
+PATCH /api/booking/v1/booking-requests/c777f75f-029d-4d8f-8c69-e74a1d280001/items/8c4c8b6d-7bc0-41fb-9038-422cf55d1111
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+```json
+{
+  "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90002",
+  "plannedStartDateTime": "2026-05-21T08:00:00Z",
+  "plannedEndDateTime": "2026-05-23T18:00:00Z",
+  "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
+  "justification": "Updated due to equipment replacement for the same work scope."
+}
+```
+
+---
+
+## 9. Возвращаемые данные
+
+Возвращаемые данные обёрнуты в общий `result wrapper`.
+
+### Структура `result wrapper`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Результат выполнения метода | value | object | object | — | backend aggregation | Обновленный booking item |
+| 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
+| 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
+
+### Структура `value`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
+| 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | BookingRequests.id |  |
+| 3 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentBookingAuthorizations + JdeWorkOrderSteps |  |
+| 4 | Текущий статус | status | string | string | — | Bookings + ref_booking_status |  |
+| 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
+| 7 | Обоснование | justification | string | string | — | Bookings.justification |  |
+| 8 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
+
+## 10. Пример ответа
+
+```json
+{
+  "value": {
+    "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
+    "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
+    "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90002",
+    "status": "Draft",
+    "plannedStartDateTime": "2026-05-21T08:00:00Z",
+    "plannedEndDateTime": "2026-05-23T18:00:00Z",
+    "justification": "Updated due to equipment replacement for the same work scope.",
+    "requiresSupervisorApproval": false
+  },
+  "isSuccess": true,
+  "errors": []
+}
+```
+
+## Замечания
+
+1. Метод обновляет существующий booking item, а не создает новый.
+2. Замена техники выполняется тем же методом через передачу нового `equipmentId`.
+3. Для валидации используются итоговые значения item после применения patch.
+4. Под доступностью в базовом сценарии понимается отсутствие активных записей в `EquipmentStatuses`, пересекающихся с итоговым периодом брони.
