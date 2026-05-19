@@ -1,7 +1,7 @@
 # UC-REQ-02.6 - Отправка draft-заявки
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-19  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -23,11 +23,12 @@
 ## Основной сценарий
 
 1. Пользователь нажимает `Отправить заявку`.
-2. Frontend вызывает `POST /booking-requests/{id}/submit`.
-3. Backend выполняет полную бизнес-валидацию request-level и booking-level данных.
-4. Backend проверяет, что все обязательные `justification` заполнены.
-5. Backend переводит заявку и связанные item-ы из `Draft` в submitted flow.
-6. Frontend получает успешный результат и обновляет UI.
+2. Frontend выполняет flush всех несохранённых autosave-изменений booking item-ов, включая `justification`.
+3. После успешного flush frontend вызывает `POST /booking-requests/{id}/submit`.
+4. Backend выполняет полную бизнес-валидацию request-level и booking-level данных.
+5. Backend проверяет, что все обязательные `justification` заполнены в уже сохраненных booking item-ах.
+6. Backend переводит заявку и связанные item-ы из `Draft` в submitted flow.
+7. Frontend получает успешный результат и обновляет UI.
 
 ---
 
@@ -39,5 +40,8 @@
 2. Есть незавершённые booking item-ы.
    Submit блокируется до исправления item-level данных.
 
-3. На момент submit техника больше недоступна.
+3. Не удалось сохранить одно из autosave-изменений перед submit.
+   Frontend не вызывает `POST /booking-requests/{id}/submit` до успешного завершения flush.
+
+4. На момент submit техника больше недоступна.
    Backend возвращает ошибку доступности, и пользователь должен скорректировать draft.

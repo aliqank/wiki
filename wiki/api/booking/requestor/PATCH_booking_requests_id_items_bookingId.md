@@ -33,7 +33,7 @@
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Замена техники внутри item |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Обновляется одна существующая бронь |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Проверка доступности при изменении обязательна |
-| TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Проверка justification |
+| TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Поддерживает позднее сохранение justification через autosave |
 
 ---
 
@@ -46,11 +46,13 @@
 5. Для итогового набора значений проверить, что техника не относится к `OnDemand`.
 6. Для итогового набора значений проверить доступность техники на выбранный период.
    Под доступностью в рамках текущего базового сценария понимается, что в `EquipmentStatuses` нет активных записей, пересекающихся с периодом брони.
-7. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, потребовать `justification` на уровне конкретного item.
+7. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item обязателен `justification`; при его отсутствии item остается незавершенным до последующего заполнения.
 8. Если итоговая техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 9. Если передан `jdeWorkOrderStepRefId`, проверить существование шага WO и согласованность `workCenterId`.
-10. Сохранить изменения в существующей записи `Bookings`.
-11. Вернуть обновленный booking item.
+10. Если обновляется `justification`, метод может вызываться frontend-ом как autosave без отдельной кнопки сохранения.
+11. Сохранить изменения в существующей записи `Bookings`.
+12. Пересчитать признаки `requiresJustification` и `isComplete` для итогового состояния item.
+13. Вернуть обновленный booking item.
 
 Сущности, участвующие в методе:
 - читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentBookingAuthorizations`, `JdeWorkOrderSteps`
@@ -102,7 +104,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | 5 | Плановая дата/время окончания | `plannedEndDateTime` | `datetime` | `-` | Для итогового набора значений должно быть больше `plannedStartDateTime` | — | Request body | Если не передан, сохраняется текущее значение |
 | 6 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | Если не передан, сохраняется текущее значение |
 | 7 | Шаг WO | `jdeWorkOrderStepRefId` | `uuid` | `-` | Если передан, должен существовать и относиться к WO заявки | — | Request body | Если не передан, сохраняется текущее значение |
-| 8 | Обоснование | `justification` | `string` | `-` | Обязательно для итоговой техники `LongTermRented`, `Assigned`, `SharedWithConditions` | — | Request body | Если не передан, сохраняется текущее значение |
+| 8 | Обоснование | `justification` | `string` | `-` | Может сохраняться позднее через autosave; для итоговой техники `LongTermRented`, `Assigned`, `SharedWithConditions` должно быть заполнено к моменту submit | — | Request body | Если не передан, сохраняется текущее значение |
 
 ---
 
@@ -149,7 +151,9 @@ Content-Type: application/json
 | 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 7 | Обоснование | justification | string | string | — | Bookings.justification |  |
-| 8 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
+| 8 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если для итоговой техники `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
+| 9 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule |  |
+| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
 
 ## 10. Пример ответа
 
@@ -163,6 +167,8 @@ Content-Type: application/json
     "plannedStartDateTime": "2026-05-21T08:00:00Z",
     "plannedEndDateTime": "2026-05-23T18:00:00Z",
     "justification": "Updated due to equipment replacement for the same work scope.",
+    "requiresJustification": true,
+    "isComplete": true,
     "requiresSupervisorApproval": false
   },
   "isSuccess": true,
@@ -176,3 +182,4 @@ Content-Type: application/json
 2. Замена техники выполняется тем же методом через передачу нового `equipmentId`.
 3. Для валидации используются итоговые значения item после применения patch.
 4. Под доступностью в базовом сценарии понимается отсутствие активных записей в `EquipmentStatuses`, пересекающихся с итоговым периодом брони.
+5. Inline-поле `justification` на странице draft может сохраняться этим методом автоматически, без отдельной кнопки `Сохранить`.

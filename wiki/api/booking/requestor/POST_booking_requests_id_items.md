@@ -1,7 +1,7 @@
 # POST /booking-requests/{id}/items
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-19  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -32,7 +32,7 @@
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Создается отдельная бронь |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Проверка доступности обязательна |
-| TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Проверка justification |
+| TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Проверка justification выполняется позже, перед submit |
 
 ---
 
@@ -44,12 +44,13 @@
 4. Для каждого элемента проверить, что техника не относится к `OnDemand`.
 5. Для каждого элемента проверить доступность на выбранный период.
    Под доступностью в рамках текущего базового сценария понимается, что в `EquipmentStatuses` нет активных записей, пересекающихся с периодом брони.
-6. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, потребовать `justification` на уровне конкретного элемента.
+6. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item потребуется `justification` на этапе последующего редактирования или перед submit.
 7. Если техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 8. На текущем этапе в базовом сценарии поле `jdeWorkOrderStepRefId` можно не передавать.
 9. Если позже `jdeWorkOrderStepRefId` будет использоваться, нужно проверить существование шага WO и согласованность `workCenterId`.
-10. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`.
-11. Вернуть список booking item-ов, созданных в текущем batch-добавлении.
+10. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`; `justification` на этом этапе не передается и может оставаться пустым до отдельного сохранения через редактирование item.
+11. Для каждого созданного item определить, требуется ли `justification`, и вычислить признак завершенности item.
+12. Вернуть список booking item-ов, созданных в текущем batch-добавлении.
 
 Сущности, участвующие в методе:
 - читаются: `BookingRequests`, `Equipments`, `EquipmentBookingAuthorizations`, `Bookings`, `JdeWorkOrderSteps`
@@ -101,7 +102,6 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | 2.3 | Плановая дата/время окончания | `items[].plannedEndDateTime` | `datetime` | `+` | Больше `items[].plannedStartDateTime` | — | Request body | |
 | 2.4 | Work Center | `items[].workCenterId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | |
 | 2.5 | Шаг WO | `items[].jdeWorkOrderStepRefId` | `uuid` | `-` | В базовом сценарии можно не передавать; если передан, должен существовать и относиться к WO заявки | — | Request body | |
-| 2.6 | Обоснование | `items[].justification` | `string` | `-` | Обязательно для `LongTermRented`, `Assigned`, `SharedWithConditions` | — | Request body | |
 
 ---
 
@@ -120,15 +120,13 @@ Content-Type: application/json
       "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90001",
       "plannedStartDateTime": "2026-05-20T08:00:00Z",
       "plannedEndDateTime": "2026-05-22T18:00:00Z",
-      "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
-      "justification": "Required specialized bucket setup for this trench segment."
+      "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222"
     },
     {
       "equipmentId": "c3b5af91-61f8-4bc0-bd88-d099d3e90002",
       "plannedStartDateTime": "2026-05-20T08:00:00Z",
       "plannedEndDateTime": "2026-05-22T18:00:00Z",
-      "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
-      "justification": "Required for parallel work on adjacent segment."
+      "workCenterId": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222"
     }
   ]
 }
@@ -158,8 +156,10 @@ Content-Type: application/json
 | 4 | Текущий статус | status | string | string | — | Bookings + ref_booking_status |  |
 | 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
-| 7 | Обоснование | justification | string | string | — | Bookings.justification |  |
-| 8 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
+| 7 | Обоснование | justification | string | string | — | Bookings.justification | На этапе создания item может быть пустым и заполняется позже через редактирование item |
+| 8 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
+| 9 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
+| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
 
 ## 10. Пример ответа
 
@@ -173,7 +173,9 @@ Content-Type: application/json
       "status": "Draft",
       "plannedStartDateTime": "2026-05-20T08:00:00Z",
       "plannedEndDateTime": "2026-05-22T18:00:00Z",
-      "justification": "Required specialized bucket setup for this trench segment.",
+      "justification": null,
+      "requiresJustification": true,
+      "isComplete": false,
       "requiresSupervisorApproval": false
     },
     {
@@ -183,7 +185,9 @@ Content-Type: application/json
       "status": "Draft",
       "plannedStartDateTime": "2026-05-20T08:00:00Z",
       "plannedEndDateTime": "2026-05-22T18:00:00Z",
-      "justification": "Required for parallel work on adjacent segment.",
+      "justification": null,
+      "requiresJustification": true,
+      "isComplete": false,
       "requiresSupervisorApproval": false
     }
   ],
@@ -199,3 +203,5 @@ Content-Type: application/json
 3. В `value` возвращаются только брони, созданные в текущем вызове метода, а не полный список всех броней заявки.
 4. В базовом сценарии поле `jdeWorkOrderStepRefId` можно не передавать.
 5. Под доступностью в базовом сценарии понимается отсутствие активных записей в `EquipmentStatuses`, пересекающихся с периодом брони.
+6. Поле `justification` не передается в `POST /booking-requests/{id}/items`; оно заполняется позже через редактирование конкретного item.
+7. Система должна обозначить item как требующий `justification` уже в ответе `POST /booking-requests/{id}/items` через поля `requiresJustification` и `isComplete`.

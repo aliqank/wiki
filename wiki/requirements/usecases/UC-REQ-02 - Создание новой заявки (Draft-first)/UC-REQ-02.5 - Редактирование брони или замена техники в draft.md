@@ -24,11 +24,12 @@
 
 1. Пользователь открывает booking item на редактирование.
 2. Если требуется изменить только период брони, `justification`, `workCenterId` или `jdeWorkOrderStepRefId`, frontend вызывает `PATCH /booking-requests/{id}/items/{bookingId}`.
-3. Если требуется заменить технику, frontend повторно открывает модалку выбора техники.
-4. Frontend повторно вызывает `GET /equipment/search` с актуальным периодом и фильтрами.
-5. Пользователь выбирает новую технику.
-6. Frontend вызывает `PATCH /booking-requests/{id}/items/{bookingId}` и передаёт обновлённые `equipmentId`, `plannedStartDateTime`, `plannedEndDateTime`, `justification`, `workCenterId`, `jdeWorkOrderStepRefId`.
-7. Backend обновляет существующий booking item.
+3. Если пользователь редактирует inline-поле `justification`, frontend сохраняет его автоматически через `PATCH /booking-requests/{id}/items/{bookingId}` без отдельной кнопки `Сохранить`.
+4. Если требуется заменить технику, frontend повторно открывает модалку выбора техники.
+5. Frontend повторно вызывает `GET /equipment/search` с актуальным периодом и фильтрами.
+6. Пользователь выбирает новую технику.
+7. Frontend вызывает `PATCH /booking-requests/{id}/items/{bookingId}` и передаёт обновлённые `equipmentId`, `plannedStartDateTime`, `plannedEndDateTime`, `justification`, `workCenterId`, `jdeWorkOrderStepRefId`.
+8. Backend обновляет существующий booking item и пересчитывает, требуется ли для него `justification`.
 
 ---
 
@@ -42,3 +43,6 @@
 
 3. Для updated item требуется `justification`, но оно не заполнено.
    Item остаётся незавершённым до исправления.
+
+4. Пользователь ввёл `justification`, но сразу не отправил заявку.
+   Значение сохраняется автоматически через `PATCH /booking-requests/{id}/items/{bookingId}` и остаётся в draft.

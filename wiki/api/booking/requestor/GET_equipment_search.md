@@ -145,7 +145,7 @@ Content-Type: application/json
 | 7 | Модель техники | model | string | string | — | EquipmentModels |  |
 | 8 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
 | 9 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
-| 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type |  |
+| 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
 | 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
 | 12 | Причина недоступности бронирования | bookabilityReason | null | — | `null` | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
 | 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |

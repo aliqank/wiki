@@ -1,7 +1,7 @@
 # POST /booking-requests/{id}/submit
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-19  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -40,7 +40,7 @@
 
 1. Проверить, что заявка существует и находится в статусе `Draft`.
 2. Проверить, что в заявке есть хотя бы один booking item.
-3. Для каждого item выполнить валидации периода и обязательного justification.
+3. Для каждого item выполнить валидации периода и обязательного justification на основании уже сохраненных в `Bookings` данных.
 4. Для `Assigned` техники проверить наличие активной записи в `EquipmentBookingAuthorizations`.
 5. Обновить `BookingRequests.status = Submitted` и создать запись в `BookingRequestStatuses`.
 6. Для каждого item обновить `Bookings.status = Submitted` и создать запись в `BookingStatuses`.
@@ -91,7 +91,9 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор заявки | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
 
-У метода нет request body.
+У метода нет request body. Метод не принимает `justification` или другие незасейвленные item-level поля в теле запроса и валидирует только уже сохраненное состояние draft-заявки.
+
+Frontend перед вызовом `POST /booking-requests/{id}/submit` должен завершить autosave всех несохраненных изменений booking item-ов.
 
 ---
 
