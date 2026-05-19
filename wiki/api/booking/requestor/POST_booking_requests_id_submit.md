@@ -40,8 +40,15 @@
 
 1. Проверить, что заявка существует и находится в статусе `Draft`.
 2. Проверить, что в заявке есть хотя бы один booking item.
-3. Для каждого item выполнить валидации периода и обязательного justification на основании уже сохраненных в `Bookings` данных.
-4. Для `Assigned` техники проверить наличие активной записи в `EquipmentBookingAuthorizations`.
+3. Для каждого item выполнить валидации на основании уже сохраненных в `Bookings` данных и связанных атрибутов техники:
+   - проверить, что `plannedStartDateTime` и `plannedEndDateTime` заполнены;
+   - проверить, что `plannedStartDateTime < plannedEndDateTime`;
+   - проверить, что период не нарушает ограничения `BOOKING_HORIZON_DAYS` и `MAX_BOOKING_DURATION_DAYS`;
+   - вычислить `requiresJustification` по правилу: `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)`;
+   - если `requiresJustification = true`, проверить, что `justification` заполнен и не является пустой / whitespace-only строкой;
+   - если `requiresJustification = true` и `justification` не заполнен, считать item незавершенным и отклонять submit;
+   - если техника `Assigned`, проверить наличие активной записи в `EquipmentBookingAuthorizations` для текущего пользователя и периода.
+4. Если хотя бы один item не прошел перечисленные проверки, вернуть `VALIDATION_ERROR` и не переводить заявку в `Submitted`.
 5. Обновить `BookingRequests.status = Submitted` и создать запись в `BookingRequestStatuses`.
 6. Для каждого item обновить `Bookings.status = Submitted` и создать запись в `BookingStatuses`.
 7. Вернуть обновленную заявку.
