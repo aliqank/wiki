@@ -26,12 +26,12 @@
 
 ## Файлы
 
-- `UC-REQ-01 - Просмотр моих заявок.md`
-- `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02 - Создание новой заявки (Draft-first).md`
-- `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.1 - Создание пустого draft заявки.md`
-- `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.2 - Заполнение и редактирование шапки заявки.md`
-- `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3 - Поиск техники для добавления в заявку.md`
-- `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.4 - Добавление техники в draft-заявку.md`
-- `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.5 - Редактирование брони или замена техники в draft.md`
-- `UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.6 - Отправка draft-заявки.md`
-- `UC-FO-01 - Просмотр списка броней Fleet Owner.md`
+- `Requestor/UC-REQ-01 - Просмотр моих заявок.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02 - Создание новой заявки (Draft-first).md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.1 - Создание пустого draft заявки.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.2 - Заполнение и редактирование шапки заявки.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3 - Поиск техники для добавления в заявку.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.4 - Добавление техники в draft-заявку.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.5 - Редактирование брони или замена техники в draft.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.6 - Отправка draft-заявки.md`
+- `Fleet Owner/UC-FO-01 - Просмотр списка броней Fleet Owner.md`
