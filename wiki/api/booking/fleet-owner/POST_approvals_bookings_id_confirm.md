@@ -38,7 +38,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить бронь и права доступа.
-2. Разрешить действие только для статусов `Submitted` или `Extended`.
+2. Разрешить действие только для статуса `Submitted`.
 3. Проверить, не изменилась ли доступность техники.
 4. Если `ownershipType = LongTermRented`, установить `status = ConfirmedByFo`, `requiresSupervisorApproval = true`.
 5. Иначе установить `status = Confirmed`.

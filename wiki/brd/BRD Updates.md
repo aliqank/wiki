@@ -28,6 +28,34 @@
 
 ---
 
+## Equipment Additional FRs
+
+Ниже зафиксированы только новые FR по Equipment-блоку, которых нет как достаточно явных самостоятельных FR в согласованном `BRD.md`.
+
+Источник:
+
+- `source/results/2026-05-15 - Список FR по Equipment блоку.md`
+
+Назначение раздела:
+
+- поддерживать только post-BRD additions поверх согласованной версии BRD;
+- не дублировать уже существующие FR из `BRD.md`;
+- использовать как рабочий реестр новых Equipment FR для CRUD/UI/API scope.
+
+### New Additional FRs
+
+| FR | Формулировка | Чем покрывается | Таблицы | Комментарий |
+|---|---|---|---|---|
+| AFR-01 | Admin manages equipment brands directory | CRUD справочника | `EquipmentBrands` | В BRD есть reference/handbook policy и общий FR-NEW-50, но нет отдельного явного FR по брендам |
+| AFR-02 | Admin manages equipment models directory | CRUD справочника | `EquipmentModels` | Отдельный CRUD по моделям следует из схемы |
+| AFR-03 | Admin manages organizational and location handbooks used in equipment card | CRUD справочников | `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections` | В BRD перечислены как handbook-managed, но без отдельной детализации по каждому набору сущностей |
+| AFR-04 | Admin manages maintenance partners directory | CRUD справочника | `MaintenancePartners` | В BRD есть упоминание Maintenance BP, но нет явного отдельного FR на CRUD этого справочника |
+| AFR-05 | Admin manages business partners directory used in equipment data model | CRUD справочника | `BusinessPartners` | Требуется для внешних контрагентов в unified equipment model |
+| AFR-06 | Admin manages equipment maintenance contracts by equipment, partner and service type | CRUD связующей сущности | `EquipmentMaintenanceContracts` | Для этой сущности в BRD v13 нет отдельного FR |
+| AFR-07 | Admin manages equipment types including class, mobility, work center and sorting attributes | CRUD справочника/сущности типа техники | `EquipmentTypes` | BRD явно описывает dynamic characteristics, но не формулирует отдельный FR на CRUD самих типов техники |
+
+---
+
 ## BRD-U-001 - Request terminal status semantics
 
 ### Причина
