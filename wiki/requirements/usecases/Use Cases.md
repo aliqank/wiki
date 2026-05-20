@@ -24,8 +24,10 @@
 | `UC-REQ-02.4` | Добавление техники в draft-заявку | Окно `Добавить технику` | `BRD: FR-031, FR-038, FR-NEW-04, FR-NEW-08, FR-NEW-15, FR-NEW-71` | `POST /booking-requests/{id}/items` |
 | `UC-REQ-02.5` | Редактирование брони или замена техники в draft | Карточка booking item в draft | `BRD: FR-027, FR-031, FR-038, FR-040, FR-NEW-04, FR-NEW-08, FR-NEW-71` | `PATCH /booking-requests/{id}/items/{bookingId}`, `GET /equipment/search` |
 | `UC-REQ-02.6` | Отправка draft-заявки | Модальное окно `Новая заявка` | `BRD: FR-023, FR-027, FR-NEW-08, FR-NEW-16, FR-NEW-17, FR-NEW-71` | `POST /booking-requests/{id}/submit` |
-| `UC-REQ-03` | Отзыв заявки requestor-ом | Страница `Мои заявки` / detail view draft-заявки | `BRD: FR-025, FR-027` | `POST /booking-requests/{id}/cancel`, `GET /booking-requests/my`, `GET /booking-requests/{id}` |
+| `UC-REQ-02.7` | Удаление draft-брони | Карточка booking item в draft | `BRD: FR-027, FR-031, FR-038` | `DELETE /booking-requests/{id}/items/{bookingId}`, `GET /booking-requests/{id}` |
+| `UC-REQ-03` | Отмена draft-заявки requestor-ом | Страница `Мои заявки` / detail view draft-заявки | `BRD: FR-025, FR-027` | `POST /booking-requests/{id}/cancel`, `GET /booking-requests/my`, `GET /booking-requests/{id}` |
 | `UC-REQ-04` | Отзыв брони requestor-ом | Страница `Мои заявки` / карточка заявки / карточка booking item в отправленной заявке | `BRD: FR-025, FR-042, FR-058, FR-068, FR-078, FR-NEW-17` | `GET /booking-requests/my`, `POST /bookings/{id}/revoke`, `GET /booking-requests/{id}` |
+| `UC-REQ-05` | Отзыв submitted-заявки requestor-ом | Страница `Мои заявки` / карточка submitted-заявки | `BRD: FR-025, FR-058, FR-NEW-17; Additional: BRD-U-003` | `GET /booking-requests/my`, `GET /booking-requests/{id}`, request-level withdraw API / orchestration *(TBD)* |
 | `UC-FO-01` | Просмотр списка броней Fleet Owner | Страница `Approvals` → view `Bookings` | `BRD: FR-092, FR-043` | `GET /approvals/bookings`, `GET /approvals/bookings/{id}` |
 
 ---
@@ -40,6 +42,8 @@
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.4 - Добавление техники в draft-заявку.md`
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.5 - Редактирование брони или замена техники в draft.md`
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.6 - Отправка draft-заявки.md`
-- `Requestor/UC-REQ-03 - Отзыв заявки requestor-ом.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.7 - Удаление draft-брони.md`
+- `Requestor/UC-REQ-03 - Отмена draft-заявки requestor-ом.md`
 - `Requestor/UC-REQ-04 - Отзыв брони requestor-ом.md`
+- `Requestor/UC-REQ-05 - Отзыв submitted-заявки requestor-ом.md`
 - `Fleet Owner/UC-FO-01 - Просмотр списка броней Fleet Owner.md`

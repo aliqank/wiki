@@ -1,7 +1,7 @@
-# GET /reports/completed-requests
+# GET /reports/closed-requests
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-20  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -10,10 +10,10 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить отчет / страницу завершенных заявок |
+| Описание | Получить отчет / страницу terminal-заявок |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Reporting` |
-| Endpoint URL | `/api/booking/v1/reports/completed-requests` |
+| Endpoint URL | `/api/booking/v1/reports/closed-requests` |
 | Метод запроса | `GET` |
 | Согласовано | |
 
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обобщенная версия страницы completed requests для ролей с доступом к отчетам.
+Новый метод. Обобщенная версия страницы closed requests / terminal requests для ролей с доступом к отчетам.
 
 ---
 
@@ -37,7 +37,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить права доступа.
-2. Выбрать заявки со статусом `Completed`.
+2. Выбрать заявки со статусом `Closed`.
 3. Применить фильтры и ролевой скоуп.
 4. Подтянуть минимальные данные по booking item-ам.
 5. Вернуть пагинированный список.
@@ -51,7 +51,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Только завершенные собственные заявки |
+| `Requestor` | Только terminal собственные заявки |
 | `ServiceWorkProcessor` | Только релевантные рабочие заявки |
 | `FleetOwner` | Завершенные заявки по своим флотам |
 | `Admin` | Полный список |
@@ -71,7 +71,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет доступа к completed requests |
+| `FORBIDDEN` | Нет доступа к terminal requests |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
@@ -92,7 +92,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/reports/completed-requests?page=1&limit=20
+GET /api/booking/v1/reports/closed-requests?page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -136,7 +136,7 @@ Content-Type: application/json
       {
         "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
-        "status": "Completed",
+        "status": "Closed",
         "workOrderNumber": "WO-10025"
       }
     ],

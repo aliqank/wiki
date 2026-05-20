@@ -1,7 +1,7 @@
 # GET /reports/requests
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-20  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -79,7 +79,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Статус заявки | `status` | `enum` | `-` | Статусы заявки | — | Query param | |
+| 1 | Статус заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress / Closed / Cancelled` | — | Query param | |
 | 2 | Тип заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
 | 3 | Дата начала периода | `from` | `date` | `-` | — | — | Query param | |
 | 4 | Дата окончания периода | `to` | `date` | `-` | — | — | Query param | |
@@ -91,7 +91,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/reports/requests?status=Completed&page=1&limit=20
+GET /api/booking/v1/reports/requests?status=Closed&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -135,7 +135,7 @@ Content-Type: application/json
       {
         "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
-        "status": "Completed",
+        "status": "Closed",
         "type": "Regular"
       }
     ],

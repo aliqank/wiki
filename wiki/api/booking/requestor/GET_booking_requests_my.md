@@ -37,7 +37,7 @@
 ## 3. Описание логики работы метода
 
 1. Выбрать `BookingRequests` по `createdBy = currentUserId`.
-2. По умолчанию исключить terminal statuses заявки: `Completed` и `Cancelled`.
+2. По умолчанию исключить terminal statuses заявки: `Closed` и `Cancelled`.
 3. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
 4. Если передан `status`, он должен относиться только к незавершённым статусам заявки.
 5. Отсортировать по `createdAt DESC`.
@@ -85,7 +85,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Фильтр по статусу незавершенной заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress` | — | Query param | Terminal statuses `Completed` и `Cancelled` в этом методе не используются |
+| 1 | Фильтр по статусу незавершенной заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress` | — | Query param | Terminal statuses `Closed` и `Cancelled` в этом методе не используются |
 | 2 | Фильтр по типу заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
 | 3 | Фильтр по приоритету | `priority` | `enum` | `-` | `P1 / P2 / P3 / P4` | — | Query param | |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderNumber`, `workDescription` | — | Query param | |
@@ -110,7 +110,7 @@ Content-Type: application/json
 
 Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-Метод возвращает только незавершенные заявки. Завершенные и отмененные заявки должны запрашиваться через отдельный history/archive endpoint.
+Метод возвращает только незавершенные заявки. Terminal request statuses должны запрашиваться через отдельный history/archive endpoint.
 
 ### Структура `result wrapper`
 
@@ -260,4 +260,4 @@ Content-Type: application/json
 
 1. Метод предназначен именно для страницы `Мои заявки` и возвращает только active / non-terminal requests.
 2. Для истории завершённых заявок должен использоваться отдельный endpoint `GET /booking-requests/history`.
-3. Поле `status` в query не должно использоваться для `Completed` и `Cancelled`.
+3. Поле `status` в query не должно использоваться для `Closed` и `Cancelled`.

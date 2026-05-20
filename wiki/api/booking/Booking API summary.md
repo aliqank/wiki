@@ -99,7 +99,7 @@ Base URL: `/api/booking/v1`
 | `GET` | `/reports/bookings` | Отчет по броням |
 | `GET` | `/reports/usage-rate` | Usage Rate Dashboard |
 | `GET` | `/reports/work-centers` | Отчет по Work Centers |
-| `GET` | `/reports/completed-requests` | Отчет / страница завершенных заявок |
+| `GET` | `/reports/closed-requests` | Отчет / страница закрытых заявок |
 
 ---
 

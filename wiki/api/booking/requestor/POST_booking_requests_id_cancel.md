@@ -1,7 +1,7 @@
 # POST /booking-requests/{id}/cancel
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-20  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -38,12 +38,14 @@
 1. Проверить существование заявки и права доступа.
 2. Разрешить отмену только если статус заявки `Draft`.
 3. Обновить `BookingRequests.status = Cancelled`.
-4. Создать запись в `BookingRequestStatuses`.
-5. Вернуть результат операции.
+4. Для всех связанных booking item-ов в статусе `Draft` обновить `Bookings.status = Cancelled`.
+5. Создать запись в `BookingRequestStatuses`.
+6. Для каждого измененного booking item создать запись в `BookingStatuses`.
+7. Вернуть результат операции.
 
 Сущности, участвующие в методе:
-- читаются: `BookingRequests`
-- изменяются: `BookingRequests`, `BookingRequestStatuses`
+- читаются: `BookingRequests`, `Bookings`
+- изменяются: `BookingRequests`, `BookingRequestStatuses`, `Bookings`, `BookingStatuses`
 - транзакционность: обязательна
 
 ---

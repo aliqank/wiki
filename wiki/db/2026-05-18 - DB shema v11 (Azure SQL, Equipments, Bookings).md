@@ -140,8 +140,8 @@ where isDeleted = 0;
 | `ref_user_type` | Internal, External |
 | `ref_request_type` | Regular, ServiceWork |
 | `ref_request_priority` | P1, P2, P3, P4 |
-| `ref_booking_request_status` | Draft, Submitted, InProgress, Completed, Cancelled |
-| `ref_booking_status` | Draft, Submitted, ConfirmedByFo, Confirmed, TransportConfirmed, Declined, Revoked, Terminated, InProgress, Closed, EquipmentChanged, Extended |
+| `ref_booking_request_status` | Draft, Submitted, InProgress, Closed, Cancelled |
+| `ref_booking_status` | Draft, Cancelled, Submitted, ConfirmedByFo, Confirmed, TransportConfirmed, Declined, Revoked, Terminated, InProgress, Closed, EquipmentChanged, Extended |
 
 Минимальный шаблон reference table:
 

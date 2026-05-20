@@ -41,7 +41,7 @@
 3. Провалидировать `actualStartDateTime` и `actualEndDateTime`.
 4. Обновить `Bookings.status = Closed`, заполнить `actualStartDateTime`, `actualEndDateTime`.
 5. Создать запись в `BookingStatuses`.
-6. Пересчитать статус заявки; если это последняя активная бронь, перевести заявку в `Completed`.
+6. Пересчитать статус заявки; если это последняя активная бронь, перевести заявку в `Closed`.
 
 Сущности, участвующие в методе:
 - читаются: `Bookings`, `BookingRequests`
