@@ -8,6 +8,10 @@
 
 Раздел содержит финальные use case-сценарии, подготовленные для разработки и детализации UI/API-потока.
 
+Связанный документ с общими правилами статусов:
+
+- `../Aggregated Request Status Rules.md`
+
 ## Список use cases
 
 | ID | Наименование | Область действия | Покрываемые FR | Основные API |
@@ -21,7 +25,7 @@
 | `UC-REQ-02.5` | Редактирование брони или замена техники в draft | Карточка booking item в draft | `BRD: FR-027, FR-031, FR-038, FR-040, FR-NEW-04, FR-NEW-08, FR-NEW-71` | `PATCH /booking-requests/{id}/items/{bookingId}`, `GET /equipment/search` |
 | `UC-REQ-02.6` | Отправка draft-заявки | Модальное окно `Новая заявка` | `BRD: FR-023, FR-027, FR-NEW-08, FR-NEW-16, FR-NEW-17, FR-NEW-71` | `POST /booking-requests/{id}/submit` |
 | `UC-REQ-03` | Отзыв заявки requestor-ом | Страница `Мои заявки` / detail view draft-заявки | `BRD: FR-025, FR-027` | `POST /booking-requests/{id}/cancel`, `GET /booking-requests/my`, `GET /booking-requests/{id}` |
-| `UC-REQ-04` | Отзыв брони requestor-ом | Карточка заявки / карточка booking item в отправленной заявке | `BRD: FR-025, FR-042, FR-058, FR-068, FR-078` | `POST /bookings/{id}/revoke`, `GET /booking-requests/{id}` |
+| `UC-REQ-04` | Отзыв брони requestor-ом | Страница `Мои заявки` / карточка заявки / карточка booking item в отправленной заявке | `BRD: FR-025, FR-042, FR-058, FR-068, FR-078, FR-NEW-17` | `GET /booking-requests/my`, `POST /bookings/{id}/revoke`, `GET /booking-requests/{id}` |
 | `UC-FO-01` | Просмотр списка броней Fleet Owner | Страница `Approvals` → view `Bookings` | `BRD: FR-092, FR-043` | `GET /approvals/bookings`, `GET /approvals/bookings/{id}` |
 
 ---
