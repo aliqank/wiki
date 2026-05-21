@@ -34,7 +34,8 @@
 5. После выбора `equipmentType` frontend дополнительно загружает dynamic filters для выбранного типа через `GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`.
 6. Frontend вызывает `GET /equipment/search`.
 7. Backend возвращает список техники, доступной по фильтрам и периоду.
-8. Frontend отображает результаты поиска.
+8. Списанная техника с текущим статусом `Decommissioned` исключается из выдачи и не отображается пользователю.
+9. Frontend отображает результаты поиска.
 
 ---
 

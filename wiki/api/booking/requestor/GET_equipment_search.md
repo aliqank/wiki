@@ -41,15 +41,16 @@
 
 1. Принять query params поиска, включая период `plannedStartDateTime` / `plannedEndDateTime`.
 2. Выбрать записи из `Equipments` WHERE `isDeleted = false`.
-3. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
-4. Исключить стационарную HDE из поиска Requestor.
-5. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, `workCenterId`, текстовому поиску и динамическим свойствам.
-6. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
-7. Для периода проверить пересечения с активными записями `Bookings` со статусами, влияющими на доступность.
-8. Вернуть пагинированный список в общем `result wrapper`.
+3. Исключить из выдачи списанную технику: записи с текущим статусом `Decommissioned` не должны возвращаться в результатах поиска.
+4. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
+5. Исключить стационарную HDE из поиска Requestor.
+6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, `workCenterId`, текстовому поиску и динамическим свойствам.
+7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
+8. Для периода проверить пересечения с активными записями `Bookings` со статусами, влияющими на доступность.
+9. Вернуть пагинированный список в общем `result wrapper`.
 
 Сущности, участвующие в методе:
-- читаются: `Equipments`, `EquipmentTypes`, `EquipmentProperties`, `EquipmentBookingAuthorizations`, `Bookings`, `Fleets`
+- читаются: `Equipments`, `EquipmentStatuses`, `EquipmentTypes`, `EquipmentProperties`, `EquipmentBookingAuthorizations`, `Bookings`, `Fleets`
 - изменения не выполняются
 - транзакционность не требуется
 
