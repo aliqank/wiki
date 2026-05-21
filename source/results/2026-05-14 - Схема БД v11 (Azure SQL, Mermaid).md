@@ -1,7 +1,7 @@
 # Схема БД v11 — Azure SQL Mermaid ER-диаграмма
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-14  
+**Last updated:** 2026-05-21  
 **Version:** v11 (Azure SQL adaptation)
 
 > Типы данных адаптированы под Azure SQL: `uniqueidentifier`, `datetime2(3)`, `bit`, `nvarchar(max)`.  
@@ -19,6 +19,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_equipment_mobility_type {
@@ -26,6 +29,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_equipment_class {
@@ -33,6 +39,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_ownership_type {
@@ -40,6 +49,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_share_type {
@@ -47,6 +59,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_equipment_status_type {
@@ -54,7 +69,10 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
         nvarchar iconUrl
+        int sortOrder
+        bit isActive
     }
 
     ref_equipment_current_status {
@@ -62,6 +80,19 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
+    }
+
+    ref_equipment_status_source {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_property_data_type {
@@ -69,6 +100,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_user_type {
@@ -76,6 +110,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_request_type {
@@ -83,6 +120,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_request_priority {
@@ -90,6 +130,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_booking_request_status {
@@ -97,6 +140,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     ref_booking_status {
@@ -104,6 +150,9 @@ erDiagram
         nvarchar code
         nvarchar nameEn
         nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        bit isActive
     }
 
     EquipmentTypes {
@@ -116,6 +165,37 @@ erDiagram
         bit requiresTransport
         uniqueidentifier equipmentClassId FK
         uniqueidentifier workCenterId FK
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    EquipmentBrands {
+        uniqueidentifier id PK
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    EquipmentModels {
+        uniqueidentifier id PK
+        uniqueidentifier brandId FK
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
         int sortOrder
         datetime2 createdAt
         uniqueidentifier createdBy
@@ -158,6 +238,135 @@ erDiagram
         uniqueidentifier deletedBy
     }
 
+    Locations {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    CostCenters {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    ServiceZones {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    Divisions {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    Groups {
+        uniqueidentifier id PK
+        uniqueidentifier divisionId FK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    Departments {
+        uniqueidentifier id PK
+        uniqueidentifier groupId FK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    Sections {
+        uniqueidentifier id PK
+        uniqueidentifier departmentId FK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    FleetManagePermissions {
+        uniqueidentifier id PK
+        uniqueidentifier fleetId FK
+        uniqueidentifier userId FK
+        datetime2 expiresAt
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
     Equipments {
         uniqueidentifier id PK
         uniqueidentifier equipmentTypeId FK
@@ -190,6 +399,21 @@ erDiagram
         uniqueidentifier deletedBy
     }
 
+    EquipmentPhotos {
+        uniqueidentifier id PK
+        uniqueidentifier equipmentId FK
+        nvarchar url
+        int sortOrder
+        bit isPrimary
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
     EquipmentStatuses {
         uniqueidentifier id PK
         uniqueidentifier equipmentId FK
@@ -200,6 +424,20 @@ erDiagram
         date actualEndsAt
         datetime2 cancelledAt
         uniqueidentifier sourceId FK
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    MeasurementUnits {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar displayName
+        int sortOrder
         datetime2 createdAt
         uniqueidentifier createdBy
         datetime2 updatedAt
@@ -230,6 +468,13 @@ erDiagram
         uniqueidentifier propertyId FK
         nvarchar value
         int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
     EquipmentTypeProperties {
@@ -240,6 +485,13 @@ erDiagram
         bit isFilterable
         bit isVisibleInCard
         int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
     EquipmentProperties {
@@ -251,14 +503,127 @@ erDiagram
         decimal valueDecimal
         bit valueBit
         uniqueidentifier propertyEnumValueId FK
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    MaintenancePartners {
+        uniqueidentifier id PK
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        nvarchar phoneNumber
+        nvarchar email
+        nvarchar address
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    EquipmentMaintenanceContracts {
+        uniqueidentifier id PK
+        uniqueidentifier equipmentId FK
+        uniqueidentifier partnerId FK
+        nvarchar serviceType
+        nvarchar notes
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    EquipmentFeedbacks {
+        uniqueidentifier id PK
+        uniqueidentifier bookingId FK
+        uniqueidentifier equipmentId FK
+        nvarchar feedback
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    EquipmentBookingAuthorizations {
+        uniqueidentifier id PK
+        uniqueidentifier equipmentId FK
+        uniqueidentifier userId FK
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    SystemSettings {
+        nvarchar key PK
+        nvarchar value
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
+    BusinessPartners {
+        uniqueidentifier id PK
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        nvarchar description
+        nvarchar bin
+        nvarchar country
+        nvarchar city
+        nvarchar address
+        nvarchar email
+        nvarchar phoneNumber
+        nvarchar externalId
+        bit isActive
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
     Users {
         uniqueidentifier id PK
+        nvarchar badgeNumber
         nvarchar fullName
         nvarchar email
+        nvarchar sharedEmail
+        nvarchar jobTitle
+        uniqueidentifier departmentId FK
+        uniqueidentifier businessPartnerId FK
         uniqueidentifier userTypeId FK
         bit isActive
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
     JdeWorkOrders {
@@ -271,6 +636,13 @@ erDiagram
         nvarchar sourcePayload
         datetime2 lastSyncedAt
         bit isActive
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
     JdeWorkOrderSteps {
@@ -284,6 +656,13 @@ erDiagram
         nvarchar sourcePayload
         datetime2 lastSyncedAt
         bit isActive
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
     BookingRequests {
@@ -342,6 +721,13 @@ erDiagram
         uniqueidentifier changedBy
         datetime2 changedAt
         nvarchar comment
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
     BookingRequestStatuses {
@@ -351,13 +737,30 @@ erDiagram
         uniqueidentifier changedBy
         datetime2 changedAt
         nvarchar comment
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
     }
 
+    EquipmentBrands ||--o{ EquipmentModels : "brandId"
     EquipmentTypes ||--o{ Equipments : "equipmentTypeId"
     Fleets ||--o{ Equipments : "fleetId"
+    Fleets ||--o{ FleetManagePermissions : "fleetId"
     WorkCenters ||--o{ EquipmentTypes : "workCenterId"
     WorkCenters ||--o{ JdeWorkOrderSteps : "workCenterId"
     WorkCenters ||--o{ Bookings : "workCenterId"
+    Locations ||--o{ Equipments : "baseLocationId"
+    CostCenters ||--o{ Equipments : "costCenterId"
+    ServiceZones ||--o{ Equipments : "serviceZoneId"
+    Divisions ||--o{ Groups : "divisionId"
+    Groups ||--o{ Departments : "groupId"
+    Departments ||--o{ Sections : "departmentId"
+    Departments ||--o{ Users : "departmentId"
+    Sections ||--o{ Equipments : "sectionId"
 
     ref_equipment_mobility_type ||--o{ EquipmentTypes : "mobilityTypeId"
     ref_equipment_class ||--o{ EquipmentTypes : "equipmentClassId"
@@ -366,6 +769,7 @@ erDiagram
     ref_share_type ||--o{ Equipments : "shareTypeId"
     ref_equipment_current_status ||--o{ Equipments : "currentStatusId"
     ref_equipment_status_type ||--o{ EquipmentStatuses : "statusTypeId"
+    ref_equipment_status_source ||--o{ EquipmentStatuses : "sourceId"
     ref_property_data_type ||--o{ Properties : "dataTypeId"
     ref_user_type ||--o{ Users : "userTypeId"
     ref_request_type ||--o{ BookingRequests : "requestTypeId"
@@ -376,19 +780,34 @@ erDiagram
     ref_booking_status ||--o{ Bookings : "statusId"
     ref_booking_status ||--o{ BookingStatuses : "statusId"
 
+    EquipmentBrands ||--o{ Equipments : "brandId"
+    EquipmentModels ||--o{ Equipments : "modelId"
     Equipments ||--o{ EquipmentStatuses : "equipmentId"
+    Equipments ||--o{ EquipmentPhotos : "equipmentId"
     Equipments ||--o{ EquipmentProperties : "equipmentId"
+    Equipments ||--o{ EquipmentMaintenanceContracts : "equipmentId"
+    Equipments ||--o{ EquipmentFeedbacks : "equipmentId"
+    Equipments ||--o{ EquipmentBookingAuthorizations : "equipmentId"
+    MeasurementUnits ||--o{ Properties : "unitId"
     Properties ||--o{ EquipmentProperties : "propertyId"
     Properties ||--o{ PropertyEnumValues : "propertyId"
     EquipmentTypes ||--o{ EquipmentTypeProperties : "equipmentTypeId"
     Properties ||--o{ EquipmentTypeProperties : "propertyId"
     PropertyEnumValues ||--o{ EquipmentProperties : "propertyEnumValueId"
+    MaintenancePartners ||--o{ EquipmentMaintenanceContracts : "partnerId"
 
     JdeWorkOrders ||--o{ JdeWorkOrderSteps : "jdeWorkOrderRefId"
     JdeWorkOrders ||--o{ BookingRequests : "jdeWorkOrderRefId"
     BookingRequests ||--o{ Bookings : "requestId"
     JdeWorkOrderSteps ||--o{ Bookings : "jdeWorkOrderStepRefId"
+    Equipments ||--o{ Bookings : "equipmentId"
+    Fleets ||--o{ Bookings : "fleetId"
     Bookings ||--o{ BookingStatuses : "bookingId"
+    Bookings ||--o{ EquipmentFeedbacks : "bookingId"
     BookingRequests ||--o{ BookingRequestStatuses : "requestId"
     Bookings ||--o| Bookings : "transportBookingId"
+
+    Users ||--o{ FleetManagePermissions : "userId"
+    Users ||--o{ EquipmentBookingAuthorizations : "userId"
+    BusinessPartners ||--o{ Users : "businessPartnerId"
 ```
