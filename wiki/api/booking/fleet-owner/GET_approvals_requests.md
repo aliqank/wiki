@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для Fleet Owner view `Requests` как request-centric список заявок с кратким составом броней, достаточным для первичной обработки.
+Новый метод. Используется для Fleet Owner view `Requests` как request-centric список заявок с составом броней, достаточным для первичной обработки без обязательного дополнительного detail-запроса.
 
 ---
 
@@ -39,11 +39,12 @@
 
 1. Определить список fleet-ов, доступных текущему Fleet Owner через AAD-группы, а также технику, доступную ему по делегированию.
 2. Выбрать `BookingRequests`, в составе которых есть хотя бы один `Booking`, относящийся к этим fleet-ам и/или к технике, доступной пользователю по делегированию.
-3. Применить request-level фильтры по статусу, типу, приоритету, поиску и периоду создания заявки.
-4. Отсортировать заявки по `createdAt DESC`.
-5. Для каждой заявки вернуть только связанные booking item-ы, которые относятся к зоне ответственности текущего Fleet Owner.
-6. Для каждой такой брони собрать краткий `bookingSummary`, достаточный для принятия решения о дальнейшей работе с заявкой.
-7. Вернуть paginated список.
+3. По умолчанию исключить из выдачи заявки со статусами `Draft`, `Closed`, `Cancelled`.
+4. Применить request-level фильтры по статусу, типу, приоритету, поиску и периоду создания заявки.
+5. Отсортировать заявки по `createdAt DESC`.
+6. Для каждой заявки вернуть только связанные booking item-ы, которые относятся к зоне ответственности текущего Fleet Owner.
+7. Для каждой такой брони собрать краткий `bookingSummary`, достаточный для принятия решения о дальнейшей работе с заявкой.
+8. Вернуть paginated список.
 
 Сущности, участвующие в методе:
 - читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `WorkCenters`, `Fleets`, `Users`, `EquipmentBookingAuthorizations`
@@ -82,10 +83,10 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Фильтр по статусу заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress / Closed / Cancelled` | — | Query param | Используется агрегированный request status |
+| 1 | Фильтр по статусу заявки | `status` | `enum` | `-` | `Submitted / InProgress` | — | Query param | Используется агрегированный request status; `Draft`, `Closed`, `Cancelled` не должны возвращаться в этом методе |
 | 2 | Фильтр по типу заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
 | 3 | Фильтр по приоритету | `priority` | `enum` | `-` | `P1 / P2 / P3 / P4` | — | Query param | |
-| 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderNumber`, `workDescription` | — | Query param | |
+| 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderNumber` | — | Query param | |
 | 5 | Дата создания заявки: начало диапазона | `createdFrom` | `date` | `-` | `<= createdTo`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |
 | 6 | Дата создания заявки: конец диапазона | `createdTo` | `date` | `-` | `>= createdFrom`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |
 | 7 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |
@@ -106,6 +107,8 @@ Content-Type: application/json
 ## 9. Возвращаемые данные
 
 Возвращаемые данные обёрнуты в общий `result wrapper`.
+
+Метод возвращает только активные для Fleet Owner заявки. `Draft`, `Closed` и `Cancelled` не должны попадать в выдачу текущего списка; завершенные и архивные сценарии должны обслуживаться отдельным history flow.
 
 ### Структура `result wrapper`
 
@@ -154,13 +157,17 @@ Content-Type: application/json
 | 3 | Марка и модель техники | brandModel | string | string | — | EquipmentBrands + EquipmentModels |  |
 | 4 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 5 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
-| 6 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
-| 7 | Данные Fleet Owner | fleetOwner | object | object | — | Fleets + Users |  |
-| 8 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
-| 9 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
-| 10 | Текущий статус брони | status | string | string | — | Bookings + BookingStatuses |  |
-| 11 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
-| 12 | Обоснование | justification | string | string | — | Bookings.justification |  |
+| 6 | Описание техники | equipmentDescription | string | string | — | Equipments.description |  |
+| 7 | Требуется ли транспортировка | requiresTransport | bool | boolean | — | EquipmentTypes.requiresTransport |  |
+| 8 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
+| 9 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
+| 10 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
+| 11 | Данные Fleet Owner | fleetOwner | object | object | — | Fleets + Users |  |
+| 12 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 13 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
+| 14 | Текущий статус брони | status | string | string | — | Bookings + BookingStatuses |  |
+| 15 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
+| 16 | Обоснование | justification | string | string | — | Bookings.justification |  |
 
 ### Структура `value.items[].bookingSummaries[].fleetOwner`
 
@@ -198,6 +205,10 @@ Content-Type: application/json
             "brandModel": "CAT 320D",
             "tcoId": "TCO-100245",
             "stateNumber": "KZ 123 ABC 02",
+            "equipmentDescription": "Tracked excavator with trenching bucket and reinforced undercarriage.",
+            "requiresTransport": false,
+            "shareType": "SharedWithConditions",
+            "ownershipType": "TcoOwned",
             "workCenterCode": "BHOE",
             "fleetOwner": {
               "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
@@ -217,6 +228,10 @@ Content-Type: application/json
             "brandModel": "HOWO 6x4",
             "tcoId": "TCO-98765",
             "stateNumber": "B456CD",
+            "equipmentDescription": "Water truck configured for dust suppression and site support.",
+            "requiresTransport": true,
+            "shareType": "Assigned",
+            "ownershipType": "LongTermRented",
             "workCenterCode": "HYDR",
             "fleetOwner": {
               "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
@@ -247,4 +262,4 @@ Content-Type: application/json
 1. Метод является request-centric: одна строка списка соответствует одной заявке, но внутри строки возвращается релевантный набор связанных броней.
 2. В `bookingSummaries` не должны попадать чужие booking item-ы, не относящиеся к зоне ответственности текущего Fleet Owner.
 3. Если в заявке есть брони по нескольким fleet-ам, Fleet Owner видит только те item-ы, по которым он вправе принимать решение.
-4. Метод не заменяет detail API по отдельной брони: для action flow по item по-прежнему используется `GET /approvals/bookings/{id}`.
+4. Текущая версия метода должна содержать достаточно данных для первичной работы с заявкой и её релевантными booking item-ами без обязательного отдельного detail API.
