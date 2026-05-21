@@ -54,6 +54,7 @@ Base URL: `/api/booking/v1`
 | Метод | Путь | Назначение |
 |---|---|---|
 | `GET` | `/approvals/bookings` | Очередь броней на согласование |
+| `GET` | `/approvals/requests` | Список заявок с релевантными бронями для Fleet Owner |
 | `GET` | `/approvals/bookings/{id}` | Детали брони для FO |
 | `GET` | `/approvals/bookings/{id}/load-summary` | Загрузка техники на даты в окне подтверждения |
 | `POST` | `/approvals/bookings/{id}/confirm` | Подтвердить бронь |
