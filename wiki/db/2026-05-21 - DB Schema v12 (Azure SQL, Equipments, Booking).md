@@ -23,6 +23,7 @@
 | 11 | `isActive` удалён из `ref_*` таблиц | Reference tables упрощены до статического справочного состава |
 | 12 | `Users.sharedEmail` удалён | Поле исключено из user model |
 | 13 | `changedBy`, `changedAt`, `isDeleted`, `deletedAt`, `deletedBy` удалены из `BookingStatuses` и `BookingRequestStatuses` | History tables упрощены |
+| 14 | В `Fleets` добавлен `businessPartnerId` | Флот теперь может быть явно привязан к Business Partner |
 
 ---
 
@@ -30,9 +31,10 @@
 
 1. Владение и делегирование fleet теперь нормализованы через `FleetManagePermissions`; `Fleets` перестаёт содержать прямую ссылку на одного owner-пользователя.
 2. Все backend-запросы, которые раньше искали владельца через `Fleets.userId`, должны перейти на выборку owner-records из `FleetManagePermissions` с `permissionTypeId = Owner`.
-3. Все backend-запросы, которые раньше использовали `jdeWorkOrderRefId` и `jdeWorkOrderStepRefId`, должны перейти на business-поля `workOrderNumber` и `workCenterId` без FK на локальные JDE-таблицы.
-4. Схема становится менее связанной с локальным хранением JDE-объектов и переносит JDE-контекст на integration/business level, а не на level relational storage.
-5. История `v11` сохраняется как предыдущая версия; `v12` фиксирует новый ownership model и удаление локальных JDE reference tables.
+3. `Fleets.businessPartnerId` позволяет явно ограничивать внешний fleet контур конкретным Business Partner и упрощает DB-level проверки принадлежности.
+4. Все backend-запросы, которые раньше использовали `jdeWorkOrderRefId` и `jdeWorkOrderStepRefId`, должны перейти на business-поля `workOrderNumber` и `workCenterId` без FK на локальные JDE-таблицы.
+5. Схема становится менее связанной с локальным хранением JDE-объектов и переносит JDE-контекст на integration/business level, а не на level relational storage.
+6. История `v11` сохраняется как предыдущая версия; `v12` фиксирует новый ownership model и удаление локальных JDE reference tables.
 
 ---
 
@@ -199,6 +201,7 @@ where isDeleted = 0;
 | `nameRu` | `nvarchar(255) null` | |
 | `nameKz` | `nvarchar(255) null` | |
 | `fleetTypeId` | `uniqueidentifier FK -> ref_fleet_type` | |
+| `businessPartnerId` | `uniqueidentifier null FK -> BusinessPartners` | Для внешних fleet-ов задаёт принадлежность к BP-контуру |
 | `aadGroupId` | `nvarchar(255)` | ID AAD-группы Fleet Owner |
 | audit fields | см. conventions | |
 
@@ -407,7 +410,8 @@ Filtered unique indexes:
 - `permissionTypeId = Owner` означает, что запись задаёт владельца флота;
 - `permissionTypeId = Delegated` означает временный или постоянный delegated access;
 - для owner-records `expiresAt` должен быть `NULL`, если бизнес не вводит ограниченный срок владения;
-- для внешнего сценария backend использует `Users.businessPartnerId` как обязательный признак принадлежности пользователя к BP-контуру.
+- для внешнего сценария backend использует `Users.businessPartnerId` как обязательный признак принадлежности пользователя к BP-контуру;
+- `Fleets.businessPartnerId` рекомендуется использовать для явной связи внешнего флота с конкретным `BusinessPartners`.
 
 ### 8. Equipments
 

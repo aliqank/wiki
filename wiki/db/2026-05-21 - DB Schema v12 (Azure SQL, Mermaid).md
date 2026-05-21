@@ -207,6 +207,7 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         uniqueidentifier fleetTypeId FK
+        uniqueidentifier businessPartnerId FK
         nvarchar aadGroupId
         datetime2 createdAt
         uniqueidentifier createdBy
@@ -693,6 +694,7 @@ erDiagram
     EquipmentTypes ||--o{ Equipments : "equipmentTypeId"
     Fleets ||--o{ Equipments : "fleetId"
     Fleets ||--o{ FleetManagePermissions : "fleetId"
+    BusinessPartners ||--o{ Fleets : "businessPartnerId"
     WorkCenters ||--o{ EquipmentTypes : "workCenterId"
     WorkCenters ||--o{ Bookings : "workCenterId"
     Locations ||--o{ Equipments : "baseLocationId"
