@@ -21,7 +21,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_fleet_manage_permission_type {
@@ -31,7 +30,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_equipment_mobility_type {
@@ -41,7 +39,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_equipment_class {
@@ -51,7 +48,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_ownership_type {
@@ -61,7 +57,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_share_type {
@@ -71,7 +66,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_equipment_status_type {
@@ -82,7 +76,6 @@ erDiagram
         nvarchar nameKz
         nvarchar iconUrl
         int sortOrder
-        bit isActive
     }
 
     ref_equipment_current_status {
@@ -92,7 +85,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_equipment_status_source {
@@ -102,7 +94,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_property_data_type {
@@ -112,7 +103,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_user_type {
@@ -122,7 +112,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_request_type {
@@ -132,7 +121,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_request_priority {
@@ -142,7 +130,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_booking_request_status {
@@ -152,7 +139,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     ref_booking_status {
@@ -162,7 +148,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         int sortOrder
-        bit isActive
     }
 
     EquipmentTypes {
@@ -621,7 +606,6 @@ erDiagram
         nvarchar badgeNumber
         nvarchar fullName
         nvarchar email
-        nvarchar sharedEmail
         nvarchar jobTitle
         uniqueidentifier departmentId FK
         uniqueidentifier businessPartnerId FK
@@ -687,32 +671,22 @@ erDiagram
         uniqueidentifier id PK
         uniqueidentifier bookingId FK
         uniqueidentifier statusId FK
-        uniqueidentifier changedBy
-        datetime2 changedAt
         nvarchar comment
         datetime2 createdAt
         uniqueidentifier createdBy
         datetime2 updatedAt
         uniqueidentifier updatedBy
-        bit isDeleted
-        datetime2 deletedAt
-        uniqueidentifier deletedBy
     }
 
     BookingRequestStatuses {
         uniqueidentifier id PK
         uniqueidentifier requestId FK
         uniqueidentifier statusId FK
-        uniqueidentifier changedBy
-        datetime2 changedAt
         nvarchar comment
         datetime2 createdAt
         uniqueidentifier createdBy
         datetime2 updatedAt
         uniqueidentifier updatedBy
-        bit isDeleted
-        datetime2 deletedAt
-        uniqueidentifier deletedBy
     }
 
     EquipmentBrands ||--o{ EquipmentModels : "brandId"

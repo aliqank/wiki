@@ -20,6 +20,9 @@
 | 8 | `JdeWorkOrderSteps` удалена | JDE step-level сущность исключена из схемы |
 | 9 | `BookingRequests.jdeWorkOrderRefId` удалён | На request-level остаётся только `workOrderNumber` как business field |
 | 10 | `Bookings.jdeWorkOrderStepRefId` удалён | На item-level остаётся только `workCenterId` |
+| 11 | `isActive` удалён из `ref_*` таблиц | Reference tables упрощены до статического справочного состава |
+| 12 | `Users.sharedEmail` удалён | Поле исключено из user model |
+| 13 | `changedBy`, `changedAt`, `isDeleted`, `deletedAt`, `deletedBy` удалены из `BookingStatuses` и `BookingRequestStatuses` | History tables упрощены |
 
 ---
 
@@ -64,7 +67,6 @@
 
 Для append-only history tables:
 - `updatedAt`, `updatedBy` всегда `NULL`
-- `changedAt` и `changedBy` остаются отдельными полями
 
 ### 2а. Temporal tables
 
@@ -160,10 +162,9 @@ where isDeleted = 0;
 | `nameKz` | `nvarchar(255) null` |
 | `iconUrl` | `nvarchar(1000) null` |
 | `sortOrder` | `int not null default 0` |
-| `isActive` | `bit not null default 1` |
 
 Индекс:
-- filtered unique index on `code where isActive = 1`
+- unique index on `code`
 
 ---
 
@@ -639,7 +640,6 @@ Filtered unique index:
 | `badgeNumber` | `nvarchar(100) null` |
 | `fullName` | `nvarchar(255) not null` |
 | `email` | `nvarchar(255) not null` |
-| `sharedEmail` | `nvarchar(255) null` |
 | `jobTitle` | `nvarchar(255) null` |
 | `departmentId` | `uniqueidentifier null FK -> Departments` |
 | `isActive` | `bit not null default 1` |
@@ -743,16 +743,11 @@ Filtered unique index:
 | `id` | `uniqueidentifier PK` |
 | `bookingId` | `uniqueidentifier FK -> Bookings` |
 | `statusId` | `uniqueidentifier FK -> ref_booking_status` |
-| `changedBy` | `uniqueidentifier not null` |
-| `changedAt` | `datetime2(3) not null` |
 | `comment` | `nvarchar(max) null` |
 | `createdAt` | `datetime2(3) not null` |
 | `createdBy` | `uniqueidentifier not null` |
 | `updatedAt` | `datetime2(3) null` |
 | `updatedBy` | `uniqueidentifier null` |
-| `isDeleted` | `bit not null default 0` |
-| `deletedAt` | `datetime2(3) null` |
-| `deletedBy` | `uniqueidentifier null` |
 
 ### 24. BookingRequestStatuses
 
@@ -763,16 +758,11 @@ Filtered unique index:
 | `id` | `uniqueidentifier PK` |
 | `requestId` | `uniqueidentifier FK -> BookingRequests` |
 | `statusId` | `uniqueidentifier FK -> ref_booking_request_status` |
-| `changedBy` | `uniqueidentifier not null` |
-| `changedAt` | `datetime2(3) not null` |
 | `comment` | `nvarchar(max) null` |
 | `createdAt` | `datetime2(3) not null` |
 | `createdBy` | `uniqueidentifier not null` |
 | `updatedAt` | `datetime2(3) null` |
 | `updatedBy` | `uniqueidentifier null` |
-| `isDeleted` | `bit not null default 0` |
-| `deletedAt` | `datetime2(3) null` |
-| `deletedBy` | `uniqueidentifier null` |
 
 ---
 
