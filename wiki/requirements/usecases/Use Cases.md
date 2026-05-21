@@ -1,7 +1,7 @@
 # Use Cases
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-05-21  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -30,6 +30,7 @@
 | `UC-REQ-05` | Отзыв submitted-заявки requestor-ом | Страница `Мои заявки` / карточка submitted-заявки | `BRD: FR-025, FR-058, FR-NEW-17; Additional: BRD-U-003` | `GET /booking-requests/my`, `GET /booking-requests/{id}`, request-level withdraw API / orchestration *(TBD)* |
 | `UC-FO-01` | Просмотр списка броней Fleet Owner | Страница `Approvals` → view `Bookings` | `BRD: FR-092, FR-043` | `GET /approvals/bookings`, `GET /approvals/bookings/{id}` |
 | `UC-FO-02` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/confirm` |
+| `UC-FO-03` | Просмотр списка заявок Fleet Owner | Страница `Approvals` → view `Requests` | `BRD: FR-092, FR-094, FR-043; Additional: BRD-U-001` | `GET /reports/requests` |
 
 ---
 
@@ -49,3 +50,4 @@
 - `Requestor/UC-REQ-05 - Отзыв submitted-заявки requestor-ом.md`
 - `Fleet Owner/UC-FO-01 - Просмотр списка броней Fleet Owner.md`
 - `Fleet Owner/UC-FO-02 - Подтверждение брони Fleet Owner (базовый сценарий).md`
+- `Fleet Owner/UC-FO-03 - Просмотр списка заявок Fleet Owner.md`
