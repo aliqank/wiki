@@ -37,7 +37,7 @@
 
 ## 3. Описание логики работы метода
 
-1. Определить список fleet-ов, доступных текущему Fleet Owner через AAD-группы, а также технику, доступную ему по делегированию.
+1. Определить список fleet-ов, где у текущего Fleet Owner есть assignment в `FleetManagePermissions` с типом `Owner` или `Delegated`, а также технику, доступную ему по делегированию.
 2. Выбрать `BookingRequests`, в составе которых есть хотя бы один `Booking`, относящийся к этим fleet-ам и/или к технике, доступной пользователю по делегированию.
 3. По умолчанию исключить из выдачи заявки со статусами `Draft`, `Closed`, `Cancelled`.
 4. Применить request-level фильтры по статусу, типу, приоритету, поиску и периоду создания заявки.
@@ -47,7 +47,7 @@
 8. Вернуть paginated список.
 
 Сущности, участвующие в методе:
-- читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `WorkCenters`, `Fleets`, `Users`, `EquipmentBookingAuthorizations`
+- читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `WorkCenters`, `Fleets`, `Users`, `EquipmentBookingAuthorizations`, `FleetManagePermissions`
 - изменения не выполняются
 
 ---

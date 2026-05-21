@@ -125,7 +125,7 @@ Content-Type: application/json
 | 4 | Плановая дата и время начала брони | bookingPeriodStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 5 | Плановая дата и время окончания брони | bookingPeriodEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 6 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 7 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
+| 7 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
 ### Структура `value.items[].equipmentTypeName`
 

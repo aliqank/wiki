@@ -29,8 +29,6 @@ Base URL: `/api/booking/v1`
 | `GET` | `/reference/ownership-types` | Получить справочник ownership types для фильтра поиска |
 | `GET` | `/reference/share-types` | Получить справочник share types для фильтра поиска |
 | `GET` | `/reference/equipment-types/{equipmentTypeId}/properties` | Получить динамические свойства выбранного типа техники |
-| `GET` | `/jde/work-orders` | Получить список WO из JDE |
-| `GET` | `/jde/work-orders/{id}/steps` | Получить шаги выбранного WO |
 | `POST` | `/booking-requests` | Создать черновик заявки |
 | `GET` | `/booking-requests/{id}` | Получить детали заявки |
 | `GET` | `/booking-requests/my` | Получить список собственных заявок |

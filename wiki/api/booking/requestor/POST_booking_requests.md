@@ -41,16 +41,15 @@
 
 1. Принять тело запроса для создания draft-заявки.
 2. Не требовать обязательного заполнения `priority`, `workDescription`, `location`, `workOrderNumber` на этапе создания draft.
-3. Если передан `jdeWorkOrderRefId`, проверить существование записи в `JdeWorkOrders`.
-4. Если передан `isDefaultWorkOrder = true`, сохранить `workOrderNumber = null`.
-5. Создать запись в `BookingRequests` со статусом `Draft`.
-6. Создать запись в `BookingRequestStatuses` со статусом `Draft`.
-7. Вернуть созданную заявку.
+3. Если передан `isDefaultWorkOrder = true`, сохранить `workOrderNumber = null`.
+4. Создать запись в `BookingRequests` со статусом `Draft`.
+5. Создать запись в `BookingRequestStatuses` со статусом `Draft`.
+6. Вернуть созданную заявку.
 
 Обязательные business-поля валидируются на этапе `POST /booking-requests/{id}/submit`, а не на этапе создания draft.
 
 Сущности, участвующие в методе:
-- читаются: `JdeWorkOrders`
+- читаются: —
 - изменяются: `BookingRequests`, `BookingRequestStatuses`
 - транзакционность: требуется, запись в шапку и историю должна быть атомарной
 
@@ -80,9 +79,8 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | Нет необходимой роли |
 | `VALIDATION_ERROR` | Переданы невалидные данные draft-заявки |
-| `NOT_FOUND` | WO не найден |
 
-HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Entity`
+HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
 ---
 
@@ -90,13 +88,12 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Идентификатор WO | `jdeWorkOrderRefId` | `uuid` | `-` | Если передан, WO должен существовать | — | Request body | Опционально для draft |
-| 2 | Номер WO | `workOrderNumber` | `string` | `-` | Если передан вместе с `jdeWorkOrderRefId`, должен соответствовать выбранному WO | — | Request body | Для draft может быть `null` |
-| 3 | Признак использования Default Work Order | `isDefaultWorkOrder` | `bool` | `-` | `true / false` | `false` | Request body | При `true` backend сохраняет `workOrderNumber = null` |
-| 4 | Локация | `location` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустой |
-| 5 | Описание работ | `workDescription` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустым |
-| 6 | Комментарии | `comments` | `string` | `-` | — | — | Request body | |
-| 7 | Приоритет | `priority` | `enum` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Для draft может быть не заполнен |
+| 1 | Номер Work Order | `workOrderNumber` | `string` | `-` | Может быть пустым на этапе draft или `null` при `isDefaultWorkOrder = true` | — | Request body | Для draft может быть `null` |
+| 2 | Признак использования Default Work Order | `isDefaultWorkOrder` | `bool` | `-` | `true / false` | `false` | Request body | При `true` backend сохраняет `workOrderNumber = null` |
+| 3 | Локация | `location` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустой |
+| 4 | Описание работ | `workDescription` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустым |
+| 5 | Комментарии | `comments` | `string` | `-` | — | — | Request body | |
+| 6 | Приоритет | `priority` | `enum` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Для draft может быть не заполнен |
 
 ---
 
@@ -110,7 +107,6 @@ Content-Type: application/json
 
 ```json
 {
-  "jdeWorkOrderRefId": null,
   "workOrderNumber": null,
   "isDefaultWorkOrder": false,
   "location": null,
@@ -142,13 +138,12 @@ Content-Type: application/json
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 | 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 5 | Идентификатор связанного Work Order | jdeWorkOrderRefId | null | — | `null` | backend composition from JdeWorkOrders + BookingRequests + BookingRequestStatuses | Для draft может отсутствовать |
-| 6 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderNumber | Для draft может отсутствовать |
-| 7 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
-| 8 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
-| 9 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |
-| 10 | Комментарии | comments | null | — | `null` | BookingRequests.comments | Для draft может отсутствовать |
-| 11 | Приоритет | priority | null | — | `null` | BookingRequests + ref_request_priority | Для draft может отсутствовать |
+| 5 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderNumber | Для draft может отсутствовать |
+| 6 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
+| 7 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
+| 8 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |
+| 9 | Комментарии | comments | null | — | `null` | BookingRequests.comments | Для draft может отсутствовать |
+| 10 | Приоритет | priority | null | — | `null` | BookingRequests + ref_request_priority | Для draft может отсутствовать |
 
 ## 10. Пример ответа
 
@@ -159,7 +154,6 @@ Content-Type: application/json
     "requestNumber": "REQ-2026-00015",
     "type": "Regular",
     "status": "Draft",
-    "jdeWorkOrderRefId": null,
     "workOrderNumber": null,
     "isDefaultWorkOrder": false,
     "location": null,

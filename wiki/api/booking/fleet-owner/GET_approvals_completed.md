@@ -35,13 +35,13 @@
 
 ## 3. Описание логики работы метода
 
-1. Определить флоты пользователя.
+1. Определить флоты пользователя через `FleetManagePermissions` с типами `Owner` и `Delegated`.
 2. Выбрать брони по этим флотам, завершившие шаг FO: `Confirmed`, `ConfirmedByFo`, `Declined`, `Terminated`, `Closed`.
 3. Применить поиск и пагинацию.
 4. Вернуть список.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `FleetManagePermissions`
 
 ---
 

@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для редактирования периода, `justification`, `workCenterId`, `jdeWorkOrderStepRefId` и/или замены `equipmentId` у существующего booking item в draft-заявке без удаления и повторного создания всей заявки.
+Новый метод. Используется для редактирования периода, `justification`, `workCenterId` и/или замены `equipmentId` у существующего booking item в draft-заявке без удаления и повторного создания всей заявки.
 
 ---
 
@@ -48,14 +48,13 @@
    Под доступностью в рамках текущего базового сценария понимается, что в `EquipmentStatuses` нет активных записей, пересекающихся с периодом брони.
 7. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item обязателен `justification`; при его отсутствии item остается незавершенным до последующего заполнения.
 8. Если итоговая техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
-9. Если передан `jdeWorkOrderStepRefId`, проверить существование шага WO и согласованность `workCenterId`.
-10. Если обновляется `justification`, метод может вызываться frontend-ом как autosave без отдельной кнопки сохранения.
-11. Сохранить изменения в существующей записи `Bookings`.
-12. Пересчитать признаки `requiresJustification` и `isComplete` для итогового состояния item.
-13. Вернуть обновленный booking item.
+9. Если обновляется `justification`, метод может вызываться frontend-ом как autosave без отдельной кнопки сохранения.
+10. Сохранить изменения в существующей записи `Bookings`.
+11. Пересчитать признаки `requiresJustification` и `isComplete` для итогового состояния item.
+12. Вернуть обновленный booking item.
 
 Сущности, участвующие в методе:
-- читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentBookingAuthorizations`, `JdeWorkOrderSteps`
+- читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentBookingAuthorizations`
 - изменяются: `Bookings`
 
 ---
@@ -84,7 +83,7 @@
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | Нет доступа к заявке или технике |
-| `NOT_FOUND` | Заявка, booking item, техника или шаг WO не найдены |
+| `NOT_FOUND` | Заявка, booking item или техника не найдены |
 | `REQUEST_NOT_EDITABLE` | Заявка или booking item не в статусе `Draft` |
 | `EQUIPMENT_NOT_AVAILABLE` | Итоговая техника недоступна на выбранный период |
 | `VALIDATION_ERROR` | Не пройдены бизнес-валидации |
@@ -103,8 +102,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | 4 | Плановая дата/время начала | `plannedStartDateTime` | `datetime` | `-` | Для итогового набора значений должно быть меньше `plannedEndDateTime` | — | Request body | Если не передан, сохраняется текущее значение |
 | 5 | Плановая дата/время окончания | `plannedEndDateTime` | `datetime` | `-` | Для итогового набора значений должно быть больше `plannedStartDateTime` | — | Request body | Если не передан, сохраняется текущее значение |
 | 6 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | Если не передан, сохраняется текущее значение |
-| 7 | Шаг WO | `jdeWorkOrderStepRefId` | `uuid` | `-` | Если передан, должен существовать и относиться к WO заявки | — | Request body | Если не передан, сохраняется текущее значение |
-| 8 | Обоснование | `justification` | `string` | `-` | Может сохраняться позднее через autosave; для итоговой техники `LongTermRented`, `Assigned`, `SharedWithConditions` должно быть заполнено к моменту submit | — | Request body | Если не передан, сохраняется текущее значение |
+| 7 | Обоснование | `justification` | `string` | `-` | Может сохраняться позднее через autosave; для итоговой техники `LongTermRented`, `Assigned`, `SharedWithConditions` должно быть заполнено к моменту submit | — | Request body | Если не передан, сохраняется текущее значение |
 
 ---
 
@@ -146,14 +144,14 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | BookingRequests.id |  |
-| 3 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentBookingAuthorizations + JdeWorkOrderSteps |  |
+| 3 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentBookingAuthorizations |  |
 | 4 | Текущий статус | status | string | string | — | Bookings + ref_booking_status |  |
 | 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 7 | Обоснование | justification | string | string | — | Bookings.justification |  |
 | 8 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если для итоговой техники `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
 | 9 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule |  |
-| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings + JdeWorkOrderSteps |  |
+| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings |  |
 
 ## 10. Пример ответа
 

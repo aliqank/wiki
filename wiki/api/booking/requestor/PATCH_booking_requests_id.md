@@ -43,7 +43,7 @@
 5. Вернуть обновленную заявку.
 
 Сущности, участвующие в методе:
-- читаются: `BookingRequests`, `JdeWorkOrders`
+- читаются: `BookingRequests`
 - изменяются: `BookingRequests`
 
 ---
@@ -84,8 +84,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор заявки | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Идентификатор WO | `jdeWorkOrderRefId` | `uuid` | `-` | Если передан, WO должен существовать | — | Request body | |
-| 3 | Номер WO | `workOrderNumber` | `string` | `-` | Должен соответствовать WO | — | Request body | |
+| 2 | Номер Work Order | `workOrderNumber` | `string` | `-` | Может быть пустым до submit или `null` при `isDefaultWorkOrder = true` | — | Request body | |
+| 3 | Признак использования Default Work Order | `isDefaultWorkOrder` | `bool` | `-` | `true / false` | `false` | Request body | |
 | 4 | Локация | `location` | `string` | `-` | — | — | Request body | |
 | 5 | Описание работ | `workDescription` | `string` | `-` | Если передан, не должен быть пустым | — | Request body | |
 | 6 | Комментарии | `comments` | `string` | `-` | — | — | Request body | |

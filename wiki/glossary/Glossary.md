@@ -49,8 +49,8 @@
 | Table | Description | Key Relations |
 |---|---|---|
 | `EquipmentTypes` | Справочник типов техники. Хранит класс техники, признак необходимости транспортировки, mobility type, work center и порядок сортировки. | `WorkCenters`, `ref_equipment_mobility_type`, `ref_equipment_class` |
-| `Fleets` | Справочник флотов. Хранит название флота, тип флота, ответственного пользователя и AAD group Fleet Owner. | `Users`, `ref_fleet_type` |
-| `WorkCenters` | Справочник рабочих центров/шагов, используемый при типизации техники и JDE-интеграции. | Используется в `EquipmentTypes`, `JdeWorkOrderSteps`, `Bookings` |
+| `Fleets` | Справочник флотов. Хранит название флота, тип флота и AAD group Fleet Owner; ownership больше не хранится прямо в записи флота. | `ref_fleet_type`, `FleetManagePermissions` |
+| `WorkCenters` | Справочник рабочих центров, используемый при типизации техники и booking-контексте. | Используется в `EquipmentTypes`, `Bookings` |
 | `EquipmentBrands` | Справочник брендов/производителей техники. | Используется в `EquipmentModels`, `Equipments` |
 | `EquipmentModels` | Справочник моделей техники с привязкой к бренду. | `EquipmentBrands`, `Equipments` |
 | `Locations` | Справочник базовых локаций техники. | Используется в `Equipments` |
@@ -60,7 +60,7 @@
 | `Groups` | Справочник groups в оргструктуре. | `Divisions`, родитель для `Departments` |
 | `Departments` | Справочник departments. Используется, в том числе, для отчётности и оргструктуры пользователей. | `Groups`, родитель для `Sections`, используется в `Users` |
 | `Sections` | Справочник sections / unit-level привязки техники. | `Departments`, используется в `Equipments` |
-| `FleetManagePermissions` | Таблица разрешений на управление fleet для конкретных пользователей, включая срок действия доступа. | `Fleets`, `Users` |
+| `FleetManagePermissions` | Таблица владения и делегирования управления fleet для конкретных пользователей, включая тип assignment и срок действия доступа. | `Fleets`, `Users`, `ref_fleet_manage_permission_type` |
 | `Equipments` | Основная таблица карточек техники. Хранит принадлежность, тип, статус, идентификаторы, бренд/модель, критичность, плановые показатели и оргпривязки. | `EquipmentTypes`, `Fleets`, `EquipmentBrands`, `EquipmentModels`, `ServiceZones`, `CostCenters`, `Locations`, `Sections`, reference tables статусов/типов |
 | `EquipmentPhotos` | Фотографии единицы техники с признаком primary и сортировкой. | `Equipments` |
 | `EquipmentStatuses` | История статусов техники: заморозка, ремонт, вывод из эксплуатации и другие статусы с периодами действия. | `Equipments`, `ref_equipment_status_type`, `ref_equipment_status_source` |
@@ -81,7 +81,7 @@
 | Table | Description | Key Relations |
 |---|---|---|
 | `SystemSettings` | Таблица системных настроек вида key-value для параметров, которые не должны быть захардкожены. | Используется прикладной логикой и Admin Panel |
-| `Users` | Справочник пользователей системы, включая ФИО, email, sharedEmail, должность, department, тип пользователя и BP-привязку. | `Departments`, `BusinessPartners`, `FleetManagePermissions`, `EquipmentBookingAuthorizations`, `Fleets` |
+| `Users` | Справочник пользователей системы, включая ФИО, email, sharedEmail, должность, department, тип пользователя и BP-привязку. | `Departments`, `BusinessPartners`, `FleetManagePermissions`, `EquipmentBookingAuthorizations` |
 | `BusinessPartners` | Справочник внешних компаний/контрагентов. | Используется в `Users` и сценариях внешних сущностей |
 
 ---
@@ -90,9 +90,7 @@
 
 | Table | Description | Key Relations |
 |---|---|---|
-| `JdeWorkOrders` | Локальное представление Work Order из JDE E1, включая статус, priority и исходный payload. | Используется в `JdeWorkOrderSteps`, `BookingRequests` |
-| `JdeWorkOrderSteps` | Шаги конкретного Work Order с привязкой к Work Center. | `JdeWorkOrders`, `WorkCenters` |
-| `BookingRequests` | Заголовок заявки на бронирование: request-level данные, инициатор, тип заявки, приоритет, WO/WC-логика и агрегированный статус. | Связан с `Users`, `JdeWorkOrders`, `BookingRequestStatuses`, `Bookings` |
+| `BookingRequests` | Заголовок заявки на бронирование: request-level данные, инициатор, тип заявки, приоритет, WO business-поля и агрегированный статус. | Связан с `Users`, `BookingRequestStatuses`, `Bookings` |
 | `Bookings` | Отдельные booking items внутри заявки. Хранят оборудование, период, статусы согласования и фактические атрибуты выполнения брони. | `BookingRequests`, `Equipments`, `WorkCenters`, `BookingStatuses` |
 | `BookingStatuses` | История статусов individual booking с периодами и источником изменения. | `Bookings` |
 | `BookingRequestStatuses` | История статусов request-level сущности. | `BookingRequests` |

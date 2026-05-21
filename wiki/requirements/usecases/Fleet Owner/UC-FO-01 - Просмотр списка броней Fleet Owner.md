@@ -25,7 +25,7 @@
 
 1. Пользователь открывает страницу Fleet Owner `Approvals` и находится во view `Bookings`.
 2. Frontend вызывает `GET /approvals/bookings`.
-3. Backend определяет список fleet-ов, доступных текущему Fleet Owner, а также технику, права по которой делегированы ему.
+3. Backend определяет список fleet-ов, где у текущего Fleet Owner есть assignment в `FleetManagePermissions` с типом `Owner` или `Delegated`, а также технику, права по которой делегированы ему.
 4. Backend возвращает paginated список booking-ов, относящихся только к этим fleet-ам или к технике, доступной пользователю по делегированию.
 5. Frontend отображает таблицу броней.
 6. Для каждой строки отображаются поля списка:

@@ -136,7 +136,7 @@ Content-Type: application/json
 | 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 | 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
 | 5 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
-| 6 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
+| 6 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 | 7 | Дата и время создания | createdAt | datetime | ISO 8601 | — | BookingRequests.createdAt |  |
 | 8 | Данные реквестора | requestor | object | object | — | Users |  |
 | 9 | Количество броней | bookingsCount | int | integer | — | COUNT(Bookings) |  |

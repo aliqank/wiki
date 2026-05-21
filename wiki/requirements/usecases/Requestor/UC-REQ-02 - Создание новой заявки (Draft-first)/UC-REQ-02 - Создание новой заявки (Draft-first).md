@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Нажатие кнопки `Создать заявку` |
 | Ожидаемый результат | Создана новая draft-заявка, пользователь может добавить технику, сохранить черновик или отправить заявку |
-| Используемые API | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /jde/work-orders`, `GET /jde/work-orders/{id}/steps`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `DELETE /booking-requests/{id}/items/{bookingId}`, `POST /booking-requests/{id}/submit`, reference APIs for filter dictionaries |
+| Используемые API | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `DELETE /booking-requests/{id}/items/{bookingId}`, `POST /booking-requests/{id}/submit`, reference APIs for filter dictionaries |
 
 ---
 

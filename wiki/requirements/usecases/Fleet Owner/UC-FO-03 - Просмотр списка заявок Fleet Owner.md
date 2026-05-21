@@ -26,7 +26,7 @@
 1. Пользователь открывает страницу Fleet Owner `Approvals` и переключается во view `Requests`.
 2. Frontend вызывает `GET /approvals/requests`.
 3. Backend проверяет, что текущий пользователь имеет роль `FleetOwner`.
-4. Backend определяет список fleet-ов, находящихся в зоне ответственности текущего Fleet Owner.
+4. Backend определяет список fleet-ов, где у текущего Fleet Owner есть assignment в `FleetManagePermissions` с типом `Owner` или `Delegated`.
 5. Backend выбирает только те `BookingRequests`, в составе которых есть booking item-ы по этим fleet-ам.
 6. Backend применяет request-level фильтры экрана по статусу, типу заявки и периоду.
 7. Backend рассчитывает и возвращает paginated список заявок вместе с релевантными `bookingSummaries` внутри каждой заявки.

@@ -36,14 +36,14 @@
 
 ## 3. Описание логики работы метода
 
-1. Определить список флотов, доступных текущему FO через AAD-группы, а также технику, доступную ему по делегированию.
+1. Определить список флотов, где у текущего FO есть запись в `FleetManagePermissions` с типом `Owner` или `Delegated`, а также технику, доступную ему по делегированию.
 2. Выбрать `Bookings` по этим флотам и/или по доступной технике со статусами, допустимыми для view `Bookings`, по фильтру экрана.
 3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `Users`.
 4. Для каждого booking вычислить таймер с момента submit.
 5. Вернуть пагинированный список.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `Fleets`, `Users`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `Fleets`, `Users`, `FleetManagePermissions`
 - изменений нет
 
 ---
