@@ -47,7 +47,7 @@
 6. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item потребуется `justification` на этапе последующего редактирования или перед submit.
 7. Если техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 8. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`; `justification` на этом этапе не передается и может оставаться пустым до отдельного сохранения через редактирование item.
-9. Для каждого созданного item определить, требуется ли `justification`, и вычислить признак завершенности item.
+9. Для каждого созданного item определить, требуется ли `justification`, и вычислить признак наличия обязательного justification.
 10. Вернуть список booking item-ов, созданных в текущем batch-добавлении.
 
 Сущности, участвующие в методе:
@@ -155,7 +155,7 @@ Content-Type: application/json
 | 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 7 | Обоснование | justification | string | string | — | Bookings.justification | На этапе создания item может быть пустым и заполняется позже через редактирование item |
 | 8 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 9 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
+| 9 | Признак наличия обязательного justification | hasRequiredJustification | bool | boolean | — | backend business rule | `false`, если для item обязателен `justification`, но он еще не заполнен |
 
 ## 10. Пример ответа
 
@@ -171,7 +171,7 @@ Content-Type: application/json
       "plannedEndDateTime": "2026-05-22T18:00:00Z",
       "justification": null,
       "requiresJustification": true,
-      "isComplete": false,
+      "hasRequiredJustification": false,
     },
     {
       "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d2222",
@@ -182,7 +182,7 @@ Content-Type: application/json
       "plannedEndDateTime": "2026-05-22T18:00:00Z",
       "justification": null,
       "requiresJustification": true,
-      "isComplete": false,
+      "hasRequiredJustification": false,
     }
   ],
   "isSuccess": true,
@@ -197,4 +197,4 @@ Content-Type: application/json
 3. В `value` возвращаются только брони, созданные в текущем вызове метода, а не полный список всех броней заявки.
 4. Под доступностью в базовом сценарии понимается отсутствие активных записей в `EquipmentStatuses`, пересекающихся с периодом брони.
 5. Поле `justification` не передается в `POST /booking-requests/{id}/items`; оно заполняется позже через редактирование конкретного item.
-6. Система должна обозначить item как требующий `justification` уже в ответе `POST /booking-requests/{id}/items` через поля `requiresJustification` и `isComplete`.
+6. Система должна обозначить item как требующий `justification` уже в ответе `POST /booking-requests/{id}/items` через поля `requiresJustification` и `hasRequiredJustification`.

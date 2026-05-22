@@ -46,11 +46,11 @@
 5. Для итогового набора значений проверить, что техника не относится к `OnDemand`.
 6. Для итогового набора значений проверить доступность техники на выбранный период.
    Под доступностью в рамках текущего базового сценария понимается, что в `EquipmentStatuses` нет активных записей, пересекающихся с периодом брони.
-7. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item обязателен `justification`; при его отсутствии item остается незавершенным до последующего заполнения.
+7. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item обязателен `justification`; при его отсутствии признак `hasRequiredJustification` остается `false` до последующего заполнения.
 8. Если итоговая техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 9. Если обновляется `justification`, метод может вызываться frontend-ом как autosave без отдельной кнопки сохранения.
 10. Сохранить изменения в существующей записи `Bookings`.
-11. Пересчитать признаки `requiresJustification` и `isComplete` для итогового состояния item.
+11. Пересчитать признаки `requiresJustification` и `hasRequiredJustification` для итогового состояния item.
 12. Вернуть обновленный booking item.
 
 Сущности, участвующие в методе:
@@ -150,7 +150,7 @@ Content-Type: application/json
 | 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 7 | Обоснование | justification | string | string | — | Bookings.justification |  |
 | 8 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если для итоговой техники `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 9 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule |  |
+| 9 | Признак наличия обязательного justification | hasRequiredJustification | bool | boolean | — | backend business rule | `false`, если для item обязателен `justification`, но он еще не заполнен |
 
 ## 10. Пример ответа
 
@@ -165,7 +165,7 @@ Content-Type: application/json
     "plannedEndDateTime": "2026-05-23T18:00:00Z",
     "justification": "Updated due to equipment replacement for the same work scope.",
     "requiresJustification": true,
-    "isComplete": true,
+    "hasRequiredJustification": true,
   },
   "isSuccess": true,
   "errors": []

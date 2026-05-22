@@ -179,7 +179,7 @@ Content-Type: application/json
 | 14 | Фактическая дата и время окончания | actualEndDateTime | null | — | `null` | Bookings.actualEndDateTime |  |
 | 15 | Обоснование | justification | string | string | — | Bookings.justification | Для draft-item может быть пустым до позднего заполнения |
 | 16 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 17 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
+| 17 | Признак наличия обязательного justification | hasRequiredJustification | bool | boolean | — | backend business rule | `false`, если для item обязателен `justification`, но он еще не заполнен |
 | 18 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 | 19 | Кто обновил текущий статус брони | statusUpdatedBy | object | object | — | last BookingStatuses + Users | Автор последнего status transition |
 
@@ -273,7 +273,7 @@ Content-Type: application/json
             "actualEndDateTime": null,
             "justification": null,
             "requiresJustification": true,
-            "isComplete": false,
+            "hasRequiredJustification": false,
             "status": "Submitted",
             "statusUpdatedBy": {
               "userId": "11111111-1111-1111-1111-111111111111",
@@ -310,7 +310,7 @@ Content-Type: application/json
             "actualEndDateTime": null,
             "justification": "Dust suppression required for road preparation.",
             "requiresJustification": true,
-            "isComplete": true,
+            "hasRequiredJustification": true,
             "status": "Submitted",
             "statusUpdatedBy": {
               "userId": "11111111-1111-1111-1111-111111111111",

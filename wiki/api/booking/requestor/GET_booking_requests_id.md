@@ -154,7 +154,7 @@ Content-Type: application/json
 | 15 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
 | 16 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
 | 17 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 18 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
+| 18 | Признак наличия обязательного justification | hasRequiredJustification | bool | boolean | — | backend business rule | `false`, если для item обязателен `justification`, но он еще не заполнен |
 | 19 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
 | 20 | Кто обновил текущий статус брони | statusUpdatedBy | object | object | — | last BookingStatuses + Users | Автор последнего status transition |
 
@@ -257,7 +257,7 @@ Content-Type: application/json
         ],
         "justification": "Required specialized bucket setup for this trench segment.",
         "requiresJustification": true,
-        "isComplete": true,
+        "hasRequiredJustification": true,
         "status": "Draft",
         "statusUpdatedBy": {
           "userId": "11111111-1111-1111-1111-111111111111",
@@ -300,7 +300,7 @@ Content-Type: application/json
         ],
         "justification": "Required for parallel work on adjacent segment.",
         "requiresJustification": true,
-        "isComplete": true,
+        "hasRequiredJustification": true,
         "status": "Draft",
         "statusUpdatedBy": {
           "userId": "11111111-1111-1111-1111-111111111111",
@@ -322,4 +322,4 @@ Content-Type: application/json
 1. Метод должен возвращать полное текущее состояние заявки, а не только результат последнего действия над бронями.
 2. Метод используется как основной источник данных для страницы `Новая заявка / Редактировать заявку` после добавления техники.
 3. `bookingsCount` и `bookings[]` должны отражать все брони заявки целиком.
-4. По каждому item метод должен возвращать признаки `requiresJustification` и `isComplete`, чтобы frontend мог сразу подсветить незавершенные брони.
+4. По каждому item метод должен возвращать признаки `requiresJustification` и `hasRequiredJustification`, чтобы frontend мог сразу подсветить брони, где еще не заполнен обязательный `justification`.
