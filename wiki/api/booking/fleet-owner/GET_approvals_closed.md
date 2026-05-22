@@ -1,7 +1,7 @@
-# GET /approvals/completed
+# GET /approvals/closed
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -10,10 +10,10 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить историю обработанных согласований Fleet Owner |
+| Описание | Получить историю closed / processed согласований Fleet Owner |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Fleet Owner UI` |
-| Endpoint URL | `/api/booking/v1/approvals/completed` |
+| Endpoint URL | `/api/booking/v1/approvals/closed` |
 | Метод запроса | `GET` |
 | Согласовано | |
 
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Наполняет страницу completed approvals.
+Новый метод. Наполняет страницу closed approvals / processed approvals history.
 
 ---
 
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-092 | Approver can view all pending and completed approvals | Confirmed | BRD v13 | Часть completed approvals |
+| TCO Booking Tool | FR-092 | Approver can view all pending and completed approvals | Confirmed | BRD v13 | Closed / processed approvals history |
 
 ---
 
@@ -85,7 +85,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/approvals/completed?page=1&limit=20
+GET /api/booking/v1/approvals/closed?page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```

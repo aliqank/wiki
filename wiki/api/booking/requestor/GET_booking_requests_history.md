@@ -1,7 +1,7 @@
 # GET /booking-requests/history
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-45 | Dedicated Completed Requests page | Confirmed | BRD v13 | Метод наполняет отдельную страницу |
+| TCO Booking Tool | FR-NEW-45 | Dedicated Closed Requests / Request History page | Confirmed | BRD v13 | Метод наполняет отдельную страницу |
 | TCO Booking Tool | FR-NEW-52 | Requestor has access to Request History | Confirmed | BRD v13 | Прямое покрытие |
 
 ---
@@ -38,9 +38,10 @@
 
 1. Выбрать заявки текущего пользователя.
 2. Оставить только записи со статусом `Closed`.
-3. Подтянуть минимальные данные по booking item-ам для отображения в списке.
-4. Применить поиск и пагинацию.
-5. Вернуть список в `PaginatedResult`.
+3. Для closed-заявок различать бизнес-сценарий через `closureReason = Cancelled | Completed`.
+4. Подтянуть минимальные данные по booking item-ам для отображения в списке.
+5. Применить поиск и пагинацию.
+6. Вернуть список в `PaginatedResult`.
 
 Сущности, участвующие в методе:
 - читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentTypes`
@@ -125,7 +126,7 @@ Content-Type: application/json
 | 4 | Плановая дата и время начала брони | bookingPeriodStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 5 | Плановая дата и время окончания брони | bookingPeriodEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 6 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 7 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для history endpoint поле всегда заполнено |
+| 7 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для history endpoint поле всегда заполнено и принимает `Cancelled` или `Completed` |
 | 8 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
 ### Структура `value.items[].equipmentTypeName`

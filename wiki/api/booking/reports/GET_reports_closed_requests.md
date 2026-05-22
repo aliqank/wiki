@@ -1,7 +1,7 @@
 # GET /reports/closed-requests
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-45 | Dedicated Completed Requests page | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-NEW-45 | Dedicated Closed Requests / terminal requests page | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-NEW-52 | Requestor has access to Request History | Confirmed | BRD v13 | Аналог в отчетном разрезе |
 
 ---
@@ -38,9 +38,10 @@
 
 1. Проверить права доступа.
 2. Выбрать заявки со статусом `Closed`.
-3. Применить фильтры и ролевой скоуп.
-4. Подтянуть минимальные данные по booking item-ам.
-5. Вернуть пагинированный список.
+3. Для closed-заявок различать бизнес-сценарий через `closureReason = Cancelled | Completed`.
+4. Применить фильтры и ролевой скоуп.
+5. Подтянуть минимальные данные по booking item-ам.
+6. Вернуть пагинированный список.
 
 Сущности:
 - читаются: `BookingRequests`, `Bookings`, `Equipments`, `EquipmentTypes`
@@ -125,7 +126,7 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 4 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для closed requests поле всегда заполнено |
+| 4 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для closed requests поле всегда заполнено и принимает `Cancelled` или `Completed` |
 | 5 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
 ## 10. Пример ответа
