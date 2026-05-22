@@ -114,15 +114,24 @@ Content-Type: application/json
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 | 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 5 | Причина закрытия заявки | closureReason | string | null | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для незакрытой заявки возвращается `null` |
-| 6 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber | Поле sidebar |
-| 7 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | BookingRequests.isDefaultWorkOrder / business rule | Поле sidebar |
-| 8 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority | Поле sidebar |
-| 9 | Локация | location | string | string | — | BookingRequests.location | Поле sidebar |
-| 10 | Описание работ | workDescription | string | string | — | BookingRequests.workDescription | Поле sidebar |
-| 11 | Комментарии | comments | string | string | — | BookingRequests.comments | Поле sidebar |
-| 12 | Общее количество броней в заявке | bookingsCount | int | integer | `0` | COUNT(Bookings) | Для центральной части страницы |
-| 13 | Список броней | bookings | array<object> | object[] | `[]` | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentPhotos + Fleets + Users + EquipmentProperties | Полный список броней заявки |
+| 5 | Кто обновил текущий статус заявки | statusUpdatedBy | object | object | — | last BookingRequestStatuses + Users | Автор последнего status transition |
+| 6 | Причина закрытия заявки | closureReason | string | null | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для незакрытой заявки возвращается `null` |
+| 7 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber | Поле sidebar |
+| 8 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | BookingRequests.isDefaultWorkOrder / business rule | Поле sidebar |
+| 9 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority | Поле sidebar |
+| 10 | Локация | location | string | string | — | BookingRequests.location | Поле sidebar |
+| 11 | Описание работ | workDescription | string | string | — | BookingRequests.workDescription | Поле sidebar |
+| 12 | Комментарии | comments | string | string | — | BookingRequests.comments | Поле sidebar |
+| 13 | Общее количество броней в заявке | bookingsCount | int | integer | `0` | COUNT(Bookings) | Для центральной части страницы |
+| 14 | Список броней | bookings | array<object> | object[] | `[]` | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentPhotos + Fleets + Users + EquipmentProperties | Полный список броней заявки |
+
+### Структура `value.statusUpdatedBy`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id | Автор последнего status transition заявки |
+| 2 | Полное имя | fullName | string | string | — | Users.fullName |  |
+| 3 | Email | email | string | string | — | Users.email |  |
 
 ### Структура `value.bookings[]`
 
@@ -136,25 +145,41 @@ Content-Type: application/json
 | 6 | Номер ТШО | tcoId | string | string | — | Equipments.tcoId |  |
 | 7 | ГРНЗ | stateNumber | string | string | — | Equipments.stateNumber |  |
 | 8 | Описание техники | equipmentDescription | string | string | — | Equipments.description | Описание/комментарий по единице техники |
-| 9 | Данные Fleet Owner | fleetOwner | object | object | — | Fleets + Users |  |
-| 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
-| 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
-| 12 | Конфликты с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflicts | object | object | — | backend overlap check against active bookings | Учитываются только брони со статусами `Submitted`, `Confirmed`, `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
-| 13 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
-| 14 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
-| 15 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
-| 16 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 17 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
-| 18 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
+| 9 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
+| 10 | Список Fleet Owners | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
+| 11 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 12 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
+| 13 | Конфликты с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflicts | object | object | — | backend overlap check against active bookings | Учитываются только брони со статусами `Submitted`, `Confirmed`, `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
+| 14 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
+| 15 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
+| 16 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
+| 17 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
+| 18 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
+| 19 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
+| 20 | Кто обновил текущий статус брони | statusUpdatedBy | object | object | — | last BookingStatuses + Users | Автор последнего status transition |
 
-### Структура `value.bookings[].fleetOwner`
+### Структура `value.bookings[].fleet`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id |  |
+| 1 | Идентификатор флота | id | uuid | UUID v4 | — | Fleets.id |  |
+| 2 | Наименование флота | name | string | string | — | Fleets.nameEn / localized projection |  |
+
+### Структура `value.bookings[].fleetOwners[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id | Только owner-assignment'ы из `FleetManagePermissions` |
 | 2 | Полное имя | fullName | string | string | — | Users.fullName |  |
 | 3 | Email | email | string | string | — | Users.email |  |
-| 4 | Наименование fleet | fleetName | string | string | — | Fleets.nameEn / localized projection |  |
+
+### Структура `value.bookings[].statusUpdatedBy`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id | Автор последнего status transition брони |
+| 2 | Полное имя | fullName | string | string | — | Users.fullName |  |
+| 3 | Email | email | string | string | — | Users.email |  |
 
 ### Структура `value.bookings[].activeBookingConflicts`
 
@@ -179,6 +204,11 @@ Content-Type: application/json
     "requestNumber": "REQ-2026-00015",
     "type": "Regular",
     "status": "Draft",
+    "statusUpdatedBy": {
+      "userId": "11111111-1111-1111-1111-111111111111",
+      "fullName": "Telman Nurzhanov",
+      "email": "telman.nurzhanov@example.com"
+    },
     "workOrderNumber": "WO-10025",
     "isDefaultWorkOrder": false,
     "priority": "P2",
@@ -201,12 +231,22 @@ Content-Type: application/json
           "activeBookingConflictsCount": 2
         },
         "workCenterCode": "BHOE",
-        "fleetOwner": {
-          "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
-          "fullName": "Nurlan Sarsenov",
-          "email": "nurlan.sarsenov@tco.example",
-          "fleetName": "Maintenance Fleet"
+        "fleet": {
+          "id": "f0000001-0000-4000-8000-000000000001",
+          "name": "Maintenance Fleet"
         },
+        "fleetOwners": [
+          {
+            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
+            "fullName": "Nurlan Sarsenov",
+            "email": "nurlan.sarsenov@tco.example"
+          },
+          {
+            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100002",
+            "fullName": "Aidos Beketov",
+            "email": "aidos.beketov@tco.example"
+          }
+        ],
         "plannedStartDateTime": "2026-05-20T08:00:00Z",
         "plannedEndDateTime": "2026-05-22T18:00:00Z",
         "properties": [
@@ -218,7 +258,12 @@ Content-Type: application/json
         "justification": "Required specialized bucket setup for this trench segment.",
         "requiresJustification": true,
         "isComplete": true,
-        "status": "Draft"
+        "status": "Draft",
+        "statusUpdatedBy": {
+          "userId": "11111111-1111-1111-1111-111111111111",
+          "fullName": "Telman Nurzhanov",
+          "email": "telman.nurzhanov@example.com"
+        }
       },
       {
         "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d2222",
@@ -234,12 +279,17 @@ Content-Type: application/json
           "activeBookingConflictsCount": 0
         },
         "workCenterCode": "HYDR",
-        "fleetOwner": {
-          "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
-          "fullName": "Nurlan Sarsenov",
-          "email": "nurlan.sarsenov@tco.example",
-          "fleetName": "Maintenance Fleet"
+        "fleet": {
+          "id": "f0000001-0000-4000-8000-000000000002",
+          "name": "Operations Fleet"
         },
+        "fleetOwners": [
+          {
+            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100003",
+            "fullName": "Marat Ibragimov",
+            "email": "marat.ibragimov@tco.example"
+          }
+        ],
         "plannedStartDateTime": "2026-05-20T08:00:00Z",
         "plannedEndDateTime": "2026-05-22T18:00:00Z",
         "properties": [
@@ -251,7 +301,12 @@ Content-Type: application/json
         "justification": "Required for parallel work on adjacent segment.",
         "requiresJustification": true,
         "isComplete": true,
-        "status": "Draft"
+        "status": "Draft",
+        "statusUpdatedBy": {
+          "userId": "11111111-1111-1111-1111-111111111111",
+          "fullName": "Telman Nurzhanov",
+          "email": "telman.nurzhanov@example.com"
+        }
       }
     ]
   },

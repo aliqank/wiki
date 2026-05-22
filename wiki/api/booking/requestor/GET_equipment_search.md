@@ -150,9 +150,10 @@ Content-Type: application/json
 | 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
 | 12 | Причина недоступности бронирования | bookabilityReason | null | — | `null` | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
 | 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
-| 14 | Владелец / ответственный fleet | fleetOwner | object | object | — | Fleets + Users |  |
-| 15 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |
-| 16 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
+| 14 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
+| 15 | Список Fleet Owners | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
+| 16 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |
+| 17 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
 
 ### Структура `value.items[].baseLocationName`
 
@@ -170,13 +171,20 @@ Content-Type: application/json
 | 2 | Значение на русском языке | Ru | string | string | — | EquipmentTypes |  |
 | 3 | Значение на казахском языке | Kz | string | string | — | EquipmentTypes |  |
 
-### Структура `value.items[].fleetOwner`
+### Структура `value.items[].fleet`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
-| 2 | Полное имя пользователя | fullName | string | string | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
-| 3 | Email | email | string | string | — | backend composition from Equipments + EquipmentTypes + EquipmentProperties + EquipmentBookingAuthorizations + Bookings + Fleets |  |
+| 1 | Идентификатор флота | id | uuid | UUID v4 | — | Fleets.id |  |
+| 2 | Наименование флота | name | string | string | — | Fleets.nameEn / localized projection |  |
+
+### Структура `value.items[].fleetOwners[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id | Только owner-assignment'ы из `FleetManagePermissions` |
+| 2 | Полное имя пользователя | fullName | string | string | — | Users.fullName |  |
+| 3 | Email | email | string | string | — | Users.email |  |
 
 ### Структура `value.items[].workCenter`
 
@@ -218,11 +226,22 @@ Content-Type: application/json
         "isBookable": true,
         "bookabilityReason": null,
         "previewPhotoUrl": "https://cdn.example.com/equipment/c3b5af91-61f8-4bc0-bd88-d099d3e90001/preview.jpg",
-        "fleetOwner": {
-          "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
-          "fullName": "Nurlan Sarsenov",
-          "email": "nurlan.sarsenov@tco.example"
+        "fleet": {
+          "id": "f0000001-0000-4000-8000-000000000001",
+          "name": "Maintenance Fleet"
         },
+        "fleetOwners": [
+          {
+            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
+            "fullName": "Nurlan Sarsenov",
+            "email": "nurlan.sarsenov@tco.example"
+          },
+          {
+            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100002",
+            "fullName": "Aidos Beketov",
+            "email": "aidos.beketov@tco.example"
+          }
+        ],
         "workCenter": {
           "id": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
           "code": "WC-100",
