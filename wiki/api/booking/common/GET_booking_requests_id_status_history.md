@@ -112,7 +112,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequestStatuses.id |  |
 | 2 | Текущий статус | status | string | string | — | BookingRequestStatuses + ref_booking_request_status |  |
-| 3 | Причина закрытия заявки | closureReason | string | null | `null` | BookingRequestStatuses + ref_request_closure_reason | Для non-terminal статусов возвращается `null` |
+| 3 | Причина закрытия заявки | closureReason | string | null | `null` | BookingRequestStatuses + ref_request_closure_reason | Для non-terminal статусов `Draft`, `Submitted`, `InProgress` возвращается `null` |
 | 4 | Дата и время создания записи статуса | createdAt | datetime | ISO 8601 | — | BookingRequestStatuses.createdAt |  |
 | 5 | Комментарий | comment | null | — | `null` | BookingRequestStatuses.comment |  |
 

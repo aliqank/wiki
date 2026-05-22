@@ -39,7 +39,7 @@
 1. Выбрать `BookingRequests` по `createdBy = currentUserId`.
 2. По умолчанию исключить terminal status заявки: `Closed`.
 3. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
-4. Если передан `status`, он должен относиться только к незавершённым статусам заявки.
+4. Если передан `status`, он должен относиться только к незавершённым статусам заявки: `Draft`, `Submitted`, `InProgress`.
 5. Отсортировать по `createdAt DESC`.
 6. Для каждой заявки собрать summary-данные по связанным `Bookings`.
 7. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
@@ -110,7 +110,7 @@ Content-Type: application/json
 
 Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-Метод возвращает только незавершенные заявки. Terminal request statuses должны запрашиваться через отдельный history/archive endpoint.
+Метод возвращает только незавершенные заявки со статусами `Draft`, `Submitted`, `InProgress`. Terminal request statuses должны запрашиваться через отдельный history/archive endpoint.
 
 ### Структура `result wrapper`
 
@@ -258,6 +258,6 @@ Content-Type: application/json
 
 ## Замечания
 
-1. Метод предназначен именно для страницы `Мои заявки` и возвращает только active / non-terminal requests.
+1. Метод предназначен именно для страницы `Мои заявки` и возвращает только active / non-terminal requests со статусами `Draft`, `Submitted`, `InProgress`.
 2. Для истории завершённых заявок должен использоваться отдельный endpoint `GET /booking-requests/history`.
 3. Поле `status` в query не должно использоваться для `Closed`.
