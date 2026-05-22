@@ -160,7 +160,7 @@ Content-Type: application/json
 | 4 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 5 | Государственный регистрационный номер | stateNumber | string | string | — | Equipments.stateNumber |  |
 | 6 | Описание техники | equipmentDescription | string | string | — | Equipments.description | Описание/комментарий по единице техники |
-| 7 | Конфликты с опубликованными бронями | publishedConflicts | object | object | — | backend overlap check against published bookings | Учитываются только опубликованные брони с пересечением диапазона дат; черновики не учитываются |
+| 7 | Конфликты с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflicts | object | object | — | backend overlap check against active bookings | Учитываются только брони со статусами `Submitted`, `Confirmed`, `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
 | 8 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
 | 9 | Владелец / ответственный fleet | fleetOwner | string | string | — | Fleets + Users |  |
 | 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
@@ -172,12 +172,12 @@ Content-Type: application/json
 | 16 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
 | 17 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 
-### Структура `value.items[].bookingSummaries[].publishedConflicts`
+### Структура `value.items[].bookingSummaries[].activeBookingConflicts`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Наличие конфликтов с опубликованными бронями | hasPublishedConflicts | bool | boolean | `false` | backend overlap check against published bookings | `true`, если есть хотя бы одна опубликованная бронь по этой же технике с пересечением диапазона дат; черновики не учитываются |
-| 2 | Количество конфликтов с опубликованными бронями | publishedConflictsCount | int | integer | `0` | backend aggregation | Количество опубликованных броней по этой же технике с пересечением диапазона дат; черновики не учитываются |
+| 1 | Наличие конфликтов с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | hasActiveBookingConflicts | bool | boolean | `false` | backend overlap check against active bookings | `true`, если есть хотя бы одна бронь по этой же технике со статусом `Submitted`, `Confirmed` или `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
+| 2 | Количество конфликтов с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflictsCount | int | integer | `0` | backend aggregation | Количество броней по этой же технике со статусом `Submitted`, `Confirmed` или `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
 
 ## 10. Пример ответа
 
@@ -207,9 +207,9 @@ Content-Type: application/json
             "tcoId": "TCO-12345",
             "stateNumber": "A123BC",
             "equipmentDescription": "Tracked excavator with standard bucket for trench preparation works.",
-            "publishedConflicts": {
-              "hasPublishedConflicts": true,
-              "publishedConflictsCount": 2
+            "activeBookingConflicts": {
+              "hasActiveBookingConflicts": true,
+              "activeBookingConflictsCount": 2
             },
             "workCenterCode": "BHOE",
             "fleetOwner": "Maintenance Fleet",
@@ -229,9 +229,9 @@ Content-Type: application/json
             "tcoId": "TCO-98765",
             "stateNumber": "B456CD",
             "equipmentDescription": "Water truck configured for dust suppression and site support.",
-            "publishedConflicts": {
-              "hasPublishedConflicts": false,
-              "publishedConflictsCount": 0
+            "activeBookingConflicts": {
+              "hasActiveBookingConflicts": false,
+              "activeBookingConflictsCount": 0
             },
             "workCenterCode": "HYDR",
             "fleetOwner": "Operations Fleet",

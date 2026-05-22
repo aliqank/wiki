@@ -139,7 +139,7 @@ Content-Type: application/json
 | 9 | Данные Fleet Owner | fleetOwner | object | object | — | Fleets + Users |  |
 | 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
-| 12 | Конфликты с опубликованными бронями | publishedConflicts | object | object | — | backend overlap check against published bookings | Учитываются только опубликованные брони с пересечением диапазона дат; черновики не учитываются |
+| 12 | Конфликты с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflicts | object | object | — | backend overlap check against active bookings | Учитываются только брони со статусами `Submitted`, `Confirmed`, `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
 | 13 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
 | 14 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
 | 15 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
@@ -156,12 +156,12 @@ Content-Type: application/json
 | 3 | Email | email | string | string | — | Users.email |  |
 | 4 | Наименование fleet | fleetName | string | string | — | Fleets.nameEn / localized projection |  |
 
-### Структура `value.bookings[].publishedConflicts`
+### Структура `value.bookings[].activeBookingConflicts`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Наличие конфликтов с опубликованными бронями | hasPublishedConflicts | bool | boolean | `false` | backend overlap check against published bookings | `true`, если есть хотя бы одна опубликованная бронь по этой же технике с пересечением диапазона дат; черновики не учитываются |
-| 2 | Количество конфликтов с опубликованными бронями | publishedConflictsCount | int | integer | `0` | backend aggregation | Количество опубликованных броней по этой же технике с пересечением диапазона дат; черновики не учитываются |
+| 1 | Наличие конфликтов с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | hasActiveBookingConflicts | bool | boolean | `false` | backend overlap check against active bookings | `true`, если есть хотя бы одна бронь по этой же технике со статусом `Submitted`, `Confirmed` или `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
+| 2 | Количество конфликтов с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflictsCount | int | integer | `0` | backend aggregation | Количество броней по этой же технике со статусом `Submitted`, `Confirmed` или `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
 
 ### Структура `value.bookings[].properties[]`
 
@@ -196,9 +196,9 @@ Content-Type: application/json
         "tcoId": "TCO-100245",
         "stateNumber": "KZ 123 ABC 02",
         "equipmentDescription": "Tracked excavator with trenching bucket and reinforced undercarriage.",
-        "publishedConflicts": {
-          "hasPublishedConflicts": true,
-          "publishedConflictsCount": 2
+        "activeBookingConflicts": {
+          "hasActiveBookingConflicts": true,
+          "activeBookingConflictsCount": 2
         },
         "workCenterCode": "BHOE",
         "fleetOwner": {
@@ -229,9 +229,9 @@ Content-Type: application/json
         "tcoId": "TCO-100246",
         "stateNumber": "KZ 456 DEF 02",
         "equipmentDescription": "Hydraulic excavator configured for parallel earthworks on adjacent segment.",
-        "publishedConflicts": {
-          "hasPublishedConflicts": false,
-          "publishedConflictsCount": 0
+        "activeBookingConflicts": {
+          "hasActiveBookingConflicts": false,
+          "activeBookingConflictsCount": 0
         },
         "workCenterCode": "HYDR",
         "fleetOwner": {

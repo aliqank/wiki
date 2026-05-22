@@ -46,7 +46,7 @@
 5. Исключить стационарную HDE из поиска Requestor.
 6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, `workCenterId`, текстовому поиску и динамическим свойствам.
 7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
-8. Для периода проверить пересечения с активными записями `Bookings` со статусами, влияющими на доступность.
+8. Для периода проверить пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, влияющими на доступность.
 9. Вернуть пагинированный список в общем `result wrapper`.
 
 Сущности, участвующие в методе:

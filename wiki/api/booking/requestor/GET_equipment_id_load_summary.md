@@ -116,7 +116,7 @@ Content-Type: application/json
 | 1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 2 | Дата и время начала периода | periodStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 3 | Дата и время окончания периода | periodEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 4 | Количество активных броней в периоде | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 4 | Количество активных броней в периоде (`Submitted`, `Confirmed`, `InProgress`) | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 5 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + Equipments | Коллекция объектов |
 
 ### Структура `value.items[]`

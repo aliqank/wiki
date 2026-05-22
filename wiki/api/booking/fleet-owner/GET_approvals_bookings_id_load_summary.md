@@ -108,7 +108,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests |  |
-| 2 | Количество активных броней в периоде | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests |  |
+| 2 | Количество активных броней в периоде (`Submitted`, `Confirmed`, `InProgress`) | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests |  |
 | 3 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests | Коллекция объектов |
 
 ### Структура `value.items[]`
