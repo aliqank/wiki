@@ -1,7 +1,7 @@
 # GET /transport/bookings/{id}
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -37,10 +37,11 @@
 
 1. Проверить бронь и роль пользователя.
 2. Подтянуть заявку, технику, тип техники, период, FO-комментарии.
-3. Вернуть агрегированную карточку для решения по транспортировке.
+3. Подтянуть transport linkage из `BookingTransportations`.
+4. Вернуть агрегированную карточку для решения по транспортировке.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `BookingTransportations`
 
 ---
 
@@ -110,6 +111,7 @@ Content-Type: application/json
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 | 3 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes |  |
 | 4 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes |  |
+| 5 | Идентификатор транспортирующей брони | transportingBookingId | uuid | UUID v4 | — | BookingTransportations.transportingBookingId | Может быть `null` |
 
 ## 10. Пример ответа
 
@@ -119,7 +121,8 @@ Content-Type: application/json
     "id": "aaabbbcc-dddd-4444-8888-123456780001",
     "status": "Confirmed",
     "plannedStartDateTime": "2026-05-25T08:00:00Z",
-    "plannedEndDateTime": "2026-05-25T18:00:00Z"
+    "plannedEndDateTime": "2026-05-25T18:00:00Z",
+    "transportingBookingId": null
   },
   "isSuccess": true,
   "errors": []

@@ -27,6 +27,8 @@
 | 15 | Добавлена `BookingApprovals` | Отдельная таблица шагов согласования booking вместо хранения FO/Supervisor decision в `Bookings` |
 | 16 | Добавлены `ref_booking_approval_type` и `ref_booking_approval_status` | Нормализованы тип шага согласования и результат решения |
 | 17 | Из `Bookings` удалены `supervisorApprovedBy`, `supervisorApprovedAt`, `supervisorComment` | Решения Supervisor и FO теперь хранятся в `BookingApprovals` |
+| 18 | Добавлена `BookingTransportations` | Связь между бронируемой и транспортирующей бронью вынесена в отдельную таблицу |
+| 19 | Из `Bookings` удалён `transportBookingId` | transport linkage больше не хранится как self-FK в `Bookings` |
 
 ---
 
@@ -40,6 +42,7 @@
 6. История `v11` сохраняется как предыдущая версия; `v12` фиксирует новый ownership model и удаление локальных JDE reference tables.
 7. Decision-аудит по approval flow больше не хранится в отдельных полях `Bookings`; каждый шаг FO/Supervisor фиксируется отдельной записью в `BookingApprovals`.
 8. API чтения booking approval detail должны подтягивать `BookingApprovals` как approval chain, а API действий confirm/decline должны создавать запись в `BookingApprovals` в той же транзакции, что и переход `Bookings.status`.
+9. Связь между основной бронью и транспортирующей бронью больше не должна читаться из `Bookings`; transport flow должен использовать `BookingTransportations`.
 
 ---
 
@@ -728,7 +731,6 @@ Filtered unique index:
 | `actualEndDateTime` | `datetime2(3) null` | |
 | `justification` | `nvarchar(max) null` | |
 | `requiresSupervisorApproval` | `bit not null default 0` | |
-| `transportBookingId` | `uniqueidentifier null FK -> Bookings` | |
 | `declineReason` | `nvarchar(max) null` | |
 | `terminateReason` | `nvarchar(max) null` | |
 | audit fields | см. conventions | |
@@ -738,9 +740,10 @@ Filtered unique index:
 - при `LongTermRented` поле `requiresSupervisorApproval = 1`
 - `OnDemand` техника не допускается в `Bookings`
 - шаги согласования FO / Supervisor не хранятся в `Bookings`; они фиксируются в `BookingApprovals`
+- связь между основной бронью и транспортирующей бронью хранится в `BookingTransportations`
 
 Индексы:
-- `requestId`, `equipmentId`, `fleetId`, `statusId`, `transportBookingId`
+- `requestId`, `equipmentId`, `fleetId`, `statusId`
 - составной `(equipmentId, plannedStartDateTime, plannedEndDateTime)`
 
 ### 23. BookingApprovals
@@ -787,7 +790,32 @@ Filtered unique index:
 | `updatedAt` | `datetime2(3) null` |
 | `updatedBy` | `uniqueidentifier null` |
 
-### 25. BookingRequestStatuses
+### 25. BookingTransportations
+
+Назначение: отдельная таблица связей transport flow. Позволяет хранить, какая бронь требует транспортировки и какая бронь выполняет транспортировку, без self-FK в `Bookings`.
+
+| Поле | Тип |
+|---|---|
+| `id` | `uniqueidentifier PK` |
+| `bookingId` | `uniqueidentifier FK -> Bookings` |
+| `transportingBookingId` | `uniqueidentifier FK -> Bookings` |
+| `createdAt` | `datetime2(3) not null` |
+| `createdBy` | `uniqueidentifier not null` |
+| `updatedAt` | `datetime2(3) null` |
+| `updatedBy` | `uniqueidentifier null` |
+
+Правила:
+- `bookingId` указывает на бронь, которой требуется транспортировка
+- `transportingBookingId` указывает на бронь, которая выполняет транспортировку
+- одна основная бронь может иметь не более одной активной transport linkage записи в рамках текущей модели
+- transport linkage не заменяет lifecycle статусы; она только связывает две booking-сущности
+
+Индексы:
+- unique `(bookingId)`
+- unique `(transportingBookingId)`
+- non-unique `(createdAt)`
+
+### 26. BookingRequestStatuses
 
 Назначение: история смены статусов request-level сущности. Используется для аудита агрегированного жизненного цикла заявки.
 

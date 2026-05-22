@@ -671,7 +671,6 @@ erDiagram
         datetime2 actualEndDateTime
         nvarchar justification
         bit requiresSupervisorApproval
-        uniqueidentifier transportBookingId FK
         nvarchar declineReason
         nvarchar terminateReason
         datetime2 createdAt
@@ -702,6 +701,16 @@ erDiagram
         uniqueidentifier statusId FK
         nvarchar comment
         int approvalOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+    }
+
+    BookingTransportations {
+        uniqueidentifier id PK
+        uniqueidentifier bookingId FK
+        uniqueidentifier transportingBookingId FK
         datetime2 createdAt
         uniqueidentifier createdBy
         datetime2 updatedAt
@@ -776,9 +785,10 @@ erDiagram
     Fleets ||--o{ Bookings : "fleetId"
     Bookings ||--o{ BookingStatuses : "bookingId"
     Bookings ||--o{ BookingApprovals : "bookingId"
+    Bookings ||--o| BookingTransportations : "bookingId"
+    Bookings ||--o| BookingTransportations : "transportingBookingId"
     Bookings ||--o{ EquipmentFeedbacks : "bookingId"
     BookingRequests ||--o{ BookingRequestStatuses : "requestId"
-    Bookings ||--o| Bookings : "transportBookingId"
 
     Users ||--o{ FleetManagePermissions : "userId"
     Users ||--o{ EquipmentBookingAuthorizations : "userId"

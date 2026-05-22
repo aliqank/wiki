@@ -1,7 +1,7 @@
 # GET /transport/bookings
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -38,11 +38,12 @@
 
 1. Проверить роль текущего пользователя `TransportationResponsible`.
 2. Выбрать брони, для которых требуется транспортировка и ожидается решение транспортной роли.
-3. Подтянуть данные заявки и техники.
-4. Вернуть пагинированный список.
+3. Подтянуть transport linkage из `BookingTransportations`, если для брони уже создана транспортирующая бронь.
+4. Подтянуть данные заявки и техники.
+5. Вернуть пагинированный список.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `BookingTransportations`
 
 ---
 
@@ -109,7 +110,7 @@ Content-Type: application/json
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes | Коллекция объектов |
+| 1 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + BookingTransportations | Коллекция объектов |
 | 2 | Общее количество записей | total | int | integer | — | backend |  |
 
 ### Структура `value.items[]`
@@ -120,6 +121,7 @@ Content-Type: application/json
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | ТШО-номер техники | tcoId | string | string | — | Equipments.tcoId |  |
 | 4 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 5 | Идентификатор транспортирующей брони | transportingBookingId | uuid | UUID v4 | — | BookingTransportations.transportingBookingId | Может быть `null`, если transport booking еще не создана |
 
 ## 10. Пример ответа
 
@@ -131,7 +133,8 @@ Content-Type: application/json
         "id": "aaabbbcc-dddd-4444-8888-123456780001",
         "requestNumber": "REQ-2026-00018",
         "tcoId": "TCO-200112",
-        "status": "Confirmed"
+        "status": "Confirmed",
+        "transportingBookingId": null
       }
     ],
     "total": 1

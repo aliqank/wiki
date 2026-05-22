@@ -92,6 +92,7 @@
 |---|---|---|
 | `BookingRequests` | Заголовок заявки на бронирование: request-level данные, инициатор, тип заявки, приоритет, WO business-поля и агрегированный статус. | Связан с `Users`, `BookingRequestStatuses`, `Bookings` |
 | `Bookings` | Отдельные booking items внутри заявки. Хранят оборудование, период, текущий lifecycle status и фактические атрибуты выполнения брони. | `BookingRequests`, `Equipments`, `WorkCenters`, `BookingStatuses`, `BookingApprovals` |
+| `BookingTransportations` | Таблица transport linkage между основной бронью и бронью, выполняющей транспортировку. | `Bookings` x2 |
 | `BookingApprovals` | Журнал шагов согласования брони. Хранит отдельные решения FO и Supervisor с типом шага, результатом, комментарием, очередностью и аудитом. | `Bookings`, `Users`, `ref_booking_approval_type`, `ref_booking_approval_status` |
 | `BookingStatuses` | История статусов individual booking с периодами и источником изменения. | `Bookings` |
 | `BookingRequestStatuses` | История статусов request-level сущности. | `BookingRequests` |

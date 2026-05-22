@@ -1,7 +1,7 @@
 # POST /transport/bookings/{id}/confirm
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -38,12 +38,13 @@
 1. Проверить бронь и роль пользователя.
 2. Разрешить confirm только если ожидается решение транспортной роли.
 3. Обновить `Bookings.status = TransportConfirmed`.
-4. Создать запись в `BookingStatuses`.
-5. Вернуть результат.
+4. При наличии отдельной транспортирующей брони сохранить/обновить связь в `BookingTransportations`.
+5. Создать запись в `BookingStatuses`.
+6. Вернуть результат.
 
 Сущности:
-- читаются: `Bookings`
-- изменяются: `Bookings`, `BookingStatuses`
+- читаются: `Bookings`, `BookingTransportations`
+- изменяются: `Bookings`, `BookingTransportations`, `BookingStatuses`
 
 ---
 
@@ -82,6 +83,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
 | 2 | Комментарий | `comment` | `string` | `-` | — | — | Request body | |
+| 3 | Идентификатор транспортирующей брони | `transportingBookingId` | `uuid` | `-` | Если передан, должен существовать | — | Request body | Сохраняется в `BookingTransportations.transportingBookingId` |
 
 ---
 
@@ -95,7 +97,8 @@ Content-Type: application/json
 
 ```json
 {
-  "comment": "Transport slot reserved."
+  "comment": "Transport slot reserved.",
+  "transportingBookingId": "bbbcbbcc-dddd-4444-8888-123456780099"
 }
 ```
 
@@ -119,6 +122,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 3 | Идентификатор транспортирующей брони | transportingBookingId | uuid | UUID v4 | — | BookingTransportations.transportingBookingId | Может быть `null` |
 
 ## 10. Пример ответа
 
@@ -126,7 +130,8 @@ Content-Type: application/json
 {
   "value": {
     "id": "aaabbbcc-dddd-4444-8888-123456780001",
-    "status": "TransportConfirmed"
+    "status": "TransportConfirmed",
+    "transportingBookingId": "bbbcbbcc-dddd-4444-8888-123456780099"
   },
   "isSuccess": true,
   "errors": []
