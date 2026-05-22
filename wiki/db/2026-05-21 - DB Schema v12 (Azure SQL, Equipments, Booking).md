@@ -165,7 +165,7 @@ where isDeleted = 0;
 | `ref_request_type` | Regular, ServiceWork |
 | `ref_request_priority` | P1, P2, P3, P4 |
 | `ref_booking_request_status` | Draft, Submitted, InProgress, Closed |
-| `ref_request_closure_reason` | Closed, Completed |
+| `ref_request_closure_reason` | Cancelled, Completed |
 | `ref_booking_status` | Draft, Submitted, Confirmed, InProgress, Closed |
 | `ref_booking_closure_reason` | Cancelled, Declined, Revoked, Terminated, Completed |
 | `ref_booking_approval_type` | FoApproval, SupervisorApproval, TransportationApproval |
@@ -724,7 +724,7 @@ Filtered unique index:
 
 Правила:
 - `Closed` требует заполненной terminal причины через `closureReasonId`
-- request-level `closureReasonId` хранит только coarse-grained причину закрытия (`Closed` или `Completed`); детальная бизнес-причина отдельных item-ов остается на уровне `Bookings.closureReasonId`
+- request-level `closureReasonId` хранит только coarse-grained причину закрытия (`Cancelled` или `Completed`); детальная бизнес-причина отдельных item-ов остается на уровне `Bookings.closureReasonId`
 
 ### 22. Bookings
 

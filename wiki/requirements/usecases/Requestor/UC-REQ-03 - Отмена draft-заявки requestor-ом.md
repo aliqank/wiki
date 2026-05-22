@@ -33,7 +33,7 @@
    - заявка существует;
    - заявка принадлежит текущему пользователю;
    - текущий статус заявки равен `Draft`.
-8. Backend переводит заявку в terminal state `Closed` с request closure reason `Closed`, а связанные draft booking item-ы удаляет либо закрывает с terminal причиной `Cancelled`, после чего фиксирует изменения в истории.
+8. Backend переводит заявку в terminal state `Closed` с request closure reason `Cancelled`, а связанные draft booking item-ы удаляет либо закрывает с terminal причиной `Cancelled`, после чего фиксирует изменения в истории.
 9. Frontend обновляет экран:
    - убирает возможность редактирования и отправки;
    - обновляет статус заявки;
@@ -65,4 +65,4 @@
 1. Use case покрывает именно отзыв / отмену заявки до отправки; после `Submit` request-level отмена этим сценарием недоступна.
 2. В BRD редактирование и отмена объединены в `FR-027`, но для разработки UI/API поток отмены выделен в отдельный use case.
 3. При отмене draft-заявки связанные draft booking item-ы не должны оставаться в активном lifecycle; если их не удаляют физически, они должны завершаться с terminal причиной `Cancelled`.
-4. Для request-level lifecycle `Cancelled` больше не является отдельным статусом; draft-cancel и pre-start closure выражаются через `requestClosureReason = Closed`, а post-start завершение через `requestClosureReason = Completed`.
+4. Для request-level lifecycle `Cancelled` больше не является отдельным статусом; draft-cancel и pre-start closure выражаются через `requestClosureReason = Cancelled`, а post-start завершение через `requestClosureReason = Completed`.

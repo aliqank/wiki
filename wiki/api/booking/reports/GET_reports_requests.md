@@ -80,7 +80,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Статус заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress / Closed` | — | Query param | |
-| 2 | Причина закрытия заявки | `closureReason` | `enum` | `-` | `Closed / Completed` | — | Query param | Используется только вместе со `status = Closed` или для неявной фильтрации по закрытым заявкам |
+| 2 | Причина закрытия заявки | `closureReason` | `enum` | `-` | `Cancelled / Completed` | — | Query param | Используется только вместе со `status = Closed` или для неявной фильтрации по закрытым заявкам |
 | 3 | Тип заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
 | 4 | Дата начала периода | `from` | `date` | `-` | — | — | Query param | |
 | 5 | Дата окончания периода | `to` | `date` | `-` | — | — | Query param | |

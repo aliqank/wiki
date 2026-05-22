@@ -22,7 +22,7 @@
 
 | ID | Date | Area | Type | Summary | Affects BRD |
 |---|---|---|---|---|---|
-| `BRD-U-001` | 2026-05-20 | Request lifecycle | Business rule clarification | Request lifecycle uses single terminal status `Closed`; pre-start closure uses `requestClosureReason = Closed`, post-start closure uses `Completed` | `FR-026`, `FR-NEW-17`, `FR-NEW-44` |
+| `BRD-U-001` | 2026-05-20 | Request lifecycle | Business rule clarification | Request lifecycle uses single terminal status `Closed`; pre-start closure uses `requestClosureReason = Cancelled`, post-start closure uses `Completed` | `FR-026`, `FR-NEW-17`, `FR-NEW-44` |
 | `BRD-U-002` | 2026-05-20 | Booking lifecycle | Business rule clarification | Draft booking item cancelled with parent request uses `Closed` + booking closure reason `Cancelled` | `FR-027`, `FR-042`, `FR-NEW-17` |
 | `BRD-U-003` | 2026-05-20 | Request lifecycle | Business rule clarification | Separate request-level withdraw flow allowed for `Submitted` request before first FO confirmation in the request | `FR-025`, `FR-058`, `FR-NEW-17` |
 
@@ -73,12 +73,12 @@
 
 Для request-level closure reasons используется следующий набор:
 
-- `Closed`
+- `Cancelled`
 - `Completed`
 
 ### Семантика terminal statuses / closure reasons
 
-- `Closed` + `requestClosureReason = Closed`
+- `Closed` + `requestClosureReason = Cancelled`
   Используется для request-level отмены draft-заявки до submit, а также для submitted-заявки, которая была закрыта до перехода в `InProgress`.
 
 - `Closed` + `requestClosureReason = Completed`
@@ -93,7 +93,7 @@
    Итоговый request status = `Closed`, `requestClosureReason = Completed`.
 
 3. Draft-заявка отменена пользователем.
-   Итоговый request status = `Closed`, `requestClosureReason = Closed`.
+   Итоговый request status = `Closed`, `requestClosureReason = Cancelled`.
 
 ### Правило приоритета
 
@@ -121,7 +121,7 @@
 
 При отмене draft-заявки через `POST /booking-requests/{id}/cancel`:
 
-- `BookingRequest.status` переводится в `Closed`, `requestClosureReason = Closed`;
+- `BookingRequest.status` переводится в `Closed`, `requestClosureReason = Cancelled`;
 - все связанные booking item-ы в статусе `Draft` переводятся в `Closed` с `closureReason = Cancelled` либо удаляются;
 - по каждому измененному booking item создается запись в `BookingStatuses`.
 

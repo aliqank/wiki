@@ -37,9 +37,9 @@
 
 1. Проверить существование заявки и права доступа.
 2. Разрешить отмену только если статус заявки `Draft`.
-3. Обновить `BookingRequests.status = Closed`, `BookingRequests.closureReason = Closed`.
+3. Обновить `BookingRequests.status = Closed`, `BookingRequests.closureReason = Cancelled`.
 4. Для всех связанных draft booking item-ов удалить их либо перевести в terminal state `Closed` с причиной `Cancelled`.
-5. Создать запись в `BookingRequestStatuses` со `status = Closed` и `closureReason = Closed`.
+5. Создать запись в `BookingRequestStatuses` со `status = Closed` и `closureReason = Cancelled`.
 6. Для каждого измененного booking item создать запись в `BookingStatuses`.
 7. Вернуть результат операции.
 
@@ -118,7 +118,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 3 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для этого метода всегда `Closed` |
+| 3 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для этого метода всегда `Cancelled` |
 
 ## 10. Пример ответа
 
@@ -127,7 +127,7 @@ Content-Type: application/json
   "value": {
     "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
     "status": "Closed",
-    "closureReason": "Closed"
+    "closureReason": "Cancelled"
   },
   "isSuccess": true,
   "errors": []

@@ -63,5 +63,5 @@
 1. View `Requests` является request-centric: одна строка списка соответствует одной заявке, а не отдельной брони.
 2. В список не должны попадать заявки, не имеющие booking item-ов по fleet-ам текущего Fleet Owner.
 3. Для request-level списка используется агрегированный статус заявки, а не статус отдельной брони.
-4. Для terminal request statuses должна использоваться актуальная семантика: request lifecycle использует единый статус `Closed`, а различие между pre-start closure и post-start completion хранится в `requestClosureReason`.
+4. Для terminal request statuses должна использоваться актуальная семантика: request lifecycle использует единый статус `Closed`, а различие между pre-start cancellation и post-start completion хранится в `requestClosureReason`.
 5. Текущая версия use case предполагает, что для первичной работы со связанными booking item-ами достаточно данных из `GET /approvals/requests`.
