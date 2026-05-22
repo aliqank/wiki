@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Открывает карточку `ConfirmedByFo` брони.
+Новый метод. Открывает карточку брони с pending шагом `SupervisorApproval`.
 
 ---
 
@@ -36,7 +36,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить бронь и роль Supervisor.
-2. Проверить статус `ConfirmedByFo`.
+2. Проверить, что по брони ожидается шаг `SupervisorApproval`.
 3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, `BookingApprovals`, историю статусов.
 4. Вернуть агрегированную модель для review.
 
@@ -131,7 +131,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "status": "ConfirmedByFo",
+    "status": "Submitted",
     "justification": "No suitable TCO-owned unit available for required window.",
     "approvalChain": [
       {

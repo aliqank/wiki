@@ -162,13 +162,13 @@ Requestor должен иметь отдельный request-level сценар�
 ### Условия допустимости
 
 - request status = `Submitted`;
-- у заявки нет booking item-ов, которые уже перешли в `Confirmed`, `ConfirmedByFo`, `TransportConfirmed`, `InProgress`, `Closed` или `Terminated`;
+- у заявки нет booking item-ов, которые уже находятся в `Confirmed`, `InProgress`, `Closed` или уже прошли необратимый terminal transition;
 - requestor отзывает заявку до первого FO confirmation по любому item-у.
 
 ### Ожидаемое поведение
 
 - request-level действие отзывает все еще не обработанные booking item-ы заявки;
-- такие item-ы переходят в `Revoked`;
+- такие item-ы переходят в `Closed` с terminal причиной `Revoked`;
 - request status пересчитывается после массового revoke item-ов;
 - после того как активных item-ов не остается, request переходит в `Closed`.
 

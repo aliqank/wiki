@@ -166,8 +166,7 @@ Content-Type: application/json
 | 12 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 13 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 14 | Текущий статус брони | status | string | string | — | Bookings + BookingStatuses |  |
-| 15 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
-| 16 | Обоснование | justification | string | string | — | Bookings.justification |  |
+| 15 | Обоснование | justification | string | string | — | Bookings.justification |  |
 
 ### Структура `value.items[].bookingSummaries[].fleetOwner`
 
@@ -219,7 +218,6 @@ Content-Type: application/json
             "plannedStartDateTime": "2026-05-20T08:00:00Z",
             "plannedEndDateTime": "2026-05-22T18:00:00Z",
             "status": "Submitted",
-            "requiresSupervisorApproval": false,
             "justification": null
           },
           {
@@ -242,7 +240,6 @@ Content-Type: application/json
             "plannedStartDateTime": "2026-05-21T08:00:00Z",
             "plannedEndDateTime": "2026-05-21T18:00:00Z",
             "status": "Submitted",
-            "requiresSupervisorApproval": true,
             "justification": "Dust suppression required for road preparation."
           }
         ]

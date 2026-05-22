@@ -144,8 +144,7 @@ Content-Type: application/json
 | 15 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
 | 16 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
 | 17 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
-| 18 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend business rule |  |
-| 19 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
+| 18 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
 
 ### Структура `value.bookings[].fleetOwner`
 
@@ -218,7 +217,6 @@ Content-Type: application/json
         "justification": "Required specialized bucket setup for this trench segment.",
         "requiresJustification": true,
         "isComplete": true,
-        "requiresSupervisorApproval": false,
         "status": "Draft"
       },
       {
@@ -252,7 +250,6 @@ Content-Type: application/json
         "justification": "Required for parallel work on adjacent segment.",
         "requiresJustification": true,
         "isComplete": true,
-        "requiresSupervisorApproval": false,
         "status": "Draft"
       }
     ]

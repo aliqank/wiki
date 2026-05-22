@@ -69,7 +69,7 @@ Base URL: `/api/booking/v1`
 
 | Метод | Путь | Назначение |
 |---|---|---|
-| `GET` | `/supervisor/bookings` | Очередь long-term rented броней в статусе `ConfirmedByFo` |
+| `GET` | `/supervisor/bookings` | Очередь long-term rented броней с pending шагом `SupervisorApproval` |
 | `GET` | `/supervisor/bookings/{id}` | Детали брони для финального решения |
 | `POST` | `/supervisor/bookings/{id}/confirm` | Финально подтвердить бронь |
 | `POST` | `/supervisor/bookings/{id}/decline` | Отклонить бронь с обязательным комментарием |

@@ -1,7 +1,7 @@
 # GET /supervisor/bookings
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Наполняет очередь Supervisor по броням в статусе `ConfirmedByFo`.
+Новый метод. Наполняет очередь Supervisor по long-term rented броням с pending шагом `SupervisorApproval`.
 
 ---
 
@@ -29,15 +29,15 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-73 | Supervisor reviews Long-term rented booking in ConfirmedByFo status | Confirmed | BRD v13 | Очередь для финального решения |
-| TCO Booking Tool | FR-NEW-75 | System notifies Supervisor when booking reaches ConfirmedByFo | Confirmed | BRD v13 | Экран входящих задач |
+| TCO Booking Tool | FR-NEW-73 | Supervisor reviews Long-term rented booking after positive FO approval | Confirmed | BRD v13 | Очередь для финального решения |
+| TCO Booking Tool | FR-NEW-75 | System notifies Supervisor when booking reaches pending Supervisor approval step | Confirmed | BRD v13 | Экран входящих задач |
 
 ---
 
 ## 3. Описание логики работы метода
 
 1. Проверить роль текущего пользователя `FleetOwnersSupervisor`.
-2. Выбрать `Bookings` со статусом `ConfirmedByFo` и `requiresSupervisorApproval = true`.
+2. Выбрать брони, для которых по business rules и approval chain требуется шаг `SupervisorApproval`.
 3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`.
 4. Вернуть пагинированный список.
 
@@ -132,7 +132,7 @@ Content-Type: application/json
         "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
         "requestNumber": "REQ-2026-00015",
         "tcoId": "TCO-100245",
-        "status": "ConfirmedByFo",
+        "status": "Submitted",
         "justification": "No suitable TCO-owned unit available for required window."
       }
     ],

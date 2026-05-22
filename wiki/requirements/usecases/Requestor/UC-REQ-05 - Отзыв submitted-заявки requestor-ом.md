@@ -34,7 +34,7 @@
    - request status равен `Submitted`;
    - в заявке нет booking item-ов, уже дошедших до FO confirmation или более позднего этапа lifecycle.
 8. Backend отзывает все допустимые booking item-ы заявки.
-9. Для каждого такого item backend переводит `Bookings.status` в `Revoked` и пишет запись в `BookingStatuses`.
+9. Для каждого такого item backend переводит `Bookings.status` в `Closed` с terminal причиной `Revoked` и пишет запись в `BookingStatuses`.
 10. Backend пересчитывает агрегированный статус заявки.
 11. После того как активных item-ов в заявке не остается, request status переходит в `Closed`.
 12. Frontend обновляет экран и убирает заявку из списка активных заявок.

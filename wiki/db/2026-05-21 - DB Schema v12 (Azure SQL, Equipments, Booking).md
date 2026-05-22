@@ -29,6 +29,10 @@
 | 17 | Из `Bookings` удалены `supervisorApprovedBy`, `supervisorApprovedAt`, `supervisorComment` | Решения Supervisor и FO теперь хранятся в `BookingApprovals` |
 | 18 | Добавлена `BookingTransportations` | Связь между бронируемой и транспортирующей бронью вынесена в отдельную таблицу |
 | 19 | Из `Bookings` удалён `transportBookingId` | transport linkage больше не хранится как self-FK в `Bookings` |
+| 20 | Из `Bookings` удалены `declineReason`, `terminateReason`, `requiresSupervisorApproval` | Эти значения больше не являются частью текущего lifecycle state |
+| 21 | Добавлен `ref_booking_closure_reason` | Причина перехода брони в `Closed` вынесена в отдельный справочник |
+| 22 | `Booking.status` сокращён до 5 значений | `Draft`, `Submitted`, `Confirmed`, `InProgress`, `Closed` |
+| 23 | В `BookingApprovals` добавлен тип `TransportationApproval` | Транспортное решение хранится как approval step, а не как отдельный lifecycle status |
 
 ---
 
@@ -43,6 +47,8 @@
 7. Decision-аудит по approval flow больше не хранится в отдельных полях `Bookings`; каждый шаг FO/Supervisor фиксируется отдельной записью в `BookingApprovals`.
 8. API чтения booking approval detail должны подтягивать `BookingApprovals` как approval chain, а API действий confirm/decline должны создавать запись в `BookingApprovals` в той же транзакции, что и переход `Bookings.status`.
 9. Связь между основной бронью и транспортирующей бронью больше не должна читаться из `Bookings`; transport flow должен использовать `BookingTransportations`.
+10. Поле `Bookings.status` больше не кодирует бизнес-причину закрытия брони; причина terminal-перехода должна храниться в `closureReasonId`.
+11. Промежуточные решения FO / Supervisor / Transportation больше не требуют отдельных booking lifecycle statuses; они фиксируются в `BookingApprovals`.
 
 ---
 
@@ -159,8 +165,9 @@ where isDeleted = 0;
 | `ref_request_type` | Regular, ServiceWork |
 | `ref_request_priority` | P1, P2, P3, P4 |
 | `ref_booking_request_status` | Draft, Submitted, InProgress, Closed, Cancelled |
-| `ref_booking_status` | Draft, Cancelled, Submitted, ConfirmedByFo, Confirmed, TransportConfirmed, Declined, Revoked, Terminated, InProgress, Closed, EquipmentChanged, Extended |
-| `ref_booking_approval_type` | FoApproval, SupervisorApproval |
+| `ref_booking_status` | Draft, Submitted, Confirmed, InProgress, Closed |
+| `ref_booking_closure_reason` | Cancelled, Declined, Revoked, Terminated, Completed |
+| `ref_booking_approval_type` | FoApproval, SupervisorApproval, TransportationApproval |
 | `ref_booking_approval_status` | Approved, Declined |
 
 Минимальный шаблон reference table:
@@ -730,17 +737,16 @@ Filtered unique index:
 | `actualStartDateTime` | `datetime2(3) null` | |
 | `actualEndDateTime` | `datetime2(3) null` | |
 | `justification` | `nvarchar(max) null` | |
-| `requiresSupervisorApproval` | `bit not null default 0` | |
-| `declineReason` | `nvarchar(max) null` | |
-| `terminateReason` | `nvarchar(max) null` | |
+| `closureReasonId` | `uniqueidentifier null FK -> ref_booking_closure_reason` | Денормализованная текущая причина, если бронь уже закрыта |
 | audit fields | см. conventions | |
 
 Правила:
-- `ConfirmedByFo` допустим только для `LongTermRented`
-- при `LongTermRented` поле `requiresSupervisorApproval = 1`
 - `OnDemand` техника не допускается в `Bookings`
 - шаги согласования FO / Supervisor не хранятся в `Bookings`; они фиксируются в `BookingApprovals`
 - связь между основной бронью и транспортирующей бронью хранится в `BookingTransportations`
+- `Submitted` означает, что бронь находится в цепочке обязательных согласований / ожидания решения
+- `Confirmed` означает, что все необходимые approval steps уже пройдены и бронь готова к старту работ
+- `Closed` требует заполненной terminal причины через `closureReasonId`
 
 Индексы:
 - `requestId`, `equipmentId`, `fleetId`, `statusId`
@@ -766,7 +772,8 @@ Filtered unique index:
 
 Правила:
 - для обычной внутренней брони после решения FO создается одна запись с `approvalType = FoApproval`, `approvalOrder = 1`
-- для long-term rented booking после FO confirm создается запись `FoApproval / Approved / 1`, после решения Supervisor создается запись `SupervisorApproval / Approved|Declined / 2`
+- для long-term rented booking после FO positive decision создается запись `FoApproval / Approved / 1`, после решения Supervisor создается запись `SupervisorApproval / Approved|Declined / 2`
+- для transport flow решение транспортной роли создается как `TransportationApproval / Approved|Declined` с собственным `approvalOrder`
 - `approvalOrder` должен быть уникален в пределах одного `bookingId`
 - `BookingApprovals` не заменяет `BookingStatuses`: первая таблица отвечает за decision audit, вторая за lifecycle status audit
 
@@ -784,6 +791,7 @@ Filtered unique index:
 | `id` | `uniqueidentifier PK` |
 | `bookingId` | `uniqueidentifier FK -> Bookings` |
 | `statusId` | `uniqueidentifier FK -> ref_booking_status` |
+| `closureReasonId` | `uniqueidentifier null FK -> ref_booking_closure_reason` |
 | `comment` | `nvarchar(max) null` |
 | `createdAt` | `datetime2(3) not null` |
 | `createdBy` | `uniqueidentifier not null` |

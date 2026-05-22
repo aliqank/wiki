@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-059 | FO can terminate confirmed booking; reason required | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-069 | Booking -> Terminated once terminated | Confirmed | BRD v13 | Обновление статуса |
+| TCO Booking Tool | FR-069 | Booking -> Closed with closure reason Terminated once terminated | Confirmed | BRD v13 | Обновление статуса |
 
 ---
 
@@ -39,8 +39,8 @@
 1. Проверить бронь и права доступа.
 2. Разрешить terminate только для активной подтвержденной брони.
 3. Потребовать `reason`.
-4. Обновить `status = Terminated`, записать `terminateReason`.
-5. Создать запись в `BookingStatuses`.
+4. Обновить бронь до terminal-состояния и зафиксировать причину terminate в terminal audit / closure reason модели.
+5. Создать запись в `BookingStatuses` с `status = Closed` и `closureReason = Terminated`.
 
 Сущности:
 - читаются: `Bookings`
@@ -121,7 +121,6 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 3 | Причина досрочного завершения | terminateReason | string | string | — | Bookings.terminateReason |  |
 
 ## 10. Пример ответа
 
@@ -129,8 +128,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "status": "Terminated",
-    "terminateReason": "Unit urgently reallocated to internal breakdown support."
+    "status": "Closed"
   },
   "isSuccess": true,
   "errors": []

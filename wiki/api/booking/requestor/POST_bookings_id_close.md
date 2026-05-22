@@ -39,8 +39,8 @@
 1. Проверить существование брони и права доступа.
 2. Разрешить close только для активной подтвержденной / in-progress брони.
 3. Провалидировать `actualStartDateTime` и `actualEndDateTime`.
-4. Обновить `Bookings.status = Closed`, заполнить `actualStartDateTime`, `actualEndDateTime`.
-5. Создать запись в `BookingStatuses`.
+4. Обновить `Bookings.status = Closed`, `closureReason = Completed`, заполнить `actualStartDateTime`, `actualEndDateTime`.
+5. Создать запись в `BookingStatuses` с `status = Closed` и `closureReason = Completed`.
 6. Пересчитать статус заявки; если это последняя активная бронь, перевести заявку в `Closed`.
 
 Сущности, участвующие в методе:

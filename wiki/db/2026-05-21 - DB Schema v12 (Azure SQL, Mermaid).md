@@ -150,6 +150,15 @@ erDiagram
         int sortOrder
     }
 
+    ref_booking_closure_reason {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+    }
+
     ref_booking_approval_type {
         uniqueidentifier id PK
         nvarchar code
@@ -670,9 +679,7 @@ erDiagram
         datetime2 actualStartDateTime
         datetime2 actualEndDateTime
         nvarchar justification
-        bit requiresSupervisorApproval
-        nvarchar declineReason
-        nvarchar terminateReason
+        uniqueidentifier closureReasonId FK
         datetime2 createdAt
         uniqueidentifier createdBy
         datetime2 updatedAt
@@ -686,6 +693,7 @@ erDiagram
         uniqueidentifier id PK
         uniqueidentifier bookingId FK
         uniqueidentifier statusId FK
+        uniqueidentifier closureReasonId FK
         nvarchar comment
         datetime2 createdAt
         uniqueidentifier createdBy
@@ -761,6 +769,8 @@ erDiagram
     ref_booking_request_status ||--o{ BookingRequestStatuses : "statusId"
     ref_booking_status ||--o{ Bookings : "statusId"
     ref_booking_status ||--o{ BookingStatuses : "statusId"
+    ref_booking_closure_reason ||--o{ Bookings : "closureReasonId"
+    ref_booking_closure_reason ||--o{ BookingStatuses : "closureReasonId"
     ref_booking_approval_type ||--o{ BookingApprovals : "approvalTypeId"
     ref_booking_approval_status ||--o{ BookingApprovals : "statusId"
 

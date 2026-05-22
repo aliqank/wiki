@@ -31,7 +31,7 @@
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-049 | FO can decline booking | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-050 | FO provides reason/comment when declining | Confirmed | BRD v13 | Причина обязательна |
-| TCO Booking Tool | FR-064 | Booking -> Declined once declined by FO | Confirmed | BRD v13 | Обновление статуса |
+| TCO Booking Tool | FR-064 | Booking -> Closed with closure reason Declined once declined by FO | Confirmed | BRD v13 | Обновление статуса |
 
 ---
 
@@ -40,7 +40,7 @@
 1. Проверить бронь и права доступа.
 2. Разрешить действие только для статуса `Submitted`.
 3. Потребовать непустой `reason`.
-4. Обновить `Bookings.status = Declined`, записать `declineReason`.
+4. Обновить бронь до terminal-состояния и зафиксировать причину decline в terminal audit / closure reason модели.
 5. Создать запись в `BookingApprovals` с `approvalType = FoApproval`, `status = Declined`, `userId = currentUserId`, `approvalOrder = 1`, `comment = reason`.
 6. Создать запись в `BookingStatuses`.
 7. Вернуть результат.
@@ -124,8 +124,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 3 | Причина отклонения | declineReason | string | string | — | Bookings.declineReason |  |
-| 4 | Последнее записанное решение | lastApproval | object | object | — | backend composition from BookingApprovals | Последний approval step |
+| 3 | Последнее записанное решение | lastApproval | object | object | — | backend composition from BookingApprovals | Последний approval step |
 
 ### Структура `value.lastApproval`
 
@@ -142,8 +141,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "status": "Declined",
-    "declineReason": "Equipment reserved for higher-priority internal work.",
+    "status": "Closed",
     "lastApproval": {
       "type": "FoApproval",
       "approvalStatus": "Declined",

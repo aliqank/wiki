@@ -48,17 +48,18 @@ Request-level статусы:
 Booking-level статусы, влияющие на агрегирование:
 
 - `Draft`
-- `Cancelled`
 - `Submitted`
-- `ConfirmedByFo`
 - `Confirmed`
-- `TransportConfirmed`
-- `Extended`
 - `InProgress`
+- `Closed`
+
+Terminal booking closure reasons:
+
+- `Cancelled`
 - `Declined`
 - `Revoked`
 - `Terminated`
-- `Closed`
+- `Completed`
 
 ---
 
@@ -68,25 +69,23 @@ Booking-level статусы, влияющие на агрегирование:
 
 - `Draft`
 
-### 2. Draft terminal
-
-- `Cancelled`
-
-### 3. Active after submit
+### 2. Active after submit
 
 - `Submitted`
-- `ConfirmedByFo`
 - `Confirmed`
-- `TransportConfirmed`
-- `Extended`
 - `InProgress`
 
-### 4. Terminal item statuses after submit
+### 3. Terminal item status
 
+- `Closed`
+
+### 4. Terminal item closure reasons
+
+- `Cancelled`
 - `Declined`
 - `Revoked`
 - `Terminated`
-- `Closed`
+- `Completed`
 
 ---
 
@@ -100,7 +99,7 @@ Booking-level статусы, влияющие на агрегирование:
 
 Комментарий:
 - `Cancelled` используется только для request-level отмены draft-заявки.
-- При request-level cancel связанные draft booking item-ы переводятся в `Booking.Cancelled`.
+- При request-level cancel связанные draft booking item-ы могут быть удалены либо переведены в `Booking.Closed` с `closureReason = Cancelled`.
 
 ### Rule 2. Draft
 
@@ -117,7 +116,7 @@ Booking-level статусы, влияющие на агрегирование:
 
 Комментарий:
 - это прямое правило из `FR-074`;
-- наличие других item-ов в `Submitted`, `Confirmed`, `Declined`, `Revoked`, `Closed` и других статусах не отменяет `InProgress`, пока есть хотя бы одна активная бронь в `InProgress`.
+- наличие других item-ов в `Submitted`, `Confirmed`, `Closed` и других состояниях не отменяет `InProgress`, пока есть хотя бы одна активная бронь в `InProgress`.
 
 ### Rule 4. Submitted
 
@@ -126,29 +125,21 @@ Booking-level статусы, влияющие на агрегирование:
 К активным броням для этого правила относятся:
 
 - `Submitted`
-- `ConfirmedByFo`
 - `Confirmed`
-- `TransportConfirmed`
-- `Extended`
 
 Комментарий:
 - request status `Submitted` является агрегированным статусом ожидания / согласования / подтвержденной, но еще не начавшейся работы;
-- request-level статус не дублирует item-level статусы `Confirmed`, `ConfirmedByFo` и `Extended`, а сворачивает их в общее `Submitted` до фактического старта работ.
+- request-level статус не дублирует approval chain и сворачивает бронь в общее `Submitted`, пока не завершены все обязательные согласования либо пока работа не началась.
 
 ### Rule 5. Closed
 
 Если заявка была отправлена и в ней больше не осталось активных броней, request status = `Closed`.
 
-Это правило срабатывает, когда все booking item-ы заявки находятся только в terminal item statuses:
-
-- `Closed`
-- `Declined`
-- `Revoked`
-- `Terminated`
+Это правило срабатывает, когда все booking item-ы заявки находятся в статусе `Closed`.
 
 Комментарий:
 - `Closed` является единым terminal request status после submit;
-- успешность или неуспешность отдельных броней определяется item-level статусами, а не отдельным request-level статусом.
+- успешность или неуспешность отдельных броней определяется `Booking.closureReason`, а не отдельным request-level статусом.
 
 ---
 
@@ -170,7 +161,7 @@ Booking-level статусы, влияющие на агрегирование:
 
 Bookings:
 
-- `Revoked`
+- `Closed` (`closureReason = Revoked`)
 - `Submitted`
 
 Итог: request status = `Submitted`.
@@ -183,8 +174,8 @@ Bookings:
 
 Bookings:
 
-- `Revoked`
-- `Declined`
+- `Closed` (`closureReason = Revoked`)
+- `Closed` (`closureReason = Declined`)
 
 Итог: request status = `Closed`.
 
@@ -204,8 +195,8 @@ Bookings:
 
 Bookings:
 
-- `Closed`
-- `Terminated`
+- `Closed` (`closureReason = Completed`)
+- `Closed` (`closureReason = Terminated`)
 
 Итог: request status = `Closed`.
 
@@ -214,7 +205,7 @@ Bookings:
 Bookings:
 
 - `Confirmed`
-- `ConfirmedByFo`
+- `Submitted`
 
 Итог: request status = `Submitted`.
 
@@ -225,5 +216,5 @@ Bookings:
 1. Пересчет request status должен выполняться в той же транзакции, что и изменение статуса отдельной брони или request-level cancel.
 2. История request status должна записываться в `BookingRequestStatuses` только при фактическом изменении агрегированного статуса.
 3. `GET /booking-requests/my` показывает только незавершенные заявки, поэтому terminal request statuses для list view ограничены `Closed` и `Cancelled`.
-4. `Booking.Cancelled` используется только как terminal status draft booking item при отмене родительской draft-заявки.
-5. Request-level статус не хранит специальные значения вроде `Revoked` или `Declined`; такие состояния существуют только на уровне booking item.
+4. Для терминальной брони бизнес-причина должна определяться через `Booking.closureReason`, а не через отдельный lifecycle status.
+5. Request-level статус не хранит специальные значения вроде `Revoked` или `Declined`; такие состояния существуют только на уровне booking closure reason.

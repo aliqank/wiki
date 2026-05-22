@@ -59,7 +59,7 @@
    Backend возвращает `EQUIPMENT_NOT_AVAILABLE`, confirm не выполняется.
 
 3. Бронь требует дополнительного согласования Supervisor.
-   Данный use case не применяется; используется отдельный сценарий подтверждения long-term rented booking с переходом в `ConfirmedByFo`.
+   Данный use case не применяется; используется отдельный сценарий, в котором после FO decision бронь остается в `Submitted` до завершения шага `SupervisorApproval`.
 
 4. Бронь требует транспортировки.
    Данный use case не применяется; используется отдельный сценарий с transport flow.
@@ -72,7 +72,7 @@
 ## Замечания
 
 1. Use case описывает только базовый позитивный путь для брони, которая после FO decision сразу переходит в `Confirmed`.
-2. Сценарий намеренно исключает ветки `ConfirmedByFo` и transport-specific обработку.
-3. Для long-term rented booking после confirm Fleet Owner используется другой конечный результат: `ConfirmedByFo`, а не `Confirmed`.
+2. Сценарий намеренно исключает ветки pending `SupervisorApproval` и transport-specific обработку.
+3. Для long-term rented booking после confirm Fleet Owner бронь не становится `Confirmed` сразу; она остается в `Submitted` до завершения всех обязательных approval steps.
 4. Решение Fleet Owner должно фиксироваться не только как status transition, но и как отдельный approval step в `BookingApprovals`.
-5. Статус `Extended` не рассматривается как отдельный pre-approval вход для этого сценария; по бизнес-смыслу он относится к уже активной броне и не является базовой точкой входа для FO confirm.
+5. Отдельный special status для продления не рассматривается; повторное согласование должно возвращать бронь в lifecycle `Submitted`.

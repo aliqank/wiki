@@ -38,7 +38,7 @@
 1. Проверить существование техники.
 2. Провалидировать `plannedStartDateTime` и `plannedEndDateTime`.
 3. Выбрать из `Bookings` записи по `equipmentId = :id`, пересекающиеся с заданным периодом.
-4. Включить только статусы, релевантные для анализа загрузки: `Submitted`, `ConfirmedByFo`, `Confirmed`, `TransportConfirmed`, `InProgress`, `Extended`.
+4. Включить только статусы, релевантные для анализа загрузки: `Submitted`, `Confirmed`, `InProgress`.
 5. Вернуть summary с кратким списком пересечений и агрегатами по количеству записей.
 
 Сущности, участвующие в методе:

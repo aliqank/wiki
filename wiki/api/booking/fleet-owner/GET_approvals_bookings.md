@@ -139,8 +139,7 @@ Content-Type: application/json
 | 15 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 16 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 17 | Таймер с момента submit | timeSinceSubmitSec | int | integer | — | backend calculation from BookingStatuses / submit timestamp | Возраст брони в очереди FO в секундах |
-| 18 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
-| 19 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
+| 18 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
 
 ### Структура `value.items[].equipmentTypeName`
 
@@ -178,7 +177,6 @@ Content-Type: application/json
         "plannedStartDateTime": "2026-05-20T08:00:00Z",
         "plannedEndDateTime": "2026-05-22T18:00:00Z",
         "timeSinceSubmitSec": 86400,
-        "requiresSupervisorApproval": false,
         "justification": null
       }
     ],

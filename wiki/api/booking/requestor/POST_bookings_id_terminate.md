@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-060 | Requestor/SWP can terminate confirmed booking | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-069 | Booking -> Terminated once terminated | Confirmed | BRD v13 | Обновление статуса |
+| TCO Booking Tool | FR-069 | Booking -> Closed with closure reason Terminated once terminated | Confirmed | BRD v13 | Обновление статуса |
 
 ---
 
@@ -39,8 +39,8 @@
 1. Проверить существование брони и права доступа.
 2. Разрешить terminate только для внутренней подтвержденной брони.
 3. Потребовать непустой `reason`.
-4. Обновить `Bookings.status = Terminated`, записать `terminateReason`.
-5. Создать запись в `BookingStatuses`.
+4. Обновить бронь до terminal-состояния и зафиксировать причину terminate в terminal audit / closure reason модели.
+5. Создать запись в `BookingStatuses` с `status = Closed` и `closureReason = Terminated`.
 6. Пересчитать статус заявки.
 
 Сущности, участвующие в методе:
@@ -124,7 +124,6 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + BookingStatuses + BookingRequestStatuses |  |
 | 2 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingRequests + Equipments + BookingStatuses + BookingRequestStatuses |  |
-| 3 | Причина досрочного завершения | terminateReason | string | string | — | backend composition from Bookings + BookingRequests + Equipments + BookingStatuses + BookingRequestStatuses |  |
 
 ## 10. Пример ответа
 
@@ -132,8 +131,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "status": "Terminated",
-    "terminateReason": "Work completed earlier than planned."
+    "status": "Closed"
   },
   "isSuccess": true,
   "errors": []

@@ -151,7 +151,6 @@ Content-Type: application/json
 | 7 | Обоснование | justification | string | string | — | Bookings.justification |  |
 | 8 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если для итоговой техники `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
 | 9 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule |  |
-| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings |  |
 
 ## 10. Пример ответа
 
@@ -167,7 +166,6 @@ Content-Type: application/json
     "justification": "Updated due to equipment replacement for the same work scope.",
     "requiresJustification": true,
     "isComplete": true,
-    "requiresSupervisorApproval": false
   },
   "isSuccess": true,
   "errors": []

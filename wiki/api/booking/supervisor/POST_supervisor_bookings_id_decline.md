@@ -37,11 +37,11 @@
 ## 3. Описание логики работы метода
 
 1. Проверить бронь и роль Supervisor.
-2. Разрешить действие только для статуса `ConfirmedByFo`.
+2. Разрешить действие только если по брони ожидается шаг `SupervisorApproval`.
 3. Потребовать непустой `comment`.
-4. Обновить `status = Declined`.
+4. Обновить `status = Closed`, `closureReason = Declined`.
 5. Создать запись в `BookingApprovals` с `approvalType = SupervisorApproval`, `status = Declined`, `userId = currentUserId`, `approvalOrder = 2`, `comment = request.comment`.
-6. Создать запись в `BookingStatuses`.
+6. Создать запись в `BookingStatuses` с `status = Closed` и `closureReason = Declined`.
 7. Вернуть результат.
 
 Сущности:
@@ -73,7 +73,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | Нет роли `FleetOwnersSupervisor` |
 | `NOT_FOUND` | Бронь не найдена |
-| `BOOKING_NOT_DECLINABLE` | Бронь не в статусе `ConfirmedByFo` |
+| `BOOKING_NOT_DECLINABLE` | По брони не ожидается шаг `SupervisorApproval` |
 | `VALIDATION_ERROR` | Не передан обязательный комментарий |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
@@ -140,7 +140,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "status": "Declined",
+    "status": "Closed",
     "lastApproval": {
       "type": "SupervisorApproval",
       "approvalStatus": "Declined",

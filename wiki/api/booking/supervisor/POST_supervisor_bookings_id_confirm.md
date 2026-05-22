@@ -37,7 +37,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить бронь и роль Supervisor.
-2. Разрешить действие только для статуса `ConfirmedByFo`.
+2. Разрешить действие только если по брони ожидается шаг `SupervisorApproval`.
 3. Обновить `status = Confirmed`.
 4. Создать запись в `BookingApprovals` с `approvalType = SupervisorApproval`, `status = Approved`, `userId = currentUserId`, `approvalOrder = 2`, `comment = request.comment`.
 5. Создать запись в `BookingStatuses`.
@@ -72,7 +72,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | Нет роли `FleetOwnersSupervisor` |
 | `NOT_FOUND` | Бронь не найдена |
-| `BOOKING_NOT_CONFIRMABLE` | Бронь не в статусе `ConfirmedByFo` |
+| `BOOKING_NOT_CONFIRMABLE` | По брони не ожидается шаг `SupervisorApproval` |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`
 

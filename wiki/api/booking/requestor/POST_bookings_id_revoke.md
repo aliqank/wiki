@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Меняет статус item-а на `Revoked`.
+Новый метод. Закрывает бронь с причиной `Revoked`.
 
 ---
 
@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-058 | Requestor/SWP can revoke booking if not yet processed by FO | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-068 | Booking -> Revoked once revoked | Confirmed | BRD v13 | Обновление статуса |
+| TCO Booking Tool | FR-068 | Booking -> Closed with closure reason Revoked once revoked | Confirmed | BRD v13 | Обновление статуса |
 
 ---
 
@@ -38,8 +38,8 @@
 
 1. Проверить права доступа к booking item.
 2. Разрешить отзыв только если текущий статус `Submitted`.
-3. Обновить `Bookings.status = Revoked`.
-4. Создать запись в `BookingStatuses`.
+3. Обновить `Bookings.status = Closed`, `closureReason = Revoked`.
+4. Создать запись в `BookingStatuses` с `status = Closed` и `closureReason = Revoked`.
 5. Пересчитать агрегированный статус заявки.
 
 Сущности, участвующие в методе:
@@ -124,7 +124,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "status": "Revoked"
+    "status": "Closed"
   },
   "isSuccess": true,
   "errors": []

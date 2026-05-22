@@ -38,7 +38,7 @@
 1. Проверить существование заявки и права доступа.
 2. Разрешить отмену только если статус заявки `Draft`.
 3. Обновить `BookingRequests.status = Cancelled`.
-4. Для всех связанных booking item-ов в статусе `Draft` обновить `Bookings.status = Cancelled`.
+4. Для всех связанных draft booking item-ов удалить их либо перевести в terminal state `Closed` с причиной `Cancelled`.
 5. Создать запись в `BookingRequestStatuses`.
 6. Для каждого измененного booking item создать запись в `BookingStatuses`.
 7. Вернуть результат операции.

@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Подтверждает availability транспорта.
+Новый метод. Подтверждает availability транспорта как approval step.
 
 ---
 
@@ -37,10 +37,11 @@
 
 1. Проверить бронь и роль пользователя.
 2. Разрешить confirm только если ожидается решение транспортной роли.
-3. Обновить `Bookings.status = TransportConfirmed`.
+3. Создать запись в `BookingApprovals` с `approvalType = TransportationApproval`, `status = Approved`, `comment = request.comment`.
 4. При наличии отдельной транспортирующей брони сохранить/обновить связь в `BookingTransportations`.
-5. Создать запись в `BookingStatuses`.
-6. Вернуть результат.
+5. Не переводить lifecycle status в отдельное transport-состояние; бронь остается в `Submitted` до финального подтверждения всей цепочки.
+6. Создать запись в `BookingStatuses` только если по итогам транспортного решения меняется lifecycle status.
+7. Вернуть результат.
 
 Сущности:
 - читаются: `Bookings`, `BookingTransportations`
@@ -130,7 +131,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "aaabbbcc-dddd-4444-8888-123456780001",
-    "status": "TransportConfirmed",
+    "status": "Submitted",
     "transportingBookingId": "bbbcbbcc-dddd-4444-8888-123456780099"
   },
   "isSuccess": true,

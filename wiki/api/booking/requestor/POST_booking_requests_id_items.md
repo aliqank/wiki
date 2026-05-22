@@ -156,7 +156,6 @@ Content-Type: application/json
 | 7 | Обоснование | justification | string | string | — | Bookings.justification | На этапе создания item может быть пустым и заполняется позже через редактирование item |
 | 8 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
 | 9 | Признак завершенности item | isComplete | bool | boolean | — | backend business rule | `false`, если обязательный `justification` еще не заполнен |
-| 10 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | backend composition from Equipments + EquipmentBookingAuthorizations + Bookings |  |
 
 ## 10. Пример ответа
 
@@ -173,7 +172,6 @@ Content-Type: application/json
       "justification": null,
       "requiresJustification": true,
       "isComplete": false,
-      "requiresSupervisorApproval": false
     },
     {
       "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d2222",
@@ -185,7 +183,6 @@ Content-Type: application/json
       "justification": null,
       "requiresJustification": true,
       "isComplete": false,
-      "requiresSupervisorApproval": false
     }
   ],
   "isSuccess": true,
