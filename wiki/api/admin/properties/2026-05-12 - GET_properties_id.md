@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -107,11 +107,12 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Результат выполнения метода | value | object | object | — | backend aggregation |  |
 | 1.1 | Идентификатор записи | id | string | string | — | Properties.id |  |
-| 1.2 | Наименование | name | object | object | — | Properties |  |
-| 1.3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
-| 1.4 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
-| 1.5 | Список enum-значений | enumValues | array<object> | object[] | `[]` | PropertyEnumValues | Коллекция объектов |
-| 1.6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
+| 1.2 | Код характеристики | code | string | string | — | Properties.code |  |
+| 1.3 | Наименование | name | object | object | — | Properties |  |
+| 1.4 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 1.5 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
+| 1.6 | Список enum-значений | enumValues | array<object> | object[] | `[]` | PropertyEnumValues | Коллекция объектов |
+| 1.7 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 | 2 | Признак успешности | isSuccess | bool | boolean | — | backend |  |
 | 3 | Ошибки | errors | array<object> | object[] | `[]` | backend |  |
 
@@ -120,11 +121,12 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | string | string | — | Properties.id |  |
-| 2 | Наименование | name | object | object | — | Properties |  |
-| 3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
-| 4 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
-| 5 | Список enum-значений | enumValues | array<object> | object[] | `[]` | PropertyEnumValues | Коллекция объектов |
-| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
+| 2 | Код характеристики | code | string | string | — | Properties.code |  |
+| 3 | Наименование | name | object | object | — | Properties |  |
+| 4 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 5 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
+| 6 | Список enum-значений | enumValues | array<object> | object[] | `[]` | PropertyEnumValues | Коллекция объектов |
+| 7 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 
 ### Структура `value.name`
 
@@ -148,6 +150,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "p0000001-0000-4000-8000-000000000003",
+    "code": "maximum_depth",
     "name": {
       "En": "Maximum depth",
       "Ru": "Максимальная глубина",

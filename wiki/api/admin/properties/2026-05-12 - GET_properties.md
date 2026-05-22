@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -40,7 +40,7 @@
 ## 3. Описание логики работы метода
 
 1. Получить записи из `Properties` WHERE `isDeleted = false`.
-2. Если передан `search`, применить фильтр по `Properties.name.En`, `Properties.name.Ru`, `Properties.name.Kz`.
+2. Если передан `search`, применить фильтр по `Properties.code`, `Properties.name.En`, `Properties.name.Ru`, `Properties.name.Kz`.
 3. Подтянуть `MeasurementUnits` по `Properties.unitId`.
 4. Для каждой записи рассчитать:
    - `enumValuesCount` = COUNT(`PropertyEnumValues` WHERE `propertyId` = `Properties.id` AND `isDeleted = false`)
@@ -86,7 +86,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Поиск по названию характеристики | `search` | `string` | `-` | Если передан, используется как фильтр по `Properties.name.En`, `Properties.name.Ru`, `Properties.name.Kz` | — | Query param | |
+| 1 | Поиск по коду или названию характеристики | `search` | `string` | `-` | Если передан, используется как фильтр по `Properties.code`, `Properties.name.En`, `Properties.name.Ru`, `Properties.name.Kz` | — | Query param | |
 | 2 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 3 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
@@ -128,11 +128,12 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | string | string | — | Properties.id |  |
-| 2 | Наименование | name | object | object | — | Properties |  |
-| 3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
-| 4 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
-| 5 | Количество enum-значений | enumValuesCount | int | integer | — | COUNT(PropertyEnumValues) |  |
-| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
+| 2 | Код характеристики | code | string | string | — | Properties.code |  |
+| 3 | Наименование | name | object | object | — | Properties |  |
+| 4 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 5 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
+| 6 | Количество enum-значений | enumValuesCount | int | integer | — | COUNT(PropertyEnumValues) |  |
+| 7 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 
 ### Структура `value.items[].name`
 
@@ -158,6 +159,7 @@ Content-Type: application/json
     "items": [
       {
         "id": "p0000001-0000-4000-8000-000000000003",
+        "code": "maximum_depth",
         "name": {
           "En": "Maximum depth",
           "Ru": "Максимальная глубина",

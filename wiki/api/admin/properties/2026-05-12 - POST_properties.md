@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -38,15 +38,16 @@
 
 ## 3. Описание логики работы метода
 
-1. Принять тело запроса; провалидировать обязательные поля `name`, `dataType`.
-2. Проверить объект `name`: должны быть переданы локализованные поля `En`, `Ru`, `Kz`; `name.Ru` обязателен.
-3. Проверить уникальность `name` среди `Properties` WHERE `isDeleted = false`. Проверка выполняется по правилу локализованной уникальности для набора `name.En`, `name.Ru`, `name.Kz`.
-4. Проверить `dataType`: одно из `number / double / text / boolean / enum`.
-5. Если `unitId` передан, то он допустим только для `dataType = number` или `double`; также проверить существование активной записи в `MeasurementUnits`.
-6. Если передан массив `enumValues`, он допустим только для `dataType = enum`; значения не должны дублироваться внутри одного запроса.
-7. Создать запись в `Properties`.
-8. Для `enumValues[]`, если они переданы, создать записи в `PropertyEnumValues`.
-9. Вернуть созданный объект `PropertyDetail`.
+1. Принять тело запроса; провалидировать обязательные поля `code`, `name`, `dataType`.
+2. Проверить `code`: непустая строка; код уникален среди `Properties` WHERE `isDeleted = false`.
+3. Проверить объект `name`: должны быть переданы локализованные поля `En`, `Ru`, `Kz`; `name.Ru` обязателен.
+4. Проверить уникальность `name` среди `Properties` WHERE `isDeleted = false`. Проверка выполняется по правилу локализованной уникальности для набора `name.En`, `name.Ru`, `name.Kz`.
+5. Проверить `dataType`: одно из `number / double / text / boolean / enum`.
+6. Если `unitId` передан, то он допустим только для `dataType = number` или `double`; также проверить существование активной записи в `MeasurementUnits`.
+7. Если передан массив `enumValues`, он допустим только для `dataType = enum`; значения не должны дублироваться внутри одного запроса.
+8. Создать запись в `Properties`.
+9. Для `enumValues[]`, если они переданы, создать записи в `PropertyEnumValues`.
+10. Вернуть созданный объект `PropertyDetail`.
 
 Сущности, участвующие в методе:
 - читаются: `Properties`, `MeasurementUnits`
@@ -77,6 +78,7 @@
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `VALIDATION_ERROR` | Поле `code` не передано, пустое или код уже существует |
 | `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует |
 | `VALIDATION_ERROR` | Поле `dataType` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Передан несуществующий или удалённый `unitId` |
@@ -92,12 +94,13 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Наименование характеристики | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей | — | Request body | |
-| 2 | Тип данных | `dataType` | `enum` | `+` | `number / double / text / boolean / enum` | — | Request body | |
-| 3 | Идентификатор единицы измерения | `unitId` | `uuid` | `-` | Только для `number` / `double`; должен ссылаться на активную `MeasurementUnits` | `null` | Request body | |
-| 4 | Список enum-значений | `enumValues` | `array<object>` | `-` | Допустим только для `dataType = enum` | `[]` | Request body | |
-| 4.1 | Значение enum | `value` | `string` | `+` | Непустая строка; без дублей внутри запроса | — | Request body / enumValues[] | |
-| 4.2 | Порядок отображения | `sortOrder` | `int` | `+` | Целое число >= 1 | — | Request body / enumValues[] | |
+| 1 | Код характеристики | `code` | `string` | `+` | Непустая строка; уникален среди активных записей | — | Request body | |
+| 2 | Наименование характеристики | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей | — | Request body | |
+| 3 | Тип данных | `dataType` | `enum` | `+` | `number / double / text / boolean / enum` | — | Request body | |
+| 4 | Идентификатор единицы измерения | `unitId` | `uuid` | `-` | Только для `number` / `double`; должен ссылаться на активную `MeasurementUnits` | `null` | Request body | |
+| 5 | Список enum-значений | `enumValues` | `array<object>` | `-` | Допустим только для `dataType = enum` | `[]` | Request body | |
+| 5.1 | Значение enum | `value` | `string` | `+` | Непустая строка; без дублей внутри запроса | — | Request body / enumValues[] | |
+| 5.2 | Порядок отображения | `sortOrder` | `int` | `+` | Целое число >= 1 | — | Request body / enumValues[] | |
 
 ---
 
@@ -111,6 +114,7 @@ Content-Type: application/json
 
 ```json
 {
+  "code": "drive_type",
   "name": {
     "En": "Drive type",
     "Ru": "Тип привода",
@@ -150,11 +154,12 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | string | string | — | Properties.id |  |
-| 2 | Наименование | name | object | object | — | Properties |  |
-| 3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
-| 4 | Единица измерения | unit | null | — | `null` | MeasurementUnits |  |
-| 5 | Список enum-значений | enumValues | array<object> | object[] | — | PropertyEnumValues | Коллекция объектов |
-| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
+| 2 | Код характеристики | code | string | string | — | Properties.code |  |
+| 3 | Наименование | name | object | object | — | Properties |  |
+| 4 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 5 | Единица измерения | unit | null | — | `null` | MeasurementUnits |  |
+| 6 | Список enum-значений | enumValues | array<object> | object[] | — | PropertyEnumValues | Коллекция объектов |
+| 7 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 
 ### Структура `value.name`
 
@@ -178,6 +183,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "p0000001-0000-4000-8000-000000000002",
+    "code": "drive_type",
     "name": {
       "En": "Drive type",
       "Ru": "Тип привода",

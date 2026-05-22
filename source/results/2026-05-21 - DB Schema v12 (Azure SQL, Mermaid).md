@@ -444,6 +444,7 @@ erDiagram
 
     Properties {
         uniqueidentifier id PK
+        nvarchar code
         nvarchar nameEn
         nvarchar nameRu
         nvarchar nameKz

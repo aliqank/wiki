@@ -530,6 +530,7 @@ Filtered unique indexes:
 | Поле | Тип |
 |---|---|
 | `id` | `uniqueidentifier PK` |
+| `code` | `nvarchar(100) not null` |
 | `nameEn` | `nvarchar(255) not null` |
 | `nameRu` | `nvarchar(255) null` |
 | `nameKz` | `nvarchar(255) null` |

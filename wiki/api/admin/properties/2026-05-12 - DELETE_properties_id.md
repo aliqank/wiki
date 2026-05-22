@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -125,7 +125,7 @@ Authorization: Bearer <token>
     {
       "code": "PROPERTY_IN_USE",
       "message": "Нельзя удалить: характеристика используется в 4 типах техники",
-      "details": { "equipmentTypesCount": 4, "equipmentValuesCount": 0 }
+      "details": { "propertyCode": "maximum_depth", "equipmentTypesCount": 4, "equipmentValuesCount": 0 }
     }
   ]
 }
@@ -137,3 +137,4 @@ Authorization: Bearer <token>
 
 1. Guard обязателен, даже если frontend заранее блокирует кнопку удаления.
 2. Записи `PropertyEnumValues` не удаляются отдельно; они становятся неактивными вместе с родительской характеристикой через фильтр по `Properties.isDeleted = false`.
+3. В error-response допускается возврат `propertyCode` в `errors[].details`, чтобы frontend мог точнее показать пользователю, какая характеристика заблокирована к удалению.

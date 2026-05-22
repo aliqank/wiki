@@ -1,5 +1,5 @@
 **Created:** 2026-05-12  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -39,11 +39,12 @@
 ## 3. Описание логики работы метода
 
 1. Найти запись в `Properties` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена — вернуть `404 NOT_FOUND`.
-2. Провалидировать `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `Properties` WHERE `id` != `:id` AND `isDeleted = false`.
-3. Провалидировать `dataType` и `unitId` по тем же правилам, что и при создании.
-4. Обновить запись `Properties`, заполнить `updatedAt`, `updatedBy`.
-5. Получить актуальные `enumValues` и `equipmentTypesCount` для ответа.
-6. Вернуть обновлённый объект `PropertyDetail`.
+2. Провалидировать `code`: непустая строка; код уникален среди `Properties` WHERE `id` != `:id` AND `isDeleted = false`.
+3. Провалидировать `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `Properties` WHERE `id` != `:id` AND `isDeleted = false`.
+4. Провалидировать `dataType` и `unitId` по тем же правилам, что и при создании.
+5. Обновить запись `Properties`, заполнить `updatedAt`, `updatedBy`.
+6. Получить актуальные `enumValues` и `equipmentTypesCount` для ответа.
+7. Вернуть обновлённый объект `PropertyDetail`.
 
 Сущности, участвующие в методе:
 - читаются: `Properties`, `MeasurementUnits`, `PropertyEnumValues`, `EquipmentTypeProperties`
@@ -75,6 +76,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `NOT_FOUND` | Характеристика не найдена |
+| `VALIDATION_ERROR` | Поле `code` не передано, пустое или код уже существует |
 | `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует |
 | `VALIDATION_ERROR` | Поле `dataType` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Передан несуществующий или удалённый `unitId` |
@@ -89,9 +91,10 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор характеристики | `id` | `uuid` | `+` | Валидный UUID v4 | — | Path param | |
-| 2 | Наименование характеристики | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей кроме текущей | — | Request body | |
-| 3 | Тип данных | `dataType` | `enum` | `+` | `number / double / text / boolean / enum` | — | Request body | |
-| 4 | Идентификатор единицы измерения | `unitId` | `uuid` | `-` | Только для `number` / `double` | `null` | Request body | |
+| 2 | Код характеристики | `code` | `string` | `+` | Непустая строка; уникален среди активных записей кроме текущей | — | Request body | |
+| 3 | Наименование характеристики | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей кроме текущей | — | Request body | |
+| 4 | Тип данных | `dataType` | `enum` | `+` | `number / double / text / boolean / enum` | — | Request body | |
+| 5 | Идентификатор единицы измерения | `unitId` | `uuid` | `-` | Только для `number` / `double` | `null` | Request body | |
 
 ---
 
@@ -105,6 +108,7 @@ Content-Type: application/json
 
 ```json
 {
+  "code": "maximum_digging_depth",
   "name": {
     "En": "Maximum digging depth",
     "Ru": "Максимальная глубина копания",
@@ -140,11 +144,12 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | string | string | — | Properties.id |  |
-| 2 | Наименование | name | object | object | — | Properties |  |
-| 3 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
-| 4 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
-| 5 | Список enum-значений | enumValues | array<object> | object[] | `[]` | PropertyEnumValues | Коллекция объектов |
-| 6 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
+| 2 | Код характеристики | code | string | string | — | Properties.code |  |
+| 3 | Наименование | name | object | object | — | Properties |  |
+| 4 | Тип данных свойства | dataType | string | string | — | Properties + ref_property_data_type |  |
+| 5 | Единица измерения | unit | object | object | — | MeasurementUnits |  |
+| 6 | Список enum-значений | enumValues | array<object> | object[] | `[]` | PropertyEnumValues | Коллекция объектов |
+| 7 | Количество типов техники | equipmentTypesCount | int | integer | — | COUNT(EquipmentTypeProperties) |  |
 
 ### Структура `value.name`
 
@@ -168,6 +173,7 @@ Content-Type: application/json
 {
   "value": {
     "id": "p0000001-0000-4000-8000-000000000003",
+    "code": "maximum_digging_depth",
     "name": {
       "En": "Maximum digging depth",
       "Ru": "Максимальная глубина копания",
