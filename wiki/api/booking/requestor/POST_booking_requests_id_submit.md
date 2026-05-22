@@ -133,7 +133,8 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 4 | Список броней | bookings | array<object> | object[] | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentBookingAuthorizations + BookingRequestStatuses + BookingStatuses | Коллекция объектов |
+| 4 | Причина закрытия заявки | closureReason | null | — | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для submit-response всегда `null` |
+| 5 | Список броней | bookings | array<object> | object[] | — | backend composition from BookingRequests + Bookings + Equipments + EquipmentBookingAuthorizations + BookingRequestStatuses + BookingStatuses | Коллекция объектов |
 
 ### Структура `value.bookings[]`
 
@@ -150,6 +151,7 @@ Content-Type: application/json
     "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
     "requestNumber": "REQ-2026-00015",
     "status": "Submitted",
+    "closureReason": null,
     "bookings": [
       {
         "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",

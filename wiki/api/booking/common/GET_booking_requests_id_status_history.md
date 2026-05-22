@@ -112,8 +112,9 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequestStatuses.id |  |
 | 2 | Текущий статус | status | string | string | — | BookingRequestStatuses + ref_booking_request_status |  |
-| 3 | Дата и время создания записи статуса | createdAt | datetime | ISO 8601 | — | BookingRequestStatuses.createdAt |  |
-| 4 | Комментарий | comment | null | — | `null` | BookingRequestStatuses.comment |  |
+| 3 | Причина закрытия заявки | closureReason | string | null | `null` | BookingRequestStatuses + ref_request_closure_reason | Для non-terminal статусов возвращается `null` |
+| 4 | Дата и время создания записи статуса | createdAt | datetime | ISO 8601 | — | BookingRequestStatuses.createdAt |  |
+| 5 | Комментарий | comment | null | — | `null` | BookingRequestStatuses.comment |  |
 
 ## 10. Пример ответа
 
@@ -123,12 +124,14 @@ Content-Type: application/json
     {
       "id": "66666666-7777-8888-9999-000000000001",
       "status": "Draft",
+      "closureReason": null,
       "createdAt": "2026-05-14T09:15:00Z",
       "comment": null
     },
     {
       "id": "66666666-7777-8888-9999-000000000002",
       "status": "Submitted",
+      "closureReason": null,
       "createdAt": "2026-05-14T10:00:00Z",
       "comment": null
     }

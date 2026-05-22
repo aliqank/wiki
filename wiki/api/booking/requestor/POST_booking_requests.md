@@ -138,12 +138,13 @@ Content-Type: application/json
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 | 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 5 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderNumber | Для draft может отсутствовать |
-| 6 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
-| 7 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
-| 8 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |
-| 9 | Комментарии | comments | null | — | `null` | BookingRequests.comments | Для draft может отсутствовать |
-| 10 | Приоритет | priority | null | — | `null` | BookingRequests + ref_request_priority | Для draft может отсутствовать |
+| 5 | Причина закрытия заявки | closureReason | null | — | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для draft всегда `null` |
+| 6 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderNumber | Для draft может отсутствовать |
+| 7 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
+| 8 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
+| 9 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |
+| 10 | Комментарии | comments | null | — | `null` | BookingRequests.comments | Для draft может отсутствовать |
+| 11 | Приоритет | priority | null | — | `null` | BookingRequests + ref_request_priority | Для draft может отсутствовать |
 
 ## 10. Пример ответа
 
@@ -154,6 +155,7 @@ Content-Type: application/json
     "requestNumber": "REQ-2026-00015",
     "type": "Regular",
     "status": "Draft",
+    "closureReason": null,
     "workOrderNumber": null,
     "isDefaultWorkOrder": false,
     "location": null,

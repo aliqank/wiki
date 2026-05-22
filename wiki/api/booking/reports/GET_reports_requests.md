@@ -37,7 +37,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить права доступа отчетной роли.
-2. Выбрать `BookingRequests` по фильтрам периода, статуса, типа, приоритета.
+2. Выбрать `BookingRequests` по фильтрам периода, статуса, причины закрытия, типа, приоритета.
 3. Подтянуть агрегаты по количеству item-ов и статусам.
 4. Вернуть пагинированный отчет.
 
@@ -79,12 +79,13 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Статус заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress / Closed / Cancelled` | — | Query param | |
-| 2 | Тип заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
-| 3 | Дата начала периода | `from` | `date` | `-` | — | — | Query param | |
-| 4 | Дата окончания периода | `to` | `date` | `-` | — | — | Query param | |
-| 5 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |
-| 6 | Размер страницы | `limit` | `int` | `-` | >= 1 | `20` | Query param | |
+| 1 | Статус заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress / Closed` | — | Query param | |
+| 2 | Причина закрытия заявки | `closureReason` | `enum` | `-` | `Closed / Completed` | — | Query param | Используется только вместе со `status = Closed` или для неявной фильтрации по закрытым заявкам |
+| 3 | Тип заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
+| 4 | Дата начала периода | `from` | `date` | `-` | — | — | Query param | |
+| 5 | Дата окончания периода | `to` | `date` | `-` | — | — | Query param | |
+| 6 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |
+| 7 | Размер страницы | `limit` | `int` | `-` | >= 1 | `20` | Query param | |
 
 ---
 
@@ -124,7 +125,8 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 4 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
+| 4 | Причина закрытия заявки | closureReason | string | null | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для незакрытых заявок возвращается `null` |
+| 5 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 
 ## 10. Пример ответа
 
@@ -136,6 +138,7 @@ Content-Type: application/json
         "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
         "status": "Closed",
+        "closureReason": "Completed",
         "type": "Regular"
       }
     ],

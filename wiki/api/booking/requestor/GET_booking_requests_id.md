@@ -114,14 +114,15 @@ Content-Type: application/json
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
 | 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 5 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber | Поле sidebar |
-| 6 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | BookingRequests.isDefaultWorkOrder / business rule | Поле sidebar |
-| 7 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority | Поле sidebar |
-| 8 | Локация | location | string | string | — | BookingRequests.location | Поле sidebar |
-| 9 | Описание работ | workDescription | string | string | — | BookingRequests.workDescription | Поле sidebar |
-| 10 | Комментарии | comments | string | string | — | BookingRequests.comments | Поле sidebar |
-| 11 | Общее количество броней в заявке | bookingsCount | int | integer | `0` | COUNT(Bookings) | Для центральной части страницы |
-| 12 | Список броней | bookings | array<object> | object[] | `[]` | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentPhotos + Fleets + Users + EquipmentProperties | Полный список броней заявки |
+| 5 | Причина закрытия заявки | closureReason | string | null | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для незакрытой заявки возвращается `null` |
+| 6 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber | Поле sidebar |
+| 7 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | BookingRequests.isDefaultWorkOrder / business rule | Поле sidebar |
+| 8 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority | Поле sidebar |
+| 9 | Локация | location | string | string | — | BookingRequests.location | Поле sidebar |
+| 10 | Описание работ | workDescription | string | string | — | BookingRequests.workDescription | Поле sidebar |
+| 11 | Комментарии | comments | string | string | — | BookingRequests.comments | Поле sidebar |
+| 12 | Общее количество броней в заявке | bookingsCount | int | integer | `0` | COUNT(Bookings) | Для центральной части страницы |
+| 13 | Список броней | bookings | array<object> | object[] | `[]` | backend composition from BookingRequests + Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + EquipmentPhotos + Fleets + Users + EquipmentProperties | Полный список броней заявки |
 
 ### Структура `value.bookings[]`
 

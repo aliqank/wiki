@@ -125,7 +125,8 @@ Content-Type: application/json
 | 4 | Плановая дата и время начала брони | bookingPeriodStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 5 | Плановая дата и время окончания брони | bookingPeriodEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 6 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 7 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
+| 7 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для history endpoint поле всегда заполнено |
+| 8 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
 ### Структура `value.items[].equipmentTypeName`
 
@@ -152,6 +153,7 @@ Content-Type: application/json
         "bookingPeriodStartDateTime": "2026-05-20T08:00:00Z",
         "bookingPeriodEndDateTime": "2026-05-22T18:00:00Z",
         "status": "Closed",
+        "closureReason": "Completed",
         "workOrderNumber": "WO-10025"
       }
     ],

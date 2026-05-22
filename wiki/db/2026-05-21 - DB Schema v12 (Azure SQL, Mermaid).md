@@ -141,6 +141,15 @@ erDiagram
         int sortOrder
     }
 
+    ref_request_closure_reason {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+    }
+
     ref_booking_status {
         uniqueidentifier id PK
         nvarchar code
@@ -653,6 +662,7 @@ erDiagram
         int requestNumber
         uniqueidentifier requestTypeId FK
         uniqueidentifier statusId FK
+        uniqueidentifier closureReasonId FK
         nvarchar workOrderNumber
         nvarchar location
         nvarchar workDescription
@@ -729,6 +739,7 @@ erDiagram
         uniqueidentifier id PK
         uniqueidentifier requestId FK
         uniqueidentifier statusId FK
+        uniqueidentifier closureReasonId FK
         nvarchar comment
         datetime2 createdAt
         uniqueidentifier createdBy
@@ -767,6 +778,8 @@ erDiagram
     ref_request_priority ||--o{ BookingRequests : "priorityId"
     ref_booking_request_status ||--o{ BookingRequests : "statusId"
     ref_booking_request_status ||--o{ BookingRequestStatuses : "statusId"
+    ref_request_closure_reason ||--o{ BookingRequests : "closureReasonId"
+    ref_request_closure_reason ||--o{ BookingRequestStatuses : "closureReasonId"
     ref_booking_status ||--o{ Bookings : "statusId"
     ref_booking_status ||--o{ BookingStatuses : "statusId"
     ref_booking_closure_reason ||--o{ Bookings : "closureReasonId"

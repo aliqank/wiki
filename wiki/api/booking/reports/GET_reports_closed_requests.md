@@ -125,7 +125,8 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 4 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
+| 4 | Причина закрытия заявки | closureReason | string | string | — | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для closed requests поле всегда заполнено |
+| 5 | Номер Work Order из JDE | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 
 ## 10. Пример ответа
 
@@ -137,6 +138,7 @@ Content-Type: application/json
         "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
         "status": "Closed",
+        "closureReason": "Completed",
         "workOrderNumber": "WO-10025"
       }
     ],

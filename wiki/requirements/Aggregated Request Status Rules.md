@@ -28,8 +28,8 @@
 - `BRD: FR-NEW-17` - aggregated request status is auto-calculated from RequestItem statuses;
 - `BRD: FR-074` - request becomes `InProgress` when the first booking goes `InProgress`;
 - `BRD: FR-NEW-44` - request becomes `Completed` when the last active booking is finished;
-- `BRD Updates: BRD-U-001` - request terminal status after submit is `Closed`; `Cancelled` remains draft-only;
-- `POST /booking-requests/{id}/cancel` - request can move to `Cancelled` before submit;
+- `BRD Updates: BRD-U-001` - request terminal lifecycle status is `Closed`; pre-start closure is expressed via request closure reason `Closed`, post-start closure via `Completed`;
+- `POST /booking-requests/{id}/cancel` - request can move to `Closed` with closure reason `Closed` before submit;
 - `POST /bookings/{id}/revoke` - booking revoke triggers request status recalculation;
 - `POST /bookings/{id}/close` - if the last active booking is closed, request moves to `Closed`.
 
@@ -43,7 +43,11 @@ Request-level статусы:
 - `Submitted`
 - `InProgress`
 - `Closed`
-- `Cancelled`
+
+Request-level closure reasons:
+
+- `Closed`
+- `Completed`
 
 Booking-level статусы, влияющие на агрегирование:
 
@@ -93,12 +97,13 @@ Terminal booking closure reasons:
 
 При пересчете `BookingRequest.status` backend должен применять правила в следующем порядке приоритета.
 
-### Rule 1. Cancelled
+### Rule 1. Closed / Closed
 
-Если заявка была отменена через `POST /booking-requests/{id}/cancel` до отправки, request status = `Cancelled`.
+Если заявка была отменена через `POST /booking-requests/{id}/cancel` до отправки, request status = `Closed`, request closure reason = `Closed`.
 
 Комментарий:
-- `Cancelled` используется только для request-level отмены draft-заявки.
+- `Cancelled` больше не является отдельным request status или request closure reason.
+- Для request-level отмены draft-заявки используется `Closed + closureReason = Closed`.
 - При request-level cancel связанные draft booking item-ы могут быть удалены либо переведены в `Booking.Closed` с `closureReason = Cancelled`.
 
 ### Rule 2. Draft
@@ -133,13 +138,22 @@ Terminal booking closure reasons:
 
 ### Rule 5. Closed
 
-Если заявка была отправлена и в ней больше не осталось активных броней, request status = `Closed`.
+Если заявка была отправлена, в ней больше не осталось активных броней и ни одна бронь этой заявки еще не переходила в `InProgress`, request status = `Closed`.
 
 Это правило срабатывает, когда все booking item-ы заявки находятся в статусе `Closed`.
 
 Комментарий:
 - `Closed` является единым terminal request status после submit;
+- в этом сценарии request closure reason = `Closed`;
 - успешность или неуспешность отдельных броней определяется `Booking.closureReason`, а не отдельным request-level статусом.
+
+### Rule 6. Completed
+
+Если заявка уже хотя бы один раз была в `InProgress` и после этого в ней больше не осталось активных броней, request status = `Closed`, request closure reason = `Completed`.
+
+Комментарий:
+- `Completed` используется только для заявки, которая уже была в `InProgress`.
+- сам lifecycle status заявки при этом остается `Closed`.
 
 ---
 
@@ -148,10 +162,11 @@ Terminal booking closure reasons:
 | Условие по request / bookings | Итоговый `BookingRequest.status` |
 |---|---|
 | Draft request, submit еще не выполнялся | `Draft` |
-| Draft request отменен через request-level cancel | `Cancelled` |
+| Draft request отменен через request-level cancel | `Closed` + `closureReason = Closed` |
 | Есть хотя бы один `InProgress` item | `InProgress` |
 | Нет `InProgress`, но есть хотя бы один active submitted/confirmed item | `Submitted` |
-| Нет active item-ов | `Closed` |
+| Нет active item-ов после submit и request ни разу не был `InProgress` | `Closed` + `closureReason = Closed` |
+| Нет active item-ов после того, как request уже был `InProgress` | `Closed` + `closureReason = Completed` |
 
 ---
 
@@ -177,7 +192,7 @@ Bookings:
 - `Closed` (`closureReason = Revoked`)
 - `Closed` (`closureReason = Declined`)
 
-Итог: request status = `Closed`.
+Итог: request status = `Closed`, request closure reason = `Closed`.
 
 Причина:
 - после submit больше нет ни одной активной брони.
@@ -198,7 +213,7 @@ Bookings:
 - `Closed` (`closureReason = Completed`)
 - `Closed` (`closureReason = Terminated`)
 
-Итог: request status = `Closed`.
+Итог: request status = `Closed`, request closure reason = `Completed`.
 
 ### Example 5. Confirmed but not started yet
 
@@ -215,6 +230,7 @@ Bookings:
 
 1. Пересчет request status должен выполняться в той же транзакции, что и изменение статуса отдельной брони или request-level cancel.
 2. История request status должна записываться в `BookingRequestStatuses` только при фактическом изменении агрегированного статуса.
-3. `GET /booking-requests/my` показывает только незавершенные заявки, поэтому terminal request statuses для list view ограничены `Closed` и `Cancelled`.
+3. `GET /booking-requests/my` показывает только незавершенные заявки, поэтому terminal request status для list view ограничен `Closed`; различие между pre-start closure и post-start completion определяется через `closureReason`.
 4. Для терминальной брони бизнес-причина должна определяться через `Booking.closureReason`, а не через отдельный lifecycle status.
 5. Request-level статус не хранит специальные значения вроде `Revoked` или `Declined`; такие состояния существуют только на уровне booking closure reason.
+6. Request-level `closureReason` intentionally coarse-grained и ограничен значениями `Closed` и `Completed`.

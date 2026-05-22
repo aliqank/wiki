@@ -129,8 +129,9 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
 | 3 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 4 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
-| 5 | Комментарии | comments | string | string | — | BookingRequests.comments |  |
+| 4 | Причина закрытия заявки | closureReason | null | — | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для edit draft всегда `null` |
+| 5 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
+| 6 | Комментарии | comments | string | string | — | BookingRequests.comments |  |
 
 ## 10. Пример ответа
 
@@ -140,6 +141,7 @@ Content-Type: application/json
     "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
     "requestNumber": "REQ-2026-00015",
     "status": "Draft",
+    "closureReason": null,
     "priority": "P1",
     "comments": "Updated comment"
   },

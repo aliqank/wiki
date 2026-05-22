@@ -164,7 +164,8 @@ where isDeleted = 0;
 | `ref_user_type` | Internal, External |
 | `ref_request_type` | Regular, ServiceWork |
 | `ref_request_priority` | P1, P2, P3, P4 |
-| `ref_booking_request_status` | Draft, Submitted, InProgress, Closed, Cancelled |
+| `ref_booking_request_status` | Draft, Submitted, InProgress, Closed |
+| `ref_request_closure_reason` | Closed, Completed |
 | `ref_booking_status` | Draft, Submitted, Confirmed, InProgress, Closed |
 | `ref_booking_closure_reason` | Cancelled, Declined, Revoked, Terminated, Completed |
 | `ref_booking_approval_type` | FoApproval, SupervisorApproval, TransportationApproval |
@@ -695,7 +696,7 @@ Filtered unique index:
 
 ### 21. BookingRequests
 
-Назначение: заголовок заявки на бронирование. Хранит request-level данные: тип заявки, номер, приоритет, инициатора, business-поля заявки и текущий агрегированный статус.
+Назначение: заголовок заявки на бронирование. Хранит request-level данные: тип заявки, номер, приоритет, инициатора, business-поля заявки, текущий агрегированный статус и coarse-grained причину терминального закрытия заявки.
 
 | Поле | Тип | Описание |
 |---|---|---|
@@ -703,6 +704,7 @@ Filtered unique index:
 | `requestNumber` | `int IDENTITY(1,1) unique not null` | Номер заявки; форматируется как `REQ-YYYY-NNNNN` |
 | `requestTypeId` | `uniqueidentifier FK -> ref_request_type` | |
 | `statusId` | `uniqueidentifier FK -> ref_booking_request_status` | Денормализованный текущий статус |
+| `closureReasonId` | `uniqueidentifier null FK -> ref_request_closure_reason` | Денормализованная текущая причина, если заявка уже закрыта |
 | `workOrderNumber` | `nvarchar(100) null` | |
 | `location` | `nvarchar(255) null` | |
 | `workDescription` | `nvarchar(1000) not null` | |
@@ -719,6 +721,10 @@ Filtered unique index:
 Индексы:
 - `createdBy`, `statusId`, `requestNumber`
 - filtered index on `workOrderNumber where isDeleted = 0 and workOrderNumber is not null`
+
+Правила:
+- `Closed` требует заполненной terminal причины через `closureReasonId`
+- request-level `closureReasonId` хранит только coarse-grained причину закрытия (`Closed` или `Completed`); детальная бизнес-причина отдельных item-ов остается на уровне `Bookings.closureReasonId`
 
 ### 22. Bookings
 
@@ -832,6 +838,7 @@ Filtered unique index:
 | `id` | `uniqueidentifier PK` |
 | `requestId` | `uniqueidentifier FK -> BookingRequests` |
 | `statusId` | `uniqueidentifier FK -> ref_booking_request_status` |
+| `closureReasonId` | `uniqueidentifier null FK -> ref_request_closure_reason` |
 | `comment` | `nvarchar(max) null` |
 | `createdAt` | `datetime2(3) not null` |
 | `createdBy` | `uniqueidentifier not null` |

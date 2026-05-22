@@ -22,8 +22,8 @@
 
 | ID | Date | Area | Type | Summary | Affects BRD |
 |---|---|---|---|---|---|
-| `BRD-U-001` | 2026-05-20 | Request lifecycle | Business rule clarification | Request terminal status after submit is `Closed`; `Cancelled` remains draft-only | `FR-026`, `FR-NEW-17`, `FR-NEW-44` |
-| `BRD-U-002` | 2026-05-20 | Booking lifecycle | Business rule clarification | Booking gets explicit `Cancelled` status when parent draft request is cancelled before submit | `FR-027`, `FR-042`, `FR-NEW-17` |
+| `BRD-U-001` | 2026-05-20 | Request lifecycle | Business rule clarification | Request lifecycle uses single terminal status `Closed`; pre-start closure uses `requestClosureReason = Closed`, post-start closure uses `Completed` | `FR-026`, `FR-NEW-17`, `FR-NEW-44` |
+| `BRD-U-002` | 2026-05-20 | Booking lifecycle | Business rule clarification | Draft booking item cancelled with parent request uses `Closed` + booking closure reason `Cancelled` | `FR-027`, `FR-042`, `FR-NEW-17` |
 | `BRD-U-003` | 2026-05-20 | Request lifecycle | Business rule clarification | Separate request-level withdraw flow allowed for `Submitted` request before first FO confirmation in the request | `FR-025`, `FR-058`, `FR-NEW-17` |
 
 ---
@@ -70,30 +70,34 @@
 - `Submitted`
 - `InProgress`
 - `Closed`
-- `Cancelled`
 
-### Семантика terminal statuses
-
-- `Cancelled`
-  Используется только для request-level отмены draft-заявки до submit.
+Для request-level closure reasons используется следующий набор:
 
 - `Closed`
-  Используется если заявка была отправлена и в ней больше не осталось активных броней. Причины завершения отдельных броней могут быть разными: `Closed`, `Revoked`, `Declined`, `Terminated`.
+- `Completed`
+
+### Семантика terminal statuses / closure reasons
+
+- `Closed` + `requestClosureReason = Closed`
+  Используется для request-level отмены draft-заявки до submit, а также для submitted-заявки, которая была закрыта до перехода в `InProgress`.
+
+- `Closed` + `requestClosureReason = Completed`
+  Используется если заявка была отправлена и в ней больше не осталось активных броней. Причины завершения отдельных броней могут быть разными: `Completed`, `Revoked`, `Declined`, `Terminated`.
 
 ### Примеры
 
 1. Все брони `Revoked` / `Declined` до старта.
-   Итоговый request status = `Closed`.
+   Итоговый request status = `Closed`, `requestClosureReason = Completed`.
 
 2. Одна бронь `Closed`, другая `Terminated`.
-   Итоговый request status = `Closed`.
+   Итоговый request status = `Closed`, `requestClosureReason = Completed`.
 
 3. Draft-заявка отменена пользователем.
-   Итоговый request status = `Cancelled`.
+   Итоговый request status = `Closed`, `requestClosureReason = Closed`.
 
 ### Правило приоритета
 
-Если после submit больше нет активных item-ов, request status = `Closed`.
+Если после submit больше нет активных item-ов, request status = `Closed`, `requestClosureReason = Completed`.
 
 ### Влияние на документацию и реализацию
 
@@ -117,14 +121,14 @@
 
 При отмене draft-заявки через `POST /booking-requests/{id}/cancel`:
 
-- `BookingRequest.status` переводится в `Cancelled`;
-- все связанные booking item-ы в статусе `Draft` переводятся в `Cancelled`;
-- по каждому booking item создается запись в `BookingStatuses`.
+- `BookingRequest.status` переводится в `Closed`, `requestClosureReason = Closed`;
+- все связанные booking item-ы в статусе `Draft` переводятся в `Closed` с `closureReason = Cancelled` либо удаляются;
+- по каждому измененному booking item создается запись в `BookingStatuses`.
 
-### Семантика `Booking.Cancelled`
+### Семантика `Booking closureReason = Cancelled`
 
-- `Booking.Cancelled` используется только для booking item-ов, отмененных вместе с родительской draft-заявкой до submit;
-- `Booking.Cancelled` не используется для submitted booking item;
+- `Booking.closureReason = Cancelled` используется только для booking item-ов, отмененных вместе с родительской draft-заявкой до submit;
+- `Booking.closureReason = Cancelled` не используется для submitted booking item;
 - после submit requestor-initiated cancel на уровне item по-прежнему выражается статусом `Revoked`.
 
 ### Разграничение с соседними статусами
@@ -132,7 +136,7 @@
 - `Draft`
   Живой, еще не отмененный draft booking item.
 
-- `Cancelled`
+- `Closed` + `closureReason = Cancelled`
   Draft booking item, завершенный отменой родительской draft-заявки.
 
 - `Revoked`
