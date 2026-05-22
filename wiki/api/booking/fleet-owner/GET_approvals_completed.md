@@ -41,7 +41,7 @@
 4. Вернуть список.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `FleetManagePermissions`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `FleetManagePermissions`, `BookingApprovals`
 
 ---
 

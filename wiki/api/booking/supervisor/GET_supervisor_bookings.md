@@ -42,7 +42,7 @@
 4. Вернуть пагинированный список.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `BookingApprovals`
 
 ---
 

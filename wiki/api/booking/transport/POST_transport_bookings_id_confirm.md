@@ -44,8 +44,8 @@
 7. Вернуть результат.
 
 Сущности:
-- читаются: `Bookings`, `BookingTransportations`
-- изменяются: `Bookings`, `BookingTransportations`, `BookingStatuses`
+- читаются: `Bookings`, `BookingTransportations`, `BookingApprovals`
+- изменяются: `Bookings`, `BookingTransportations`, `BookingApprovals`, `BookingStatuses`
 
 ---
 
