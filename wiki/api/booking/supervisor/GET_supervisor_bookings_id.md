@@ -1,7 +1,7 @@
 # GET /supervisor/bookings/{id}
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -37,11 +37,11 @@
 
 1. Проверить бронь и роль Supervisor.
 2. Проверить статус `ConfirmedByFo`.
-3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, историю статусов.
+3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, `BookingApprovals`, историю статусов.
 4. Вернуть агрегированную модель для review.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `BookingStatuses`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `BookingApprovals`, `BookingStatuses`, `Users`
 
 ---
 
@@ -110,7 +110,20 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 | 3 | Обоснование | justification | string | string | — | Bookings.justification |  |
-| 4 | История изменений | history | array<object> | object[] | `[]` | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + BookingStatuses | Коллекция объектов |
+| 4 | Цепочка согласования | approvalChain | array<object> | object[] | `[]` | backend composition from BookingApprovals + Users + reference tables | Коллекция approval step-ов |
+| 5 | История изменений | history | array<object> | object[] | `[]` | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + BookingStatuses | Коллекция объектов |
+
+### Структура `value.approvalChain[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор шага согласования | id | uuid | UUID v4 | — | BookingApprovals.id |  |
+| 2 | Тип шага согласования | type | string | string | — | BookingApprovals + ref_booking_approval_type | `FoApproval` / `SupervisorApproval` |
+| 3 | Результат решения | approvalStatus | string | string | — | BookingApprovals + ref_booking_approval_status | `Approved` / `Declined` |
+| 4 | Порядок шага | order | int | integer | — | BookingApprovals.approvalOrder |  |
+| 5 | Идентификатор пользователя | userId | uuid | UUID v4 | — | BookingApprovals.userId |  |
+| 6 | Комментарий | comment | string | string | — | BookingApprovals.comment |  |
+| 7 | Дата и время решения | createdAt | datetime | ISO 8601 | — | BookingApprovals.createdAt |  |
 
 ## 10. Пример ответа
 
@@ -120,6 +133,17 @@ Content-Type: application/json
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
     "status": "ConfirmedByFo",
     "justification": "No suitable TCO-owned unit available for required window.",
+    "approvalChain": [
+      {
+        "id": "9a4c8b6d-7bc0-41fb-9038-422cf55d0001",
+        "type": "FoApproval",
+        "approvalStatus": "Approved",
+        "order": 1,
+        "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
+        "comment": "Approved by FO.",
+        "createdAt": "2026-05-18T11:45:00Z"
+      }
+    ],
     "history": []
   },
   "isSuccess": true,

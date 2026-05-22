@@ -1,7 +1,7 @@
 # Booking API summary
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-19  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -10,7 +10,7 @@
 
 Сводная таблица endpoint-ов для booking-блока на основе:
 - `source/results/2026-05-05 - HDV HDE BRD v13.md`
-- `source/results/2026-05-14 - Схема БД v10 (Equipments, Bookings).md`
+- `wiki/db/2026-05-21 - DB Schema v12 (Azure SQL, Equipments, Booking).md`
 
 Base URL: `/api/booking/v1`
 

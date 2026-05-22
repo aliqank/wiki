@@ -37,7 +37,7 @@
 
 1. Проверить существование брони и права доступа по роли пользователя.
 2. Выбрать записи из `BookingStatuses` по `bookingId`.
-3. Отсортировать по `changedAt ASC`.
+3. Отсортировать по `createdAt ASC`.
 4. Вернуть историю как коллекцию.
 
 Сущности:
@@ -113,7 +113,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingStatuses.id |  |
 | 2 | Текущий статус | status | string | string | — | BookingStatuses + ref_booking_status |  |
-| 3 | Дата и время изменения статуса | changedAt | datetime | ISO 8601 | — | BookingStatuses.changedAt |  |
+| 3 | Дата и время создания записи статуса | createdAt | datetime | ISO 8601 | — | BookingStatuses.createdAt |  |
 | 4 | Комментарий | comment | null | — | `null` | BookingStatuses.comment |  |
 
 ## 10. Пример ответа
@@ -124,13 +124,13 @@ Content-Type: application/json
     {
       "id": "11111111-2222-3333-4444-555555550001",
       "status": "Draft",
-      "changedAt": "2026-05-14T09:15:00Z",
+      "createdAt": "2026-05-14T09:15:00Z",
       "comment": null
     },
     {
       "id": "11111111-2222-3333-4444-555555550002",
       "status": "Submitted",
-      "changedAt": "2026-05-14T10:00:00Z",
+      "createdAt": "2026-05-14T10:00:00Z",
       "comment": null
     }
   ],

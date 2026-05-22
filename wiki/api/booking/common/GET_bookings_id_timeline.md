@@ -37,11 +37,12 @@
 
 1. Проверить доступ к брони.
 2. Собрать историю из `BookingStatuses`.
-3. Добавить служебные события из основной записи `Bookings`: `actualStartDateTime`, `actualEndDateTime`, `supervisorApprovedAt` при наличии.
-4. Вернуть отсортированный timeline.
+3. Добавить служебные события из основной записи `Bookings`: `actualStartDateTime`, `actualEndDateTime` при наличии.
+4. Добавить approval-события из `BookingApprovals`.
+5. Вернуть отсортированный timeline.
 
 Сущности:
-- читаются: `Bookings`, `BookingStatuses`
+- читаются: `Bookings`, `BookingStatuses`, `BookingApprovals`
 
 ---
 
@@ -124,6 +125,11 @@ Content-Type: application/json
       "eventType": "StatusChanged",
       "status": "Submitted",
       "occurredAt": "2026-05-14T10:00:00Z"
+    },
+    {
+      "eventType": "ApprovalRecorded",
+      "status": "Approved",
+      "occurredAt": "2026-05-14T10:30:00Z"
     },
     {
       "eventType": "ActualStartRecorded",

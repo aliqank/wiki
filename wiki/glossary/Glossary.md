@@ -10,7 +10,7 @@
 
 Источники:
 - `source/results/2026-05-05 - HDV HDE BRD v13.md`
-- `source/results/2026-05-14 - Схема БД v11 (Azure SQL, Equipments, Bookings).md`
+- `wiki/db/2026-05-21 - DB Schema v12 (Azure SQL, Equipments, Booking).md`
 
 ---
 
@@ -81,7 +81,7 @@
 | Table | Description | Key Relations |
 |---|---|---|
 | `SystemSettings` | Таблица системных настроек вида key-value для параметров, которые не должны быть захардкожены. | Используется прикладной логикой и Admin Panel |
-| `Users` | Справочник пользователей системы, включая ФИО, email, sharedEmail, должность, department, тип пользователя и BP-привязку. | `Departments`, `BusinessPartners`, `FleetManagePermissions`, `EquipmentBookingAuthorizations` |
+| `Users` | Справочник пользователей системы, включая ФИО, email, должность, department, тип пользователя и BP-привязку. | `Departments`, `BusinessPartners`, `FleetManagePermissions`, `EquipmentBookingAuthorizations`, `BookingApprovals` |
 | `BusinessPartners` | Справочник внешних компаний/контрагентов. | Используется в `Users` и сценариях внешних сущностей |
 
 ---
@@ -91,7 +91,8 @@
 | Table | Description | Key Relations |
 |---|---|---|
 | `BookingRequests` | Заголовок заявки на бронирование: request-level данные, инициатор, тип заявки, приоритет, WO business-поля и агрегированный статус. | Связан с `Users`, `BookingRequestStatuses`, `Bookings` |
-| `Bookings` | Отдельные booking items внутри заявки. Хранят оборудование, период, статусы согласования и фактические атрибуты выполнения брони. | `BookingRequests`, `Equipments`, `WorkCenters`, `BookingStatuses` |
+| `Bookings` | Отдельные booking items внутри заявки. Хранят оборудование, период, текущий lifecycle status и фактические атрибуты выполнения брони. | `BookingRequests`, `Equipments`, `WorkCenters`, `BookingStatuses`, `BookingApprovals` |
+| `BookingApprovals` | Журнал шагов согласования брони. Хранит отдельные решения FO и Supervisor с типом шага, результатом, комментарием, очередностью и аудитом. | `Bookings`, `Users`, `ref_booking_approval_type`, `ref_booking_approval_status` |
 | `BookingStatuses` | История статусов individual booking с периодами и источником изменения. | `Bookings` |
 | `BookingRequestStatuses` | История статусов request-level сущности. | `BookingRequests` |
 
@@ -101,7 +102,7 @@
 
 | Topic | Clarification |
 |---|---|
-| Shared team email | В BRD shared team email описан как атрибут fleet/FO. В схеме v11 ближайшая опора для хранения - `Users.sharedEmail`; отдельное поле на `Fleets` не выделено. |
+| Shared team email | В текущей схеме v12 отдельное поле для shared team email не зафиксировано; если бизнес-атрибут останется в scope, для него потребуется отдельное уточнение модели. |
 | Dynamic characteristics | Глоссарий и таблицы EAV отражают новую модель dynamic characteristics; это замена старой идеи статических шаблонов. |
 | Assigned authorization | Возможность бронировать Assigned технику отделена от общей видимости техники и хранится в `EquipmentBookingAuthorizations`. |
-| On-demand BP | On-demand BP техника присутствует в бизнес-модели, но не должна участвовать в обычных `Bookings` по правилу схемы v11. |
+| On-demand BP | On-demand BP техника присутствует в бизнес-модели, но не должна участвовать в обычных `Bookings` по правилу схемы v12. |

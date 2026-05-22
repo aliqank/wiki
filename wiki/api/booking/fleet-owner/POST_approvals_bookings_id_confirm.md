@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/confirm
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -42,13 +42,14 @@
 3. Проверить, не изменилась ли доступность техники.
 4. Если `ownershipType = LongTermRented`, установить `status = ConfirmedByFo`, `requiresSupervisorApproval = true`.
 5. Иначе установить `status = Confirmed`.
-6. Создать запись в `BookingStatuses`.
-7. При long-term rented инициировать уведомление Supervisor.
-8. Вернуть результат.
+6. Создать запись в `BookingApprovals` с `approvalType = FoApproval`, `status = Approved`, `userId = currentUserId`, `approvalOrder = 1`, `comment = request.comment`.
+7. Создать запись в `BookingStatuses`.
+8. При long-term rented инициировать уведомление Supervisor.
+9. Вернуть результат.
 
 Сущности:
 - читаются: `Bookings`, `Equipments`
-- изменяются: `Bookings`, `BookingStatuses`
+- изменяются: `Bookings`, `BookingApprovals`, `BookingStatuses`
 - транзакционность: обязательна
 
 ---
@@ -127,6 +128,16 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
 | 3 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
+| 4 | Последнее записанное решение | lastApproval | object | object | — | backend composition from BookingApprovals | Последний approval step |
+
+### Структура `value.lastApproval`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Тип шага согласования | type | string | string | — | BookingApprovals + ref_booking_approval_type | `FoApproval` |
+| 2 | Результат решения | approvalStatus | string | string | — | BookingApprovals + ref_booking_approval_status | `Approved` |
+| 3 | Порядок шага | order | int | integer | — | BookingApprovals.approvalOrder | `1` |
+| 4 | Комментарий | comment | string | string | — | BookingApprovals.comment | Может быть `null` |
 
 ## 10. Пример ответа
 
@@ -135,7 +146,13 @@ Content-Type: application/json
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
     "status": "Confirmed",
-    "requiresSupervisorApproval": false
+    "requiresSupervisorApproval": false,
+    "lastApproval": {
+      "type": "FoApproval",
+      "approvalStatus": "Approved",
+      "order": 1,
+      "comment": "Approved by FO."
+    }
   },
   "isSuccess": true,
   "errors": []

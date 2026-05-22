@@ -1,7 +1,7 @@
 # GET /approvals/bookings/{id}
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -38,11 +38,11 @@
 
 1. Проверить существование брони.
 2. Проверить, что бронь принадлежит одному из флотов FO.
-3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentProperties`, `EquipmentPhotos`.
+3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentProperties`, `EquipmentPhotos`, `BookingApprovals`.
 4. Вернуть агрегированную модель брони.
 
 Сущности:
-- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentProperties`, `EquipmentPhotos`
+- читаются: `Bookings`, `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentProperties`, `EquipmentPhotos`, `BookingApprovals`, `Users`
 
 ---
 
@@ -114,7 +114,20 @@ Content-Type: application/json
 | 4 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos |  |
 | 5 | Обоснование | justification | null | — | `null` | Bookings.justification |  |
 | 6 | Признак необходимости согласования Supervisor | requiresSupervisorApproval | bool | boolean | — | Bookings.requiresSupervisorApproval |  |
-| 7 | История изменений | history | array<object> | object[] | `[]` | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos | Коллекция объектов |
+| 7 | Цепочка согласования | approvalChain | array<object> | object[] | `[]` | backend composition from BookingApprovals + Users + reference tables | Коллекция approval step-ов |
+| 8 | История изменений | history | array<object> | object[] | `[]` | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + EquipmentProperties + EquipmentPhotos | Коллекция объектов |
+
+### Структура `value.approvalChain[]`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор шага согласования | id | uuid | UUID v4 | — | BookingApprovals.id |  |
+| 2 | Тип шага согласования | type | string | string | — | BookingApprovals + ref_booking_approval_type | `FoApproval` / `SupervisorApproval` |
+| 3 | Результат решения | approvalStatus | string | string | — | BookingApprovals + ref_booking_approval_status | `Approved` / `Declined` |
+| 4 | Порядок шага | order | int | integer | — | BookingApprovals.approvalOrder |  |
+| 5 | Идентификатор пользователя | userId | uuid | UUID v4 | — | BookingApprovals.userId |  |
+| 6 | Комментарий | comment | string | string | — | BookingApprovals.comment |  |
+| 7 | Дата и время решения | createdAt | datetime | ISO 8601 | — | BookingApprovals.createdAt |  |
 
 ## 10. Пример ответа
 
@@ -127,6 +140,7 @@ Content-Type: application/json
     "plannedEndDateTime": "2026-05-22T18:00:00Z",
     "justification": null,
     "requiresSupervisorApproval": false,
+    "approvalChain": [],
     "history": []
   },
   "isSuccess": true,

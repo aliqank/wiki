@@ -1,7 +1,7 @@
 # DB Schema v12: Azure SQL adaptation for Equipments + Booking
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-05-21  
+**Last updated:** 2026-05-22  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -24,6 +24,9 @@
 | 12 | `Users.sharedEmail` удалён | Поле исключено из user model |
 | 13 | `changedBy`, `changedAt`, `isDeleted`, `deletedAt`, `deletedBy` удалены из `BookingStatuses` и `BookingRequestStatuses` | History tables упрощены |
 | 14 | В `Fleets` добавлен `businessPartnerId` | Флот теперь может быть явно привязан к Business Partner |
+| 15 | Добавлена `BookingApprovals` | Отдельная таблица шагов согласования booking вместо хранения FO/Supervisor decision в `Bookings` |
+| 16 | Добавлены `ref_booking_approval_type` и `ref_booking_approval_status` | Нормализованы тип шага согласования и результат решения |
+| 17 | Из `Bookings` удалены `supervisorApprovedBy`, `supervisorApprovedAt`, `supervisorComment` | Решения Supervisor и FO теперь хранятся в `BookingApprovals` |
 
 ---
 
@@ -35,6 +38,8 @@
 4. Все backend-запросы, которые раньше использовали `jdeWorkOrderRefId` и `jdeWorkOrderStepRefId`, должны перейти на business-поля `workOrderNumber` и `workCenterId` без FK на локальные JDE-таблицы.
 5. Схема становится менее связанной с локальным хранением JDE-объектов и переносит JDE-контекст на integration/business level, а не на level relational storage.
 6. История `v11` сохраняется как предыдущая версия; `v12` фиксирует новый ownership model и удаление локальных JDE reference tables.
+7. Decision-аудит по approval flow больше не хранится в отдельных полях `Bookings`; каждый шаг FO/Supervisor фиксируется отдельной записью в `BookingApprovals`.
+8. API чтения booking approval detail должны подтягивать `BookingApprovals` как approval chain, а API действий confirm/decline должны создавать запись в `BookingApprovals` в той же транзакции, что и переход `Bookings.status`.
 
 ---
 
@@ -152,6 +157,8 @@ where isDeleted = 0;
 | `ref_request_priority` | P1, P2, P3, P4 |
 | `ref_booking_request_status` | Draft, Submitted, InProgress, Closed, Cancelled |
 | `ref_booking_status` | Draft, Cancelled, Submitted, ConfirmedByFo, Confirmed, TransportConfirmed, Declined, Revoked, Terminated, InProgress, Closed, EquipmentChanged, Extended |
+| `ref_booking_approval_type` | FoApproval, SupervisorApproval |
+| `ref_booking_approval_status` | Approved, Declined |
 
 Минимальный шаблон reference table:
 
@@ -721,9 +728,6 @@ Filtered unique index:
 | `actualEndDateTime` | `datetime2(3) null` | |
 | `justification` | `nvarchar(max) null` | |
 | `requiresSupervisorApproval` | `bit not null default 0` | |
-| `supervisorApprovedBy` | `uniqueidentifier null` | |
-| `supervisorApprovedAt` | `datetime2(3) null` | |
-| `supervisorComment` | `nvarchar(max) null` | |
 | `transportBookingId` | `uniqueidentifier null FK -> Bookings` | |
 | `declineReason` | `nvarchar(max) null` | |
 | `terminateReason` | `nvarchar(max) null` | |
@@ -733,12 +737,42 @@ Filtered unique index:
 - `ConfirmedByFo` допустим только для `LongTermRented`
 - при `LongTermRented` поле `requiresSupervisorApproval = 1`
 - `OnDemand` техника не допускается в `Bookings`
+- шаги согласования FO / Supervisor не хранятся в `Bookings`; они фиксируются в `BookingApprovals`
 
 Индексы:
 - `requestId`, `equipmentId`, `fleetId`, `statusId`, `transportBookingId`
 - составной `(equipmentId, plannedStartDateTime, plannedEndDateTime)`
 
-### 23. BookingStatuses
+### 23. BookingApprovals
+
+Назначение: журнал шагов согласования для конкретной брони. Каждая запись фиксирует одно решение участника approval chain (`FO` или `Supervisor`) с результатом, комментарием, порядком шага и аудитом.
+
+| Поле | Тип |
+|---|---|
+| `id` | `uniqueidentifier PK` |
+| `bookingId` | `uniqueidentifier FK -> Bookings` |
+| `approvalTypeId` | `uniqueidentifier FK -> ref_booking_approval_type` |
+| `userId` | `uniqueidentifier FK -> Users` |
+| `statusId` | `uniqueidentifier FK -> ref_booking_approval_status` |
+| `comment` | `nvarchar(max) null` |
+| `approvalOrder` | `int not null` |
+| `createdAt` | `datetime2(3) not null` |
+| `createdBy` | `uniqueidentifier not null` |
+| `updatedAt` | `datetime2(3) null` |
+| `updatedBy` | `uniqueidentifier null` |
+
+Правила:
+- для обычной внутренней брони после решения FO создается одна запись с `approvalType = FoApproval`, `approvalOrder = 1`
+- для long-term rented booking после FO confirm создается запись `FoApproval / Approved / 1`, после решения Supervisor создается запись `SupervisorApproval / Approved|Declined / 2`
+- `approvalOrder` должен быть уникален в пределах одного `bookingId`
+- `BookingApprovals` не заменяет `BookingStatuses`: первая таблица отвечает за decision audit, вторая за lifecycle status audit
+
+Индексы:
+- unique `(bookingId, approvalOrder)`
+- non-unique `(bookingId, approvalTypeId, statusId)`
+- non-unique `(userId, createdAt)`
+
+### 24. BookingStatuses
 
 Назначение: история смены статусов individual booking. Нужна как source of truth для аудита жизненного цикла брони.
 
@@ -753,7 +787,7 @@ Filtered unique index:
 | `updatedAt` | `datetime2(3) null` |
 | `updatedBy` | `uniqueidentifier null` |
 
-### 24. BookingRequestStatuses
+### 25. BookingRequestStatuses
 
 Назначение: история смены статусов request-level сущности. Используется для аудита агрегированного жизненного цикла заявки.
 

@@ -37,7 +37,7 @@
 
 1. Проверить существование заявки и права доступа.
 2. Выбрать `BookingRequestStatuses` по `requestId`.
-3. Отсортировать по `changedAt ASC`.
+3. Отсортировать по `createdAt ASC`.
 4. Вернуть историю.
 
 Сущности:
@@ -112,7 +112,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequestStatuses.id |  |
 | 2 | Текущий статус | status | string | string | — | BookingRequestStatuses + ref_booking_request_status |  |
-| 3 | Дата и время изменения статуса | changedAt | datetime | ISO 8601 | — | BookingRequestStatuses.changedAt |  |
+| 3 | Дата и время создания записи статуса | createdAt | datetime | ISO 8601 | — | BookingRequestStatuses.createdAt |  |
 | 4 | Комментарий | comment | null | — | `null` | BookingRequestStatuses.comment |  |
 
 ## 10. Пример ответа
@@ -123,13 +123,13 @@ Content-Type: application/json
     {
       "id": "66666666-7777-8888-9999-000000000001",
       "status": "Draft",
-      "changedAt": "2026-05-14T09:15:00Z",
+      "createdAt": "2026-05-14T09:15:00Z",
       "comment": null
     },
     {
       "id": "66666666-7777-8888-9999-000000000002",
       "status": "Submitted",
-      "changedAt": "2026-05-14T10:00:00Z",
+      "createdAt": "2026-05-14T10:00:00Z",
       "comment": null
     }
   ],

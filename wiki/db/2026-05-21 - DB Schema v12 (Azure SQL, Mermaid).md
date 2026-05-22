@@ -1,7 +1,7 @@
 # DB Schema v12 — Azure SQL Mermaid ER-диаграмма
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-05-21  
+**Last updated:** 2026-05-22  
 **Version:** v12 (Azure SQL adaptation)
 
 > Типы данных адаптированы под Azure SQL: `uniqueidentifier`, `datetime2(3)`, `bit`, `nvarchar(max)`.  
@@ -142,6 +142,24 @@ erDiagram
     }
 
     ref_booking_status {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+    }
+
+    ref_booking_approval_type {
+        uniqueidentifier id PK
+        nvarchar code
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+    }
+
+    ref_booking_approval_status {
         uniqueidentifier id PK
         nvarchar code
         nvarchar nameEn
@@ -653,9 +671,6 @@ erDiagram
         datetime2 actualEndDateTime
         nvarchar justification
         bit requiresSupervisorApproval
-        uniqueidentifier supervisorApprovedBy
-        datetime2 supervisorApprovedAt
-        nvarchar supervisorComment
         uniqueidentifier transportBookingId FK
         nvarchar declineReason
         nvarchar terminateReason
@@ -673,6 +688,20 @@ erDiagram
         uniqueidentifier bookingId FK
         uniqueidentifier statusId FK
         nvarchar comment
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+    }
+
+    BookingApprovals {
+        uniqueidentifier id PK
+        uniqueidentifier bookingId FK
+        uniqueidentifier approvalTypeId FK
+        uniqueidentifier userId FK
+        uniqueidentifier statusId FK
+        nvarchar comment
+        int approvalOrder
         datetime2 createdAt
         uniqueidentifier createdBy
         datetime2 updatedAt
@@ -723,6 +752,8 @@ erDiagram
     ref_booking_request_status ||--o{ BookingRequestStatuses : "statusId"
     ref_booking_status ||--o{ Bookings : "statusId"
     ref_booking_status ||--o{ BookingStatuses : "statusId"
+    ref_booking_approval_type ||--o{ BookingApprovals : "approvalTypeId"
+    ref_booking_approval_status ||--o{ BookingApprovals : "statusId"
 
     EquipmentBrands ||--o{ Equipments : "brandId"
     EquipmentModels ||--o{ Equipments : "modelId"
@@ -744,11 +775,13 @@ erDiagram
     Equipments ||--o{ Bookings : "equipmentId"
     Fleets ||--o{ Bookings : "fleetId"
     Bookings ||--o{ BookingStatuses : "bookingId"
+    Bookings ||--o{ BookingApprovals : "bookingId"
     Bookings ||--o{ EquipmentFeedbacks : "bookingId"
     BookingRequests ||--o{ BookingRequestStatuses : "requestId"
     Bookings ||--o| Bookings : "transportBookingId"
 
     Users ||--o{ FleetManagePermissions : "userId"
     Users ||--o{ EquipmentBookingAuthorizations : "userId"
+    Users ||--o{ BookingApprovals : "userId"
     BusinessPartners ||--o{ Users : "businessPartnerId"
 ```
