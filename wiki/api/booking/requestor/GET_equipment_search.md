@@ -43,7 +43,7 @@
 2. Выбрать записи из `Equipments` WHERE `isDeleted = false`.
 3. Исключить из выдачи списанную технику: записи с текущим статусом `Decommissioned` не должны возвращаться в результатах поиска.
 4. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
-5. Исключить стационарную HDE из поиска Requestor. Под стационарной HDE в рамках данного метода понимается оборудование, у которого `equipmentClass = HDE` и `mobilityType = Stationary`. То есть это оборудование установлено стационарно или предназначено для работы в одном месте и не может перемещаться в рамках booking workflow. Примеры: стационарные генераторы, промышленные котлы, стационарные компрессоры, крупные насосы, используемые без перемещения.
+5. Исключить стационарную HDE из поиска Requestor (`mobilityType = Stationary`).
 6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, `workCenterId`, текстовому поиску и динамическим свойствам.
 7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
 8. Для периода проверить пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, влияющими на доступность.
