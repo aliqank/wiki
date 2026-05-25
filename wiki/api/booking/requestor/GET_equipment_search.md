@@ -148,7 +148,7 @@ Content-Type: application/json
 | 9 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
 | 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
 | 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
-| 12 | Причина недоступности бронирования | bookabilityReason | null | — | `null` | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
+| 12 | Причина недоступности бронирования | bookingUnavailableReason | null | — | `null` | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
 | 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
 | 14 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
 | 15 | Список Fleet Owners | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
@@ -224,7 +224,7 @@ Content-Type: application/json
         "shareType": "SharedWithConditions",
         "requiresJustification": true,
         "isBookable": true,
-        "bookabilityReason": null,
+        "bookingUnavailableReason": null,
         "previewPhotoUrl": "https://cdn.example.com/equipment/c3b5af91-61f8-4bc0-bd88-d099d3e90001/preview.jpg",
         "fleet": {
           "id": "f0000001-0000-4000-8000-000000000001",
