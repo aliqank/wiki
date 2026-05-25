@@ -38,7 +38,8 @@
 
 1. Проверить существование брони и права доступа.
 2. Разрешить продление только для подтвержденной активной брони.
-3. Провалидировать новый `newPlannedEndDateTime` и доступность техники на добавляемый период.
+3. Провалидировать новый `newPlannedEndDateTime` и hard-ограничения доступности техники на добавляемый период.
+   Пересечения с другими активными бронями не должны автоматически блокировать продление; они передаются в approval flow для решения Fleet Owner.
 4. Обновить `Bookings.plannedEndDateTime`.
 5. Обновить `Bookings.status = Submitted` и создать запись в `BookingStatuses` с комментарием о продлении.
 6. Вернуть обновленную бронь.
@@ -75,7 +76,7 @@
 | `FORBIDDEN` | Нет доступа к брони |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_EXTENDABLE` | Бронь нельзя продлить |
-| `EQUIPMENT_NOT_AVAILABLE` | Техника недоступна на новый период |
+| `EQUIPMENT_NOT_AVAILABLE` | Техника недоступна по hard-ограничениям на новый период; competing bookings сами по себе не вызывают эту ошибку |
 | `VALIDATION_ERROR` | Невалидный `newPlannedEndDateTime` |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`

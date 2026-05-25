@@ -142,3 +142,7 @@ Content-Type: application/json
   "errors": []
 }
 ```
+
+## Замечания
+
+1. Summary предназначен для принятия решения Fleet Owner по competing bookings и не является самостоятельным hard-stop механизмом.
