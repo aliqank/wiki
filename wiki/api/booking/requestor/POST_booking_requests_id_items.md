@@ -1,7 +1,7 @@
 # POST /booking-requests/{id}/items
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-19  
+**Last updated:** 2026-05-25  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -40,15 +40,16 @@
 
 1. Проверить существование draft-заявки и права доступа.
 2. Принять список `items[]`; в нем должен быть минимум 1 элемент.
-3. Для каждого элемента проверить существование техники и получить ее атрибуты `ownershipType`, `shareType`, `fleetId`.
+3. Для каждого элемента проверить существование техники и получить ее атрибуты `ownershipType`, `shareType`, `fleetId`, `mobilityType`.
 4. Для каждого элемента проверить, что техника не относится к `OnDemand`.
-5. Для каждого элемента проверить доступность на выбранный период.
+5. Для каждого элемента проверить, что техника не является стационарной. Если `mobilityType = Stationary`, вернуть `422 VALIDATION_ERROR`.
+6. Для каждого элемента проверить доступность на выбранный период.
    Под доступностью в рамках текущего базового сценария понимается, что в `EquipmentStatuses` нет активных записей, пересекающихся с периодом брони.
-6. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item потребуется `justification` на этапе последующего редактирования или перед submit.
-7. Если техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
-8. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`; `justification` на этом этапе не передается и может оставаться пустым до отдельного сохранения через редактирование item.
-9. Для каждого созданного item определить, требуется ли `justification`, и вычислить признак наличия обязательного justification.
-10. Вернуть список booking item-ов, созданных в текущем batch-добавлении.
+7. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item потребуется `justification` на этапе последующего редактирования или перед submit.
+8. Если техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
+9. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`; `justification` на этом этапе не передается и может оставаться пустым до отдельного сохранения через редактирование item.
+10. Для каждого созданного item определить, требуется ли `justification`, и вычислить признак наличия обязательного justification.
+11. Вернуть список booking item-ов, созданных в текущем batch-добавлении.
 
 Сущности, участвующие в методе:
 - читаются: `BookingRequests`, `Equipments`, `EquipmentBookingAuthorizations`, `Bookings`
@@ -83,7 +84,7 @@
 | `NOT_FOUND` | Заявка или техника не найдены |
 | `REQUEST_NOT_EDITABLE` | Заявка не в статусе `Draft` |
 | `EQUIPMENT_NOT_AVAILABLE` | Техника недоступна на выбранный период |
-| `VALIDATION_ERROR` | Не пройдены бизнес-валидации или передан пустой `items[]` |
+| `VALIDATION_ERROR` | Не пройдены бизнес-валидации, передан пустой `items[]` или сделана попытка добавить стационарную технику (`mobilityType = Stationary`) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
 
@@ -196,5 +197,6 @@ Content-Type: application/json
 2. Один элемент в `items[]` соответствует одной создаваемой записи в `Bookings`.
 3. В `value` возвращаются только брони, созданные в текущем вызове метода, а не полный список всех броней заявки.
 4. Под доступностью в базовом сценарии понимается отсутствие активных записей в `EquipmentStatuses`, пересекающихся с периодом брони.
-5. Поле `justification` не передается в `POST /booking-requests/{id}/items`; оно заполняется позже через редактирование конкретного item.
-6. Система должна обозначить item как требующий `justification` уже в ответе `POST /booking-requests/{id}/items` через поля `requiresJustification` и `hasRequiredJustification`.
+5. Стационарная техника не может быть добавлена в заявку: если `mobilityType = Stationary`, метод должен вернуть `422 VALIDATION_ERROR`.
+6. Поле `justification` не передается в `POST /booking-requests/{id}/items`; оно заполняется позже через редактирование конкретного item.
+7. Система должна обозначить item как требующий `justification` уже в ответе `POST /booking-requests/{id}/items` через поля `requiresJustification` и `hasRequiredJustification`.
