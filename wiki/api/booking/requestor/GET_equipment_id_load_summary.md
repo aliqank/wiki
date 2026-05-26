@@ -154,3 +154,8 @@ Content-Type: application/json
   "errors": []
 }
 ```
+
+## Замечания
+
+1. Наличие записей в load summary не означает автоматический запрет на создание или отправку заявки.
+2. Summary используется для информирования Requestor о competing bookings по выбранной технике.

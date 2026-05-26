@@ -31,7 +31,7 @@
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request; availability updated | Confirmed | BRD v13 | Метод является точкой входа для выбора техники |
 | TCO Booking Tool | FR-NEW-38 | Search: TCO equipment number + model mandatory; госномер if present | Confirmed | BRD v13 | В результатах поиска должен возвращаться `stateNumber`, если он заполнен |
-| TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | В список не должны попадать заведомо недоступные для периода единицы |
+| TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Метод показывает hard-доступность техники; конфликты с активными бронями должны отображаться отдельно и не исключают технику из booking flow |
 | TCO Booking Tool | FR-NEW-39 | Dynamic search filters by equipment type | Confirmed | BRD v13 | Метод принимает динамические фильтры |
 | TCO Booking Tool | FR-NEW-68 | System dynamically shows only type-specific characteristics | Confirmed | BRD v13 | Набор фильтров зависит от equipment type |
 
@@ -43,10 +43,11 @@
 2. Выбрать записи из `Equipments` WHERE `isDeleted = false`.
 3. Исключить из выдачи списанную технику: записи с текущим статусом `Decommissioned` не должны возвращаться в результатах поиска.
 4. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
-5. Исключить стационарную HDE из поиска Requestor.
+5. Исключить стационарную HDE из поиска Requestor (`mobilityType = Stationary`).
 6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, `workCenterId`, текстовому поиску и динамическим свойствам.
 7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
-8. Для периода проверить пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, влияющими на доступность.
+8. Для периода рассчитать пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`.
+   Эти пересечения не должны автоматически делать технику недоступной для выбора. Они используются как conflict/load information для UI.
 9. Вернуть пагинированный список в общем `result wrapper`.
 
 Сущности, участвующие в методе:
@@ -147,8 +148,8 @@ Content-Type: application/json
 | 8 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
 | 9 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
 | 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
-| 12 | Причина недоступности бронирования | bookabilityReason | null | — | `null` | backend availability calculation from Equipments + Bookings + EquipmentBookingAuthorizations |  |
+| 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + EquipmentStatuses + EquipmentBookingAuthorizations | Отражает только hard-ограничения доступности, не competing bookings |
+| 12 | Причина недоступности бронирования | bookingUnavailableReason | null | — | `null` | backend availability calculation from Equipments + EquipmentStatuses + EquipmentBookingAuthorizations | Заполняется только для hard-ограничений доступности |
 | 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
 | 14 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
 | 15 | Список Fleet Owners | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
@@ -224,7 +225,7 @@ Content-Type: application/json
         "shareType": "SharedWithConditions",
         "requiresJustification": true,
         "isBookable": true,
-        "bookabilityReason": null,
+        "bookingUnavailableReason": null,
         "previewPhotoUrl": "https://cdn.example.com/equipment/c3b5af91-61f8-4bc0-bd88-d099d3e90001/preview.jpg",
         "fleet": {
           "id": "f0000001-0000-4000-8000-000000000001",

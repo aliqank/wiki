@@ -39,7 +39,7 @@
 
 1. Проверить бронь и права доступа.
 2. Разрешить действие только для статуса `Submitted`.
-3. Проверить, не изменилась ли доступность техники.
+3. Проверить наличие hard-ограничений доступности техники, не связанных с competing bookings, и при этом предоставить Fleet Owner актуальный load/conflicts context для принятия решения.
 4. Если `ownershipType = LongTermRented`, оставить lifecycle status `Submitted` и зафиксировать, что после решения FO требуется следующий шаг `SupervisorApproval`.
 5. Иначе установить `status = Confirmed`.
 6. Создать запись в `BookingApprovals` с `approvalType = FoApproval`, `status = Approved`, `userId = currentUserId`, `approvalOrder = 1`, `comment = request.comment`.
@@ -78,7 +78,7 @@
 | `FORBIDDEN` | Нет доступа к брони |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_CONFIRMABLE` | Текущий статус не позволяет confirm |
-| `EQUIPMENT_NOT_AVAILABLE` | Техника уже недоступна |
+| `EQUIPMENT_NOT_AVAILABLE` | Техника фактически недоступна по hard-ограничениям; competing bookings сами по себе не вызывают эту ошибку |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`
 
@@ -106,6 +106,11 @@ Content-Type: application/json
   "comment": "Approved by FO."
 }
 ```
+
+## Замечания
+
+1. Наличие competing bookings по той же технике не должно автоматически блокировать confirm.
+2. Решение по конфликтующим броням принимает Fleet Owner на основании load summary и бизнес-контекста.
 
 ---
 

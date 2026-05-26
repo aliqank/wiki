@@ -47,7 +47,8 @@
    - вычислить `requiresJustification` по правилу: `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)`;
    - если `requiresJustification = true`, проверить, что `justification` заполнен и не является пустой / whitespace-only строкой;
    - если `requiresJustification = true` и `justification` не заполнен, считать item незавершенным и отклонять submit;
-   - если техника `Assigned`, проверить наличие активной записи в `EquipmentBookingAuthorizations` для текущего пользователя и периода.
+   - если техника `Assigned`, проверить наличие активной записи в `EquipmentBookingAuthorizations` для текущего пользователя и периода;
+   - наличие competing bookings по той же технике не блокирует submit само по себе; такие конфликты допускаются и рассматриваются Fleet Owner на этапе approval.
 4. Если хотя бы один item не прошел перечисленные проверки, вернуть `VALIDATION_ERROR` и не переводить заявку в `Submitted`.
 5. Обновить `BookingRequests.status = Submitted` и создать запись в `BookingRequestStatuses`.
 6. Для каждого item обновить `Bookings.status = Submitted` и создать запись в `BookingStatuses`.
@@ -163,3 +164,8 @@ Content-Type: application/json
   "errors": []
 }
 ```
+
+## Замечания
+
+1. Submit не должен отклоняться только из-за competing bookings по той же технике.
+2. Hard-ограничения доступности и обязательные item-level validations по-прежнему являются блокирующими.
