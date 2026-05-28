@@ -23,6 +23,8 @@
 
 Новый метод. Используется для Fleet Owner view `Requests` как request-centric список заявок с составом броней, достаточным для первичной обработки без обязательного дополнительного detail-запроса.
 
+Для загрузки значений фильтров UI использует отдельные reference API: `GET /reference/approval-request-statuses`, `GET /reference/approval-request-types`, `GET /reference/request-priorities`.
+
 ---
 
 ## 2. Функциональные требования

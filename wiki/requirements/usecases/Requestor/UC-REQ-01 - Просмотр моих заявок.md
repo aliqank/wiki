@@ -17,14 +17,14 @@
 | Предусловие | Пользователь авторизован в системе; пользователь находится на странице `Мои заявки`; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Вход на страницу `Мои заявки` |
 | Ожидаемый результат | Отображается список незавершенных заявок текущего пользователя с краткой информацией по броням |
-| Используемые API | `GET /booking-requests/my`, `GET /booking-requests/{id}`, `GET /reference/request-statuses`, `GET /reference/request-types`, `GET /reference/request-priorities` |
+| Используемые API | `GET /booking-requests/my`, `GET /booking-requests/{id}`, `GET /reference/request-statuses`, `GET /reference/requestor-request-types`, `GET /reference/request-priorities` |
 
 ---
 
 ## Основной сценарий
 
 1. Пользователь открывает страницу `Мои заявки`.
-2. Frontend загружает справочники фильтров через `GET /reference/request-statuses`, `GET /reference/request-types`, `GET /reference/request-priorities`.
+2. Frontend загружает справочники фильтров через `GET /reference/request-statuses`, `GET /reference/requestor-request-types`, `GET /reference/request-priorities`.
 3. Frontend вызывает `GET /booking-requests/my`.
 4. Backend возвращает только незавершенные заявки текущего пользователя.
 5. Frontend отображает список заявок в таблице.

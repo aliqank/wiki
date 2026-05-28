@@ -29,8 +29,10 @@ Base URL: `/api/booking/v1`
 | `GET` | `/reference/ownership-types` | Получить справочник ownership types для фильтра поиска |
 | `GET` | `/reference/share-types` | Получить справочник share types для фильтра поиска |
 | `GET` | `/reference/request-statuses` | Получить справочник статусов заявки для фильтра `Мои заявки` |
-| `GET` | `/reference/request-types` | Получить справочник типов заявки для фильтра `Мои заявки` |
+| `GET` | `/reference/requestor-request-types` | Получить справочник типов заявки для фильтра `Мои заявки` |
 | `GET` | `/reference/request-priorities` | Получить справочник приоритетов заявки для фильтра `Мои заявки` |
+| `GET` | `/reference/approval-request-statuses` | Получить справочник статусов заявки для Fleet Owner view `Approvals -> Requests` |
+| `GET` | `/reference/approval-request-types` | Получить справочник типов заявки для Fleet Owner view `Approvals -> Requests` |
 | `GET` | `/reference/equipment-types/{equipmentTypeId}/properties` | Получить динамические свойства выбранного типа техники |
 | `POST` | `/booking-requests` | Создать черновик заявки |
 | `GET` | `/booking-requests/{id}` | Получить детали заявки |
@@ -56,6 +58,8 @@ Base URL: `/api/booking/v1`
 |---|---|---|
 | `GET` | `/approvals/bookings` | Очередь броней на согласование |
 | `GET` | `/approvals/requests` | Список заявок с релевантными бронями для Fleet Owner |
+| `GET` | `/reference/approval-request-statuses` | Получить справочник статусов заявки для Fleet Owner view `Requests` |
+| `GET` | `/reference/approval-request-types` | Получить справочник типов заявки для Fleet Owner view `Requests` |
 | `GET` | `/approvals/bookings/{id}` | Детали брони для FO |
 | `GET` | `/approvals/bookings/{id}/load-summary` | Загрузка техники на даты в окне подтверждения |
 | `POST` | `/approvals/bookings/{id}/confirm` | Подтвердить бронь |

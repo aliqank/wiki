@@ -1,4 +1,4 @@
-# GET /reference/request-types
+# GET /reference/requestor-request-types
 
 **Created:** 2026-05-28  
 **Last updated:** 2026-05-28  
@@ -13,7 +13,7 @@
 | Описание | Получить справочник типов заявки для фильтра страницы `Мои заявки` |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Requestor UI` |
-| Endpoint URL | `/api/booking/v1/reference/request-types` |
+| Endpoint URL | `/api/booking/v1/reference/requestor-request-types` |
 | Метод запроса | `GET` |
 | Согласовано | |
 
@@ -82,7 +82,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/reference/request-types
+GET /api/booking/v1/reference/requestor-request-types
 Authorization: Bearer <token>
 Content-Type: application/json
 ```

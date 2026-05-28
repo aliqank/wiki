@@ -17,25 +17,26 @@
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; пользователю доступны один или несколько fleet-ов |
 | Триггер | Вход на страницу Fleet Owner `Approvals` c активной view `Requests` |
 | Ожидаемый результат | Отображается paginated список заявок, относящихся к зоне ответственности Fleet Owner, с request-level статусом и базовыми фильтрами |
-| Используемые API | `GET /approvals/requests` |
+| Используемые API | `GET /approvals/requests`, `GET /reference/approval-request-statuses`, `GET /reference/approval-request-types`, `GET /reference/request-priorities` |
 
 ---
 
 ## Основной сценарий
 
 1. Пользователь открывает страницу Fleet Owner `Approvals` и переключается во view `Requests`.
-2. Frontend вызывает `GET /approvals/requests`.
-3. Backend проверяет, что текущий пользователь имеет роль `FleetOwner`.
-4. Backend определяет список fleet-ов, где у текущего Fleet Owner есть assignment в `FleetManagePermissions` с типом `Owner` или `Delegated`.
-5. Backend выбирает только те `BookingRequests`, в составе которых есть booking item-ы по этим fleet-ам.
-6. Backend применяет request-level фильтры экрана по статусу, типу заявки и периоду.
-7. Backend рассчитывает и возвращает paginated список заявок вместе с релевантными `bookingSummaries` внутри каждой заявки.
-8. Frontend отображает таблицу заявок.
-9. Для каждой строки отображаются request-level поля и краткий состав связанных броней, доступных текущему Fleet Owner:
+2. Frontend загружает справочники фильтров через `GET /reference/approval-request-statuses`, `GET /reference/approval-request-types`, `GET /reference/request-priorities`.
+3. Frontend вызывает `GET /approvals/requests`.
+4. Backend проверяет, что текущий пользователь имеет роль `FleetOwner`.
+5. Backend определяет список fleet-ов, где у текущего Fleet Owner есть assignment в `FleetManagePermissions` с типом `Owner` или `Delegated`.
+6. Backend выбирает только те `BookingRequests`, в составе которых есть booking item-ы по этим fleet-ам.
+7. Backend применяет request-level фильтры экрана по статусу, типу заявки и периоду.
+8. Backend рассчитывает и возвращает paginated список заявок вместе с релевантными `bookingSummaries` внутри каждой заявки.
+9. Frontend отображает таблицу заявок.
+10. Для каждой строки отображаются request-level поля и краткий состав связанных броней, доступных текущему Fleet Owner:
    - номер заявки;
    - текущий статус заявки;
    - тип заявки.
-10. Пользователь получает в составе ответа всю информацию, необходимую для первичной работы со связанными бронями без обязательного дополнительного detail-запроса.
+11. Пользователь получает в составе ответа всю информацию, необходимую для первичной работы со связанными бронями без обязательного дополнительного detail-запроса.
 
 ---
 
@@ -65,3 +66,4 @@
 3. Для request-level списка используется агрегированный статус заявки, а не статус отдельной брони.
 4. Для terminal request statuses должна использоваться актуальная семантика: request lifecycle использует единый статус `Closed`, а различие между pre-start cancellation и post-start completion хранится в `requestClosureReason`.
 5. Текущая версия use case предполагает, что для первичной работы со связанными booking item-ами достаточно данных из `GET /approvals/requests`.
+6. Для фильтра `status` используется `GET /reference/approval-request-statuses`, для фильтра `type` используется `GET /reference/approval-request-types`, для фильтра `priority` используется `GET /reference/request-priorities`.
