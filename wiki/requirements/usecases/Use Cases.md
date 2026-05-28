@@ -30,6 +30,7 @@
 | `UC-REQ-05` | Отзыв submitted-заявки requestor-ом | Страница `Мои заявки` / карточка submitted-заявки | `BRD: FR-025, FR-058, FR-NEW-17; Additional: BRD-U-003` | `GET /booking-requests/my`, `GET /booking-requests/{id}`, request-level withdraw API / orchestration *(TBD)* |
 | `UC-FO-01` | Просмотр списка броней Fleet Owner | Страница `Approvals` → view `Bookings` | `BRD: FR-092, FR-043` | `GET /approvals/bookings`, `GET /approvals/bookings/{id}` |
 | `UC-FO-02` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/confirm` |
+| `UC-FO-02.1` | Просмотр load summary Fleet Owner | Страница `Approvals` → detail / action view брони | `BRD: FR-NEW-64` | `GET /approvals/bookings/{id}/load-summary` |
 | `UC-FO-03` | Просмотр списка заявок Fleet Owner | Страница `Approvals` → view `Requests` | `BRD: FR-092, FR-094, FR-043; Additional: BRD-U-001` | `GET /approvals/requests` |
 
 ---
@@ -48,6 +49,7 @@
 - `Requestor/UC-REQ-03 - Отмена draft-заявки requestor-ом.md`
 - `Requestor/UC-REQ-04 - Отзыв брони requestor-ом.md`
 - `Requestor/UC-REQ-05 - Отзыв submitted-заявки requestor-ом.md`
-- `Fleet Owner/UC-FO-01 - Просмотр списка броней Fleet Owner.md`
-- `Fleet Owner/UC-FO-02 - Подтверждение брони Fleet Owner (базовый сценарий).md`
-- `Fleet Owner/UC-FO-03 - Просмотр списка заявок Fleet Owner.md`
+- `Fleet Owner/UC-FO-01 - Booking view/UC-FO-01 - Просмотр списка броней Fleet Owner.md`
+- `Fleet Owner/UC-FO-01 - Booking view/UC-FO-02 - Подтверждение брони Fleet Owner (базовый сценарий).md`
+- `Fleet Owner/UC-FO-01 - Booking view/UC-FO-02.1 - Просмотр load summary Fleet Owner.md`
+- `Fleet Owner/UC-FO-03 - Request view/UC-FO-03 - Просмотр списка заявок Fleet Owner.md`
