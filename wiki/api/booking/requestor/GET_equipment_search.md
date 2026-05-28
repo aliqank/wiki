@@ -95,8 +95,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 2 | Плановая дата/время начала периода | `plannedStartDateTime` | `datetime` | `+` | Должна быть меньше `plannedEndDateTime` | — | Query param | |
 | 3 | Плановая дата/время окончания периода | `plannedEndDateTime` | `datetime` | `+` | Должна быть больше `plannedStartDateTime` | — | Query param | |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по TCO-номеру, госномеру, модели, бренду | — | Query param | |
-| 5 | Тип владения | `ownershipType` | `enum` | `-` | `TcoOwned / LongTermRented` | — | Query param | `OnDemand` не допускается |
-| 6 | Тип доступности | `shareType` | `enum` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | |
+| 5 | Тип владения | `ownershipType` | `string` | `-` | `TcoOwned / LongTermRented` | — | Query param | Значения загружаются через `GET /reference/ownership-types`; `OnDemand` не допускается |
+| 6 | Тип доступности | `shareType` | `string` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | Значения загружаются через `GET /reference/share-types` |
 | 7 | Fleet Owner | `fleetOwnerUserId` | `uuid` | `-` | Если передан, должен соответствовать пользователю, у которого есть owner-assignment для флота техники | — | Query param | Фильтр по `FleetManagePermissions` с `permissionType = Owner` |
 | 8 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен соответствовать work center, на который можно бронировать технику | — | Query param | Фильтр по `EquipmentTypes.workCenterId` |
 | 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |

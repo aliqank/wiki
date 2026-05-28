@@ -79,9 +79,9 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Статус заявки | `status` | `enum` | `-` | `Draft / Submitted / InProgress / Closed` | — | Query param | |
-| 2 | Причина закрытия заявки | `closureReason` | `enum` | `-` | `Cancelled / Completed` | — | Query param | Используется только вместе со `status = Closed` или для неявной фильтрации по закрытым заявкам |
-| 3 | Тип заявки | `type` | `enum` | `-` | `Regular / ServiceWork` | — | Query param | |
+| 1 | Статус заявки | `status` | `string` | `-` | `Draft / Submitted / InProgress / Closed` | — | Query param | Значения соответствуют кодам `ref_booking_request_status`; отдельный report-specific reference API не зафиксирован |
+| 2 | Причина закрытия заявки | `closureReason` | `string` | `-` | `Cancelled / Completed` | — | Query param | Значения соответствуют кодам `ref_request_closure_reason`; используется только вместе со `status = Closed` или для неявной фильтрации по закрытым заявкам |
+| 3 | Тип заявки | `type` | `string` | `-` | `Regular / ServiceWork` | — | Query param | Значения соответствуют кодам `ref_request_type`; отдельный report-specific reference API не зафиксирован |
 | 4 | Дата начала периода | `from` | `date` | `-` | — | — | Query param | |
 | 5 | Дата окончания периода | `to` | `date` | `-` | — | — | Query param | |
 | 6 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |

@@ -78,8 +78,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Статус брони | `status` | `enum` | `-` | Статусы брони | — | Query param | |
-| 2 | Тип владения | `ownershipType` | `enum` | `-` | `TcoOwned / LongTermRented` | — | Query param | |
+| 1 | Статус брони | `status` | `string` | `-` | Статусы брони | — | Query param | Значения соответствуют кодам `ref_booking_status`; отдельный report-specific reference API не зафиксирован |
+| 2 | Тип владения | `ownershipType` | `string` | `-` | `TcoOwned / LongTermRented` | — | Query param | Значения загружаются через `GET /reference/ownership-types` |
 | 3 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен существовать | — | Query param | |
 | 4 | Номер страницы | `page` | `int` | `-` | >= 1 | `1` | Query param | |
 | 5 | Размер страницы | `limit` | `int` | `-` | >= 1 | `20` | Query param | |

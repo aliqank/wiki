@@ -93,7 +93,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 3 | Локация | `location` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустой |
 | 4 | Описание работ | `workDescription` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустым |
 | 5 | Комментарии | `comments` | `string` | `-` | — | — | Request body | |
-| 6 | Приоритет | `priority` | `enum` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Для draft может быть не заполнен |
+| 6 | Приоритет | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Значения загружаются через `GET /reference/request-priorities`; для draft может быть не заполнен |
 
 ---
 
