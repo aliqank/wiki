@@ -45,7 +45,7 @@
 4. Применить request-level фильтры по статусу, типу, приоритету, поиску и периоду создания заявки.
 5. Отсортировать заявки по `createdAt DESC`.
 6. Для каждой заявки вернуть только связанные booking item-ы, которые относятся к зоне ответственности текущего Fleet Owner.
-7. Для каждой такой брони собрать краткий `bookingSummary`, достаточный для принятия решения о дальнейшей работе с заявкой.
+7. Для каждой такой брони собрать краткий `bookingSummary`, достаточный для принятия решения о дальнейшей работе с заявкой, включая краткий conflict context для UI.
 8. Вернуть paginated список.
 
 Сущности, участвующие в методе:
@@ -180,6 +180,8 @@ Content-Type: application/json
 | 15 | Текущий статус брони | status | string | string | — | Bookings + BookingStatuses |  |
 | 16 | Кто обновил текущий статус брони | statusUpdatedBy | object | object | — | last BookingStatuses + Users | Автор последнего status transition |
 | 17 | Обоснование | justification | string | string | — | Bookings.justification |  |
+| 18 | Есть ли активные конфликты с другими бронями по той же технике | hasConflicts | bool | boolean | `false` | backend overlap calculation from Bookings | Используется для отображения conflict indicator / quick action в строке брони |
+| 19 | Количество конфликтующих броней | conflictsCount | int | integer | `0` | backend overlap calculation from Bookings | Количество активных пересечений по статусам `Submitted`, `Confirmed`, `InProgress` |
 
 ### Структура `value.items[].bookingSummaries[].fleet`
 
@@ -265,7 +267,9 @@ Content-Type: application/json
               "fullName": "Telman Nurzhanov",
               "email": "telman.nurzhanov@example.com"
             },
-            "justification": null
+            "justification": null,
+            "hasConflicts": true,
+            "conflictsCount": 2
           },
           {
             "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d2222",
@@ -297,7 +301,9 @@ Content-Type: application/json
               "fullName": "Telman Nurzhanov",
               "email": "telman.nurzhanov@example.com"
             },
-            "justification": "Dust suppression required for road preparation."
+            "justification": "Dust suppression required for road preparation.",
+            "hasConflicts": false,
+            "conflictsCount": 0
           }
         ]
       }
