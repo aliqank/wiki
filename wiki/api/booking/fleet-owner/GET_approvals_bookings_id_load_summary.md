@@ -117,9 +117,10 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | bookingId | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 3 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 4 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests |  |
-| 5 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests |  |
+| 3 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber | Может быть `null`, если для заявки используется `Default Work Order` |
+| 4 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests |  |
+| 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests |  |
 
 ## 10. Пример ответа
 
@@ -132,6 +133,7 @@ Content-Type: application/json
       {
         "bookingId": "6e16b907-9d91-4d39-a6c5-1af22d710001",
         "requestNumber": "REQ-2026-00012",
+        "workOrderNumber": "WO-2026-00421",
         "status": "Confirmed",
         "plannedStartDateTime": "2026-05-19T08:00:00Z",
         "plannedEndDateTime": "2026-05-21T18:00:00Z"

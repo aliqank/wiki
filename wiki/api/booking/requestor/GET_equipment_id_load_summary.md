@@ -126,9 +126,10 @@ Content-Type: application/json
 | 1 | Идентификатор брони | bookingId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 3 | Номер заявки | requestNumber | string | string | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 4 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 5 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 6 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 4 | Номер Work Order | workOrderNumber | string | string | — | backend composition from Bookings + BookingRequests + Equipments | Может быть `null`, если для заявки используется `Default Work Order` |
+| 5 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 6 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 7 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 
 ## 10. Пример ответа
 
@@ -144,6 +145,7 @@ Content-Type: application/json
         "bookingId": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
         "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
+        "workOrderNumber": "WO-2026-00421",
         "status": "Confirmed",
         "plannedStartDateTime": "2026-05-20T06:00:00Z",
         "plannedEndDateTime": "2026-05-21T18:00:00Z"

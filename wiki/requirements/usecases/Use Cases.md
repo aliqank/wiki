@@ -21,6 +21,7 @@
 | `UC-REQ-02.1` | Создание пустого draft заявки | Кнопка `Создать заявку` | `BRD: FR-023, FR-027, FR-030` | `POST /booking-requests` |
 | `UC-REQ-02.2` | Заполнение и редактирование шапки заявки | Модальное окно `Новая заявка` | `BRD: FR-027, FR-NEW-11, FR-NEW-12, FR-NEW-13, FR-NEW-14, FR-NEW-48, FR-NEW-51` | `PATCH /booking-requests/{id}` |
 | `UC-REQ-02.3` | Поиск техники для добавления в заявку | Окно `Добавить технику` | `BRD: FR-031, FR-040, FR-NEW-38, FR-NEW-39, FR-NEW-50, FR-NEW-68` | `GET /equipment/search`, reference APIs |
+| `UC-REQ-02.3.1` | Просмотр load summary при выборе техники | Окно `Добавить технику` | `BRD: FR-NEW-70` | `GET /equipment/{id}/load-summary` |
 | `UC-REQ-02.4` | Добавление техники в draft-заявку | Окно `Добавить технику` | `BRD: FR-031, FR-038, FR-NEW-04, FR-NEW-08, FR-NEW-15, FR-NEW-71` | `POST /booking-requests/{id}/items` |
 | `UC-REQ-02.5` | Редактирование брони или замена техники в draft | Карточка booking item в draft | `BRD: FR-027, FR-031, FR-038, FR-040, FR-NEW-04, FR-NEW-08, FR-NEW-71` | `PATCH /booking-requests/{id}/items/{bookingId}`, `GET /equipment/search` |
 | `UC-REQ-02.6` | Отправка draft-заявки | Модальное окно `Новая заявка` | `BRD: FR-023, FR-027, FR-NEW-08, FR-NEW-16, FR-NEW-17, FR-NEW-71` | `POST /booking-requests/{id}/submit` |
@@ -28,9 +29,9 @@
 | `UC-REQ-03` | Отмена draft-заявки requestor-ом | Страница `Мои заявки` / detail view draft-заявки | `BRD: FR-025, FR-027` | `POST /booking-requests/{id}/cancel`, `GET /booking-requests/my`, `GET /booking-requests/{id}` |
 | `UC-REQ-04` | Отзыв брони requestor-ом | Страница `Мои заявки` / карточка заявки / карточка booking item в отправленной заявке | `BRD: FR-025, FR-042, FR-058, FR-068, FR-078, FR-NEW-17` | `GET /booking-requests/my`, `POST /bookings/{id}/revoke`, `GET /booking-requests/{id}` |
 | `UC-REQ-05` | Отзыв submitted-заявки requestor-ом | Страница `Мои заявки` / карточка submitted-заявки | `BRD: FR-025, FR-058, FR-NEW-17; Additional: BRD-U-003` | `GET /booking-requests/my`, `GET /booking-requests/{id}`, request-level withdraw API / orchestration *(TBD)* |
-| `UC-FO-02` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/confirm` |
-| `UC-FO-02.1` | Просмотр load summary Fleet Owner | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-NEW-64` | `GET /approvals/bookings/{id}/load-summary` |
-| `UC-FO-03` | Просмотр списка заявок Fleet Owner | Страница `Approvals` → view `Requests` | `BRD: FR-092, FR-094, FR-043; Additional: BRD-U-001` | `GET /approvals/requests` |
+| `UC-FO-01` | Просмотр списка заявок Fleet Owner | Страница `Approvals` → view `Requests` | `BRD: FR-092, FR-094, FR-043; Additional: BRD-U-001` | `GET /approvals/requests` |
+| `UC-FO-02` | Просмотр load summary Fleet Owner | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-NEW-64` | `GET /approvals/bookings/{id}/load-summary` |
+| `UC-FO-03` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/confirm` |
 
 ---
 
@@ -41,6 +42,7 @@
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.1 - Создание пустого draft заявки.md`
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.2 - Заполнение и редактирование шапки заявки.md`
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3 - Поиск техники для добавления в заявку.md`
+- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3.1 - Просмотр load summary при выборе техники.md`
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.4 - Добавление техники в draft-заявку.md`
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.5 - Редактирование брони или замена техники в draft.md`
 - `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.6 - Отправка draft-заявки.md`
@@ -48,6 +50,6 @@
 - `Requestor/UC-REQ-03 - Отмена draft-заявки requestor-ом.md`
 - `Requestor/UC-REQ-04 - Отзыв брони requestor-ом.md`
 - `Requestor/UC-REQ-05 - Отзыв submitted-заявки requestor-ом.md`
-- `Fleet Owner/UC-FO-03 - Request view/UC-FO-02 - Подтверждение брони Fleet Owner (базовый сценарий).md`
-- `Fleet Owner/UC-FO-03 - Request view/UC-FO-02.1 - Просмотр load summary Fleet Owner.md`
-- `Fleet Owner/UC-FO-03 - Request view/UC-FO-03 - Просмотр списка заявок Fleet Owner.md`
+- `Fleet Owner/UC-FO-01 - Просмотр списка заявок Fleet Owner.md`
+- `Fleet Owner/UC-FO-02 - Просмотр load summary Fleet Owner.md`
+- `Fleet Owner/UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий).md`

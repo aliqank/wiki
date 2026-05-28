@@ -16,6 +16,9 @@
 - Do a broad repository scan only if `materials.md` lacks sufficient information.
 - When adding new meaningful files, update `materials.md`.
 
+## Change safety
+- Apply changes in mini patches whenever possible to reduce crash risk and make rollback/review easier.
+
 ## Artifact workflow
 - Raw notes and intermediate working materials go into `working_docs/`, inside the relevant month/day folders.
 - After collaborative analytical work, the final formatted result is created as a **`.md` file** in `results/`.

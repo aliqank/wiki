@@ -39,6 +39,7 @@
 | `wiki/glossary/Glossary.md` | Файл публикации финального глоссария. На текущий момент создан как контейнер, содержательное наполнение ещё не опубликовано. |
 | `wiki/requirements/` | Раздел для финальных требований, публикуемых по отдельной команде пользователя. |
 | `wiki/requirements/usecases/` | Раздел для финальных use cases. |
+| `wiki/requirements/usecases/Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3.1 - Просмотр load summary при выборе техники.md` | Dev-ready use case для просмотра Requestor `load summary` при выборе техники; фиксирует показ пересекающихся броней и `Work Order number`. |
 | `wiki/api/` | Раздел для финальных API-спецификаций. |
 
 Правило работы:
