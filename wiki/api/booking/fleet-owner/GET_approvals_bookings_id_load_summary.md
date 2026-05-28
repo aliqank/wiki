@@ -23,6 +23,9 @@
 
 Новый метод. Используется в окне принятия решения FO.
 
+Frontend открывает popup / modal `Load summary` по выбранной брони.
+Заголовок popup / modal может быть собран из уже загруженного booking context на странице `Requests` или в detail view, а этот метод возвращает summary line и список competing bookings.
+
 ---
 
 ## 2. Функциональные требования
@@ -108,7 +111,7 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests |  |
-| 2 | Количество активных броней в периоде (`Submitted`, `Confirmed`, `InProgress`) | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests |  |
+| 2 | Количество активных броней в периоде (`Submitted`, `Confirmed`, `InProgress`) | activeBookingsCount | int | integer | — | backend composition from Bookings + BookingRequests | Используется для summary line и conflict state в popup / modal |
 | 3 | Элементы текущей страницы | items | array<object> | object[] | — | backend composition from Bookings + BookingRequests | Коллекция объектов |
 
 ### Структура `value.items[]`
@@ -148,3 +151,7 @@ Content-Type: application/json
 ## Замечания
 
 1. Summary предназначен для принятия решения Fleet Owner по competing bookings и не является самостоятельным hard-stop механизмом.
+2. Типовой popup / modal `Load summary` показывает:
+   - контекст текущей брони, уже известный frontend-у из строки списка или detail view;
+   - summary line на основе `activeBookingsCount`;
+   - список competing bookings из `items[]`.
