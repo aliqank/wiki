@@ -34,7 +34,7 @@
 
 Источник:
 
-- `source/results/2026-05-15 - Список FR по Equipment блоку.md`
+- `wiki/brd/new FR's/Список FR по equipment.md`
 
 Назначение раздела:
 

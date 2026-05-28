@@ -28,6 +28,9 @@ Base URL: `/api/booking/v1`
 | `GET` | `/reference/work-centers` | Получить справочник work centers для фильтра поиска |
 | `GET` | `/reference/ownership-types` | Получить справочник ownership types для фильтра поиска |
 | `GET` | `/reference/share-types` | Получить справочник share types для фильтра поиска |
+| `GET` | `/reference/request-statuses` | Получить справочник статусов заявки для фильтра `Мои заявки` |
+| `GET` | `/reference/request-types` | Получить справочник типов заявки для фильтра `Мои заявки` |
+| `GET` | `/reference/request-priorities` | Получить справочник приоритетов заявки для фильтра `Мои заявки` |
 | `GET` | `/reference/equipment-types/{equipmentTypeId}/properties` | Получить динамические свойства выбранного типа техники |
 | `POST` | `/booking-requests` | Создать черновик заявки |
 | `GET` | `/booking-requests/{id}` | Получить детали заявки |
