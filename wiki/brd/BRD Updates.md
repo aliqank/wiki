@@ -82,12 +82,12 @@
   Используется для request-level отмены draft-заявки до submit, а также для submitted-заявки, которая была закрыта до перехода в `InProgress`.
 
 - `Closed` + `requestClosureReason = Completed`
-  Используется если заявка была отправлена и в ней больше не осталось активных броней. Причины завершения отдельных броней могут быть разными: `Completed`, `Revoked`, `Declined`, `Terminated`.
+  Используется если заявка была отправлена, хотя бы одна бронь уже переходила в `InProgress`, и после этого в заявке больше не осталось активных броней. Причины завершения отдельных броней могут быть разными: `Completed`, `Revoked`, `Declined`, `Terminated`.
 
 ### Примеры
 
 1. Все брони `Revoked` / `Declined` до старта.
-   Итоговый request status = `Closed`, `requestClosureReason = Completed`.
+   Итоговый request status = `Closed`, `requestClosureReason = Cancelled`.
 
 2. Одна бронь `Closed`, другая `Terminated`.
    Итоговый request status = `Closed`, `requestClosureReason = Completed`.
@@ -97,7 +97,10 @@
 
 ### Правило приоритета
 
-Если после submit больше нет активных item-ов, request status = `Closed`, `requestClosureReason = Completed`.
+Если после submit больше нет активных item-ов, request status = `Closed`.
+
+- если ни один item заявки ни разу не переходил в `InProgress`, то `requestClosureReason = Cancelled`;
+- если хотя бы один item заявки уже переходил в `InProgress`, то `requestClosureReason = Completed`.
 
 ### Влияние на документацию и реализацию
 
