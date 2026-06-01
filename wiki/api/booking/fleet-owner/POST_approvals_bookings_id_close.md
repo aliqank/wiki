@@ -1,7 +1,7 @@
-# POST /approvals/bookings/{id}/mobilization-start
+# POST /approvals/bookings/{id}/close
 
-**Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Created:** 2026-06-01  
+**Last updated:** 2026-06-01  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -10,10 +10,10 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Зафиксировать начало мобилизации |
+| Описание | Закрыть бронь вручную как Fleet Owner и зафиксировать фактическое время использования |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Fleet Owner UI` |
-| Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/mobilization-start` |
+| Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/close` |
 | Метод запроса | `POST` |
 | Согласовано | |
 
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Переводит бронь в фактический старт использования.
+Новый метод. Реализует manual close брони на стороне Fleet Owner.
 
 ---
 
@@ -29,21 +29,21 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-24 | FO presses Mobilization started to record actual start time | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-074 | Request -> In Progress when first booking goes In Progress | Confirmed | BRD v13 | Требует request-level пересчета |
+| TCO Booking Tool | FR-NEW-32 | Booking closure is manual only — "Close" button by Requestor or FO | Confirmed | BRD v13 | Прямое покрытие для Fleet Owner сценария |
+| TCO Booking Tool | FR-NEW-33 | At close: Requestor inputs actual start/end time for usage rate analytics | Confirmed | BRD v13 | Для FO close используются те же фактические даты в аналитических целях |
 
 ---
 
 ## 3. Описание логики работы метода
 
-1. Проверить бронь и права доступа.
-2. Разрешить действие только для брони в статусе `Confirmed`.
-3. Установить `actualStartDateTime` = текущее время или значение из запроса.
-4. Обновить `Bookings.status = InProgress`.
-5. Создать запись в `BookingStatuses`.
-6. Пересчитать агрегированный статус заявки; если это первая бронь заявки, перешедшая в `InProgress`, перевести заявку в `InProgress`.
+1. Проверить существование брони и права доступа Fleet Owner.
+2. Разрешить close только для активной подтвержденной / in-progress брони в зоне ответственности текущего Fleet Owner.
+3. Провалидировать `actualStartDateTime` и `actualEndDateTime`.
+4. Обновить `Bookings.status = Closed`, `closureReason = Completed`, заполнить `actualStartDateTime`, `actualEndDateTime`.
+5. Создать запись в `BookingStatuses` с `status = Closed` и `closureReason = Completed`.
+6. Пересчитать статус заявки; если это последняя активная бронь, перевести заявку в `Closed` с `requestClosureReason = Completed`.
 
-Сущности:
+Сущности, участвующие в методе:
 - читаются: `Bookings`, `BookingRequests`
 - изменяются: `Bookings`, `BookingStatuses`, `BookingRequests`, `BookingRequestStatuses`
 - транзакционность: обязательна
@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Фиксация начала мобилизации |
+| `FleetOwner` | Закрытие броней своих флотов |
 
 ---
 
@@ -73,9 +73,10 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | Нет доступа к брони |
 | `NOT_FOUND` | Бронь не найдена |
-| `BOOKING_NOT_STARTABLE` | Текущий статус не позволяет запуск |
+| `BOOKING_NOT_CLOSABLE` | Бронь нельзя закрыть |
+| `VALIDATION_ERROR` | Фактические даты невалидны |
 
-HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`
+HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
 
 ---
 
@@ -84,21 +85,23 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Фактическая дата/время старта | `actualStartDateTime` | `datetime` | `-` | Если не передано, backend использует текущее время | now | Request body | |
+| 2 | Фактическая дата/время начала | `actualStartDateTime` | `datetime` | `+` | Меньше либо равно `actualEndDateTime` | — | Request body | |
+| 3 | Фактическая дата/время окончания | `actualEndDateTime` | `datetime` | `+` | Больше либо равно `actualStartDateTime` | — | Request body | |
 
 ---
 
 ## 8. Пример запроса
 
 ```http
-POST /api/booking/v1/approvals/bookings/8c4c8b6d-7bc0-41fb-9038-422cf55d1111/mobilization-start
+POST /api/booking/v1/approvals/bookings/8c4c8b6d-7bc0-41fb-9038-422cf55d1111/close
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
 
 ```json
 {
-  "actualStartDateTime": "2026-05-20T08:05:00Z"
+  "actualStartDateTime": "2026-05-20T08:10:00Z",
+  "actualEndDateTime": "2026-05-22T17:25:00Z"
 }
 ```
 
@@ -120,9 +123,10 @@ Content-Type: application/json
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
-| 2 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
-| 3 | Фактическая дата и время начала | actualStartDateTime | datetime | ISO 8601 | — | Bookings.actualStartDateTime |  |
+| 1 | Идентификатор записи | id | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
+| 2 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
+| 3 | Фактическая дата и время начала | actualStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
+| 4 | Фактическая дата и время окончания | actualEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + BookingStatuses + BookingRequestStatuses |  |
 
 ## 10. Пример ответа
 
@@ -130,8 +134,9 @@ Content-Type: application/json
 {
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-    "status": "InProgress",
-    "actualStartDateTime": "2026-05-20T08:05:00Z"
+    "status": "Closed",
+    "actualStartDateTime": "2026-05-20T08:10:00Z",
+    "actualEndDateTime": "2026-05-22T17:25:00Z"
   },
   "isSuccess": true,
   "errors": []

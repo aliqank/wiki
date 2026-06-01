@@ -67,6 +67,7 @@ Base URL: `/api/booking/v1`
 | `POST` | `/approvals/bookings/{id}/change-equipment` | Заменить технику в брони |
 | `POST` | `/approvals/bookings/{id}/change-period` | Изменить период брони |
 | `POST` | `/approvals/bookings/{id}/mobilization-start` | Зафиксировать начало мобилизации |
+| `POST` | `/approvals/bookings/{id}/close` | Закрыть бронь вручную как Fleet Owner |
 | `POST` | `/approvals/bookings/{id}/terminate` | Досрочно завершить бронь |
 | `GET` | `/approvals/closed` | История closed / обработанных согласований |
 
