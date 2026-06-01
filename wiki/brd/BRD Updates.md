@@ -1,7 +1,7 @@
 # BRD Updates
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-06-01  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -25,6 +25,7 @@
 | `BRD-U-001` | 2026-05-20 | Request lifecycle | Business rule clarification | Request lifecycle uses single terminal status `Closed`; pre-start closure uses `requestClosureReason = Cancelled`, post-start closure uses `Completed` | `FR-026`, `FR-NEW-17`, `FR-NEW-44` |
 | `BRD-U-002` | 2026-05-20 | Booking lifecycle | Business rule clarification | Draft booking item cancelled with parent request uses `Closed` + booking closure reason `Cancelled` | `FR-027`, `FR-042`, `FR-NEW-17` |
 | `BRD-U-003` | 2026-05-20 | Request lifecycle | Business rule clarification | Separate request-level withdraw flow allowed for `Submitted` request before first FO confirmation in the request | `FR-025`, `FR-058`, `FR-NEW-17` |
+| `BRD-U-004` | 2026-06-01 | Equipment management | Business rule clarification | Fleet Owner can edit all fields of equipment card for equipment under own fleet | `FR-019`, `FR-021`, `FR-NEW-05`, `FR-NEW-41`, `FR-NEW-49` |
 
 ---
 
@@ -192,3 +193,47 @@ Requestor должен иметь отдельный request-level сценар�
 - use case request withdrawal;
 - UI-кнопки request-level withdraw для submitted requests;
 - API orchestration / dedicated endpoint для массового revoke item-ов в request.
+
+---
+
+## BRD-U-004 - Fleet Owner can edit all equipment fields
+
+### Причина
+
+Текущая формулировка `FR-019` ограничивает Fleet Owner только `allowed equipment parameters`, что создает неоднозначность для UI, API и backend-валидации карточки техники.
+
+### Новое правило
+
+Fleet Owner может редактировать все поля карточки техники для equipment, относящейся к собственному fleet-у пользователя.
+
+Под `all fields of equipment card` понимаются все редактируемые данные equipment-модели, доступные в UI карточки техники, включая:
+
+- базовые поля equipment;
+- reference / handbook-поля;
+- dynamic characteristics;
+- фото;
+- freeze-данные и другие status-related поля;
+- tracker-related поля и связанные блоки, если они доступны в equipment card UI;
+- связанные operational / maintenance-данные, если они входят в состав редактируемой equipment card.
+
+### Ограничения
+
+- Fleet Owner может редактировать только equipment, относящуюся к собственному fleet-у либо к fleet-у, где у пользователя есть действующее право управления;
+- правило не отменяет справочников, обязательности полей, format checks и других валидаций карточки;
+- если поле редактируется через справочник или отдельную связанную сущность, Fleet Owner изменяет значение в рамках существующих справочников, а не управляет самими справочниками;
+- правило не дает Fleet Owner права изменять глобальные Admin-only настройки и reference data.
+
+### Замена предыдущей трактовки
+
+- формулировку `FO can edit allowed equipment parameters` следует трактовать как устаревшую;
+- для дальнейшей аналитики, UI/API-документации и реализации следует использовать правило: `FO can edit all equipment fields within own fleet scope`.
+
+### Влияние на документацию и реализацию
+
+Эта запись должна использоваться при обновлении:
+
+- use case-ов Fleet Owner по equipment card;
+- API-методов create / update equipment для Fleet Owner;
+- permission matrix для Equipment module;
+- backend-валидации и authorization checks;
+- UI-состояний equipment card и edit form.

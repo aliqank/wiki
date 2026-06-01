@@ -32,6 +32,7 @@
 | `UC-FO-01` | Просмотр списка заявок Fleet Owner | Страница `Approvals` → view `Requests` | `BRD: FR-092, FR-094, FR-043; Additional: BRD-U-001` | `GET /approvals/requests` |
 | `UC-FO-02` | Просмотр load summary Fleet Owner | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-NEW-64` | `GET /approvals/bookings/{id}/load-summary` |
 | `UC-FO-03` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/confirm` |
+| `UC-FO-04` | Мобилизация техники | Страница `Approvals` → detail / action view подтвержденной брони | `BRD: FR-NEW-18, FR-NEW-24` | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/mobilization-start` |
 
 ---
 
@@ -53,3 +54,4 @@
 - `Fleet Owner/UC-FO-01 - Просмотр списка заявок Fleet Owner.md`
 - `Fleet Owner/UC-FO-02 - Просмотр load summary Fleet Owner.md`
 - `Fleet Owner/UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий).md`
+- `Fleet Owner/UC-FO-04 - Мобилизация техники.md`
