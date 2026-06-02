@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить список собственных незавершенных заявок текущего пользователя |
+| Описание | Получить список незавершенных заявок, где текущий пользователь является business-requestor-ом |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/my` |
@@ -38,14 +38,15 @@
 
 ## 3. Описание логики работы метода
 
-1. Выбрать `BookingRequests` по `createdBy = currentUserId`.
-2. По умолчанию исключить terminal status заявки: `Closed`.
-3. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
-4. Если передан `status`, он должен относиться только к незавершённым статусам заявки: `Draft`, `Submitted`, `InProgress`.
-5. Отсортировать по `createdAt DESC`.
-6. Для каждой заявки собрать summary-данные по связанным `Bookings`.
-7. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
-8. Вернуть пагинированный список.
+1. Для Requestor выбрать `BookingRequests` по `requestorId = currentUserId`.
+2. Для ServiceWorkProcessor применять отдельные правила видимости SWR; выборка не должна опираться только на audit-поле `createdBy`.
+3. По умолчанию исключить terminal status заявки: `Closed`.
+4. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
+5. Если передан `status`, он должен относиться только к незавершённым статусам заявки: `Draft`, `Submitted`, `InProgress`.
+6. Отсортировать по `createdAt DESC`.
+7. Для каждой заявки собрать summary-данные по связанным `Bookings`.
+8. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
+9. Вернуть пагинированный список.
 
 Метод не возвращает полные детали заявки или полные карточки броней. Для этого используется `GET /booking-requests/{id}`.
 
@@ -59,7 +60,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Просмотр своих заявок |
+| `Requestor` | Просмотр заявок, где пользователь является `requestorId` |
 | `ServiceWorkProcessor` | Просмотр своих SWR |
 
 ---
@@ -141,7 +142,7 @@ Content-Type: application/json
 | 6 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
 | 7 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 | 8 | Дата и время создания | createdAt | datetime | ISO 8601 | — | BookingRequests.createdAt |  |
-| 9 | Данные реквестора | requestor | object | object | — | Users |  |
+| 9 | Данные реквестора | requestor | object | object | — | BookingRequests.requestorId + Users | Business-requestor заявки |
 | 10 | Количество броней | bookingsCount | int | integer | — | COUNT(Bookings) |  |
 | 11 | Сводный список броней | bookingSummaries | array<object> | object[] | — | backend composition from Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + WorkCenters + Fleets + Users | Коллекция объектов |
 

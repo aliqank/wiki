@@ -31,7 +31,7 @@
 6. После подтверждения frontend вызывает [`POST /booking-requests/{id}/cancel`](../../../api/booking/requestor/POST_booking_requests_id_cancel.md).
 7. Backend проверяет, что:
    - заявка существует;
-   - заявка принадлежит текущему пользователю;
+   - `BookingRequests.requestorId` совпадает с текущим пользователем;
    - текущий статус заявки равен `Draft`.
 8. Backend переводит заявку в terminal state `Closed` с request closure reason `Cancelled`, а связанные draft booking item-ы удаляет либо закрывает с terminal причиной `Cancelled`, после чего фиксирует изменения в истории.
 9. Frontend обновляет экран:

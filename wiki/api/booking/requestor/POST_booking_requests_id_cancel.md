@@ -37,6 +37,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить существование заявки и права доступа.
+   Для роли `Requestor` доступ определяется по `BookingRequests.requestorId = currentUserId`, а не по audit-полю `createdBy`.
 2. Разрешить отмену только если статус заявки `Draft`.
 3. Обновить `BookingRequests.status = Closed`, `BookingRequests.closureReason = Cancelled`.
 4. Для всех связанных draft booking item-ов удалить их либо перевести в terminal state `Closed` с причиной `Cancelled`.
@@ -55,7 +56,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Отмена собственной draft-заявки |
+| `Requestor` | Отмена draft-заявки, где пользователь является `requestorId` |
 | `ServiceWorkProcessor` | Отмена SWR в draft |
 
 ---

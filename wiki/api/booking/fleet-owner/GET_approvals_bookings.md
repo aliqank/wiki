@@ -125,7 +125,7 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 3 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 4 | Requestor | requestor | string | string | — | Users.fullName |  |
+| 4 | Requestor | requestor | string | string | — | BookingRequests.requestorId + Users.fullName | Business-requestor заявки |
 | 5 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 | 6 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
 | 7 | Дата создания брони | bookingCreatedAt | datetime | ISO 8601 | — | Bookings.createdAt |  |

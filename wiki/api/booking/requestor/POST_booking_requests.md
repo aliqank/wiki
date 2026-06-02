@@ -43,7 +43,9 @@
 1. Принять тело запроса для создания draft-заявки.
 2. Не требовать обязательного заполнения `priority`, `workDescription`, `location`, `workOrderNumber` на этапе создания draft.
 3. Если передан `isDefaultWorkOrder = true`, сохранить `workOrderNumber = null`.
-4. Создать запись в `BookingRequests` со статусом `Draft`.
+4. Создать запись в `BookingRequests` со статусом `Draft`, где:
+   - `requestorId = currentUserId` как business-requestor заявки;
+   - `createdBy = currentUserId` как audit creator.
 5. Создать запись в `BookingRequestStatuses` со статусом `Draft`.
 6. Вернуть созданную заявку.
 
@@ -137,15 +139,16 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingRequests.id |  |
 | 2 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 3 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
-| 4 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
-| 5 | Причина закрытия заявки | closureReason | null | — | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для draft всегда `null` |
-| 6 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderNumber | Для draft может отсутствовать |
-| 7 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
-| 8 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
-| 9 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |
-| 10 | Комментарии | comments | null | — | `null` | BookingRequests.comments | Для draft может отсутствовать |
-| 11 | Приоритет | priority | null | — | `null` | BookingRequests + ref_request_priority | Для draft может отсутствовать |
+| 3 | Идентификатор business-requestor-а | requestorId | uuid | UUID v4 | — | BookingRequests.requestorId | В ручном draft-first flow совпадает с `currentUserId` |
+| 4 | Тип сущности / заявки | type | string | string | — | BookingRequests + ref_request_type |  |
+| 5 | Текущий статус | status | string | string | — | BookingRequests + BookingRequestStatuses |  |
+| 6 | Причина закрытия заявки | closureReason | null | — | `null` | BookingRequests + BookingRequestStatuses + ref_request_closure_reason | Для draft всегда `null` |
+| 7 | Номер Work Order | workOrderNumber | null | — | `null` | BookingRequests.workOrderNumber | Для draft может отсутствовать |
+| 8 | Признак использования Default Work Order | isDefaultWorkOrder | bool | boolean | `false` | backend business rule / request payload |  |
+| 9 | Локация | location | null | — | `null` | BookingRequests.location | Для draft может отсутствовать |
+| 10 | Описание работ | workDescription | null | — | `null` | BookingRequests.workDescription | Для draft может отсутствовать |
+| 11 | Комментарии | comments | null | — | `null` | BookingRequests.comments | Для draft может отсутствовать |
+| 12 | Приоритет | priority | null | — | `null` | BookingRequests + ref_request_priority | Для draft может отсутствовать |
 
 ## 10. Пример ответа
 
@@ -154,6 +157,7 @@ Content-Type: application/json
   "value": {
     "id": "c777f75f-029d-4d8f-8c69-e74a1d280001",
     "requestNumber": "REQ-2026-00015",
+    "requestorId": "11111111-1111-1111-1111-111111111111",
     "type": "Regular",
     "status": "Draft",
     "closureReason": null,
@@ -176,4 +180,5 @@ Content-Type: application/json
 1. Метод создаёт именно пустой `Draft`, а не валидированную к отправке заявку.
 2. Поля `priority`, `workDescription`, `location`, `workOrderNumber` могут оставаться пустыми до момента submit.
 3. Если `isDefaultWorkOrder = true`, backend должен сохранять `workOrderNumber = null`.
-4. Полная бизнес-валидация должна выполняться в `POST /booking-requests/{id}/submit`.
+4. В ручном requestor-flow поле `requestorId` должно фиксировать business-requestor-а, а `createdBy` использоваться только как audit creator.
+5. Полная бизнес-валидация должна выполняться в `POST /booking-requests/{id}/submit`.

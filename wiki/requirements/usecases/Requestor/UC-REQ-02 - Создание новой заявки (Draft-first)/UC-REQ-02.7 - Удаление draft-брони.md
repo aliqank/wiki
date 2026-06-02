@@ -30,7 +30,7 @@
 5. Frontend может показать подтверждающий диалог перед удалением item-а из draft.
 6. После подтверждения frontend вызывает [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md).
 7. Backend проверяет, что:
-   - заявка существует и принадлежит текущему пользователю;
+   - `BookingRequests.requestorId` совпадает с текущим пользователем;
    - заявка находится в статусе `Draft`;
    - booking item принадлежит этой заявке;
    - booking item находится в статусе `Draft`.

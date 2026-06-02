@@ -697,7 +697,7 @@ Filtered unique index:
 
 ### 21. BookingRequests
 
-Назначение: заголовок заявки на бронирование. Хранит request-level данные: тип заявки, номер, приоритет, инициатора, business-поля заявки, текущий агрегированный статус и coarse-grained причину терминального закрытия заявки.
+Назначение: заголовок заявки на бронирование. Хранит request-level данные: тип заявки, номер, business-requestor-а, приоритет, business-поля заявки, audit creator-а, текущий агрегированный статус и coarse-grained причину терминального закрытия заявки.
 
 | Поле | Тип | Описание |
 |---|---|---|
@@ -711,7 +711,8 @@ Filtered unique index:
 | `workDescription` | `nvarchar(1000) not null` | |
 | `comments` | `nvarchar(max) null` | |
 | `priorityId` | `uniqueidentifier FK -> ref_request_priority` | |
-| `createdBy` | `uniqueidentifier not null` | ID заявителя |
+| `requestorId` | `uniqueidentifier not null FK -> Users` | Business-requestor / владелец заявки |
+| `createdBy` | `uniqueidentifier not null` | Audit creator: кто технически создал запись |
 | `createdAt` | `datetime2(3) not null` | |
 | `updatedAt` | `datetime2(3) null` | |
 | `updatedBy` | `uniqueidentifier null` | |
@@ -720,10 +721,12 @@ Filtered unique index:
 | `deletedBy` | `uniqueidentifier null` | |
 
 Индексы:
-- `createdBy`, `statusId`, `requestNumber`
+- `requestorId`, `createdBy`, `statusId`, `requestNumber`
 - filtered index on `workOrderNumber where isDeleted = 0 and workOrderNumber is not null`
 
 Правила:
+- `requestorId` определяет business ownership заявки и должен использоваться в request-level access checks и выборках `My requests`
+- `createdBy` используется только как audit field и не должен подменять собой business-requestor-а
 - `Closed` требует заполненной terminal причины через `closureReasonId`
 - request-level `closureReasonId` хранит только coarse-grained причину закрытия (`Cancelled` или `Completed`); детальная бизнес-причина отдельных item-ов остается на уровне `Bookings.closureReasonId`
 

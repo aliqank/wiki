@@ -140,7 +140,7 @@ Content-Type: application/json
 | 6 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
 | 7 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 | 8 | Дата и время создания заявки | createdAt | datetime | ISO 8601 | — | BookingRequests.createdAt |  |
-| 9 | Данные requestor | requestor | object | object | — | Users |  |
+| 9 | Данные requestor | requestor | object | object | — | BookingRequests.requestorId + Users | Business-requestor заявки |
 | 10 | Количество броней, доступных текущему Fleet Owner | bookingsCount | int | integer | — | backend aggregation | Считаются только item-ы в зоне ответственности текущего FO |
 | 11 | Сводный список броней для работы | bookingSummaries | array<object> | object[] | `[]` | backend composition from Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + WorkCenters + Fleets + Users | Возвращаются только релевантные FO item-ы |
 

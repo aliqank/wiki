@@ -30,7 +30,7 @@
 5. Frontend показывает подтверждающий диалог и предупреждает, что будут отозваны все еще не обработанные booking item-ы заявки.
 6. После подтверждения frontend вызывает request-level withdraw flow.
 7. Backend проверяет, что:
-   - заявка существует и принадлежит текущему пользователю;
+   - `BookingRequests.requestorId` совпадает с текущим пользователем;
    - request status равен `Submitted`;
    - в заявке нет booking item-ов, уже дошедших до FO confirmation или более позднего этапа lifecycle.
 8. Backend отзывает все допустимые booking item-ы заявки.

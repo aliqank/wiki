@@ -31,7 +31,7 @@
 6. После подтверждения frontend вызывает [`POST /bookings/{id}/revoke`](../../../api/booking/requestor/POST_bookings_id_revoke.md).
 7. Backend проверяет, что:
    - бронь существует;
-   - бронь принадлежит текущему пользователю;
+   - родительская заявка брони имеет `BookingRequests.requestorId`, совпадающий с текущим пользователем;
    - бронь еще не обработана Fleet Owner;
    - текущий статус брони равен `Submitted`.
 8. Backend переводит booking item в статус `Closed` с terminal причиной `Revoked`.

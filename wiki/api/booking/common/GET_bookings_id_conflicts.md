@@ -138,7 +138,7 @@ Content-Type: application/json
 | 10 | Дата и время окончания пересечения | overlapEndDateTime | datetime | ISO 8601 | — | backend overlap calculation | `MIN(source.plannedEndDateTime, conflicting.plannedEndDateTime)` |
 | 11 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
 | 12 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота конфликтующей брони |
-| 13 | Requestor | requestor | object | object | — | Users | Автор конфликтующей заявки |
+| 13 | Requestor | requestor | object | object | — | BookingRequests.requestorId + Users | Business-requestor конфликтующей заявки |
 
 ### Структура `value.items[].fleet`
 
