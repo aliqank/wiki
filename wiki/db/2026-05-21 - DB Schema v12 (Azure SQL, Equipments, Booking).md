@@ -168,7 +168,7 @@ where isDeleted = 0;
 | `ref_request_closure_reason` | Cancelled, Completed |
 | `ref_booking_status` | Draft, Submitted, Confirmed, InProgress, Closed |
 | `ref_booking_closure_reason` | Cancelled, Declined, Revoked, Terminated, Completed |
-| `ref_booking_approval_type` | FoApproval, SupervisorApproval, TransportationApproval |
+| `ref_booking_approval_type` | FoApproval, SupervisorApproval, TransportationApproval, BookingExtensionApproval |
 | `ref_booking_approval_status` | Approved, Declined |
 
 Минимальный шаблон reference table:
@@ -764,7 +764,7 @@ Filtered unique index:
 
 ### 23. BookingApprovals
 
-Назначение: журнал шагов согласования для конкретной брони. Каждая запись фиксирует одно решение участника approval chain (`FO` или `Supervisor`) с результатом, комментарием, порядком шага и аудитом.
+Назначение: журнал шагов согласования для конкретной брони. Каждая запись фиксирует одно решение участника approval chain (`FO`, `Supervisor` или специализированный approval step, например extension approval) с результатом, комментарием, порядком шага и аудитом.
 
 | Поле | Тип |
 |---|---|
@@ -784,6 +784,9 @@ Filtered unique index:
 - для обычной внутренней брони после решения FO создается одна запись с `approvalType = FoApproval`, `approvalOrder = 1`
 - для long-term rented booking после FO positive decision создается запись `FoApproval / Approved / 1`, после решения Supervisor создается запись `SupervisorApproval / Approved|Declined / 2`
 - для transport flow решение транспортной роли создается как `TransportationApproval / Approved|Declined` с собственным `approvalOrder`
+- для запроса на изменение `plannedEndDateTime`, инициированного Requestor / SWP, может создаваться отдельная запись `BookingExtensionApproval`
+- если запрос на изменение `plannedEndDateTime` сделан до фактического старта брони (`Submitted` / `Confirmed`), approval flow extension должен завершаться возвратом брони в `Confirmed`, если иные обязательные approval steps уже выполнены или не требуются
+- если запрос на изменение `plannedEndDateTime` сделан во время `InProgress`, booking lifecycle status не должен откатываться в `Submitted`; решение фиксируется через `BookingExtensionApproval`, а новое `plannedEndDateTime` применяется только после одобрения Fleet Owner
 - `approvalOrder` должен быть уникален в пределах одного `bookingId`
 - `BookingApprovals` не заменяет `BookingStatuses`: первая таблица отвечает за decision audit, вторая за lifecycle status audit
 
