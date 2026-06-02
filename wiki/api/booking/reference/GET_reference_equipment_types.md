@@ -42,7 +42,7 @@
 3. Сортировать записи по отображаемому имени.
 
 Сущности, участвующие в методе:
-- читаются: `EquipmentTypes`, `WorkCenters`
+- читаются: [`EquipmentTypes`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#1-equipmenttypes), [`WorkCenters`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#3-workcenters)
 - изменения не выполняются
 
 ---

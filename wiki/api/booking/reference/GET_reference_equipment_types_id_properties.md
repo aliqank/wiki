@@ -43,7 +43,7 @@
 4. Для numeric-свойств вернуть единицу измерения, если она настроена.
 
 Сущности, участвующие в методе:
-- читаются: `EquipmentTypes`, `Properties`, `EquipmentTypeProperties`, `PropertyEnumValues`, `MeasurementUnits`
+- читаются: [`EquipmentTypes`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#1-equipmenttypes), [`Properties`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#12-properties), [`EquipmentTypeProperties`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#14-equipmenttypeproperties), [`PropertyEnumValues`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#13-propertyenumvalues), [`MeasurementUnits`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#11-measurementunits)
 - изменения не выполняются
 
 ---

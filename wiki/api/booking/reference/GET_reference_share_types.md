@@ -40,7 +40,7 @@
 2. Для каждого значения вернуть признак обязательности `justification`, чтобы frontend мог подготовить UI заранее.
 
 Сущности, участвующие в методе:
-- читаются: `ref_share_type`
+- читаются: [`ref_share_type`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#reference-tables-instead-of-enums)
 - изменения не выполняются
 
 ---
