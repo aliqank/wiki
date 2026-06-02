@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Позволяет FO менять период до и после подтверждения.
+Новый метод. Позволяет FO менять период до подтверждения, после подтверждения и частично во время исполнения: для `InProgress` допускается только изменение даты окончания.
 
 ---
 
@@ -38,12 +38,14 @@
 ## 3. Описание логики работы метода
 
 1. Проверить бронь и права доступа.
-2. Проверить, что статус брони допускает изменение периода.
-3. Провалидировать новый диапазон дат и hard-ограничения доступности техники.
-   Пересечения с другими активными бронями должны рассчитываться как conflict context для Fleet Owner и не блокируют изменение периода сами по себе.
-4. Обновить `plannedStartDateTime`, `plannedEndDateTime`.
-5. Создать запись в `BookingStatuses` с комментарием.
-6. Вернуть обновленную бронь.
+2. Проверить, что статус брони допускает изменение периода: `Submitted`, `Confirmed` или `InProgress`.
+3. Если бронь находится в `InProgress`, разрешить изменять только `plannedEndDateTime`; изменение `plannedStartDateTime` должно отклоняться.
+4. Провалидировать новый диапазон дат и [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction).
+   Пересечения с другими активными бронями должны рассчитываться как [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) для Fleet Owner и не блокируют изменение периода сами по себе.
+5. Для `Submitted` / `Confirmed` обновить `plannedStartDateTime` и `plannedEndDateTime`.
+6. Для `InProgress` обновить только `plannedEndDateTime`.
+7. Создать запись в `BookingStatuses` с комментарием.
+8. Вернуть обновленную бронь.
 
 Сущности:
 - читаются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings)
@@ -75,8 +77,8 @@
 | `FORBIDDEN` | Нет доступа к брони |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_CHANGEABLE` | Бронь нельзя изменить |
-| `EQUIPMENT_NOT_AVAILABLE` | Новый период нарушает hard-ограничения доступности техники; competing bookings сами по себе не вызывают эту ошибку |
-| `VALIDATION_ERROR` | Новый период невалиден |
+| `EQUIPMENT_NOT_AVAILABLE` | Новый период нарушает [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction); competing bookings сами по себе не вызывают эту ошибку |
+| `VALIDATION_ERROR` | Новый период невалиден или для `InProgress` передан недопустимый `plannedStartDateTime` |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
 
@@ -87,8 +89,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Новая плановая дата/время начала | `plannedStartDateTime` | `datetime` | `+` | Меньше `plannedEndDateTime` | — | Request body | |
-| 3 | Новая плановая дата/время окончания | `plannedEndDateTime` | `datetime` | `+` | Больше `plannedStartDateTime` | — | Request body | |
+| 2 | Новая плановая дата/время начала | `plannedStartDateTime` | `datetime` | `-` | Обязательна для `Submitted` / `Confirmed`; для `InProgress` не должна изменяться | — | Request body | |
+| 3 | Новая плановая дата/время окончания | `plannedEndDateTime` | `datetime` | `+` | Для `Submitted` / `Confirmed` должна быть больше `plannedStartDateTime`; для `InProgress` должна оставаться больше фактического / уже зафиксированного начала | — | Request body | |
 | 4 | Комментарий | `comment` | `string` | `-` | — | — | Request body | |
 
 ---

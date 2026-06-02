@@ -80,10 +80,10 @@ sequenceDiagram
 ## Альтернативные сценарии
 
 1. У выбранной техники есть конфликты с другими активными бронями на тот же период.
-   Backend все равно создает booking item-ы в draft-заявке. Конфликты не блокируют добавление, а должны быть рассчитаны и отображены пользователю как информационный признак для дальнейшего решения Fleet Owner.
+   Backend все равно создает booking item-ы в draft-заявке. [Booking conflict context](../../../../glossary/Glossary.md#booking-conflict-context) не блокирует добавление и должен быть рассчитан и отображен пользователю как информационный признак для дальнейшего решения Fleet Owner.
 
 2. Добавление item не прошло из-за hard-ограничения доступности техники.
-   Backend возвращает ошибку валидации, если техника недоступна по причинам, не связанным с competing bookings, например из-за `EquipmentStatuses`, `OnDemand`, `Stationary` или отсутствия требуемой authorization для `Assigned`.
+   Backend возвращает ошибку валидации, если техника недоступна по [hard availability restrictions](../../../../glossary/Glossary.md#hard-availability-restriction), не связанным с competing bookings, например из-за `EquipmentStatuses`, `OnDemand`, `Stationary` или отсутствия требуемой authorization для `Assigned`.
 
 3. Пользователь попытался добавить стационарную технику.
    Если `mobilityType = Stationary`, backend отклоняет добавление и возвращает ошибку валидации.

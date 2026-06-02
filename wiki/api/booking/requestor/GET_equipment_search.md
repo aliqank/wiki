@@ -32,7 +32,7 @@
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request; availability updated | Confirmed | BRD v13 | Метод является точкой входа для выбора техники |
 | TCO Booking Tool | FR-NEW-38 | Search: TCO equipment number + model mandatory; госномер if present | Confirmed | BRD v13 | В результатах поиска должен возвращаться `stateNumber`, если он заполнен |
-| TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Метод показывает hard-доступность техники; конфликты с активными бронями должны отображаться отдельно и не исключают технику из booking flow |
+| TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Метод показывает [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction); [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) должен отображаться отдельно и не исключает технику из booking flow |
 | TCO Booking Tool | FR-NEW-39 | Dynamic search filters by equipment type | Confirmed | BRD v13 | Метод принимает динамические фильтры |
 | TCO Booking Tool | FR-NEW-68 | System dynamically shows only type-specific characteristics | Confirmed | BRD v13 | Набор фильтров зависит от equipment type |
 
@@ -149,8 +149,8 @@ Content-Type: application/json
 | 8 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
 | 9 | Тип доступности техники | shareType | string | string | — | Equipments + ref_share_type |  |
 | 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + EquipmentStatuses + EquipmentBookingAuthorizations | Отражает только hard-ограничения доступности, не competing bookings |
-| 12 | Причина недоступности бронирования | bookingUnavailableReason | null | — | `null` | backend availability calculation from Equipments + EquipmentStatuses + EquipmentBookingAuthorizations | Заполняется только для hard-ограничений доступности |
+| 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + EquipmentStatuses + EquipmentBookingAuthorizations | Отражает только [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), не competing bookings |
+| 12 | Причина недоступности бронирования | bookingUnavailableReason | null | — | `null` | backend availability calculation from Equipments + EquipmentStatuses + EquipmentBookingAuthorizations | Заполняется только для [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) |
 | 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
 | 14 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
 | 15 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |

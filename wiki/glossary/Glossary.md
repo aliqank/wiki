@@ -1,7 +1,7 @@
 # Glossary
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -41,6 +41,37 @@
 | Criticality | Признак критичности техники; означает необходимость security escort при транспортировке, а не приоритет ремонта. |
 | Work Center | Рабочий центр или шаг Work Order. Привязан к шагу работ и используется для сопоставления типов техники и производственных задач. |
 | Historical Route | История перемещения техники на карте за выбранный период на основе tracker-данных из DataLake. |
+
+---
+
+## Availability And Conflict Terms
+
+### Hard Availability Restriction
+
+Абсолютное ограничение доступности техники, при котором действие с бронью или выбор техники должно быть отклонено backend-ом независимо от наличия или отсутствия competing bookings.
+
+Типовые примеры:
+- по `EquipmentStatuses` для выбранного периода есть актуальный статус `Decommissioned`, `Frozen` или `InRepair`;
+- техника не допускается к обычному booking flow по обязательным бизнес-правилам, например `OnDemand` техника вне scope соответствующего сценария;
+- для Assigned техники отсутствует обязательная authorization-запись в `EquipmentBookingAuthorizations`, если сценарий требует такую проверку.
+
+Практический смысл:
+- hard availability restriction блокирует add/edit/submit/confirm/change-period/change-equipment сценарии;
+- такие ограничения должны возвращать ошибку уровня `EQUIPMENT_NOT_AVAILABLE` или эквивалентную бизнес-ошибку;
+- competing bookings сами по себе не являются hard availability restriction.
+
+### Booking Conflict Context
+
+Информационный контекст о пересечении одной брони с другими активными бронями той же техники. Используется для принятия решения пользователем, но сам по себе не является автоматическим запретом на действие.
+
+Типовые примеры:
+- в `Bookings` уже есть другая запись по тому же `equipmentId` со статусом `Submitted`, `Confirmed` или `InProgress`, и ее диапазон пересекается с новым или текущим периодом брони;
+- для одной техники существует несколько competing bookings, которые должны быть показаны через load summary, conflict indicator или отдельный conflict list.
+
+Практический смысл:
+- booking conflict context должен быть рассчитан и показан в UI как summary или detail view;
+- наличие conflict context не должно автоматически блокировать add/edit/submit/change-period/confirm, если отсутствуют hard availability restrictions;
+- окончательное решение по conflict context принимает Requestor или Fleet Owner в зависимости от сценария.
 
 ---
 

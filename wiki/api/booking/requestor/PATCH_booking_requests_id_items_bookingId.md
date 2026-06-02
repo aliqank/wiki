@@ -45,10 +45,10 @@
 3. Обновить только переданные поля; для непереданных полей использовать текущие значения booking item.
 4. Если меняется `equipmentId`, проверить существование новой техники и получить ее атрибуты `ownershipType`, `shareType`, `fleetId`.
 5. Для итогового набора значений проверить, что техника не относится к `OnDemand`.
-6. Для итогового набора значений проверить hard-ограничения доступности техники на выбранный период.
-   Под hard-ограничениями в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStatuses`.
-7. Отдельно рассчитать наличие конфликтов с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с итоговым периодом item.
-   Такие конфликты не блокируют patch и используются только для информирования пользователя и последующего решения Fleet Owner.
+6. Для итогового набора значений проверить [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период.
+   Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStatuses`.
+7. Отдельно рассчитать наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с итоговым периодом item.
+   Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует patch и используется только для информирования пользователя и последующего решения Fleet Owner.
 8. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item обязателен `justification`; при его отсутствии признак `hasRequiredJustification` остается `false` до последующего заполнения.
 9. Если итоговая техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 10. Если обновляется `justification`, метод может вызываться frontend-ом как autosave без отдельной кнопки сохранения.
@@ -88,7 +88,7 @@
 | `FORBIDDEN` | Нет доступа к заявке или технике |
 | `NOT_FOUND` | Заявка, booking item или техника не найдены |
 | `REQUEST_NOT_EDITABLE` | Заявка или booking item не в статусе `Draft` |
-| `EQUIPMENT_NOT_AVAILABLE` | Итоговая техника недоступна по hard-ограничениям на выбранный период; competing bookings сами по себе не вызывают эту ошибку |
+| `EQUIPMENT_NOT_AVAILABLE` | Итоговая техника недоступна по [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период; competing bookings сами по себе не вызывают эту ошибку |
 | `VALIDATION_ERROR` | Не пройдены бизнес-валидации |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
@@ -180,6 +180,6 @@ Content-Type: application/json
 1. Метод обновляет существующий booking item, а не создает новый.
 2. Замена техники выполняется тем же методом через передачу нового `equipmentId`.
 3. Для валидации используются итоговые значения item после применения patch.
-4. Под недоступностью в базовом сценарии понимаются hard-ограничения по состоянию техники и другим обязательным бизнес-правилам, не связанным с competing bookings.
+4. Под недоступностью в базовом сценарии понимаются [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) по состоянию техники и другим обязательным бизнес-правилам, не связанным с competing bookings.
 5. Пересечения с другими активными бронями должны рассчитываться отдельно как booking conflicts и не блокируют обновление item.
 6. Inline-поле `justification` на странице draft может сохраняться этим методом автоматически, без отдельной кнопки `Сохранить`.

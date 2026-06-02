@@ -42,7 +42,7 @@
    - бронь существует;
    - бронь относится к зоне ответственности текущего Fleet Owner;
    - текущий статус равен `Submitted`;
-   - отсутствуют hard-ограничения, делающие технику фактически недоступной независимо от competing bookings.
+   - отсутствуют [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), делающие технику фактически недоступной независимо от competing bookings.
 9. Backend переводит бронь в статус `Confirmed`.
 10. Backend создает запись шага согласования в `BookingApprovals` с типом `FoApproval`, результатом `Approved` и `order = 1`.
 11. Backend создает запись в `BookingStatuses`.
@@ -57,10 +57,10 @@
    Backend возвращает `BOOKING_NOT_CONFIRMABLE`, frontend показывает сообщение и обновляет данные брони.
 
 2. У брони есть конфликты с другими активными бронями.
-   Confirm не блокируется автоматически только из-за самого факта конфликта. Fleet Owner принимает решение на основании load summary, контекста заявки и бизнес-приоритета.
+   Confirm не блокируется автоматически только из-за самого факта конфликта. Fleet Owner принимает решение на основании [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context), load summary, контекста заявки и бизнес-приоритета.
 
 3. Выявлено hard-ограничение доступности техники.
-   Backend возвращает `EQUIPMENT_NOT_AVAILABLE`, если техника фактически недоступна по причинам, не связанным с competing bookings.
+   Backend возвращает `EQUIPMENT_NOT_AVAILABLE`, если техника фактически недоступна по [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), не связанным с competing bookings.
 
 4. Бронь требует дополнительного согласования Supervisor.
    Данный use case не применяется; используется отдельный сценарий, в котором после FO decision бронь остается в `Submitted` до завершения шага `SupervisorApproval`.

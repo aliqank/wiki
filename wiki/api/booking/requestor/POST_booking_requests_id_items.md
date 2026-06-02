@@ -44,10 +44,10 @@
 3. Для каждого элемента проверить существование техники и получить ее атрибуты `ownershipType`, `shareType`, `fleetId`, `mobilityType`.
 4. Для каждого элемента проверить, что техника не относится к `OnDemand`.
 5. Для каждого элемента проверить, что техника не является стационарной. Если `mobilityType = Stationary`, вернуть `422 VALIDATION_ERROR`.
-6. Для каждого элемента проверить hard-ограничения доступности техники на выбранный период.
-   Под hard-ограничениями в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStatuses`.
-7. Отдельно рассчитать наличие конфликтов с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с периодом создаваемой брони.
-   Такие конфликты не блокируют создание item и используются только для информирования пользователя и последующего решения Fleet Owner.
+6. Для каждого элемента проверить [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период.
+   Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStatuses`.
+7. Отдельно рассчитать наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с периодом создаваемой брони.
+   Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует создание item и используется только для информирования пользователя и последующего решения Fleet Owner.
 8. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item потребуется `justification` на этапе последующего редактирования или перед submit.
 9. Если техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 10. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`; `justification` на этом этапе не передается и может оставаться пустым до отдельного сохранения через редактирование item.
@@ -86,7 +86,7 @@
 | `FORBIDDEN` | Нет доступа к заявке или технике |
 | `NOT_FOUND` | Заявка или техника не найдены |
 | `REQUEST_NOT_EDITABLE` | Заявка не в статусе `Draft` |
-| `EQUIPMENT_NOT_AVAILABLE` | Техника недоступна по hard-ограничениям на выбранный период; competing bookings сами по себе не вызывают эту ошибку |
+| `EQUIPMENT_NOT_AVAILABLE` | Техника недоступна по [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период; competing bookings сами по себе не вызывают эту ошибку |
 | `VALIDATION_ERROR` | Не пройдены бизнес-валидации, передан пустой `items[]` или сделана попытка добавить стационарную технику (`mobilityType = Stationary`) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`, `422 Unprocessable Entity`
@@ -199,7 +199,7 @@ Content-Type: application/json
 1. Контракт метода описан как batch create: один вызов может добавить несколько единиц техники.
 2. Один элемент в `items[]` соответствует одной создаваемой записи в `Bookings`.
 3. В `value` возвращаются только брони, созданные в текущем вызове метода, а не полный список всех броней заявки.
-4. Под недоступностью в базовом сценарии понимаются hard-ограничения по состоянию техники и другим обязательным бизнес-правилам, не связанным с competing bookings.
+4. Под недоступностью в базовом сценарии понимаются [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) по состоянию техники и другим обязательным бизнес-правилам, не связанным с competing bookings.
 5. Пересечения с другими активными бронями должны рассчитываться отдельно как booking conflicts и не блокируют создание item.
 6. Стационарная техника не может быть добавлена в заявку: если `mobilityType = Stationary`, метод должен вернуть `422 VALIDATION_ERROR`.
 7. Поле `justification` не передается в `POST /booking-requests/{id}/items`; оно заполняется позже через редактирование конкретного item.

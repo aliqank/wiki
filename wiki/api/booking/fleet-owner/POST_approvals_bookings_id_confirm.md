@@ -40,7 +40,7 @@
 
 1. Проверить бронь и права доступа.
 2. Разрешить действие только для статуса `Submitted`.
-3. Проверить наличие hard-ограничений доступности техники, не связанных с competing bookings, и при этом предоставить Fleet Owner актуальный load/conflicts context для принятия решения.
+3. Проверить наличие [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), не связанных с competing bookings, и при этом предоставить Fleet Owner актуальный [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) для принятия решения.
 4. Если `ownershipType = LongTermRented`, оставить lifecycle status `Submitted` и зафиксировать, что после решения FO требуется следующий шаг `SupervisorApproval`.
 5. Иначе установить `status = Confirmed`.
 6. Создать запись в `BookingApprovals` с `approvalType = FoApproval`, `status = Approved`, `userId = currentUserId`, `approvalOrder = 1`, `comment = request.comment`.
@@ -79,7 +79,7 @@
 | `FORBIDDEN` | Нет доступа к брони |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_CONFIRMABLE` | Текущий статус не позволяет confirm |
-| `EQUIPMENT_NOT_AVAILABLE` | Техника фактически недоступна по hard-ограничениям; competing bookings сами по себе не вызывают эту ошибку |
+| `EQUIPMENT_NOT_AVAILABLE` | Техника фактически недоступна по [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction); competing bookings сами по себе не вызывают эту ошибку |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`
 
