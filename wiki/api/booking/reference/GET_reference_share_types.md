@@ -1,7 +1,7 @@
 # GET /reference/share-types
 
 **Created:** 2026-05-18  
-**Last updated:** 2026-05-18  
+**Last updated:** 2026-06-02  
 **Автор документов:** OpenCode
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/reference/share-types` |
 | Метод запроса | `GET` |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
 | Согласовано | |
 
 ---

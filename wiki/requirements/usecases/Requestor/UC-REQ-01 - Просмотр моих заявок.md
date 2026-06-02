@@ -24,8 +24,8 @@
 ## Основной сценарий
 
 1. Пользователь открывает страницу `Мои заявки`.
-2. Frontend загружает справочники фильтров через `GET /reference/request-statuses`, `GET /reference/requestor-request-types`, `GET /reference/request-priorities`.
-3. Frontend вызывает `GET /booking-requests/my`.
+2. Frontend загружает справочники фильтров через [`GET /reference/request-statuses`](../../../api/booking/reference/GET_reference_request_statuses.md), [`GET /reference/requestor-request-types`](../../../api/booking/reference/GET_reference_requestor_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
+3. Frontend вызывает [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md).
 4. Backend возвращает только незавершенные заявки текущего пользователя.
 5. Frontend отображает список заявок в таблице.
 6. Для каждой заявки отображаются:
@@ -45,7 +45,7 @@
    - плановый диапазон брони;
    - фактический диапазон брони;
    - статус.
-8. При выборе конкретной заявки frontend может открыть детальный просмотр через `GET /booking-requests/{id}`.
+8. При выборе конкретной заявки frontend может открыть детальный просмотр через [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md).
 
 ---
 
@@ -55,13 +55,13 @@
    Система отображает пустое состояние и кнопку `Создать заявку`.
 
 2. Пользователь применяет фильтры.
-   Frontend повторно вызывает `GET /booking-requests/my` с query-параметрами фильтрации.
+   Frontend повторно вызывает [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md) с query-параметрами фильтрации.
 
 3. Backend возвращает ошибку авторизации или доступа.
    Frontend отображает сообщение об ошибке и не показывает данные таблицы.
 
 4. Пользователь открывает карточку конкретной заявки.
-   Frontend вызывает `GET /booking-requests/{id}` и отображает detail view.
+   Frontend вызывает [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md) и отображает detail view.
 
 ---
 
@@ -69,4 +69,4 @@
 
 1. Use case опирается на правило: страница `Мои заявки` показывает только active / non-terminal requests.
 2. История завершенных заявок должна быть вынесена в отдельный flow / отдельный endpoint.
-3. `GET /booking-requests/my` должен возвращать summary-данные, а не полные booking details.
+3. [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md) должен возвращать summary-данные, а не полные booking details.

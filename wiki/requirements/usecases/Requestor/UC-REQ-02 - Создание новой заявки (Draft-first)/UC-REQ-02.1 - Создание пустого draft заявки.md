@@ -23,7 +23,7 @@
 ## Основной сценарий
 
 1. Пользователь нажимает `Создать заявку`.
-2. Frontend вызывает `POST /booking-requests` с минимальным payload для draft.
+2. Frontend вызывает [`POST /booking-requests`](../../../../api/booking/requestor/POST_booking_requests.md) с минимальным payload для draft.
 3. Backend создаёт пустую draft-заявку.
 4. Backend возвращает `id`, `requestNumber`, `status = Draft`.
 5. Frontend открывает форму редактирования новой заявки.

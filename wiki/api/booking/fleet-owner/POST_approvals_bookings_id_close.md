@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/close
 
 **Created:** 2026-06-01  
-**Last updated:** 2026-06-01  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/close` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-FO-05 - Закрытие брони Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-05%20-%20Закрытие%20брони%20Fleet%20Owner.md) |
 | Согласовано | |
 
 ---

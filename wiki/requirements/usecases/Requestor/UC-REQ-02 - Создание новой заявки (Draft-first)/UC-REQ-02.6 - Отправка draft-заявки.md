@@ -24,7 +24,7 @@
 
 1. Пользователь нажимает `Отправить заявку`.
 2. Frontend выполняет flush всех несохранённых autosave-изменений booking item-ов, включая `justification`.
-3. После успешного flush frontend вызывает `POST /booking-requests/{id}/submit`.
+3. После успешного flush frontend вызывает [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md).
 4. Backend выполняет полную бизнес-валидацию request-level и booking-level данных.
 5. Backend проверяет, что все обязательные `justification` заполнены в уже сохраненных booking item-ах.
 6. Backend переводит заявку и связанные item-ы из `Draft` в submitted flow.
@@ -41,7 +41,7 @@
    Submit блокируется до исправления item-level данных.
 
 3. Не удалось сохранить одно из autosave-изменений перед submit.
-   Frontend не вызывает `POST /booking-requests/{id}/submit` до успешного завершения flush.
+   Frontend не вызывает [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md) до успешного завершения flush.
 
 4. На момент submit у одной или нескольких броней есть конфликты с другими активными бронями.
    Backend не блокирует submit только из-за таких конфликтов. Заявка может быть отправлена в submitted flow, а решение по competing bookings принимается Fleet Owner на этапе approval.

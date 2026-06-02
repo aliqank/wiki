@@ -10,7 +10,7 @@
 
 Связанный документ с общими правилами статусов:
 
-- `../Aggregated Request Status Rules.md`
+- [`../Aggregated Request Status Rules.md`](../Aggregated%20Request%20Status%20Rules.md)
 
 ## Список use cases
 
@@ -39,21 +39,21 @@
 
 ## Файлы
 
-- `Requestor/UC-REQ-01 - Просмотр моих заявок.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02 - Создание новой заявки (Draft-first).md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.1 - Создание пустого draft заявки.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.2 - Заполнение и редактирование шапки заявки.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3 - Поиск техники для добавления в заявку.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3.1 - Просмотр load summary при выборе техники.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.4 - Добавление техники в draft-заявку.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.5 - Редактирование брони или замена техники в draft.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.6 - Отправка draft-заявки.md`
-- `Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.7 - Удаление draft-брони.md`
-- `Requestor/UC-REQ-03 - Отмена draft-заявки requestor-ом.md`
-- `Requestor/UC-REQ-04 - Отзыв брони requestor-ом.md`
-- `Requestor/UC-REQ-05 - Отзыв submitted-заявки requestor-ом.md`
-- `Fleet Owner/UC-FO-01 - Просмотр списка заявок Fleet Owner.md`
-- `Fleet Owner/UC-FO-02 - Просмотр load summary Fleet Owner.md`
-- `Fleet Owner/UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий).md`
-- `Fleet Owner/UC-FO-04 - Мобилизация техники.md`
-- `Fleet Owner/UC-FO-05 - Закрытие брони Fleet Owner.md`
+- [`Requestor/UC-REQ-01 - Просмотр моих заявок.md`](Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02 - Создание новой заявки (Draft-first).md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.1 - Создание пустого draft заявки.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.1%20-%20Создание%20пустого%20draft%20заявки.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.2 - Заполнение и редактирование шапки заявки.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.2%20-%20Заполнение%20и%20редактирование%20шапки%20заявки.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3 - Поиск техники для добавления в заявку.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3.1 - Просмотр load summary при выборе техники.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3.1%20-%20Просмотр%20load%20summary%20при%20выборе%20техники.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.4 - Добавление техники в draft-заявку.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.4%20-%20Добавление%20техники%20в%20draft-заявку.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.5 - Редактирование брони или замена техники в draft.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.5%20-%20Редактирование%20брони%20или%20замена%20техники%20в%20draft.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.6 - Отправка draft-заявки.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.6%20-%20Отправка%20draft-заявки.md)
+- [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.7 - Удаление draft-брони.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.7%20-%20Удаление%20draft-брони.md)
+- [`Requestor/UC-REQ-03 - Отмена draft-заявки requestor-ом.md`](Requestor/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md)
+- [`Requestor/UC-REQ-04 - Отзыв брони requestor-ом.md`](Requestor/UC-REQ-04%20-%20Отзыв%20брони%20requestor-ом.md)
+- [`Requestor/UC-REQ-05 - Отзыв submitted-заявки requestor-ом.md`](Requestor/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md)
+- [`Fleet Owner/UC-FO-01 - Просмотр списка заявок Fleet Owner.md`](Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md)
+- [`Fleet Owner/UC-FO-02 - Просмотр load summary Fleet Owner.md`](Fleet%20Owner/UC-FO-02%20-%20Просмотр%20load%20summary%20Fleet%20Owner.md)
+- [`Fleet Owner/UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий).md`](Fleet%20Owner/UC-FO-03%20-%20Подтверждение%20брони%20Fleet%20Owner%20(базовый%20сценарий).md)
+- [`Fleet Owner/UC-FO-04 - Мобилизация техники.md`](Fleet%20Owner/UC-FO-04%20-%20Мобилизация%20техники.md)
+- [`Fleet Owner/UC-FO-05 - Закрытие брони Fleet Owner.md`](Fleet%20Owner/UC-FO-05%20-%20Закрытие%20брони%20Fleet%20Owner.md)

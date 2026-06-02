@@ -28,14 +28,14 @@
 3. Пользователь выбирает draft booking item, который больше не нужен.
 4. Пользователь нажимает `Удалить`.
 5. Frontend может показать подтверждающий диалог перед удалением item-а из draft.
-6. После подтверждения frontend вызывает `DELETE /booking-requests/{id}/items/{bookingId}`.
+6. После подтверждения frontend вызывает [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md).
 7. Backend проверяет, что:
    - заявка существует и принадлежит текущему пользователю;
    - заявка находится в статусе `Draft`;
    - booking item принадлежит этой заявке;
    - booking item находится в статусе `Draft`.
 8. Backend выполняет soft delete booking item-а.
-9. Frontend обновляет состав заявки через `GET /booking-requests/{id}` или локальное обновление state.
+9. Frontend обновляет состав заявки через [`GET /booking-requests/{id}`](../../../../api/booking/requestor/GET_booking_requests_id.md) или локальное обновление state.
 10. Удаленный item больше не отображается в составе draft-заявки.
 
 ---

@@ -1,7 +1,7 @@
 # GET /equipment/{id}/load-summary
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/equipment/{id}/load-summary` |
 | Метод запроса | `GET` |
+| Связанные use cases | [`UC-REQ-02.3.1 - Просмотр load summary при выборе техники`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3.1%20-%20Просмотр%20load%20summary%20при%20выборе%20техники.md) |
 | Согласовано | |
 
 ---

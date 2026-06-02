@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/confirm
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-22  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/confirm` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий)`](../../../requirements/usecases/Fleet%20Owner/UC-FO-03%20-%20Подтверждение%20брони%20Fleet%20Owner%20(базовый%20сценарий).md) |
 | Согласовано | |
 
 ---

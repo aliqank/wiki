@@ -25,7 +25,7 @@
 
 1. Fleet Owner открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
 2. Пользователь открывает внутри заявки detail / action view конкретной релевантной брони.
-3. Frontend загружает актуальные данные брони через `GET /approvals/bookings/{id}`.
+3. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
 4. Пользователь проверяет ключевые данные брони:
    - requestor;
    - Work Order и приоритет;
@@ -37,7 +37,7 @@
    - не требуется дополнительное согласование Supervisor;
    - текущий статус позволяет confirm.
 6. Пользователь нажимает кнопку `Подтвердить`.
-7. Frontend вызывает `POST /approvals/bookings/{id}/confirm`.
+7. Frontend вызывает [`POST /approvals/bookings/{id}/confirm`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md).
 8. Backend проверяет, что:
    - бронь существует;
    - бронь относится к зоне ответственности текущего Fleet Owner;

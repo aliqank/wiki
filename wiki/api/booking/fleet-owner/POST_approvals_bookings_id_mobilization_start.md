@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/mobilization-start
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/mobilization-start` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-FO-04 - Мобилизация техники`](../../../requirements/usecases/Fleet%20Owner/UC-FO-04%20-%20Мобилизация%20техники.md) |
 | Согласовано | |
 
 ---

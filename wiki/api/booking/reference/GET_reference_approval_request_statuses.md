@@ -1,7 +1,7 @@
 # GET /reference/approval-request-statuses
 
 **Created:** 2026-05-28  
-**Last updated:** 2026-05-28  
+**Last updated:** 2026-06-02  
 **Автор документов:** OpenCode
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/reference/approval-request-statuses` |
 | Метод запроса | `GET` |
+| Связанные use cases | [`UC-FO-01 - Просмотр списка заявок Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md) |
 | Согласовано | |
 
 ---

@@ -1,7 +1,7 @@
 # GET /reference/request-priorities
 
 **Created:** 2026-05-28  
-**Last updated:** 2026-05-28  
+**Last updated:** 2026-06-02  
 **Автор документов:** OpenCode
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/reference/request-priorities` |
 | Метод запроса | `GET` |
+| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md), [`UC-FO-01 - Просмотр списка заявок Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md) |
 | Согласовано | |
 
 ---

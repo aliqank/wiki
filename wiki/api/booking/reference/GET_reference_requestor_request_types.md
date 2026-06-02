@@ -1,7 +1,7 @@
 # GET /reference/requestor-request-types
 
 **Created:** 2026-05-28  
-**Last updated:** 2026-05-28  
+**Last updated:** 2026-06-02  
 **Автор документов:** OpenCode
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/reference/requestor-request-types` |
 | Метод запроса | `GET` |
+| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md) |
 | Согласовано | |
 
 ---

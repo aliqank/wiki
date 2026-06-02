@@ -38,7 +38,7 @@
 ## Основной сценарий
 
 1. Пользователь нажимает кнопку `Создать заявку`.
-2. Frontend вызывает `POST /booking-requests`.
+2. Frontend вызывает [`POST /booking-requests`](../../../../api/booking/requestor/POST_booking_requests.md).
 3. Backend создаёт пустую draft-заявку и возвращает `id` и `requestNumber`.
 4. Frontend открывает окно `Новая заявка` и показывает номер, сгенерированный системой.
 5. Пользователь заполняет request-level поля:
@@ -52,18 +52,18 @@
    - блокирует ручной ввод номера Work Order;
    - передаёт на backend `isDefaultWorkOrder = true`;
    - передаёт `workOrderNumber = null`.
-7. Frontend сохраняет изменения request-level полей через debounced autosave (`PATCH /booking-requests/{id}`) после изменения значений пользователем.
+7. Frontend сохраняет изменения request-level полей через debounced autosave ([`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md)) после изменения значений пользователем.
 8. Пользователь нажимает кнопку `Добавить технику`.
 9. Frontend открывает окно выбора техники.
 10. При первом открытии окна frontend подтягивает базовые справочники фильтров:
-   - справочник типов техники (`GET /api/booking/v1/reference/equipment-types`);
-   - справочник fleet owners (`GET /api/booking/v1/reference/fleet-owners`);
-   - справочник work centers (`GET /api/booking/v1/reference/work-centers`);
-   - справочник / reference values для `ownershipType` (`GET /api/booking/v1/reference/ownership-types`);
-   - справочник / reference values для `shareType` (`GET /api/booking/v1/reference/share-types`).
-11. После выбора `equipmentType` frontend дополнительно подтягивает dynamic filters (properties), доступные для выбранного типа техники (`GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`).
+   - справочник типов техники ([`GET /api/booking/v1/reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md));
+   - справочник fleet owners ([`GET /api/booking/v1/reference/fleet-owners`](../../../../api/booking/reference/GET_reference_fleet_owners.md));
+   - справочник work centers ([`GET /api/booking/v1/reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md));
+   - справочник / reference values для `ownershipType` ([`GET /api/booking/v1/reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md));
+   - справочник / reference values для `shareType` ([`GET /api/booking/v1/reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md)).
+11. После выбора `equipmentType` frontend дополнительно подтягивает dynamic filters (properties), доступные для выбранного типа техники ([`GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`](../../../../api/booking/reference/GET_reference_equipment_types_id_properties.md)).
 12. При первом открытии окна таблица техники пустая; случайный или произвольный список по умолчанию не показывается.
-13. Frontend вызывает `GET /equipment/search` после задания параметров поиска и передаёт фильтры:
+13. Frontend вызывает [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md) после задания параметров поиска и передаёт фильтры:
    - тип техники;
    - дата начала брони;
    - дата окончания брони;
@@ -73,13 +73,13 @@
    - `shareType` / `ownershipType`;
    - dynamic properties.
 14. Пользователь выбирает одну или несколько единиц техники.
-15. Frontend создаёт booking item-ы через `POST /booking-requests/{id}/items`.
+15. Frontend создаёт booking item-ы через [`POST /booking-requests/{id}/items`](../../../../api/booking/requestor/POST_booking_requests_id_items.md).
 16. Если для конкретной единицы техники требуется `justification`, система помечает такой item как незавершённый до заполнения обязательного поля позже, на основной странице заявки.
 17. Пользователь продолжает редактирование draft-заявки до тех пор, пока не сформирует нужный состав item-ов и не заполнит необходимые `justification`.
 18. Пользователь выбирает одно из действий:
    - оставить заявку в статусе draft;
    - отправить заявку.
-19. При отправке frontend вызывает `POST /booking-requests/{id}/submit`.
+19. При отправке frontend вызывает [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md).
 20. Backend валидирует заявку, проверяет обязательные request-level поля, item-level justification и переводит заявку в submitted flow.
 
 ---
@@ -96,16 +96,16 @@
    Item остаётся незавершённым, а система не позволяет отправить заявку до исправления ошибки.
 
 4. Пользователь удаляет ранее добавленный booking item.
-   Frontend вызывает `DELETE /booking-requests/{id}/items/{bookingId}`.
+   Frontend вызывает [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md).
 
 5. Пользователь использует `Default Work Order`.
    Поле номера Work Order блокируется, а backend получает `isDefaultWorkOrder = true` и `workOrderNumber = null`.
 
 6. Пользователь сохраняет заявку как draft и возвращается к ней позже.
-   Дальнейшая работа выполняется через `GET /booking-requests/{id}` и `PATCH /booking-requests/{id}`.
+   Дальнейшая работа выполняется через [`GET /booking-requests/{id}`](../../../../api/booking/requestor/GET_booking_requests_id.md) и [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md).
 
 7. Пользователь меняет фильтры в окне выбора техники.
-   Frontend повторно вызывает `GET /equipment/search` при каждом изменении фильтра или поисковой строки.
+   Frontend повторно вызывает [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md) при каждом изменении фильтра или поисковой строки.
 
 8. Справочники фильтров не удалось загрузить.
    Frontend показывает ошибку в окне выбора техники и не позволяет выполнить поиск до успешной загрузки обязательных reference-данных.
@@ -119,14 +119,14 @@
 3. Request-level и booking-level данные должны храниться раздельно:
    - request-level: header заявки;
    - booking-level: отдельные item-ы.
-4. Полный detail flow заявки должен опираться на `GET /booking-requests/{id}`.
-5. `POST /booking-requests` создаёт именно пустой draft и не должен требовать обязательного заполнения business-полей на момент открытия формы.
-6. Обязательные поля проверяются на этапе `POST /booking-requests/{id}/submit`, а не на этапе создания draft.
+4. Полный detail flow заявки должен опираться на [`GET /booking-requests/{id}`](../../../../api/booking/requestor/GET_booking_requests_id.md).
+5. [`POST /booking-requests`](../../../../api/booking/requestor/POST_booking_requests.md) создаёт именно пустой draft и не должен требовать обязательного заполнения business-полей на момент открытия формы.
+6. Обязательные поля проверяются на этапе [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md), а не на этапе создания draft.
 7. Для окна выбора техники нужны отдельные read-only reference APIs для загрузки справочников фильтров:
-   - `GET /api/booking/v1/reference/equipment-types`
-   - `GET /api/booking/v1/reference/fleet-owners`
-   - `GET /api/booking/v1/reference/work-centers`
-   - `GET /api/booking/v1/reference/ownership-types`
-   - `GET /api/booking/v1/reference/share-types`
-   - `GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`
+   - [`GET /api/booking/v1/reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md)
+   - [`GET /api/booking/v1/reference/fleet-owners`](../../../../api/booking/reference/GET_reference_fleet_owners.md)
+   - [`GET /api/booking/v1/reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md)
+   - [`GET /api/booking/v1/reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md)
+   - [`GET /api/booking/v1/reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md)
+   - [`GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`](../../../../api/booking/reference/GET_reference_equipment_types_id_properties.md)
 8. Если этих API ещё нет, они должны быть выделены отдельной задачей в API scope.

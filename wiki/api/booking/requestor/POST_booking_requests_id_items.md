@@ -1,7 +1,7 @@
 # POST /booking-requests/{id}/items
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-25  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/items` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.4 - Добавление техники в draft-заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.4%20-%20Добавление%20техники%20в%20draft-заявку.md) |
 | Согласовано | |
 
 ---

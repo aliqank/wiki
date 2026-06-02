@@ -1,7 +1,7 @@
 # GET /approvals/bookings/{id}/load-summary
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/load-summary` |
 | Метод запроса | `GET` |
+| Связанные use cases | [`UC-FO-02 - Просмотр load summary Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-02%20-%20Просмотр%20load%20summary%20Fleet%20Owner.md) |
 | Согласовано | |
 
 ---

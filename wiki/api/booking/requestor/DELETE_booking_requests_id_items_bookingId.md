@@ -1,7 +1,7 @@
 # DELETE /booking-requests/{id}/items/{bookingId}
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/items/{bookingId}` |
 | Метод запроса | `DELETE` |
+| Связанные use cases | [`UC-REQ-02.7 - Удаление draft-брони`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.7%20-%20Удаление%20draft-брони.md) |
 | Согласовано | |
 
 ---

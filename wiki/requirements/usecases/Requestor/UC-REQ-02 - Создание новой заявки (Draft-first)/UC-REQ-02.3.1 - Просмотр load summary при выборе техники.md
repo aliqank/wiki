@@ -26,7 +26,7 @@
 1. Пользователь открывает окно `Добавить технику` и находит подходящую технику.
 2. Пользователь выбирает технику и задает даты планируемой брони.
 3. Frontend определяет `equipmentId`, `plannedStartDateTime` и `plannedEndDateTime`.
-4. Frontend вызывает `GET /equipment/{id}/load-summary`.
+4. Frontend вызывает [`GET /equipment/{id}/load-summary`](../../../../api/booking/requestor/GET_equipment_id_load_summary.md).
 5. Backend проверяет существование техники и валидность выбранного периода.
 6. Backend находит пересекающиеся активные брони по выбранной технике.
 7. Backend возвращает load summary, включая:

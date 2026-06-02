@@ -28,7 +28,7 @@
 3. Система показывает действие `Отменить draft` только для доступной собственной draft-заявки.
 4. Пользователь нажимает кнопку отмены.
 5. Frontend может показать подтверждающий диалог перед выполнением необратимого действия.
-6. После подтверждения frontend вызывает `POST /booking-requests/{id}/cancel`.
+6. После подтверждения frontend вызывает [`POST /booking-requests/{id}/cancel`](../../../api/booking/requestor/POST_booking_requests_id_cancel.md).
 7. Backend проверяет, что:
    - заявка существует;
    - заявка принадлежит текущему пользователю;
@@ -37,7 +37,7 @@
 9. Frontend обновляет экран:
    - убирает возможность редактирования и отправки;
    - обновляет статус заявки;
-   - обновляет список заявок через `GET /booking-requests/my` или detail view через `GET /booking-requests/{id}`.
+   - обновляет список заявок через [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md) или detail view через [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md).
 
 ---
 
@@ -56,7 +56,7 @@
    Backend возвращает `NOT_FOUND`, frontend показывает сообщение и обновляет список заявок.
 
 5. После отмены заявка больше не должна отображаться в списке активных заявок.
-   При повторной загрузке `GET /booking-requests/my` frontend не показывает отмененную заявку в active list.
+   При повторной загрузке [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md) frontend не показывает отмененную заявку в active list.
 
 ---
 

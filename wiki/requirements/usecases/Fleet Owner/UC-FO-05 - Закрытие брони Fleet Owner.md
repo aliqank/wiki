@@ -24,7 +24,7 @@
 ## Основной сценарий
 
 1. Fleet Owner открывает страницу `Approvals` и переходит в detail / action view активной брони.
-2. Frontend загружает актуальные данные брони через `GET /approvals/bookings/{id}`.
+2. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
 3. Система отображает бронь в активном статусе и показывает действие `Close`.
 4. Пользователь проверяет контекст брони:
    - технику;
@@ -36,7 +36,7 @@
 6. Frontend открывает форму ручного закрытия и передает в backend:
    - `actualStartDateTime`;
    - `actualEndDateTime`.
-7. Frontend вызывает `POST /approvals/bookings/{id}/close`.
+7. Frontend вызывает [`POST /approvals/bookings/{id}/close`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_close.md).
 8. Backend проверяет, что:
    - бронь существует;
    - бронь относится к зоне ответственности текущего Fleet Owner;

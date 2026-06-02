@@ -26,7 +26,7 @@
 1. Fleet Owner открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
 2. Пользователь находит нужную бронь внутри заявки и нажимает кнопку `Load summary` в строке этой брони.
 3. Frontend определяет `bookingId` выбранной брони из строки списка.
-4. Frontend вызывает `GET /approvals/bookings/{id}/load-summary`.
+4. Frontend вызывает [`GET /approvals/bookings/{id}/load-summary`](../../../api/booking/fleet-owner/GET_approvals_bookings_id_load_summary.md).
 5. Backend проверяет, что:
    - бронь существует;
    - текущий пользователь имеет доступ к брони как Fleet Owner;

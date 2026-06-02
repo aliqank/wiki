@@ -24,7 +24,7 @@
 ## Основной сценарий
 
 1. Fleet Owner открывает страницу `Approvals` и переходит в detail / action view ранее подтвержденной брони.
-2. Frontend загружает актуальные данные брони через `GET /approvals/bookings/{id}`.
+2. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
 3. Система отображает бронь в статусе `Confirmed` и показывает действие `Mobilization started`.
 4. Пользователь проверяет контекст брони:
    - технику;
@@ -33,7 +33,7 @@
    - плановый период;
    - текущий статус брони.
 5. Пользователь нажимает кнопку `Mobilization started`.
-6. Frontend вызывает `POST /approvals/bookings/{id}/mobilization-start`.
+6. Frontend вызывает [`POST /approvals/bookings/{id}/mobilization-start`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_mobilization_start.md).
 7. Backend проверяет, что:
    - бронь существует;
    - бронь относится к зоне ответственности текущего Fleet Owner;
@@ -78,5 +78,5 @@
 2. Начало периода бронирования считается от момента начала мобилизации, а не от прибытия техники на площадку.
 3. Use case применим только к броням, которые уже достигли статуса `Confirmed`; для long-term rented брони, ожидающей финального Supervisor approval, данный сценарий еще не должен быть доступен.
 4. `actualStartDateTime` является обязательным на уровне результата бизнес-действия, но значение может быть определено backend-ом автоматически, если frontend не передал его явно.
-5. Для базового сценария отдельный новый write API не требуется: покрытие уже обеспечено методом `POST /approvals/bookings/{id}/mobilization-start`.
+5. Для базового сценария отдельный новый write API не требуется: покрытие уже обеспечено методом [`POST /approvals/bookings/{id}/mobilization-start`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_mobilization_start.md).
 6. На уровне request lifecycle старт первой брони в `InProgress` должен приводить к пересчету `BookingRequest.status` в `InProgress` по `FR-074` и актуальным aggregated request status rules.

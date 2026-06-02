@@ -1,7 +1,7 @@
 # POST /booking-requests/{id}/cancel
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/cancel` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-REQ-03 - Отмена draft-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md) |
 | Согласовано | |
 
 ---

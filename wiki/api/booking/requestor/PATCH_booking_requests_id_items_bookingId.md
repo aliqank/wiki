@@ -1,7 +1,7 @@
 # PATCH /booking-requests/{id}/items/{bookingId}
 
 **Created:** 2026-05-19  
-**Last updated:** 2026-05-19  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/items/{bookingId}` |
 | Метод запроса | `PATCH` |
+| Связанные use cases | [`UC-REQ-02.5 - Редактирование брони или замена техники в draft`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.5%20-%20Редактирование%20брони%20или%20замена%20техники%20в%20draft.md) |
 | Согласовано | |
 
 ---

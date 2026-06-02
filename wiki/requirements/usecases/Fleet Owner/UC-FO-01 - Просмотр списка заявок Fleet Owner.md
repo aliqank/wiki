@@ -24,8 +24,8 @@
 ## Основной сценарий
 
 1. Пользователь открывает страницу Fleet Owner `Approvals` и переключается во view `Requests`.
-2. Frontend загружает справочники фильтров через `GET /reference/approval-request-statuses`, `GET /reference/approval-request-types`, `GET /reference/request-priorities`.
-3. Frontend вызывает `GET /approvals/requests`.
+2. Frontend загружает справочники фильтров через [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
+3. Frontend вызывает [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md).
 4. Backend проверяет, что текущий пользователь имеет роль `FleetOwner`.
 5. Backend определяет список fleet-ов, где у текущего Fleet Owner есть assignment в `FleetManagePermissions` с типом `Owner` или `Delegated`.
 6. Backend выбирает только те `BookingRequests`, в составе которых есть booking item-ы по этим fleet-ам.
@@ -47,13 +47,13 @@
    Система отображает пустое состояние без строк таблицы.
 
 2. Пользователь применяет фильтр по статусу заявки.
-   Frontend повторно вызывает `GET /approvals/requests` с query-параметром `status`.
+   Frontend повторно вызывает [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md) с query-параметром `status`.
 
 3. Пользователь применяет фильтр по типу заявки.
-   Frontend повторно вызывает `GET /approvals/requests` с query-параметром `type`.
+   Frontend повторно вызывает [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md) с query-параметром `type`.
 
 4. Пользователь задает период выборки.
-   Frontend повторно вызывает `GET /approvals/requests` с query-параметрами `createdFrom` / `createdTo`.
+   Frontend повторно вызывает [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md) с query-параметрами `createdFrom` / `createdTo`.
 
 5. Backend возвращает ошибку авторизации или доступа.
    Frontend отображает сообщение об ошибке и не показывает данные списка.
@@ -66,6 +66,6 @@
 2. В список не должны попадать заявки, не имеющие booking item-ов по fleet-ам текущего Fleet Owner.
 3. Для request-level списка используется агрегированный статус заявки, а не статус отдельной брони.
 4. Для terminal request statuses должна использоваться актуальная семантика: request lifecycle использует единый статус `Closed`, а различие между pre-start cancellation и post-start completion хранится в `requestClosureReason`.
-5. Текущая версия use case предполагает, что для первичной работы со связанными booking item-ами достаточно данных из `GET /approvals/requests`.
-6. Для фильтра `status` используется `GET /reference/approval-request-statuses`, для фильтра `type` используется `GET /reference/approval-request-types`, для фильтра `priority` используется `GET /reference/request-priorities`.
+5. Текущая версия use case предполагает, что для первичной работы со связанными booking item-ами достаточно данных из [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md).
+6. Для фильтра `status` используется [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), для фильтра `type` используется [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), для фильтра `priority` используется [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
 7. Признак конфликта в строке брони является short summary; детальный состав конфликтов / competing bookings раскрывается через `load summary`.

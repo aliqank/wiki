@@ -25,7 +25,7 @@
 1. Пользователь редактирует request-level поля: `workOrderNumber`, `priority`, `location`, `workDescription`, `comments`.
 2. Пользователь заполняет поля заявки вручную в базовом сценарии без обращения к внешним системам.
 3. Если пользователь включает `Default Work Order`, frontend передаёт `isDefaultWorkOrder = true`, а `workOrderNumber = null`.
-4. Frontend сохраняет изменения через debounced autosave: `PATCH /booking-requests/{id}`.
+4. Frontend сохраняет изменения через debounced autosave: [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md).
 5. Backend обновляет header draft-заявки.
 
 ---
@@ -36,4 +36,4 @@
    Draft остаётся частично заполненным.
 
 2. Пользователь включает или выключает `Default Work Order`.
-   Frontend сохраняет обновлённые `isDefaultWorkOrder` и `workOrderNumber` через `PATCH /booking-requests/{id}`.
+   Frontend сохраняет обновлённые `isDefaultWorkOrder` и `workOrderNumber` через [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md).
