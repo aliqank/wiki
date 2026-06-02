@@ -35,7 +35,7 @@
 
 ## 3. Описание логики работы метода
 
-1. Определить флоты пользователя через `FleetManagePermissions` с типами `Owner` и `Delegated`.
+1. Определить флоты пользователя через [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access).
 2. Выбрать брони по этим флотам, у которых завершен шаг `FoApproval` и которые либо уже `Confirmed`, либо находятся в `Closed` с terminal closure reason.
 3. Применить поиск и пагинацию.
 4. Вернуть список.

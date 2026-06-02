@@ -27,7 +27,7 @@
 2. Frontend загружает справочники фильтров через [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
 3. Frontend вызывает [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md).
 4. Backend проверяет, что текущий пользователь имеет роль `FleetOwner`.
-5. Backend определяет список fleet-ов, где у текущего Fleet Owner есть assignment в `FleetManagePermissions` с типом `Owner` или `Delegated`.
+5. Backend определяет список fleet-ов, где у текущего Fleet Owner есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access).
 6. Backend выбирает только те `BookingRequests`, в составе которых есть booking item-ы по этим fleet-ам.
 7. Backend применяет request-level фильтры экрана по статусу, типу заявки и периоду.
 8. Backend рассчитывает и возвращает paginated список заявок вместе с релевантными `bookingSummaries` внутри каждой заявки.

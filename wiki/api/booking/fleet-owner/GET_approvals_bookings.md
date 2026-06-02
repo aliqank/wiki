@@ -36,7 +36,7 @@
 
 ## 3. Описание логики работы метода
 
-1. Определить список флотов, где у текущего FO есть запись в `FleetManagePermissions` с типом `Owner` или `Delegated`, а также технику, доступную ему по делегированию.
+1. Определить список флотов, где у текущего FO есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access), а также технику, доступную ему в рамках этого доступа.
 2. Выбрать `Bookings` по этим флотам и/или по доступной технике со статусами, допустимыми для view `Bookings`, по фильтру экрана.
 3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `Users`.
 4. Для каждого booking вычислить таймер с момента submit.

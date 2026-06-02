@@ -14,7 +14,7 @@
 | Участник | Пользователь с ролью `FleetOwner` |
 | Покрываемые FR (BRD) | `FR-048`, `FR-079a` |
 | Покрываемые FR (Additional list) | — |
-| Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть доступ через `FleetManagePermissions` с типом `Owner` или `Delegated`; бронь находится в lifecycle состоянии, в котором изменение периода еще допустимо: `Submitted`, `Confirmed` или `InProgress`; для `InProgress` разрешено изменять только `plannedEndDateTime`, а `plannedStartDateTime` больше не редактируется |
+| Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь находится в lifecycle состоянии, в котором изменение периода еще допустимо: `Submitted`, `Confirmed` или `InProgress`; для `InProgress` разрешено изменять только `plannedEndDateTime`, а `plannedStartDateTime` больше не редактируется |
 | Триггер | Нажатие кнопки `Change period` в карточке брони |
 | Ожидаемый результат | Плановый период брони изменен Fleet Owner-ом; бронь сохраняет допустимый lifecycle status; Requestor получает уведомление об изменении периода |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/change-period`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_change_period.md) |

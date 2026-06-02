@@ -57,7 +57,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Изменение периода броней fleet-ов, где пользователь имеет доступ как `Owner` или `Delegated` |
+| `FleetOwner` | Изменение периода броней fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
 
 ---
 
