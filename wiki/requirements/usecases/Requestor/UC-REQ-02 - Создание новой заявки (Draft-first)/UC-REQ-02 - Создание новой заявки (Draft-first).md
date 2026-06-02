@@ -84,6 +84,43 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant ReferenceAPI as Reference API
+    participant BookingRequests
+    participant Bookings
+
+    Requestor->>Frontend: Нажимает "Создать заявку"
+    Frontend->>BookingAPI: POST /booking-requests
+    BookingAPI->>BookingRequests: Создает draft request
+    BookingAPI-->>Frontend: Возвращает id и requestNumber
+    Requestor->>Frontend: Заполняет шапку заявки
+    Frontend->>BookingAPI: PATCH /booking-requests/{id}
+    BookingAPI->>BookingRequests: Сохраняет request-level поля
+    Requestor->>Frontend: Открывает окно выбора техники
+    Frontend->>ReferenceAPI: Загружает reference-справочники
+    ReferenceAPI-->>Frontend: Возвращает filter dictionaries
+    Frontend->>BookingAPI: GET /equipment/search
+    BookingAPI-->>Frontend: Возвращает список техники
+    Requestor->>Frontend: Выбирает технику
+    Frontend->>BookingAPI: POST /booking-requests/{id}/items
+    BookingAPI->>Bookings: Создает booking item-ы
+    BookingAPI-->>Frontend: Возвращает результат добавления
+    Requestor->>Frontend: Нажимает "Отправить заявку"
+    Frontend->>BookingAPI: POST /booking-requests/{id}/submit
+    BookingAPI->>BookingRequests: Валидирует и переводит заявку в submitted flow
+    BookingAPI->>Bookings: Переводит связанные item-ы в submitted flow
+    BookingAPI-->>Frontend: Возвращает итоговое состояние заявки
+    Frontend-->>Requestor: Показывает обновленное состояние
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Пользователь закрыл окно после создания draft.

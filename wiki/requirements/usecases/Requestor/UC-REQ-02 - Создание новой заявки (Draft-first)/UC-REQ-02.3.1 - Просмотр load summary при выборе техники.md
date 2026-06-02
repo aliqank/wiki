@@ -38,6 +38,26 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant Equipments
+    participant Bookings
+
+    Requestor->>Frontend: Выбирает технику и период
+    Frontend->>BookingAPI: GET /equipment/{id}/load-summary
+    BookingAPI->>Equipments: Проверяет existence equipment
+    BookingAPI->>Bookings: Ищет пересекающиеся активные брони
+    BookingAPI-->>Frontend: Возвращает load summary
+    Frontend-->>Requestor: Показывает блок load summary
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Для выбранной техники нет пересекающихся активных броней.

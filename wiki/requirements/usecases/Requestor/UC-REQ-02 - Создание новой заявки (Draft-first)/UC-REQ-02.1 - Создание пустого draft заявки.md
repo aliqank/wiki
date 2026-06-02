@@ -30,6 +30,26 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant BookingRequestStatuses
+
+    Requestor->>Frontend: Нажимает "Создать заявку"
+    Frontend->>BookingAPI: POST /booking-requests
+    BookingAPI->>BookingRequests: Создает draft request
+    BookingAPI->>BookingRequestStatuses: Создает запись статуса Draft
+    BookingAPI-->>Frontend: Возвращает id, requestNumber, status=Draft
+    Frontend-->>Requestor: Открывает форму новой заявки
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Пользователь не авторизован.

@@ -40,6 +40,30 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+
+    Requestor->>Frontend: Нажимает "Удалить" для draft item-а
+    Frontend->>Requestor: Показывает подтверждение
+    Requestor->>Frontend: Подтверждает удаление
+    Frontend->>BookingAPI: DELETE /booking-requests/{id}/items/{bookingId}
+    BookingAPI->>BookingRequests: Проверяет draft request и requestorId
+    BookingAPI->>Bookings: Проверяет item и выполняет soft delete
+    BookingAPI-->>Frontend: Возвращает успешный результат
+    Frontend->>BookingAPI: GET /booking-requests/{id}
+    BookingAPI-->>Frontend: Возвращает обновленный состав заявки
+    Frontend-->>Requestor: Показывает список без удаленного item-а
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Пользователь передумал удалять draft-бронь.

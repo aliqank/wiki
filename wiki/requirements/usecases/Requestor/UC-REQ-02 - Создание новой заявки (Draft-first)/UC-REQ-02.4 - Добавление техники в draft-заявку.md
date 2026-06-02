@@ -55,6 +55,28 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+
+    Requestor->>Frontend: Выбирает технику и нажимает "Добавить к заявке"
+    Frontend->>BookingAPI: POST /booking-requests/{id}/items
+    BookingAPI->>BookingRequests: Проверяет draft request и доступ
+    BookingAPI->>Bookings: Создает booking item-ы
+    BookingAPI-->>Frontend: Возвращает результат добавления
+    Frontend->>BookingAPI: GET /booking-requests/{id}
+    BookingAPI-->>Frontend: Возвращает полное состояние заявки
+    Frontend-->>Requestor: Показывает обновленный состав заявки
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. У выбранной техники есть конфликты с другими активными бронями на тот же период.

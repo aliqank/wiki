@@ -32,6 +32,33 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+    participant BookingRequestStatuses
+    participant BookingStatuses
+
+    Requestor->>Frontend: Нажимает "Отправить заявку"
+    Frontend->>Frontend: Выполняет flush autosave-изменений
+    Frontend->>BookingAPI: POST /booking-requests/{id}/submit
+    BookingAPI->>BookingRequests: Проверяет request-level данные
+    BookingAPI->>Bookings: Проверяет item-level данные и justification
+    BookingAPI->>BookingRequests: Переводит заявку в submitted flow
+    BookingAPI->>Bookings: Переводит booking item-ы в submitted flow
+    BookingAPI->>BookingRequestStatuses: Создает запись истории заявки
+    BookingAPI->>BookingStatuses: Создает записи истории booking item-ов
+    BookingAPI-->>Frontend: Возвращает успешный результат
+    Frontend-->>Requestor: Показывает обновленное состояние заявки
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Не заполнены обязательные поля заявки.

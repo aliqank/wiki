@@ -30,6 +30,26 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+
+    Requestor->>Frontend: Редактирует поля заявки
+    Frontend->>Frontend: Запускает debounced autosave
+    Frontend->>BookingAPI: PATCH /booking-requests/{id}
+    BookingAPI->>BookingRequests: Проверяет доступ и статус Draft
+    BookingAPI->>BookingRequests: Обновляет request-level поля
+    BookingAPI-->>Frontend: Возвращает обновленную заявку
+    Frontend-->>Requestor: Показывает сохраненное состояние
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Пользователь не завершил заполнение.

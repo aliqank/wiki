@@ -53,20 +53,20 @@ sequenceDiagram
     participant BookingRequestStatuses
     participant BookingStatuses
 
-    Requestor->>Frontend: Clicks "Cancel draft"
-    Frontend->>Requestor: Shows confirmation dialog
-    Requestor->>Frontend: Confirms cancellation
+    Requestor->>Frontend: Нажимает "Отменить draft"
+    Frontend->>Requestor: Показывает диалог подтверждения
+    Requestor->>Frontend: Подтверждает отмену
     Frontend->>BookingAPI: POST /booking-requests/{id}/cancel
-    BookingAPI->>BookingRequests: Validate request exists, status=Draft, requestorId=currentUserId
-    BookingAPI->>Bookings: Load related draft booking items
-    BookingAPI->>BookingRequests: Set status=Closed, closureReason=Cancelled
-    BookingAPI->>BookingRequestStatuses: Insert Closed / Cancelled history record
-    BookingAPI->>Bookings: Delete or close related draft items
-    BookingAPI->>BookingStatuses: Insert item status history records
-    BookingAPI-->>Frontend: Success result
-    Frontend->>BookingAPI: GET /booking-requests/my or GET /booking-requests/{id}
-    BookingAPI-->>Frontend: Updated request state
-    Frontend-->>Requestor: Shows cancelled request state
+    BookingAPI->>BookingRequests: Проверяет, что заявка существует, status=Draft, requestorId=currentUserId
+    BookingAPI->>Bookings: Загружает связанные draft booking item-ы
+    BookingAPI->>BookingRequests: Устанавливает status=Closed, closureReason=Cancelled
+    BookingAPI->>BookingRequestStatuses: Создает запись истории Closed / Cancelled
+    BookingAPI->>Bookings: Удаляет или закрывает связанные draft item-ы
+    BookingAPI->>BookingStatuses: Создает записи истории item-ов
+    BookingAPI-->>Frontend: Возвращает успешный результат
+    Frontend->>BookingAPI: GET /booking-requests/my или GET /booking-requests/{id}
+    BookingAPI-->>Frontend: Возвращает обновленное состояние заявки
+    Frontend-->>Requestor: Показывает состояние отмененной заявки
 ```
 
 ---

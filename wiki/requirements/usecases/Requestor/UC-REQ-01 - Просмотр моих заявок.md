@@ -49,6 +49,34 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+    participant Users
+
+    Requestor->>Frontend: Открывает страницу "Мои заявки"
+    Frontend->>BookingAPI: GET /reference/request-statuses
+    BookingAPI-->>Frontend: Возвращает статусы заявок
+    Frontend->>BookingAPI: GET /reference/requestor-request-types
+    BookingAPI-->>Frontend: Возвращает типы заявок
+    Frontend->>BookingAPI: GET /reference/request-priorities
+    BookingAPI-->>Frontend: Возвращает приоритеты
+    Frontend->>BookingAPI: GET /booking-requests/my
+    BookingAPI->>BookingRequests: Выбирает заявки по requestorId=currentUserId
+    BookingAPI->>Bookings: Загружает booking summary по заявкам
+    BookingAPI->>Users: Подтягивает данные requestor/statusUpdatedBy
+    BookingAPI-->>Frontend: Возвращает paginated summary list
+    Frontend-->>Requestor: Показывает список заявок
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. У пользователя нет незавершенных заявок.

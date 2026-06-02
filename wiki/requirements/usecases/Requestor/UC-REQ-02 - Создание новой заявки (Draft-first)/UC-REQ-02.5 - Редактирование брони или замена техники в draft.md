@@ -33,6 +33,32 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+
+    Requestor->>Frontend: Редактирует booking item
+    alt Изменение периода/justification/workCenter
+        Frontend->>BookingAPI: PATCH /booking-requests/{id}/items/{bookingId}
+    else Замена техники
+        Frontend->>BookingAPI: GET /equipment/search
+        BookingAPI-->>Frontend: Возвращает новую технику
+        Frontend->>BookingAPI: PATCH /booking-requests/{id}/items/{bookingId}
+    end
+    BookingAPI->>BookingRequests: Проверяет draft request и доступ
+    BookingAPI->>Bookings: Обновляет booking item
+    BookingAPI-->>Frontend: Возвращает обновленное состояние item-а
+    Frontend-->>Requestor: Показывает обновленные данные
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. При замене техники новая единица имеет конфликты с другими активными бронями на выбранный период.

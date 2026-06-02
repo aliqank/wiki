@@ -42,6 +42,32 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+    participant BookingStatuses
+
+    Requestor->>Frontend: Нажимает "Отозвать бронь"
+    Frontend->>Requestor: Показывает подтверждение
+    Requestor->>Frontend: Подтверждает отзыв
+    Frontend->>BookingAPI: POST /bookings/{id}/revoke
+    BookingAPI->>Bookings: Проверяет booking и статус Submitted
+    BookingAPI->>BookingRequests: Проверяет requestorId родительской заявки
+    BookingAPI->>Bookings: Переводит booking в Closed / Revoked
+    BookingAPI->>BookingStatuses: Создает запись истории брони
+    BookingAPI->>BookingRequests: Пересчитывает агрегированный статус заявки
+    BookingAPI-->>Frontend: Возвращает успешный результат
+    Frontend-->>Requestor: Показывает обновленное состояние брони
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Пользователь передумал отзывать бронь.

@@ -39,6 +39,30 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant ReferenceAPI as Reference API
+    participant BookingAPI as Booking API
+    participant Equipments
+
+    Requestor->>Frontend: Открывает окно "Добавить технику"
+    Frontend->>ReferenceAPI: GET reference dictionaries
+    ReferenceAPI-->>Frontend: Возвращает filters data
+    Requestor->>Frontend: Заполняет фильтры поиска
+    Frontend->>ReferenceAPI: GET /reference/equipment-types/{equipmentTypeId}/properties
+    ReferenceAPI-->>Frontend: Возвращает dynamic filters
+    Frontend->>BookingAPI: GET /equipment/search
+    BookingAPI->>Equipments: Ищет технику по фильтрам и периоду
+    BookingAPI-->>Frontend: Возвращает paginated equipment list
+    Frontend-->>Requestor: Показывает результаты поиска
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Справочники не загрузились.

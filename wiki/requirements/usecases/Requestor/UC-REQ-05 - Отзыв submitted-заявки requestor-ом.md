@@ -41,6 +41,32 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+    participant BookingStatuses
+
+    Requestor->>Frontend: Нажимает "Отозвать заявку"
+    Frontend->>Requestor: Показывает подтверждение
+    Requestor->>Frontend: Подтверждает отзыв
+    Frontend->>BookingAPI: Request-level withdraw flow
+    BookingAPI->>BookingRequests: Проверяет requestorId и статус Submitted
+    BookingAPI->>Bookings: Проверяет, что ни один item не подтвержден FO
+    BookingAPI->>Bookings: Переводит допустимые item-ы в Closed / Revoked
+    BookingAPI->>BookingStatuses: Создает записи истории item-ов
+    BookingAPI->>BookingRequests: Пересчитывает и закрывает заявку
+    BookingAPI-->>Frontend: Возвращает успешный результат
+    Frontend-->>Requestor: Убирает заявку из active list
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Пользователь передумал отзывать заявку.
