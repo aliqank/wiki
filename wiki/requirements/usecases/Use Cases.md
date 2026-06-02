@@ -34,6 +34,7 @@
 | `UC-FO-03` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/confirm`](../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md) |
 | `UC-FO-04` | Мобилизация техники | Страница `Approvals` → detail / action view подтвержденной брони | `BRD: FR-NEW-18, FR-NEW-24` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/mobilization-start`](../../api/booking/fleet-owner/POST_approvals_bookings_id_mobilization_start.md) |
 | `UC-FO-05` | Закрытие брони Fleet Owner | Страница `Approvals` → detail / action view активной брони | `BRD: FR-NEW-32, FR-NEW-33; Additional: BRD-U-001` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/close`](../../api/booking/fleet-owner/POST_approvals_bookings_id_close.md) |
+| `UC-FO-06` | Отклонение брони Fleet Owner | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-049, FR-050, FR-064; Additional: BRD-U-001` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/decline`](../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md) |
 
 ---
 
@@ -57,3 +58,4 @@
 - [`Fleet Owner/UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий).md`](Fleet%20Owner/UC-FO-03%20-%20Подтверждение%20брони%20Fleet%20Owner%20(базовый%20сценарий).md)
 - [`Fleet Owner/UC-FO-04 - Мобилизация техники.md`](Fleet%20Owner/UC-FO-04%20-%20Мобилизация%20техники.md)
 - [`Fleet Owner/UC-FO-05 - Закрытие брони Fleet Owner.md`](Fleet%20Owner/UC-FO-05%20-%20Закрытие%20брони%20Fleet%20Owner.md)
+- [`Fleet Owner/UC-FO-06 - Отклонение брони Fleet Owner.md`](Fleet%20Owner/UC-FO-06%20-%20Отклонение%20брони%20Fleet%20Owner.md)

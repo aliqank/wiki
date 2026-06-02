@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/decline
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-22  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/decline` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-FO-06 - Отклонение брони Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-06%20-%20Отклонение%20брони%20Fleet%20Owner.md) |
 | Согласовано | |
 
 ---
@@ -40,14 +41,19 @@
 1. Проверить бронь и права доступа.
 2. Разрешить действие только для статуса `Submitted`.
 3. Потребовать непустой `reason`.
-4. Обновить бронь до terminal-состояния и зафиксировать причину decline в terminal audit / closure reason модели.
+4. Обновить бронь до terminal-состояния `Closed` и зафиксировать причину decline через `closureReason = Declined`.
 5. Создать запись в `BookingApprovals` с `approvalType = FoApproval`, `status = Declined`, `userId = currentUserId`, `approvalOrder = 1`, `comment = reason`.
 6. Создать запись в `BookingStatuses`.
-7. Вернуть результат.
+7. Пересчитать агрегированный статус родительской заявки.
+8. Если отклоненная бронь была последней активной в заявке, перевести заявку в `Closed`:
+   - с `requestClosureReason = Cancelled`, если заявка ни разу не была в `InProgress`;
+   - с `requestClosureReason = Completed`, если заявка ранее уже была в `InProgress`.
+9. Если при пересчете request status фактически изменился, создать запись в `BookingRequestStatuses`.
+10. Вернуть результат.
 
 Сущности:
-- читаются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings)
-- изменяются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`BookingApprovals`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#23-bookingapprovals), [`BookingStatuses`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#24-bookingstatuses)
+- читаются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`BookingRequests`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#21-bookingrequests)
+- изменяются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`BookingApprovals`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#23-bookingapprovals), [`BookingStatuses`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#24-bookingstatuses), [`BookingRequests`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#21-bookingrequests), [`BookingRequestStatuses`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#26-bookingrequeststatuses)
 
 ---
 
