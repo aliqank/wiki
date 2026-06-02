@@ -1,7 +1,7 @@
 # UC-FO-04 - Мобилизация техники
 
 **Created:** 2026-06-01  
-**Last updated:** 2026-06-01  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у пользователя; бронь уже находится в статусе `Confirmed`; сценарий выполняется после позитивного confirm-сценария и до фактического завершения брони |
 | Триггер | Нажатие кнопки `Mobilization started` в карточке подтвержденной брони |
 | Ожидаемый результат | Система фиксирует фактическое время начала мобилизации, а бронь переходит в статус `InProgress` |
-| Используемые API | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/mobilization-start` |
+| Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/mobilization-start`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_mobilization_start.md) |
 
 ---
 

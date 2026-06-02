@@ -1,7 +1,7 @@
 # UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий)
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у пользователя; бронь находится в статусе `Submitted`; сценарий не требует транспортировки и не требует дополнительного согласования Supervisor |
 | Триггер | Нажатие кнопки `Подтвердить` в карточке брони, открытой из request view |
 | Ожидаемый результат | Бронь подтверждена Fleet Owner и переходит в статус `Confirmed` |
-| Используемые API | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/confirm` |
+| Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/confirm`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md) |
 
 ---
 

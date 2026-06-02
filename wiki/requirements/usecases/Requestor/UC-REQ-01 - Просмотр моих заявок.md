@@ -1,7 +1,7 @@
 # UC-REQ-01 - Просмотр моих заявок
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован в системе; пользователь находится на странице `Мои заявки`; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Вход на страницу `Мои заявки` |
 | Ожидаемый результат | Отображается список незавершенных заявок текущего пользователя с краткой информацией по броням |
-| Используемые API | `GET /booking-requests/my`, `GET /booking-requests/{id}`, `GET /reference/request-statuses`, `GET /reference/requestor-request-types`, `GET /reference/request-priorities` |
+| Используемые API | [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md), [`GET /reference/request-statuses`](../../../api/booking/reference/GET_reference_request_statuses.md), [`GET /reference/requestor-request-types`](../../../api/booking/reference/GET_reference_requestor_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md) |
 
 ---
 

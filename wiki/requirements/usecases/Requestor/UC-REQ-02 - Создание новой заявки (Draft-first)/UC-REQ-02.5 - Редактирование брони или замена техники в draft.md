@@ -1,7 +1,7 @@
 # UC-REQ-02.5 - Редактирование брони или замена техники в draft
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-19  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -16,7 +16,7 @@
 | Покрываемые FR (Additional list) | — |
 | Триггер | Пользователь редактирует период брони, justification или хочет заменить технику |
 | Ожидаемый результат | Booking item обновлён без удаления всей draft-заявки |
-| Используемые API | `PATCH /booking-requests/{id}/items/{bookingId}`, `GET /equipment/search` |
+| Используемые API | [`PATCH /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/PATCH_booking_requests_id_items_bookingId.md), [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md) |
 
 ---
 

@@ -1,7 +1,7 @@
 # UC-REQ-03 - Отмена draft-заявки requestor-ом
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован; пользователь открыл собственную заявку; заявка находится в статусе `Draft` |
 | Триггер | Нажатие кнопки `Отменить draft` |
 | Ожидаемый результат | Draft-заявка отменена, дальнейшее редактирование и отправка недоступны |
-| Используемые API | `POST /booking-requests/{id}/cancel`, `GET /booking-requests/my`, `GET /booking-requests/{id}` |
+| Используемые API | [`POST /booking-requests/{id}/cancel`](../../../api/booking/requestor/POST_booking_requests_id_cancel.md), [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md) |
 
 ---
 

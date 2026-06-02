@@ -1,7 +1,7 @@
 # UC-FO-01 - Просмотр списка заявок Fleet Owner
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-05-21  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; пользователю доступны один или несколько fleet-ов |
 | Триггер | Вход на страницу Fleet Owner `Approvals` c активной view `Requests` |
 | Ожидаемый результат | Отображается paginated список заявок, относящихся к зоне ответственности Fleet Owner, с request-level статусом и базовыми фильтрами |
-| Используемые API | `GET /approvals/requests`, `GET /reference/approval-request-statuses`, `GET /reference/approval-request-types`, `GET /reference/request-priorities` |
+| Используемые API | [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md), [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md) |
 
 ---
 

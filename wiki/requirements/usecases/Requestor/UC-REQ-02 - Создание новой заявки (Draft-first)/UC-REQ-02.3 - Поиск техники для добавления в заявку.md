@@ -1,7 +1,7 @@
 # UC-REQ-02.3 - Поиск техники для добавления в заявку
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -16,7 +16,7 @@
 | Покрываемые FR (Additional list) | — |
 | Триггер | Открытие окна `Добавить технику` |
 | Ожидаемый результат | Пользователь видит доступные фильтры и может выполнить поиск техники |
-| Используемые API | `GET /equipment/search`, `GET /api/booking/v1/reference/equipment-types`, `GET /api/booking/v1/reference/fleet-owners`, `GET /api/booking/v1/reference/work-centers`, `GET /api/booking/v1/reference/ownership-types`, `GET /api/booking/v1/reference/share-types`, `GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties` |
+| Используемые API | [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md), [`GET /api/booking/v1/reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md), [`GET /api/booking/v1/reference/fleet-owners`](../../../../api/booking/reference/GET_reference_fleet_owners.md), [`GET /api/booking/v1/reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md), [`GET /api/booking/v1/reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md), [`GET /api/booking/v1/reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md), [`GET /api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties`](../../../../api/booking/reference/GET_reference_equipment_types_id_properties.md) |
 
 ---
 

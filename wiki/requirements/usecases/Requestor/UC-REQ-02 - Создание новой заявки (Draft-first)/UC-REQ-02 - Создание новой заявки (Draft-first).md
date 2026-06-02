@@ -1,7 +1,7 @@
 # UC-REQ-02 - Создание новой заявки (Draft-first)
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Нажатие кнопки `Создать заявку` |
 | Ожидаемый результат | Создана новая draft-заявка, пользователь может добавить технику, сохранить черновик или отправить заявку |
-| Используемые API | `POST /booking-requests`, `PATCH /booking-requests/{id}`, `GET /equipment/search`, `POST /booking-requests/{id}/items`, `DELETE /booking-requests/{id}/items/{bookingId}`, `POST /booking-requests/{id}/submit`, reference APIs for filter dictionaries |
+| Используемые API | [`POST /booking-requests`](../../../../api/booking/requestor/POST_booking_requests.md), [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md), [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md), [`POST /booking-requests/{id}/items`](../../../../api/booking/requestor/POST_booking_requests_id_items.md), [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md), [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md), [`GET /reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md), [`GET /reference/fleet-owners`](../../../../api/booking/reference/GET_reference_fleet_owners.md), [`GET /reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md), [`GET /reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md), [`GET /reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md), [`GET /reference/equipment-types/{equipmentTypeId}/properties`](../../../../api/booking/reference/GET_reference_equipment_types_id_properties.md) |
 
 ---
 

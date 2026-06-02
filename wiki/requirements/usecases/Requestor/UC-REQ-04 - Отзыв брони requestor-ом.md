@@ -1,7 +1,7 @@
 # UC-REQ-04 - Отзыв брони requestor-ом
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован; у пользователя есть собственная незавершенная заявка; в заявке есть бронь в статусе `Submitted`, которая еще не обработана Fleet Owner |
 | Триггер | Нажатие кнопки `Отозвать бронь` |
 | Ожидаемый результат | Выбранная бронь переведена в статус `Closed` с причиной `Revoked`; агрегированный статус заявки пересчитан; Fleet Owner получает уведомление |
-| Используемые API | `GET /booking-requests/my`, `POST /bookings/{id}/revoke`, `GET /booking-requests/{id}` |
+| Используемые API | [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`POST /bookings/{id}/revoke`](../../../api/booking/requestor/POST_bookings_id_revoke.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md) |
 
 ---
 

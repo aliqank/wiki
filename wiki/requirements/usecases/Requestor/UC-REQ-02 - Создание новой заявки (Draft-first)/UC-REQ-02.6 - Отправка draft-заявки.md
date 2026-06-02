@@ -1,7 +1,7 @@
 # UC-REQ-02.6 - Отправка draft-заявки
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-19  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -16,7 +16,7 @@
 | Покрываемые FR (Additional list) | — |
 | Триггер | Нажатие кнопки `Отправить заявку` |
 | Ожидаемый результат | Draft-заявка валидирована и переведена в submitted flow |
-| Используемые API | `POST /booking-requests/{id}/submit` |
+| Используемые API | [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md) |
 
 ---
 

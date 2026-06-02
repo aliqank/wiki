@@ -1,7 +1,7 @@
 # UC-REQ-02.4 - Добавление техники в draft-заявку
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-25  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -16,7 +16,7 @@
 | Покрываемые FR (Additional list) | — |
 | Триггер | Пользователь выбрал одну или несколько единиц техники и нажал `Добавить к заявке` |
 | Ожидаемый результат | В draft-заявку добавлены booking item-ы |
-| Используемые API | `POST /booking-requests/{id}/items` |
+| Используемые API | [`POST /booking-requests/{id}/items`](../../../../api/booking/requestor/POST_booking_requests_id_items.md) |
 
 ---
 

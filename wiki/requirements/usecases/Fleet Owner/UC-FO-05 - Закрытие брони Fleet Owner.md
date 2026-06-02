@@ -1,7 +1,7 @@
 # UC-FO-05 - Закрытие брони Fleet Owner
 
 **Created:** 2026-06-01  
-**Last updated:** 2026-06-01  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у пользователя; бронь находится в активном статусе `Confirmed` или `InProgress`; сценарий выполняется для ручного завершения брони |
 | Триггер | Нажатие кнопки `Close` в карточке активной брони |
 | Ожидаемый результат | Бронь вручную закрыта, фактические даты использования зафиксированы, статус брони переходит в `Closed` с причиной `Completed` |
-| Используемые API | `GET /approvals/bookings/{id}`, `POST /approvals/bookings/{id}/close` |
+| Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/close`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_close.md) |
 
 ---
 

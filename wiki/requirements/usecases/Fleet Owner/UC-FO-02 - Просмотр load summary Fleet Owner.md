@@ -1,7 +1,7 @@
 # UC-FO-02 - Просмотр load summary Fleet Owner
 
 **Created:** 2026-05-28  
-**Last updated:** 2026-05-28  
+**Last updated:** 2026-06-02  
 **Автор документов:** OpenCode
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к зоне ответственности пользователя; пользователь находится на странице `Approvals` во view `Requests` |
 | Триггер | Нажатие кнопки `Load summary` в строке брони на странице `Requests` или открытие блока `Load summary` в detail / action view брони |
 | Ожидаемый результат | Пользователь видит сводку пересекающихся активных броней по той же технике на даты текущей брони без обязательного перехода в отдельную карточку брони |
-| Используемые API | `GET /approvals/bookings/{id}/load-summary` |
+| Используемые API | [`GET /approvals/bookings/{id}/load-summary`](../../../api/booking/fleet-owner/GET_approvals_bookings_id_load_summary.md) |
 
 ---
 

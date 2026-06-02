@@ -1,7 +1,7 @@
 # UC-REQ-02.2 - Заполнение и редактирование шапки заявки
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -16,7 +16,7 @@
 | Покрываемые FR (Equipment block list) | — |
 | Триггер | Пользователь редактирует request-level поля draft-заявки |
 | Ожидаемый результат | Шапка draft-заявки заполнена и сохранена через autosave |
-| Используемые API | `PATCH /booking-requests/{id}` |
+| Используемые API | [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md) |
 
 ---
 

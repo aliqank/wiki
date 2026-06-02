@@ -1,7 +1,7 @@
 # UC-REQ-05 - Отзыв submitted-заявки requestor-ом
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован; у пользователя есть собственная заявка в статусе `Submitted`; ни один booking item этой заявки еще не был подтвержден Fleet Owner |
 | Триггер | Нажатие кнопки `Отозвать заявку` |
 | Ожидаемый результат | Все еще не обработанные booking item-ы заявки отозваны, заявка больше не активна и переходит в `Closed` |
-| Используемые API | `GET /booking-requests/my`, `GET /booking-requests/{id}`, request-level withdraw API / orchestration over `POST /bookings/{id}/revoke` *(TBD)* |
+| Используемые API | [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md), request-level withdraw API / orchestration over [`POST /bookings/{id}/revoke`](../../../api/booking/requestor/POST_bookings_id_revoke.md) *(TBD)* |
 
 ---
 

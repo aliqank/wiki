@@ -1,7 +1,7 @@
 # UC-REQ-02.7 - Удаление draft-брони
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-05-20  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован; открыта собственная draft-заявка; в заявке есть booking item в статусе `Draft` |
 | Триггер | Нажатие кнопки `Удалить` в карточке draft booking item |
 | Ожидаемый результат | Booking item удален из draft-заявки и больше не участвует в ее составе |
-| Используемые API | `DELETE /booking-requests/{id}/items/{bookingId}`, `GET /booking-requests/{id}` |
+| Используемые API | [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md), [`GET /booking-requests/{id}`](../../../../api/booking/requestor/GET_booking_requests_id.md) |
 
 ---
 
