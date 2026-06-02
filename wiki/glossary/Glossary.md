@@ -55,6 +55,11 @@
 - техника не допускается к обычному booking flow по обязательным бизнес-правилам, например `OnDemand` техника вне scope соответствующего сценария;
 - для Assigned техники отсутствует обязательная authorization-запись в `EquipmentBookingAuthorizations`, если сценарий требует такую проверку.
 
+Явные примеры:
+- Пользователь пытается добавить технику в draft-заявку, но по `EquipmentStatuses` у этой техники на весь выбранный период есть активная запись `InRepair`. Результат: backend возвращает `EQUIPMENT_NOT_AVAILABLE`.
+- Fleet Owner пытается изменить период брони, но техника уже имеет актуальный статус `Frozen` на новый диапазон дат. Результат: изменение периода блокируется независимо от других броней.
+- Requestor выбирает Assigned технику, но для пары `equipmentId + userId` нет записи в `EquipmentBookingAuthorizations`. Результат: техника считается недоступной по hard restriction даже если в `Bookings` нет пересечений.
+
 Практический смысл:
 - hard availability restriction блокирует add/edit/submit/confirm/change-period/change-equipment сценарии;
 - такие ограничения должны возвращать ошибку уровня `EQUIPMENT_NOT_AVAILABLE` или эквивалентную бизнес-ошибку;
@@ -67,6 +72,11 @@
 Типовые примеры:
 - в `Bookings` уже есть другая запись по тому же `equipmentId` со статусом `Submitted`, `Confirmed` или `InProgress`, и ее диапазон пересекается с новым или текущим периодом брони;
 - для одной техники существует несколько competing bookings, которые должны быть показаны через load summary, conflict indicator или отдельный conflict list.
+
+Явные примеры:
+- Requestor ищет экскаватор на период `20.05 08:00 - 22.05 18:00`, а в `Bookings` уже есть другая бронь этой же техники со статусом `Confirmed` на период `21.05 09:00 - 21.05 20:00`. Результат: техника остается доступной для выбора, но UI показывает conflict indicator и load summary.
+- Fleet Owner подтверждает бронь, у которой по тому же `equipmentId` уже есть другая активная бронь в статусе `Submitted`. Результат: confirm не блокируется автоматически; FO принимает решение на основании conflict context.
+- Fleet Owner меняет период брони, и новый `plannedEndDateTime` начинает пересекаться с другой бронью той же техники в статусе `InProgress`. Результат: backend возвращает conflict context для UI, но не обязан отклонять изменение только из-за самого overlap.
 
 Практический смысл:
 - booking conflict context должен быть рассчитан и показан в UI как summary или detail view;
