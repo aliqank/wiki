@@ -42,7 +42,7 @@
 2. Разрешить изменение `plannedEndDateTime` только для активной брони в статусе `Submitted`, `Confirmed` или `InProgress`.
 3. Провалидировать новый `newPlannedEndDateTime`, [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) и [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) на новый период.
 4. Если текущий статус равен `Submitted` или `Confirmed`, обновить `Bookings.plannedEndDateTime`, перевести бронь в `Submitted` и создать запись в `BookingStatuses`.
-5. Если текущий статус равен `InProgress`, не менять статус брони, создать отдельную approval-запись в `BookingApprovals` для запроса на изменение срока и не применять новое `plannedEndDateTime` до решения Fleet Owner.
+5. Если текущий статус равен `InProgress`, не менять статус брони, создать отдельную запись [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) в `BookingApprovals` для запроса на изменение срока и не применять новое `plannedEndDateTime` до решения Fleet Owner.
 6. После положительного решения Fleet Owner:
    - для pre-start сценария вернуть бронь в `Confirmed`;
    - для `InProgress` сценария сохранить статус `InProgress` и применить новое `plannedEndDateTime`.

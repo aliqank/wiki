@@ -784,7 +784,7 @@ Filtered unique index:
 - для обычной внутренней брони после решения FO создается одна запись с `approvalType = FoApproval`, `approvalOrder = 1`
 - для long-term rented booking после FO positive decision создается запись `FoApproval / Approved / 1`, после решения Supervisor создается запись `SupervisorApproval / Approved|Declined / 2`
 - для transport flow решение транспортной роли создается как `TransportationApproval / Approved|Declined` с собственным `approvalOrder`
-- для запроса на изменение `plannedEndDateTime`, инициированного Requestor / SWP, может создаваться отдельная запись `BookingExtensionApproval`
+- для запроса на изменение `plannedEndDateTime`, инициированного Requestor / SWP, создается отдельная запись `BookingExtensionApproval`
 - если запрос на изменение `plannedEndDateTime` сделан до фактического старта брони (`Submitted` / `Confirmed`), approval flow extension должен завершаться возвратом брони в `Confirmed`, если иные обязательные approval steps уже выполнены или не требуются
 - если запрос на изменение `plannedEndDateTime` сделан во время `InProgress`, booking lifecycle status не должен откатываться в `Submitted`; решение фиксируется через `BookingExtensionApproval`, а новое `plannedEndDateTime` применяется только после одобрения Fleet Owner
 - `approvalOrder` должен быть уникален в пределах одного `bookingId`

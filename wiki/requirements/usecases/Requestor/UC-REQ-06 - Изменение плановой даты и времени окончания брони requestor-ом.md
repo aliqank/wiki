@@ -39,7 +39,7 @@
    - инициирует повторное рассмотрение со стороны Fleet Owner.
 6. Если текущий статус брони равен `InProgress`, backend:
    - не переводит бронь из `InProgress` обратно в `Submitted`;
-   - создает отдельную approval-запись на изменение срока брони в `BookingApprovals`;
+   - создает отдельную запись [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) в `BookingApprovals`;
    - не применяет новое `plannedEndDateTime` до решения Fleet Owner.
 7. В обоих сценариях система уведомляет Fleet Owner о запросе на изменение срока брони.
 8. После положительного решения Fleet Owner:
@@ -73,5 +73,5 @@
 1. Несмотря на имя текущего API `/extend`, сценарий описывает не только продление, но и любое изменение `plannedEndDateTime`, если это поддержано бизнес-правилами и контрактом метода.
 2. Для статусов `Submitted` и `Confirmed` изменение `plannedEndDateTime` означает повторное ожидание решения Fleet Owner, поэтому бронь должна находиться в `Submitted` до принятия решения.
 3. Для статуса `InProgress` бронь не должна возвращаться из `InProgress` в `Submitted`, так как фактическое исполнение уже началось.
-4. Для `InProgress` сценария требуется отдельный approval flow на изменение срока брони; до решения Fleet Owner новое `plannedEndDateTime` не должно считаться примененным.
+4. Для `InProgress` сценария требуется отдельный [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval); до решения Fleet Owner новое `plannedEndDateTime` не должно считаться примененным.
 5. После положительного решения Fleet Owner бронь должна иметь статус `Confirmed` для pre-start сценария и сохранять статус `InProgress` для сценария во время исполнения.

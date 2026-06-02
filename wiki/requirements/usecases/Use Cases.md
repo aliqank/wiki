@@ -38,6 +38,7 @@
 | `UC-FO-06` | Отклонение брони Fleet Owner | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-049, FR-050, FR-064; Additional: BRD-U-001` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/decline`](../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md) |
 | `UC-FO-07` | Изменение периода брони Fleet Owner | Страница `Approvals` → detail / action view брони | `BRD: FR-048, FR-079a` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/change-period`](../../api/booking/fleet-owner/POST_approvals_bookings_id_change_period.md) |
 | `UC-FO-08` | Замена техники Fleet Owner | Страница `Approvals` → detail / action view брони | `BRD: FR-046, FR-047` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`GET /approvals/bookings/{id}/replacement-options`](../../api/booking/fleet-owner/GET_approvals_bookings_id_replacement_options.md), [`POST /approvals/bookings/{id}/change-equipment`](../../api/booking/fleet-owner/POST_approvals_bookings_id_change_equipment.md) |
+| `UC-FO-09` | Согласование изменения плановой даты и времени окончания брони | Страница `Approvals` → detail / action view брони с pending extension request | `BRD: FR-061, FR-067, FR-081` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/extension-approval`](../../api/booking/fleet-owner/POST_approvals_bookings_id_extension_approval.md) |
 
 ---
 
@@ -65,3 +66,4 @@
 - [`Fleet Owner/UC-FO-06 - Отклонение брони Fleet Owner.md`](Fleet%20Owner/UC-FO-06%20-%20Отклонение%20брони%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-07 - Изменение периода брони Fleet Owner.md`](Fleet%20Owner/UC-FO-07%20-%20Изменение%20периода%20брони%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-08 - Замена техники Fleet Owner.md`](Fleet%20Owner/UC-FO-08%20-%20Замена%20техники%20Fleet%20Owner.md)
+- [`Fleet Owner/UC-FO-09 - Согласование изменения плановой даты и времени окончания брони.md`](Fleet%20Owner/UC-FO-09%20-%20Согласование%20изменения%20плановой%20даты%20и%20времени%20окончания%20брони.md)

@@ -65,6 +65,7 @@ Base URL: `/api/booking/v1`
 | `GET` | [`/approvals/bookings/{id}/load-summary`](fleet-owner/GET_approvals_bookings_id_load_summary.md) | Загрузка техники на даты в окне подтверждения |
 | `POST` | [`/approvals/bookings/{id}/confirm`](fleet-owner/POST_approvals_bookings_id_confirm.md) | Подтвердить бронь |
 | `POST` | [`/approvals/bookings/{id}/decline`](fleet-owner/POST_approvals_bookings_id_decline.md) | Отклонить бронь |
+| `POST` | [`/approvals/bookings/{id}/extension-approval`](fleet-owner/POST_approvals_bookings_id_extension_approval.md) | Принять решение по изменению `plannedEndDateTime` |
 | `POST` | [`/approvals/bookings/{id}/change-equipment`](fleet-owner/POST_approvals_bookings_id_change_equipment.md) | Заменить технику в брони |
 | `POST` | [`/approvals/bookings/{id}/change-period`](fleet-owner/POST_approvals_bookings_id_change_period.md) | Изменить период брони |
 | `POST` | [`/approvals/bookings/{id}/mobilization-start`](fleet-owner/POST_approvals_bookings_id_mobilization_start.md) | Зафиксировать начало мобилизации |
