@@ -17,7 +17,7 @@
 | Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Нажатие кнопки `Создать заявку` |
 | Ожидаемый результат | Создана новая draft-заявка, пользователь может добавить технику, сохранить черновик или отправить заявку |
-| Используемые API | [`POST /booking-requests`](../../../../api/booking/requestor/POST_booking_requests.md), [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md), [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md), [`POST /booking-requests/{id}/items`](../../../../api/booking/requestor/POST_booking_requests_id_items.md), [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md), [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md), [`GET /reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md), [`GET /reference/fleet-owners`](../../../../api/booking/reference/GET_reference_fleet_owners.md), [`GET /reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md), [`GET /reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md), [`GET /reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md), [`GET /reference/equipment-types/{equipmentTypeId}/properties`](../../../../api/booking/reference/GET_reference_equipment_types_id_properties.md) |
+| Используемые API | [`POST /booking-requests`](../../../../api/booking/requestor/POST_booking_requests.md), [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md), [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md), [`POST /booking-requests/{id}/items`](../../../../api/booking/requestor/POST_booking_requests_id_items.md), [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md), [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md), [`GET /reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md), [`GET /reference/fleets`](../../../../api/booking/reference/GET_reference_fleets.md), [`GET /reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md), [`GET /reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md), [`GET /reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md), [`GET /reference/equipment-types/{equipmentTypeId}/properties`](../../../../api/booking/reference/GET_reference_equipment_types_id_properties.md) |
 
 ---
 
@@ -57,7 +57,7 @@
 9. Frontend открывает окно выбора техники.
 10. При первом открытии окна frontend подтягивает базовые справочники фильтров:
    - справочник типов техники ([`GET /api/booking/v1/reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md));
-   - справочник fleet owners ([`GET /api/booking/v1/reference/fleet-owners`](../../../../api/booking/reference/GET_reference_fleet_owners.md));
+   - справочник fleet-ов ([`GET /api/booking/v1/reference/fleets`](../../../../api/booking/reference/GET_reference_fleets.md));
    - справочник work centers ([`GET /api/booking/v1/reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md));
    - справочник / reference values для `ownershipType` ([`GET /api/booking/v1/reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md));
    - справочник / reference values для `shareType` ([`GET /api/booking/v1/reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md)).
@@ -67,7 +67,7 @@
    - тип техники;
    - дата начала брони;
    - дата окончания брони;
-   - fleet owner;
+   - fleet;
    - work center;
    - госномер или ТШО ID;
    - `shareType` / `ownershipType`;
@@ -161,7 +161,7 @@ sequenceDiagram
 6. Обязательные поля проверяются на этапе [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md), а не на этапе создания draft.
 7. Для окна выбора техники нужны отдельные read-only reference APIs для загрузки справочников фильтров:
    - [`GET /api/booking/v1/reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md)
-   - [`GET /api/booking/v1/reference/fleet-owners`](../../../../api/booking/reference/GET_reference_fleet_owners.md)
+   - [`GET /api/booking/v1/reference/fleets`](../../../../api/booking/reference/GET_reference_fleets.md)
    - [`GET /api/booking/v1/reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md)
    - [`GET /api/booking/v1/reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md)
    - [`GET /api/booking/v1/reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md)

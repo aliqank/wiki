@@ -45,7 +45,7 @@
 3. Исключить из выдачи списанную технику: записи с текущим статусом `Decommissioned` не должны возвращаться в результатах поиска.
 4. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
 5. Исключить стационарную HDE из поиска Requestor (`mobilityType = Stationary`).
-6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetOwnerUserId`, `workCenterId`, текстовому поиску и динамическим свойствам.
+6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetId`, `workCenterId`, текстовому поиску и динамическим свойствам.
 7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
 8. Для периода рассчитать пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`.
    Эти пересечения не должны автоматически делать технику недоступной для выбора. Они используются как conflict/load information для UI.
@@ -98,7 +98,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по TCO-номеру, госномеру, модели, бренду | — | Query param | |
 | 5 | Тип владения | `ownershipType` | `string` | `-` | `TcoOwned / LongTermRented` | — | Query param | Значения загружаются через `GET /reference/ownership-types`; `OnDemand` не допускается |
 | 6 | Тип доступности | `shareType` | `string` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | Значения загружаются через `GET /reference/share-types` |
-| 7 | Fleet Owner | `fleetOwnerUserId` | `uuid` | `-` | Если передан, должен соответствовать пользователю, у которого есть owner-assignment для флота техники | — | Query param | Фильтр по `FleetManagePermissions` с `permissionType = Owner` |
+| 7 | Fleet | `fleetId` | `uuid` | `-` | Если передан, должен существовать и соответствовать доступному для booking workflow флоту | — | Query param | Фильтр по `Equipments.fleetId` |
 | 8 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен соответствовать work center, на который можно бронировать технику | — | Query param | Фильтр по `EquipmentTypes.workCenterId` |
 | 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |
 | 10 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
@@ -109,7 +109,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetOwnerUserId=4c9ad2d2-6df8-4f7b-87fe-36cefc100001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&page=1&limit=20
+GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetId=f3caa8da-11f2-4108-997f-2204041a1001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -153,9 +153,8 @@ Content-Type: application/json
 | 12 | Причина недоступности бронирования | bookingUnavailableReason | null | — | `null` | backend availability calculation from Equipments + EquipmentStatuses + EquipmentBookingAuthorizations | Заполняется только для hard-ограничений доступности |
 | 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
 | 14 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
-| 15 | Список Fleet Owners | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
-| 16 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |
-| 17 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
+| 15 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |
+| 16 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
 
 ### Структура `value.items[].baseLocationName`
 
@@ -179,14 +178,6 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор флота | id | uuid | UUID v4 | — | Fleets.id |  |
 | 2 | Наименование флота | name | string | string | — | Fleets.nameEn / localized projection |  |
-
-### Структура `value.items[].fleetOwners[]`
-
-| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
-|---|---|---|---|---|---|---|---|
-| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id | Только owner-assignment'ы из `FleetManagePermissions` |
-| 2 | Полное имя пользователя | fullName | string | string | — | Users.fullName |  |
-| 3 | Email | email | string | string | — | Users.email |  |
 
 ### Структура `value.items[].workCenter`
 
@@ -232,18 +223,6 @@ Content-Type: application/json
           "id": "f0000001-0000-4000-8000-000000000001",
           "name": "Maintenance Fleet"
         },
-        "fleetOwners": [
-          {
-            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
-            "fullName": "Nurlan Sarsenov",
-            "email": "nurlan.sarsenov@tco.example"
-          },
-          {
-            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100002",
-            "fullName": "Aidos Beketov",
-            "email": "aidos.beketov@tco.example"
-          }
-        ],
         "workCenter": {
           "id": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
           "code": "WC-100",

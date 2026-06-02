@@ -1,4 +1,4 @@
-# GET /reference/fleet-owners
+# GET /reference/fleets
 
 **Created:** 2026-05-18  
 **Last updated:** 2026-06-02  
@@ -10,10 +10,10 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить справочник fleet owners для фильтра формы создания заявки |
+| Описание | Получить справочник fleet-ов для фильтра формы создания заявки |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Requestor UI` |
-| Endpoint URL | `/api/booking/v1/reference/fleet-owners` |
+| Endpoint URL | `/api/booking/v1/reference/fleets` |
 | Метод запроса | `GET` |
 | Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
 | Согласовано | |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый reference API для UC-2. Используется для загрузки списка доступных fleet owners перед поиском техники.
+Новый reference API для UC-2. Используется для загрузки списка доступных fleet-ов перед поиском техники.
 
 ---
 
@@ -30,18 +30,18 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Fleet owner участвует в фильтрации списка техники |
+| TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Fleet участвует в фильтрации списка техники |
 
 ---
 
 ## 3. Описание логики работы метода
 
 1. Выбрать активные fleet-ы, доступные для booking workflow.
-2. Вернуть пользователя, ответственного за fleet, и краткие данные fleet-а.
+2. Вернуть краткие данные fleet-а для использования в фильтре поиска.
 3. Исключить удаленные и недоступные записи.
 
 Сущности, участвующие в методе:
-- читаются: [`Fleets`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#2-fleets), [`Users`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#19-users)
+- читаются: [`Fleets`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#2-fleets)
 - изменения не выполняются
 
 ---
@@ -83,7 +83,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/reference/fleet-owners
+GET /api/booking/v1/reference/fleets
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -106,11 +106,8 @@ Content-Type: application/json
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор fleet-а | fleetId | uuid | UUID v4 | — | Fleets.id |  |
-| 2 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id | Значение используется в `GET /equipment/search` как `fleetOwnerUserId` |
-| 3 | Наименование fleet-а | fleetName | string | string | — | Fleets.name |  |
-| 4 | Полное имя пользователя | fullName | string | string | — | Users.fullName |  |
-| 5 | Email пользователя | email | string | string | — | Users.email |  |
+| 1 | Идентификатор fleet-а | fleetId | uuid | UUID v4 | — | Fleets.id | Значение используется в `GET /equipment/search` как `fleetId` |
+| 2 | Наименование fleet-а | fleetName | string | string | — | Fleets.nameEn / localized projection |  |
 
 ## 10. Пример ответа
 
@@ -119,10 +116,7 @@ Content-Type: application/json
   "value": [
     {
       "fleetId": "f3caa8da-11f2-4108-997f-2204041a1001",
-      "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
-      "fleetName": "Maintenance Fleet",
-      "fullName": "Nurlan Sarsenov",
-      "email": "nurlan.sarsenov@tco.example"
+      "fleetName": "Maintenance Fleet"
     }
   ],
   "isSuccess": true,

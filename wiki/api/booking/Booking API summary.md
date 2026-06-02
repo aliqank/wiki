@@ -24,7 +24,7 @@ Base URL: `/api/booking/v1`
 | `GET` | [`/equipment/{id}`](requestor/GET_equipment_id.md) | Получить карточку техники в booking-контексте |
 | `GET` | [`/equipment/{id}/load-summary`](requestor/GET_equipment_id_load_summary.md) | Получить загрузку техники на выбранный период |
 | `GET` | [`/reference/equipment-types`](reference/GET_reference_equipment_types.md) | Получить справочник типов техники для фильтра поиска |
-| `GET` | [`/reference/fleet-owners`](reference/GET_reference_fleet_owners.md) | Получить справочник fleet owners для фильтра поиска |
+| `GET` | [`/reference/fleets`](reference/GET_reference_fleets.md) | Получить справочник fleet-ов для фильтра поиска |
 | `GET` | [`/reference/work-centers`](reference/GET_reference_work_centers.md) | Получить справочник work centers для фильтра поиска |
 | `GET` | [`/reference/ownership-types`](reference/GET_reference_ownership_types.md) | Получить справочник ownership types для фильтра поиска |
 | `GET` | [`/reference/share-types`](reference/GET_reference_share_types.md) | Получить справочник share types для фильтра поиска |
