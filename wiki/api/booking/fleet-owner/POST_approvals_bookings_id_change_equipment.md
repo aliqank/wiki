@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/change-equipment
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,13 +15,14 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/change-equipment` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-FO-08 - Замена техники Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-08%20-%20Замена%20техники%20Fleet%20Owner.md) |
 | Согласовано | |
 
 ---
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Позволяет FO заменить технику в еще не начавшейся брони.
+Новый метод. Позволяет FO заменить технику в еще не начавшейся брони после выбора replacement candidate.
 
 ---
 
@@ -37,12 +38,13 @@
 ## 3. Описание логики работы метода
 
 1. Проверить бронь и права доступа.
-2. Проверить, что бронь еще не началась и ее статус допускает замену.
-3. Проверить новую технику: тот же тип / допустимый бизнес-контекст, отсутствие [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на период, не `OnDemand`.
+2. Проверить, что бронь еще не началась и ее статус допускает замену: `Submitted` или `Confirmed`.
+3. Проверить новую технику: тот же `Work Center`, допустимый бизнес-контекст, отсутствие [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на период, не `OnDemand`.
    Пересечения с другими активными бронями должны быть доступны Fleet Owner как [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) и не блокируют замену автоматически.
-4. Обновить `Bookings.equipmentId` и при необходимости `fleetId`.
-5. Обновить статус на `EquipmentChanged` и создать запись в `BookingStatuses`.
-6. Вернуть обновленную бронь.
+4. Проверить, что новая техника доступна текущему Fleet Owner по [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access).
+5. Обновить `Bookings.equipmentId` и при необходимости `fleetId`.
+6. Создать запись в `BookingStatuses` с комментарием о замене техники без перевода брони в новый approval lifecycle status.
+7. Вернуть обновленную бронь.
 
 Сущности:
 - читаются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`Equipments`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#8-equipments)
@@ -54,7 +56,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Замена техники в бронях своих флотов |
+| `FleetOwner` | Замена техники в бронях fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
 
 ---
 
@@ -75,6 +77,7 @@
 | `NOT_FOUND` | Бронь или новая техника не найдены |
 | `BOOKING_NOT_CHANGEABLE` | Бронь нельзя изменить |
 | `EQUIPMENT_NOT_AVAILABLE` | Новая техника недоступна по [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction); competing bookings сами по себе не вызывают эту ошибку |
+| `VALIDATION_ERROR` | Новая техника несовместима по `Work Center` или другому обязательному business-критерию |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Conflict`
 
@@ -125,7 +128,7 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Идентификатор техники | equipmentId | uuid | UUID v4 | — | backend composition from Bookings + Equipments + BookingStatuses |  |
-| 3 | Текущий статус | status | string | string | — | Bookings + BookingStatuses |  |
+| 3 | Текущий статус | status | string | string | — | Bookings + BookingStatuses | Бронь сохраняет исходный допустимый lifecycle status (`Submitted` или `Confirmed`) |
 
 ## 10. Пример ответа
 
@@ -134,7 +137,7 @@ Content-Type: application/json
   "value": {
     "id": "8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
     "equipmentId": "7a5af8f7-6d0e-4b6f-ae68-f72906f70001",
-    "status": "EquipmentChanged"
+    "status": "Confirmed"
   },
   "isSuccess": true,
   "errors": []

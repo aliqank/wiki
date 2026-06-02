@@ -44,7 +44,7 @@ Base URL: `/api/booking/v1`
 | `PATCH` | [`/booking-requests/{id}/items/{bookingId}`](requestor/PATCH_booking_requests_id_items_bookingId.md) | Обновить booking item в черновике |
 | `DELETE` | [`/booking-requests/{id}/items/{bookingId}`](requestor/DELETE_booking_requests_id_items_bookingId.md) | Удалить booking item из черновика |
 | `POST` | [`/bookings/{id}/revoke`](requestor/POST_bookings_id_revoke.md) | Отозвать бронь до решения FO |
-| `POST` | [`/bookings/{id}/extend`](requestor/POST_bookings_id_extend.md) | Запросить продление брони |
+| `POST` | [`/bookings/{id}/extend`](requestor/POST_bookings_id_extend.md) | Запросить изменение плановой даты и времени окончания брони |
 | `POST` | [`/bookings/{id}/terminate`](requestor/POST_bookings_id_terminate.md) | Досрочно завершить подтвержденную бронь |
 | `POST` | [`/bookings/{id}/close`](requestor/POST_bookings_id_close.md) | Закрыть бронь вручную |
 | `POST` | [`/bookings/{id}/feedback`](requestor/POST_bookings_id_feedback.md) | Оставить отзыв по технике |
@@ -61,6 +61,7 @@ Base URL: `/api/booking/v1`
 | `GET` | [`/reference/approval-request-statuses`](reference/GET_reference_approval_request_statuses.md) | Получить справочник статусов заявки для Fleet Owner view `Requests` |
 | `GET` | [`/reference/approval-request-types`](reference/GET_reference_approval_request_types.md) | Получить справочник типов заявки для Fleet Owner view `Requests` |
 | `GET` | [`/approvals/bookings/{id}`](fleet-owner/GET_approvals_bookings_id.md) | Детали брони для FO |
+| `GET` | [`/approvals/bookings/{id}/replacement-options`](fleet-owner/GET_approvals_bookings_id_replacement_options.md) | Получить replacement candidates для замены техники |
 | `GET` | [`/approvals/bookings/{id}/load-summary`](fleet-owner/GET_approvals_bookings_id_load_summary.md) | Загрузка техники на даты в окне подтверждения |
 | `POST` | [`/approvals/bookings/{id}/confirm`](fleet-owner/POST_approvals_bookings_id_confirm.md) | Подтвердить бронь |
 | `POST` | [`/approvals/bookings/{id}/decline`](fleet-owner/POST_approvals_bookings_id_decline.md) | Отклонить бронь |
