@@ -1,7 +1,7 @@
 # POST /approvals/bookings/{id}/change-period
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-02  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,6 +15,7 @@
 | Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/change-period` |
 | Метод запроса | `POST` |
+| Связанные use cases | [`UC-FO-07 - Изменение периода брони Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-07%20-%20Изменение%20периода%20брони%20Fleet%20Owner.md) |
 | Согласовано | |
 
 ---
@@ -54,7 +55,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Изменение периода броней своих флотов |
+| `FleetOwner` | Изменение периода броней fleet-ов, где пользователь имеет доступ как `Owner` или `Delegated` |
 
 ---
 
