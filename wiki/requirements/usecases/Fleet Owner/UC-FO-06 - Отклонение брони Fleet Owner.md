@@ -14,7 +14,7 @@
 | Участник | Пользователь с ролью `FleetOwner` |
 | Покрываемые FR (BRD) | `FR-043`, `FR-049`, `FR-050`, `FR-064` |
 | Покрываемые FR (Additional list) | `BRD-U-001` |
-| Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у пользователя; бронь находится в статусе `Submitted`; сценарий выполняется до фактического старта работ |
+| Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть доступ через `FleetManagePermissions` с типом `Owner` или `Delegated`; бронь находится в статусе `Submitted`; сценарий выполняется до фактического старта работ |
 | Триггер | Нажатие кнопки `Decline` в карточке брони, открытой из request view |
 | Ожидаемый результат | Бронь отклонена Fleet Owner-ом и переходит в terminal status `Closed` с `closureReason = Declined`; агрегированный статус заявки пересчитан |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/decline`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md) |
