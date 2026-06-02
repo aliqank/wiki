@@ -41,6 +41,36 @@
 
 ---
 
+## UML Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    actor Requestor
+    participant Frontend
+    participant BookingAPI as Booking API
+    participant BookingRequests
+    participant Bookings
+    participant BookingRequestStatuses
+    participant BookingStatuses
+
+    Requestor->>Frontend: Clicks "Cancel draft"
+    Frontend->>Requestor: Shows confirmation dialog
+    Requestor->>Frontend: Confirms cancellation
+    Frontend->>BookingAPI: POST /booking-requests/{id}/cancel
+    BookingAPI->>BookingRequests: Validate request exists, status=Draft, requestorId=currentUserId
+    BookingAPI->>Bookings: Load related draft booking items
+    BookingAPI->>BookingRequests: Set status=Closed, closureReason=Cancelled
+    BookingAPI->>BookingRequestStatuses: Insert Closed / Cancelled history record
+    BookingAPI->>Bookings: Delete or close related draft items
+    BookingAPI->>BookingStatuses: Insert item status history records
+    BookingAPI-->>Frontend: Success result
+    Frontend->>BookingAPI: GET /booking-requests/my or GET /booking-requests/{id}
+    BookingAPI-->>Frontend: Updated request state
+    Frontend-->>Requestor: Shows cancelled request state
+```
+
+---
+
 ## Альтернативные сценарии
 
 1. Пользователь передумал отменять заявку.
