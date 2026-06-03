@@ -111,7 +111,7 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper`.
+Возвращаемые данные обёрнуты в общий [`result wrapper`](../../common/Result%20Wrapper.md).
 
 Метод возвращает только [незавершенные заявки](../../../glossary/Glossary.md) со статусами `Draft`, `Submitted`, `InProgress`. Terminal request statuses должны запрашиваться через отдельный history/archive endpoint.
 

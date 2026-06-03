@@ -49,7 +49,7 @@
 7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
 8. Для периода рассчитать пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`.
    Эти пересечения не должны автоматически делать технику недоступной для выбора. Они используются как conflict/load information для UI.
-9. Вернуть пагинированный список в общем `result wrapper`.
+9. Вернуть пагинированный список в общем [`result wrapper`](../../common/Result%20Wrapper.md).
 
 Сущности, участвующие в методе:
 - читаются: [`Equipments`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#8-equipments), [`EquipmentStatuses`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#10-equipmentstatuses), [`EquipmentTypes`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#1-equipmenttypes), [`EquipmentProperties`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#15-equipmentproperties), [`EquipmentBookingAuthorizations`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#17-equipmentfeedbacks--equipmentbookingauthorizations), [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`Fleets`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#2-fleets)
@@ -118,7 +118,7 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper`.
+Возвращаемые данные обёрнуты в общий [`result wrapper`](../../common/Result%20Wrapper.md).
 
 ### Структура `result wrapper`
 

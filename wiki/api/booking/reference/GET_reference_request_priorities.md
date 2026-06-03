@@ -92,7 +92,7 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обернуты в общий `result wrapper`.
+Возвращаемые данные обернуты в общий [`result wrapper`](../../common/Result%20Wrapper.md).
 
 ### Структура `result wrapper`
 

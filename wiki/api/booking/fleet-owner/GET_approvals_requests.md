@@ -109,7 +109,7 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper`.
+Возвращаемые данные обёрнуты в общий [`result wrapper`](../../common/Result%20Wrapper.md).
 
 Метод возвращает только активные для Fleet Owner заявки со статусами `Submitted` и `InProgress`. `Draft` и `Closed` не должны попадать в выдачу текущего списка; завершенные и архивные сценарии должны обслуживаться отдельным history flow.
 

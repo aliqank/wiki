@@ -39,7 +39,7 @@
 1. Получить запись из `Equipments` WHERE `id = :id` AND `isDeleted = false`.
 2. Подтянуть связанные справочники: `EquipmentTypes`, `EquipmentBrands`, `EquipmentModels`, `Locations`, `Fleets`.
 3. Подтянуть динамические свойства и фотографии техники.
-4. Вернуть агрегированную карточку техники в общем `result wrapper`.
+4. Вернуть агрегированную карточку техники в общем [`result wrapper`](../../common/Result%20Wrapper.md).
 
 Сущности, участвующие в методе:
 - читаются: [`Equipments`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#8-equipments), [`EquipmentTypes`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#1-equipmenttypes), [`EquipmentBrands`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#4-equipmentbrands), [`EquipmentModels`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#5-equipmentmodels), [`EquipmentProperties`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#15-equipmentproperties), [`EquipmentPhotos`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#9-equipmentphotos), [`Locations`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#6-locations--costcenters--servicezones--divisions--groups--departments--sections), [`Fleets`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#2-fleets)
@@ -96,7 +96,7 @@ Content-Type: application/json
 
 ## 9. Возвращаемые данные
 
-Возвращаемые данные обёрнуты в общий `result wrapper`.
+Возвращаемые данные обёрнуты в общий [`result wrapper`](../../common/Result%20Wrapper.md).
 
 ### Структура `result wrapper`
 
