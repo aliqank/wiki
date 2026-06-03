@@ -136,6 +136,6 @@ Authorization: Bearer <token>
 
 ## Замечания
 
-1. Guard на уровне API обязателен, даже если frontend заблаговременно блокирует кнопку «Удалить» при `equipmentsCount > 0` (значение берётся из `GET /equipment-types`). Это защищает от race condition и прямых API-вызовов.
+1. Guard на уровне API обязателен, даже если frontend заблаговременно блокирует кнопку «Удалить» при `equipmentsCount > 0` (значение берётся из [`GET /equipment-types`](2026-05-08 - GET_equipment_types.md)). Это защищает от race condition и прямых API-вызовов.
 2. Метод выполняет soft delete только записи `EquipmentTypes`. Связанные записи `EquipmentTypeProperties` остаются в базе с `isDeleted = false` — они становятся неактивными вместе с типом, т.к. все GET-методы Admin Panel фильтруют `EquipmentTypes WHERE isDeleted = false`.
 3. После успешного soft delete тип техники перестаёт появляться во всех GET-методах (список AP-01, карточка AP-02, поиск для Requestor). Отменить удаление через API невозможно — только прямым вмешательством в БД.

@@ -80,7 +80,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Статус брони | `status` | `string` | `-` | Статусы approval queue для view `Bookings` | — | Query param | Значения соответствуют кодам `ref_booking_status`; отдельный reference API для approval queue statuses не зафиксирован |
-| 2 | Тип заявки | `requestType` | `string` | `-` | Допустимые типы `BookingRequest` | — | Query param | Значения загружаются через `GET /reference/approval-request-types` |
+| 2 | Тип заявки | `requestType` | `string` | `-` | Допустимые типы `BookingRequest` | — | Query param | Значения загружаются через [`GET /reference/approval-request-types`](../reference/GET_reference_approval_request_types.md) |
 | 3 | Период заявок: начало | `createdFrom` | `date` | `-` | Если передан, должен быть <= `createdTo` | — | Query param | Фильтр по дате создания брони |
 | 4 | Период заявок: конец | `createdTo` | `date` | `-` | Если передан, должен быть >= `createdFrom` | — | Query param | Фильтр по дате создания брони |
 | 5 | Номер Work Order | `workOrderNumber` | `string` | `-` | Partial search | — | Query param | Поиск только по `workOrderNumber` |

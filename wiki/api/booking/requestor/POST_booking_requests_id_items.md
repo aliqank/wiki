@@ -202,5 +202,5 @@ Content-Type: application/json
 4. Под недоступностью в базовом сценарии понимаются [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) по состоянию техники и другим обязательным бизнес-правилам, не связанным с competing bookings.
 5. Пересечения с другими активными бронями должны рассчитываться отдельно как booking conflicts и не блокируют создание item.
 6. Стационарная техника не может быть добавлена в заявку: если `mobilityType = Stationary`, метод должен вернуть `422 VALIDATION_ERROR`.
-7. Поле `justification` не передается в `POST /booking-requests/{id}/items`; оно заполняется позже через редактирование конкретного item.
-8. Система должна обозначить item как требующий `justification` уже в ответе `POST /booking-requests/{id}/items` через поля `requiresJustification` и `hasRequiredJustification`.
+7. Поле `justification` не передается в [`POST /booking-requests/{id}/items`](POST_booking_requests_id_items.md); оно заполняется позже через редактирование конкретного item.
+8. Система должна обозначить item как требующий `justification` уже в ответе [`POST /booking-requests/{id}/items`](POST_booking_requests_id_items.md) через поля `requiresJustification` и `hasRequiredJustification`.

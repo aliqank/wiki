@@ -96,8 +96,8 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 2 | Плановая дата/время начала периода | `plannedStartDateTime` | `datetime` | `+` | Должна быть меньше `plannedEndDateTime` | — | Query param | |
 | 3 | Плановая дата/время окончания периода | `plannedEndDateTime` | `datetime` | `+` | Должна быть больше `plannedStartDateTime` | — | Query param | |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по TCO-номеру, госномеру, модели, бренду | — | Query param | |
-| 5 | Тип владения | `ownershipType` | `string` | `-` | `TcoOwned / LongTermRented` | — | Query param | Значения загружаются через `GET /reference/ownership-types`; `OnDemand` не допускается |
-| 6 | Тип доступности | `shareType` | `string` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | Значения загружаются через `GET /reference/share-types` |
+| 5 | Тип владения | `ownershipType` | `string` | `-` | `TcoOwned / LongTermRented` | — | Query param | Значения загружаются через [`GET /reference/ownership-types`](../reference/GET_reference_ownership_types.md); `OnDemand` не допускается |
+| 6 | Тип доступности | `shareType` | `string` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | Значения загружаются через [`GET /reference/share-types`](../reference/GET_reference_share_types.md) |
 | 7 | Fleet | `fleetId` | `uuid` | `-` | Если передан, должен существовать и соответствовать доступному для booking workflow флоту | — | Query param | Фильтр по `Equipments.fleetId` |
 | 8 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен соответствовать work center, на который можно бронировать технику | — | Query param | Фильтр по `EquipmentTypes.workCenterId` |
 | 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |

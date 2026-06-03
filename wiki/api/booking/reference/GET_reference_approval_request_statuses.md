@@ -39,7 +39,7 @@
 ## 3. Описание логики работы метода
 
 1. Выбрать записи из `ref_booking_request_status`.
-2. Вернуть только значения, допустимые для фильтра `GET /approvals/requests`: `Submitted`, `InProgress`.
+2. Вернуть только значения, допустимые для фильтра [`GET /approvals/requests`](../fleet-owner/GET_approvals_requests.md): `Submitted`, `InProgress`.
 3. Не возвращать `Draft` и `Closed`, так как они не должны использоваться во Fleet Owner request list.
 4. Отсортировать записи по `sortOrder`.
 

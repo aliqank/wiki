@@ -123,7 +123,7 @@
 
 ### Новое правило
 
-При отмене draft-заявки через `POST /booking-requests/{id}/cancel`:
+При отмене draft-заявки через [`POST /booking-requests/{id}/cancel`](../api/booking/requestor/POST_booking_requests_id_cancel.md):
 
 - `BookingRequest.status` переводится в `Closed`, `requestClosureReason = Cancelled`;
 - все связанные booking item-ы в статусе `Draft` переводятся в `Closed` с `closureReason = Cancelled` либо удаляются;
@@ -151,7 +151,7 @@
 Эта запись должна использоваться при обновлении:
 
 - booking status reference list;
-- API `POST /booking-requests/{id}/cancel`;
+- API [`POST /booking-requests/{id}/cancel`](../api/booking/requestor/POST_booking_requests_id_cancel.md);
 - request/booking history and audit trail;
 - аналитики по draft lifecycle.
 

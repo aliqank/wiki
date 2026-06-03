@@ -49,7 +49,7 @@
 5. Создать запись в `BookingRequestStatuses` со статусом `Draft`.
 6. Вернуть созданную заявку.
 
-Обязательные business-поля валидируются на этапе `POST /booking-requests/{id}/submit`, а не на этапе создания draft.
+Обязательные business-поля валидируются на этапе [`POST /booking-requests/{id}/submit`](POST_booking_requests_id_submit.md), а не на этапе создания draft.
 
 Сущности, участвующие в методе:
 - читаются: —
@@ -96,7 +96,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 3 | Локация | `location` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустой |
 | 4 | Описание работ | `workDescription` | `string` | `-` | Валидируется на этапе submit | — | Request body | Для draft может быть пустым |
 | 5 | Комментарии | `comments` | `string` | `-` | — | — | Request body | |
-| 6 | Приоритет | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Значения загружаются через `GET /reference/request-priorities`; для draft может быть не заполнен |
+| 6 | Приоритет | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Значения загружаются через [`GET /reference/request-priorities`](../reference/GET_reference_request_priorities.md); для draft может быть не заполнен |
 
 ---
 
@@ -181,4 +181,4 @@ Content-Type: application/json
 2. Поля `priority`, `workDescription`, `location`, `workOrderNumber` могут оставаться пустыми до момента submit.
 3. Если `isDefaultWorkOrder = true`, backend должен сохранять `workOrderNumber = null`.
 4. В ручном requestor-flow поле `requestorId` должно фиксировать business-requestor-а, а `createdBy` использоваться только как audit creator.
-5. Полная бизнес-валидация должна выполняться в `POST /booking-requests/{id}/submit`.
+5. Полная бизнес-валидация должна выполняться в [`POST /booking-requests/{id}/submit`](POST_booking_requests_id_submit.md).

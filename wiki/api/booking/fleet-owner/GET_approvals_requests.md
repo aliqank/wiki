@@ -24,7 +24,7 @@
 
 Новый метод. Используется для Fleet Owner view `Requests` как request-centric список заявок с составом броней, достаточным для первичной обработки без обязательного дополнительного detail-запроса.
 
-Для загрузки значений фильтров UI использует отдельные reference API: `GET /reference/approval-request-statuses`, `GET /reference/approval-request-types`, `GET /reference/request-priorities`.
+Для загрузки значений фильтров UI использует отдельные reference API: [`GET /reference/approval-request-statuses`](../reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../reference/GET_reference_request_priorities.md).
 
 ---
 
@@ -86,9 +86,9 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Фильтр по статусу заявки | `status` | `string` | `-` | `Submitted / InProgress` | — | Query param | Значения загружаются через `GET /reference/approval-request-statuses`; используется агрегированный request status; `Draft` и `Closed` не должны возвращаться в этом методе |
-| 2 | Фильтр по типу заявки | `type` | `string` | `-` | `Regular / ServiceWork` | — | Query param | Значения загружаются через `GET /reference/approval-request-types` |
-| 3 | Фильтр по приоритету | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Query param | Значения загружаются через `GET /reference/request-priorities` |
+| 1 | Фильтр по статусу заявки | `status` | `string` | `-` | `Submitted / InProgress` | — | Query param | Значения загружаются через [`GET /reference/approval-request-statuses`](../reference/GET_reference_approval_request_statuses.md); используется агрегированный request status; `Draft` и `Closed` не должны возвращаться в этом методе |
+| 2 | Фильтр по типу заявки | `type` | `string` | `-` | `Regular / ServiceWork` | — | Query param | Значения загружаются через [`GET /reference/approval-request-types`](../reference/GET_reference_approval_request_types.md) |
+| 3 | Фильтр по приоритету | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Query param | Значения загружаются через [`GET /reference/request-priorities`](../reference/GET_reference_request_priorities.md) |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderNumber` | — | Query param | |
 | 5 | Дата создания заявки: начало диапазона | `createdFrom` | `date` | `-` | `<= createdTo`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |
 | 6 | Дата создания заявки: конец диапазона | `createdTo` | `date` | `-` | `>= createdFrom`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |

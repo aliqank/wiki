@@ -106,7 +106,7 @@ Content-Type: application/json
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор fleet-а | fleetId | uuid | UUID v4 | — | Fleets.id | Значение используется в `GET /equipment/search` как `fleetId` |
+| 1 | Идентификатор fleet-а | fleetId | uuid | UUID v4 | — | Fleets.id | Значение используется в [`GET /equipment/search`](../requestor/GET_equipment_search.md) как `fleetId` |
 | 2 | Наименование fleet-а | fleetName | string | string | — | Fleets.nameEn / localized projection |  |
 
 ## 10. Пример ответа

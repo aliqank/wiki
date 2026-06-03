@@ -83,7 +83,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 2 | Дата окончания периода | `to` | `date` | `+` | Не раньше `from` | — | Query param | |
 | 3 | Таба usage rate | `tab` | `enum` | `-` | `EngineHours / Mileage / Combined` | `Combined` | Query param | |
 | 4 | Гранулярность | `granularity` | `enum` | `-` | `Daily / Monthly` | `Daily` | Query param | |
-| 5 | Тип владения | `ownershipType` | `string` | `-` | `TcoOwned / LongTermRented` | — | Query param | Значения загружаются через `GET /reference/ownership-types` |
+| 5 | Тип владения | `ownershipType` | `string` | `-` | `TcoOwned / LongTermRented` | — | Query param | Значения загружаются через [`GET /reference/ownership-types`](../reference/GET_reference_ownership_types.md) |
 | 6 | Тип техники | `equipmentTypeId` | `uuid` | `-` | Если передан, должен существовать | — | Query param | |
 
 ---

@@ -102,7 +102,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 
 У метода нет request body. Метод не принимает `justification` или другие незасейвленные item-level поля в теле запроса и валидирует только уже сохраненное состояние draft-заявки.
 
-Frontend перед вызовом `POST /booking-requests/{id}/submit` должен завершить autosave всех несохраненных изменений booking item-ов.
+Frontend перед вызовом [`POST /booking-requests/{id}/submit`](POST_booking_requests_id_submit.md) должен завершить autosave всех несохраненных изменений booking item-ов.
 
 ---
 

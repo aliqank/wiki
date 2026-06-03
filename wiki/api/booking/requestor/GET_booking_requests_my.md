@@ -32,7 +32,7 @@
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list [незавершенных заявок](../../../glossary/Glossary.md) |
 | TCO Booking Tool | FR-091 | Requestor/SWP can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Определяет, какие request statuses считаются non-terminal для `GET /booking-requests/my` |
+| TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Определяет, какие request statuses считаются non-terminal для [`GET /booking-requests/my`](GET_booking_requests_my.md) |
 
 ---
 
@@ -48,7 +48,7 @@
 8. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
 9. Вернуть пагинированный список.
 
-Метод не возвращает полные детали заявки или полные карточки броней. Для этого используется `GET /booking-requests/{id}`.
+Метод не возвращает полные детали заявки или полные карточки броней. Для этого используется [`GET /booking-requests/{id}`](GET_booking_requests_id.md).
 
 Сущности, участвующие в методе:
 - читаются: [`BookingRequests`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#21-bookingrequests), [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`Equipments`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#8-equipments), [`EquipmentTypes`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#1-equipmenttypes), [`EquipmentBrands`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#4-equipmentbrands), [`EquipmentModels`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#5-equipmentmodels), [`WorkCenters`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#3-workcenters), [`Fleets`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#2-fleets), [`Users`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#19-users)
@@ -88,9 +88,9 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Фильтр по статусу [незавершенной заявки](../../../glossary/Glossary.md) | `status` | `string` | `-` | `Draft / Submitted / InProgress` | — | Query param | Значения загружаются через `GET /reference/request-statuses`; terminal status `Closed` в этом методе не используется |
-| 2 | Фильтр по типу заявки | `type` | `string` | `-` | `Regular / ServiceWork` | — | Query param | Значения загружаются через `GET /reference/requestor-request-types` |
-| 3 | Фильтр по приоритету | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Query param | Значения загружаются через `GET /reference/request-priorities` |
+| 1 | Фильтр по статусу [незавершенной заявки](../../../glossary/Glossary.md) | `status` | `string` | `-` | `Draft / Submitted / InProgress` | — | Query param | Значения загружаются через [`GET /reference/request-statuses`](../reference/GET_reference_request_statuses.md); terminal status `Closed` в этом методе не используется |
+| 2 | Фильтр по типу заявки | `type` | `string` | `-` | `Regular / ServiceWork` | — | Query param | Значения загружаются через [`GET /reference/requestor-request-types`](../reference/GET_reference_requestor_request_types.md) |
+| 3 | Фильтр по приоритету | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Query param | Значения загружаются через [`GET /reference/request-priorities`](../reference/GET_reference_request_priorities.md) |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderNumber`, `workDescription` | — | Query param | |
 | 5 | Дата создания заявки: начало диапазона | `createdFrom` | `date` | `-` | `<= createdTo`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |
 | 6 | Дата создания заявки: конец диапазона | `createdTo` | `date` | `-` | `>= createdFrom`, формат `YYYY-MM-DD` | — | Query param | Фильтр по `BookingRequests.createdAt` |
@@ -308,5 +308,5 @@ Content-Type: application/json
 ## Замечания
 
 1. Метод предназначен именно для страницы `Мои заявки` и возвращает только active / non-terminal requests со статусами `Draft`, `Submitted`, `InProgress`.
-2. Для истории завершённых заявок должен использоваться отдельный endpoint `GET /booking-requests/history`.
+2. Для истории завершённых заявок должен использоваться отдельный endpoint [`GET /booking-requests/history`](GET_booking_requests_history.md).
 3. Поле `status` в query не должно использоваться для `Closed`.

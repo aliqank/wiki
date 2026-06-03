@@ -91,7 +91,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | 4 | Локация | `location` | `string` | `-` | — | — | Request body | |
 | 5 | Описание работ | `workDescription` | `string` | `-` | Если передан, не должен быть пустым | — | Request body | |
 | 6 | Комментарии | `comments` | `string` | `-` | — | — | Request body | |
-| 7 | Приоритет | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Значения загружаются через `GET /reference/request-priorities` |
+| 7 | Приоритет | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Request body | Значения загружаются через [`GET /reference/request-priorities`](../reference/GET_reference_request_priorities.md) |
 
 ---
 

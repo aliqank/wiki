@@ -39,8 +39,8 @@
 ## 3. Описание логики работы метода
 
 1. Выбрать записи из `ref_booking_request_status`.
-2. Вернуть только значения, допустимые для фильтра `GET /booking-requests/my`: `Draft`, `Submitted`, `InProgress`.
-3. Не возвращать `Closed`, так как endpoint `GET /booking-requests/my` показывает только незавершенные заявки.
+2. Вернуть только значения, допустимые для фильтра [`GET /booking-requests/my`](../requestor/GET_booking_requests_my.md): `Draft`, `Submitted`, `InProgress`.
+3. Не возвращать `Closed`, так как endpoint [`GET /booking-requests/my`](../requestor/GET_booking_requests_my.md) показывает только незавершенные заявки.
 4. Отсортировать записи по `sortOrder`.
 
 Сущности, участвующие в методе:
