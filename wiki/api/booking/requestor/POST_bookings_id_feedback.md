@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-022 | Requestor / SWP can submit feedback on equipment with confirmed booking | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-022 | Requestor can submit feedback on equipment with confirmed booking | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 
 ---
 
@@ -52,7 +52,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Оставление отзыва по своей брони |
-| `ServiceWorkProcessor` | Оставление отзыва по SWR |
 
 ---
 

@@ -31,7 +31,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Список заявок должен использовать согласованные request statuses |
-| TCO Booking Tool | FR-091 | Requestor/SWP can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `status` должны загружаться отдельным reference API |
+| TCO Booking Tool | FR-091 | Requestor can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `status` должны загружаться отдельным reference API для текущего scope |
 | TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Для active list используются только non-terminal request statuses |
 
 ---
@@ -54,7 +54,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Просмотр и фильтрация собственных заявок |
-| `ServiceWorkProcessor` | Просмотр и фильтрация собственных SWR |
 
 ---
 

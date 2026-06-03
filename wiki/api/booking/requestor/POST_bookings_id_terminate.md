@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-060 | Requestor/SWP can terminate confirmed booking | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-060 | Requestor can terminate confirmed booking | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | FR-069 | Booking -> Closed with closure reason Terminated once terminated | Confirmed | BRD v13 | Обновление статуса |
 
 ---
@@ -55,7 +55,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Terminate собственной брони |
-| `ServiceWorkProcessor` | Terminate брони в SWR |
 
 ---
 

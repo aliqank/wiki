@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для страницы «Мои заявки» как summary API для списка [незавершенных заявок](../../../glossary/Glossary.md) Requestor / SWP.
+Новый метод. Используется для страницы «Мои заявки» как summary API для списка [незавершенных заявок](../../../glossary/Glossary.md) Requestor.
 
 ---
 
@@ -31,7 +31,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list [незавершенных заявок](../../../glossary/Glossary.md) |
-| TCO Booking Tool | FR-091 | Requestor/SWP can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-091 | Requestor can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Определяет, какие request statuses считаются non-terminal для [`GET /booking-requests/my`](GET_booking_requests_my.md) |
 
 ---
@@ -39,14 +39,13 @@
 ## 3. Описание логики работы метода
 
 1. Для Requestor выбрать `BookingRequests` по `requestorId = currentUserId`.
-2. Для ServiceWorkProcessor применять отдельные правила видимости SWR; выборка не должна опираться только на audit-поле `createdBy`.
-3. По умолчанию исключить terminal status заявки: `Closed`.
-4. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
-5. Если передан `status`, он должен относиться только к статусам [незавершенной заявки](../../../glossary/Glossary.md): `Draft`, `Submitted`, `InProgress`.
-6. Отсортировать по `createdAt DESC`.
-7. Для каждой заявки собрать summary-данные по связанным `Bookings`.
-8. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
-9. Вернуть пагинированный список.
+2. По умолчанию исключить terminal status заявки: `Closed`.
+3. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
+4. Если передан `status`, он должен относиться только к статусам [незавершенной заявки](../../../glossary/Glossary.md): `Draft`, `Submitted`, `InProgress`.
+5. Отсортировать по `createdAt DESC`.
+6. Для каждой заявки собрать summary-данные по связанным `Bookings`.
+7. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
+8. Вернуть пагинированный список.
 
 Метод не возвращает полные детали заявки или полные карточки броней. Для этого используется [`GET /booking-requests/{id}`](GET_booking_requests_id.md).
 
@@ -61,7 +60,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Просмотр заявок, где пользователь является `requestorId` |
-| `ServiceWorkProcessor` | Просмотр своих SWR |
 
 ---
 

@@ -16,7 +16,7 @@ Base URL: `/api/booking/v1`
 
 ---
 
-## 1. Requestor / SWP
+## 1. Requestor
 
 | Метод | Путь | Назначение |
 |---|---|---|
@@ -115,5 +115,5 @@ Base URL: `/api/booking/v1`
 ## Замечания
 
 1. External booking workflow в Phase 1 не входит в scope и в сводку не включен.
-2. Для Requestor / SWP детальная спецификация вынесена в [`wiki/api/booking/requestor/`](requestor/).
+2. Для Requestor детальная спецификация вынесена в [`wiki/api/booking/requestor/`](requestor/).
 3. Все методы должны использовать общий [`result wrapper`](../common/Result%20Wrapper.md); для списков с пагинацией дополнительно использовать `PaginatedResult`.

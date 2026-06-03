@@ -50,7 +50,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | История собственной брони |
-| `ServiceWorkProcessor` | История брони в SWR |
 | `FleetOwner` | История брони своих флотов |
 | `FleetOwnersSupervisor` | История long-term rented броней |
 | `Admin` | Полный доступ |

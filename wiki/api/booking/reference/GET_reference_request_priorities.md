@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-091 | Requestor/SWP can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `priority` должны загружаться отдельным reference API |
+| TCO Booking Tool | FR-091 | Requestor can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `priority` должны загружаться отдельным reference API для текущего scope |
 
 ---
 
@@ -51,7 +51,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Просмотр и фильтрация собственных заявок |
-| `ServiceWorkProcessor` | Просмотр и фильтрация собственных SWR |
 
 ---
 

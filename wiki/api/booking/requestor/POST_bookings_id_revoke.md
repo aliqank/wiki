@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-058 | Requestor/SWP can revoke booking if not yet processed by FO | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-058 | Requestor can revoke booking if not yet processed by FO | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | FR-068 | Booking -> Closed with closure reason Revoked once revoked | Confirmed | BRD v13 | Обновление статуса |
 
 ---
@@ -55,7 +55,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Отзыв собственной брони |
-| `ServiceWorkProcessor` | Отзыв брони в SWR |
 
 ---
 

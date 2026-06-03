@@ -1,7 +1,7 @@
 # UC-REQ-02.5 - Редактирование брони или замена техники в draft
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-03  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Карточка booking item в draft-заявке |
-| Участник | `Requestor`, `ServiceWorkProcessor` |
+| Участник | `Requestor` |
 | Покрываемые FR (BRD) | `FR-027`, `FR-031`, `FR-038`, `FR-040`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
 | Триггер | Пользователь редактирует период брони, justification или хочет заменить технику |

@@ -1,7 +1,7 @@
 # UC-FO-09 - Согласование изменения плановой даты и времени окончания брони
 
 **Created:** 2026-06-02  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-03  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -15,7 +15,7 @@
 | Покрываемые FR (BRD) | `FR-061`, `FR-067`, `FR-081` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); по брони существует pending [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) |
-| Триггер | Fleet Owner открывает бронь, по которой Requestor / SWP запросил изменение `plannedEndDateTime` |
+| Триггер | Fleet Owner открывает бронь, по которой Requestor запросил изменение `plannedEndDateTime` |
 | Ожидаемый результат | Fleet Owner принимает решение по запросу на изменение срока брони; после approve новое `plannedEndDateTime` применяется, а статус брони становится `Confirmed`, если других pending approvals не требуется, либо сохраняет `InProgress`, если исполнение уже началось |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/extension-approval`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_extension_approval.md) |
 
@@ -29,7 +29,7 @@
    - текущий lifecycle status брони;
    - текущее `plannedEndDateTime`;
    - запрошенное новое `plannedEndDateTime`;
-   - комментарий Requestor / SWP;
+   - комментарий Requestor;
    - [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context), если он есть.
 4. Fleet Owner анализирует запрос и принимает решение.
 5. Frontend вызывает [`POST /approvals/bookings/{id}/extension-approval`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_extension_approval.md) с решением `Approved`.
@@ -67,4 +67,4 @@
 1. [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) является отдельным approval step и не должен смешиваться с базовым `FoApproval` первоначального согласования брони.
 2. Для pre-start сценария после approve бронь должна стать `Confirmed`, если никаких других обязательных approval steps больше не требуется.
 3. Для `InProgress` сценария approve не должен откатывать бронь из `InProgress`; меняется только `plannedEndDateTime`.
-4. Данный use case описывает только решение Fleet Owner по уже существующему запросу Requestor / SWP на изменение срока брони.
+4. Данный use case описывает только решение Fleet Owner по уже существующему запросу Requestor на изменение срока брони.

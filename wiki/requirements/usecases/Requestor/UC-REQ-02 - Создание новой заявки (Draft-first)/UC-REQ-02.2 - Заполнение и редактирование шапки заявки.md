@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Экран `Новая заявка` |
-| Участник | `Requestor`, `ServiceWorkProcessor` |
+| Участник | `Requestor` |
 | Покрываемые FR (BRD) | `FR-027`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-48`, `FR-NEW-51` |
 | Покрываемые FR (Equipment block list) | — |
 | Триггер | Пользователь редактирует request-level поля draft-заявки |

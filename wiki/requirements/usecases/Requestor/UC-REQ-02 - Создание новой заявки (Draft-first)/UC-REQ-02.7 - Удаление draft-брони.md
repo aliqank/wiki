@@ -1,7 +1,7 @@
 # UC-REQ-02.7 - Удаление draft-брони
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-03  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Карточка booking item в draft-заявке |
-| Участник | `Requestor`, `ServiceWorkProcessor` |
+| Участник | `Requestor` |
 | Покрываемые FR (BRD) | `FR-027`, `FR-031`, `FR-038` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован; открыта собственная draft-заявка; в заявке есть booking item в статусе `Draft` |

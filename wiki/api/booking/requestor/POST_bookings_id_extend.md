@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обрабатывает запрос Requestor/SWP на изменение `plannedEndDateTime` с разным поведением для pre-start и `InProgress` сценариев.
+Новый метод. Обрабатывает запрос Requestor на изменение `plannedEndDateTime` с разным поведением для pre-start и `InProgress` сценариев.
 
 ---
 
@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-061 | Requestor/SWP can extend confirmed booking | Confirmed | BRD v13 | Базовое покрытие change-end-date сценария |
+| TCO Booking Tool | FR-061 | Requestor can extend confirmed booking | Confirmed | BRD v13 | Базовое покрытие change-end-date сценария для текущего scope |
 | TCO Booking Tool | FR-067 | Booking -> Submitted once extended | Confirmed | BRD v13 | Для pre-start сценария после изменения срок снова требует решения FO |
 | TCO Booking Tool | FR-081 | System notifies FO when Requestor extends booking | Confirmed | BRD v13 | Уведомление FO обязательно |
 
@@ -61,7 +61,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Изменение `plannedEndDateTime` собственной брони |
-| `ServiceWorkProcessor` | Изменение `plannedEndDateTime` брони в SWR |
 
 ---
 

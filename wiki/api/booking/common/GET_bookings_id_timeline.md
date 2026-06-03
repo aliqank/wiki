@@ -51,7 +51,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Timeline собственной брони |
-| `ServiceWorkProcessor` | Timeline SWR-брони |
 | `FleetOwner` | Timeline броней своих флотов |
 | `FleetOwnersSupervisor` | Timeline long-term rented броней |
 | `Admin` | Полный доступ |

@@ -52,7 +52,6 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | Удаление item из своей draft-заявки |
-| `ServiceWorkProcessor` | Удаление item из draft SWR |
 
 ---
 
