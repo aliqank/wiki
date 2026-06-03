@@ -16,7 +16,7 @@
 | Покрываемые FR (Equipment block list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь находится на странице `Мои заявки`; пользователь имеет роль `Requestor` или `ServiceWorkProcessor` |
 | Триггер | Вход на страницу `Мои заявки` |
-| Ожидаемый результат | Отображается список незавершенных заявок текущего пользователя с краткой информацией по броням |
+| Ожидаемый результат | Отображается список [незавершенных заявок](../../../glossary/Glossary.md) текущего пользователя с краткой информацией по броням |
 | Используемые API | [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md), [`GET /reference/request-statuses`](../../../api/booking/reference/GET_reference_request_statuses.md), [`GET /reference/requestor-request-types`](../../../api/booking/reference/GET_reference_requestor_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md) |
 
 ---
@@ -26,7 +26,7 @@
 1. Пользователь открывает страницу `Мои заявки`.
 2. Frontend загружает справочники фильтров через [`GET /reference/request-statuses`](../../../api/booking/reference/GET_reference_request_statuses.md), [`GET /reference/requestor-request-types`](../../../api/booking/reference/GET_reference_requestor_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
 3. Frontend вызывает [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md).
-4. Backend возвращает только незавершенные заявки текущего пользователя.
+4. Backend возвращает только [незавершенные заявки](../../../glossary/Glossary.md) текущего пользователя.
 5. Frontend отображает список заявок в таблице.
 6. Для каждой заявки отображаются:
    - номер заявки;
@@ -79,7 +79,7 @@ sequenceDiagram
 
 ## Альтернативные сценарии
 
-1. У пользователя нет незавершенных заявок.
+1. У пользователя нет [незавершенных заявок](../../../glossary/Glossary.md).
    Система отображает пустое состояние и кнопку `Создать заявку`.
 
 2. Пользователь применяет фильтры.
@@ -95,6 +95,6 @@ sequenceDiagram
 
 ## Замечания
 
-1. Use case опирается на правило: страница `Мои заявки` показывает только active / non-terminal requests.
+1. Use case опирается на правило: страница `Мои заявки` показывает только [незавершенные заявки](../../../glossary/Glossary.md), то есть active / non-terminal requests.
 2. История завершенных заявок должна быть вынесена в отдельный flow / отдельный endpoint.
 3. [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md) должен возвращать summary-данные, а не полные booking details.

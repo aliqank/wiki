@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить список незавершенных заявок, где текущий пользователь является business-requestor-ом |
+| Описание | Получить список [незавершенных заявок](../../../glossary/Glossary.md), где текущий пользователь является business-requestor-ом |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/my` |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для страницы «Мои заявки» как summary API для списка незавершенных заявок Requestor / SWP.
+Новый метод. Используется для страницы «Мои заявки» как summary API для списка [незавершенных заявок](../../../glossary/Glossary.md) Requestor / SWP.
 
 ---
 
@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list незавершенных заявок |
+| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list [незавершенных заявок](../../../glossary/Glossary.md) |
 | TCO Booking Tool | FR-091 | Requestor/SWP can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Определяет, какие request statuses считаются non-terminal для `GET /booking-requests/my` |
 
@@ -42,7 +42,7 @@
 2. Для ServiceWorkProcessor применять отдельные правила видимости SWR; выборка не должна опираться только на audit-поле `createdBy`.
 3. По умолчанию исключить terminal status заявки: `Closed`.
 4. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
-5. Если передан `status`, он должен относиться только к незавершённым статусам заявки: `Draft`, `Submitted`, `InProgress`.
+5. Если передан `status`, он должен относиться только к статусам [незавершенной заявки](../../../glossary/Glossary.md): `Draft`, `Submitted`, `InProgress`.
 6. Отсортировать по `createdAt DESC`.
 7. Для каждой заявки собрать summary-данные по связанным `Bookings`.
 8. Для каждой брони вернуть только краткий `bookingSummary`, достаточный для таблицы списка заявок.
@@ -88,7 +88,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Фильтр по статусу незавершенной заявки | `status` | `string` | `-` | `Draft / Submitted / InProgress` | — | Query param | Значения загружаются через `GET /reference/request-statuses`; terminal status `Closed` в этом методе не используется |
+| 1 | Фильтр по статусу [незавершенной заявки](../../../glossary/Glossary.md) | `status` | `string` | `-` | `Draft / Submitted / InProgress` | — | Query param | Значения загружаются через `GET /reference/request-statuses`; terminal status `Closed` в этом методе не используется |
 | 2 | Фильтр по типу заявки | `type` | `string` | `-` | `Regular / ServiceWork` | — | Query param | Значения загружаются через `GET /reference/requestor-request-types` |
 | 3 | Фильтр по приоритету | `priority` | `string` | `-` | `P1 / P2 / P3 / P4` | — | Query param | Значения загружаются через `GET /reference/request-priorities` |
 | 4 | Поисковая строка | `search` | `string` | `-` | Поиск по `requestNumber`, `workOrderNumber`, `workDescription` | — | Query param | |
@@ -113,7 +113,7 @@ Content-Type: application/json
 
 Возвращаемые данные обёрнуты в общий `result wrapper`.
 
-Метод возвращает только незавершенные заявки со статусами `Draft`, `Submitted`, `InProgress`. Terminal request statuses должны запрашиваться через отдельный history/archive endpoint.
+Метод возвращает только [незавершенные заявки](../../../glossary/Glossary.md) со статусами `Draft`, `Submitted`, `InProgress`. Terminal request statuses должны запрашиваться через отдельный history/archive endpoint.
 
 ### Структура `result wrapper`
 

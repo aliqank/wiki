@@ -230,7 +230,7 @@ Bookings:
 
 1. Пересчет request status должен выполняться в той же транзакции, что и изменение статуса отдельной брони или request-level cancel.
 2. История request status должна записываться в `BookingRequestStatuses` только при фактическом изменении агрегированного статуса.
-3. `GET /booking-requests/my` показывает только незавершенные заявки, поэтому terminal request status для list view ограничен `Closed`; различие между pre-start cancellation и post-start completion определяется через `closureReason`.
+3. `GET /booking-requests/my` показывает только [незавершенные заявки](../glossary/Glossary.md), поэтому terminal request status для list view ограничен `Closed`; различие между pre-start cancellation и post-start completion определяется через `closureReason`.
 4. Для терминальной брони бизнес-причина должна определяться через `Booking.closureReason`, а не через отдельный lifecycle status.
 5. Request-level статус не хранит специальные значения вроде `Revoked` или `Declined`; такие состояния существуют только на уровне booking closure reason.
 6. Request-level `closureReason` intentionally coarse-grained и ограничен значениями `Cancelled` и `Completed`.
