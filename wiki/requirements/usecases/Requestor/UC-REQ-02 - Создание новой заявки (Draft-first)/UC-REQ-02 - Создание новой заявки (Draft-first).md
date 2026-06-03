@@ -1,7 +1,7 @@
 # UC-REQ-02 - Создание новой заявки (Draft-first)
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-03  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -10,7 +10,7 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Модальное окно `Новая заявка` |
+| Область действия | Экран `Новая заявка` |
 | Участник | Пользователь с ролью `Requestor` или `ServiceWorkProcessor` |
 | Покрываемые FR (BRD) | `FR-023`, `FR-027`, `FR-030`, `FR-031`, `FR-038`, `FR-040`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-38`, `FR-NEW-39`, `FR-NEW-48`, `FR-NEW-50`, `FR-NEW-51`, `FR-NEW-68`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
