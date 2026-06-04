@@ -4,26 +4,33 @@
 
 Правило заполнения:
 - `Покрыто = +`, если FR покрыт текущими Requestor use case-ами (`UC-REQ-01..05`, включая дочерние `UC-REQ-02.*`)
-- `Покрыто = -`, если FR пока не покрыт use case-ами или помечен в BRD как obsolete / out of scope
+- `Покрыто = -`, если FR пока не покрыт use case-ами
 - для всех FR с `+` проставлен `Спринт 2`
 - для `FR-005..FR-010`, `FR-012..FR-015`, `FR-017..FR-021`, `FR-025` проставлен `Спринт 1`
 - если FR относится к нескольким спринтам, указываются оба значения
+
+## Спринты
+
+| Спринт | Список FR |
+|---|---|
+| Спринт 1 | `FR-005`, `FR-006`, `FR-007`, `FR-008`, `FR-009`, `FR-010`, `FR-012`, `FR-013`, `FR-014`, `FR-015`, `FR-017`, `FR-018`, `FR-019`, `FR-020`, `FR-021`, `FR-025` |
+| Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-NEW-38`, `FR-NEW-39` |
 
 | FR | Описание | Покрыто | Use case | Спринт |
 |---|---|---|---|---|
 | FR-001 | System supports role-based access control. Roles: Requestor, Service Work Processor, Fleet Owner, FleetOwners' Supervisor, Administrator, Transportation Responsible | - | — | — |
 | FR-003 | Administrators, Service Work Processors, FleetOwners' Supervisors defined by AAD groups | - | — | — |
 | FR-NEW-01 | All time-based parameters configurable via Admin Panel | - | — | — |
-| FR-005 | Admin creates fleets with unique names | - | — | Спринт 1 |
-| FR-006 | Admin links internal fleet with AAD group | - | — | Спринт 1 |
-| FR-007 | Admin manages external fleet owners | - | — | Спринт 1 |
-| FR-008 | Admin updates existing fleets | - | — | Спринт 1 |
-| FR-009 | Admin deletes fleets | - | — | Спринт 1 |
-| FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool | - | — | Спринт 1 |
-| FR-012 | Admin manages booking template | - | — | Спринт 1 |
-| FR-013 | Admin creates equipment (internal fleet) | - | — | Спринт 1 |
-| FR-014 | Admin edits equipment (extended edit) | - | — | Спринт 1 |
-| FR-015 | Admin deletes equipment | - | — | Спринт 1 |
+| FR-005 | Admin creates fleets with unique names | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-006 | Admin links internal fleet with AAD group | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-007 | Admin manages external fleet owners | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-008 | Admin updates existing fleets | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-009 | Admin deletes fleets | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-012 | Admin manages booking template | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-013 | Admin creates equipment (internal fleet) | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-014 | Admin edits equipment (extended edit) | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-015 | Admin deletes equipment | - | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-016 | Admin accesses all dashboards and reports | - | — | — |
 | FR-NEW-03 | Admin configures via Admin Panel: FO timeout, booking horizon, max duration, FleetOwners' Supervisor response timeout | - | — | — |
 | FR-NEW-04 | Admin authorizes specific users to book Assigned equipment | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft | Спринт 2 |
@@ -31,11 +38,11 @@
 | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-68 | System dynamically shows only type-specific characteristics in request form and equipment search filters | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-74 | Admin configures FleetOwners' Supervisor response timeout via Admin Panel | - | — | — |
-| FR-017 | Both internal and external FO can create equipment under own fleet | - | — | Спринт 1 |
-| FR-018 | FO must indicate fleet of equipment; only own fleets selectable | - | — | Спринт 1 |
-| FR-019 | FO can edit allowed equipment parameters; one user can own several fleets | - | — | Спринт 1 |
-| FR-020 | FO can delete equipment (soft delete) | - | — | Спринт 1 |
-| FR-021 | FO can freeze/unfreeze equipment for a period or indefinitely | - | — | Спринт 1 |
+| FR-017 | Both internal and external FO can create equipment under own fleet | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-018 | FO must indicate fleet of equipment; only own fleets selectable | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-019 | FO can edit allowed equipment parameters; one user can own several fleets | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-020 | FO can delete equipment (soft delete) | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-021 | FO can freeze/unfreeze equipment for a period or indefinitely | - | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-022 | Requestor / SWP can submit feedback on equipment with confirmed booking | - | — | — |
 | FR-NEW-05 | FO uploads multiple photos; Requestor sees them in request form | - | — | — |
 | FR-NEW-06 | Repair status from JDE -> DataLake displayed in search and equipment list | - | — | — |
