@@ -1,7 +1,7 @@
 # DB Schema v12: Azure SQL adaptation for Equipments + Booking
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-05-22  
+**Last updated:** 2026-06-03  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -124,8 +124,8 @@ set (system_versioning = on (history_table = dbo.BookingsHistory));
 | Поле | Тип | Комментарий |
 |---|---|---|
 | `nameEn` | `nvarchar(255) not null` | Базовое обязательное отображаемое имя |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 
 ### 4. Уникальные индексы
 
@@ -178,8 +178,8 @@ where isDeleted = 0;
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `iconUrl` | `nvarchar(1000) null` |
 | `sortOrder` | `int not null default 0` |
 
@@ -198,8 +198,8 @@ where isDeleted = 0;
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `iconUrl` | `nvarchar(1000) null` | URL иконки типа техники |
 | `mobilityTypeId` | `uniqueidentifier FK -> ref_equipment_mobility_type` | |
 | `requiresTransport` | `bit not null` | Требуется транспортировка |
@@ -216,8 +216,8 @@ where isDeleted = 0;
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `fleetTypeId` | `uniqueidentifier FK -> ref_fleet_type` | |
 | `businessPartnerId` | `uniqueidentifier null FK -> BusinessPartners` | Для внешних fleet-ов задаёт принадлежность к BP-контуру |
 | `aadGroupId` | `nvarchar(255)` | ID AAD-группы Fleet Owner |
@@ -232,8 +232,8 @@ where isDeleted = 0;
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | audit fields | см. conventions |
 
 Filtered unique indexes:
@@ -247,8 +247,8 @@ Filtered unique indexes:
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `sortOrder` | `int not null` |
 | audit fields | см. conventions |
 
@@ -261,8 +261,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` |
 | `brandId` | `uniqueidentifier FK -> EquipmentBrands` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `sortOrder` | `int not null` |
 | audit fields | см. conventions |
 
@@ -284,8 +284,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) not null` | Код локации / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -301,8 +301,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) not null` | Код cost center из JDE |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -318,8 +318,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) not null` | Код сервисной зоны |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -335,8 +335,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) null` | Код дивизиона / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -353,8 +353,8 @@ Filtered unique indexes:
 | `divisionId` | `uniqueidentifier FK -> Divisions` | Родительский дивизион |
 | `code` | `nvarchar(100) null` | Код группы / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -372,8 +372,8 @@ Filtered unique indexes:
 | `groupId` | `uniqueidentifier FK -> Groups` | Родительская группа |
 | `code` | `nvarchar(100) null` | Код департамента / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -391,8 +391,8 @@ Filtered unique indexes:
 | `departmentId` | `uniqueidentifier FK -> Departments` | Родительский департамент |
 | `code` | `nvarchar(100) null` | Код отдела / unit / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -532,8 +532,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `dataTypeId` | `uniqueidentifier FK -> ref_property_data_type` |
 | `unitId` | `uniqueidentifier null FK -> MeasurementUnits` |
 | audit fields | см. conventions |
@@ -678,8 +678,8 @@ Filtered unique index:
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `description` | `nvarchar(max) null` |
 | `bin` | `nvarchar(100) not null` |
 | `country` | `nvarchar(100) null` |

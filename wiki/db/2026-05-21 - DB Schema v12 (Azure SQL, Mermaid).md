@@ -1,12 +1,13 @@
 # DB Schema v12 — Azure SQL Mermaid ER-диаграмма
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-05-22  
+**Last updated:** 2026-06-03  
 **Version:** v12 (Azure SQL adaptation)
 
 > Типы данных адаптированы под Azure SQL: `uniqueidentifier`, `datetime2(3)`, `bit`, `nvarchar(max)`.  
 > `enum` заменены на `ref_*` таблицы.  
 > `name JSON` заменён на `nameEn`, `nameRu`, `nameKz`.
+> Для локализованных name-полей в текущем v12 предполагается, что `nameEn`, `nameRu`, `nameKz` являются обязательными (`not null`).
 > Для всех основных mutable таблиц в v12 предполагаются **system-versioned temporal tables**, кроме `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses`, которые остаются явными history/event tables.
 
 ---
