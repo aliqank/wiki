@@ -13,7 +13,7 @@
 
 | Спринт | Список FR |
 |---|---|
-| Спринт 1 | `FR-005`, `FR-006`, `FR-007`, `FR-008`, `FR-009`, `FR-010`, `FR-012`, `FR-013`, `FR-014`, `FR-015`, `FR-017`, `FR-018`, `FR-019`, `FR-020`, `FR-021`, `FR-025` |
+| Спринт 1 | `FR-005`, `FR-006`, `FR-007`, `FR-008`, `FR-009`, `FR-010`, `FR-012`, `FR-013`, `FR-014`, `FR-015`, `FR-017`, `FR-018`, `FR-019`, `FR-020`, `FR-021`, `FR-025`, `FR-NEW-04`, `FR-NEW-05`, `FR-NEW-46`, `FR-NEW-49`, `FR-NEW-50`, `FR-NEW-53`, `FR-NEW-54`, `FR-NEW-55`, `FR-NEW-57`, `FR-NEW-58`, `FR-NEW-59`, `FR-NEW-60` |
 | Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-NEW-38`, `FR-NEW-39` |
 
 | FR | Описание | Покрыто | Use case | Спринт |
@@ -21,37 +21,37 @@
 | FR-001 | System supports role-based access control. Roles: Requestor, Service Work Processor, Fleet Owner, FleetOwners' Supervisor, Administrator, Transportation Responsible | - | — | — |
 | FR-003 | Administrators, Service Work Processors, FleetOwners' Supervisors defined by AAD groups | - | — | — |
 | FR-NEW-01 | All time-based parameters configurable via Admin Panel | - | — | — |
-| FR-005 | Admin creates fleets with unique names | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-006 | Admin links internal fleet with AAD group | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-007 | Admin manages external fleet owners | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-008 | Admin updates existing fleets | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-009 | Admin deletes fleets | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-012 | Admin manages booking template | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-013 | Admin creates equipment (internal fleet) | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-014 | Admin edits equipment (extended edit) | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-015 | Admin deletes equipment | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-005 | Admin creates fleets with unique names | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-006 | Admin links internal fleet with AAD group | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-007 | Admin manages external fleet owners | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-008 | Admin updates existing fleets | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-009 | Admin deletes fleets | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-012 | Admin manages booking template | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-013 | Admin creates equipment (internal fleet) | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-014 | Admin edits equipment (extended edit) | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-015 | Admin deletes equipment | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-016 | Admin accesses all dashboards and reports | - | — | — |
 | FR-NEW-03 | Admin configures via Admin Panel: FO timeout, booking horizon, max duration, FleetOwners' Supervisor response timeout | - | — | — |
-| FR-NEW-04 | Admin authorizes specific users to book Assigned equipment | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft | Спринт 2 |
+| FR-NEW-04 | Admin authorizes specific users to book Assigned equipment | + | Реализация админ панели и стр. оборудования; UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft | Спринт 1, Спринт 2 |
 | FR-NEW-42 | Admin sets and updates fleet shared team email | - | — | — |
-| FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
+| FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | + | Реализация админ панели и стр. оборудования; UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 1, Спринт 2 |
 | FR-NEW-68 | System dynamically shows only type-specific characteristics in request form and equipment search filters | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-74 | Admin configures FleetOwners' Supervisor response timeout via Admin Panel | - | — | — |
-| FR-017 | Both internal and external FO can create equipment under own fleet | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-018 | FO must indicate fleet of equipment; only own fleets selectable | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-019 | FO can edit allowed equipment parameters; one user can own several fleets | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-020 | FO can delete equipment (soft delete) | - | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-021 | FO can freeze/unfreeze equipment for a period or indefinitely | - | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-017 | Both internal and external FO can create equipment under own fleet | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-018 | FO must indicate fleet of equipment; only own fleets selectable | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-019 | FO can edit allowed equipment parameters; one user can own several fleets | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-020 | FO can delete equipment (soft delete) | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-021 | FO can freeze/unfreeze equipment for a period or indefinitely | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-022 | Requestor / SWP can submit feedback on equipment with confirmed booking | - | — | — |
-| FR-NEW-05 | FO uploads multiple photos; Requestor sees them in request form | - | — | — |
+| FR-NEW-05 | FO uploads multiple photos; Requestor sees them in request form | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-NEW-06 | Repair status from JDE -> DataLake displayed in search and equipment list | - | — | — |
 | FR-NEW-07 | Stationary HDE excluded from Requestor search | - | — | — |
 | FR-NEW-08 | Assigned equipment: visible to all users; bookable only by Admin-authorized users with mandatory justification; FO can approve or decline | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft; UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
 | FR-NEW-09 | Shared with Conditions has visual color marker | - | — | — |
 | FR-NEW-40 | Equipment card (FO view) has booking calendar visual | - | — | — |
 | FR-NEW-41 | Multiple trackers per unit; FO can add trackers from equipment card UI | - | — | — |
-| FR-NEW-49 | Freeze fields on equipment card | - | — | — |
+| FR-NEW-49 | Freeze fields on equipment card | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-023 | Requestor can create a Request | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки; UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
 | FR-024 | Request has unique ID and metadata | + | UC-REQ-01 - Просмотр моих заявок; UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки | Спринт 2 |
 | FR-025 | Requestor can view request details and status | + | UC-REQ-01 - Просмотр моих заявок; UC-REQ-03 - Отмена draft-заявки requestor-ом; UC-REQ-04 - Отзыв брони requestor-ом; UC-REQ-05 - Отзыв submitted-заявки requestor-ом | Спринт 1, Спринт 2 |
@@ -149,19 +149,19 @@
 | FR-NEW-38 | Search: TCO equipment number + model mandatory; госномер if present | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-39 | Dynamic search filters by equipment type | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-45 | Dedicated Completed Requests page for Requestor, SWP, FO, Admin | - | — | — |
-| FR-NEW-46 | Usage Rate reports: by day / department / equipment unit | - | — | — |
+| FR-NEW-46 | Usage Rate reports: by day / department / equipment unit | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-NEW-47 | Work center reports | - | — | — |
 | FR-NEW-52 | Requestor has access to Request History page listing completed requests | - | — | — |
 | FR-099 | System displays usage rate data and coordinates from DataLake/PI | - | — | — |
 | FR-100 | System displays digitized location of Work Orders from DataLake (JDE E1) | - | — | — |
-| FR-NEW-53 | Usage Rate Dashboard has three tabs | - | — | — |
-| FR-NEW-54 | Usage Rate cells use a color gradient | - | — | — |
-| FR-NEW-55 | Repair days marked with wrench icon and excluded from average | - | — | — |
+| FR-NEW-53 | Usage Rate Dashboard has three tabs | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-NEW-54 | Usage Rate cells use a color gradient | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-NEW-55 | Repair days marked with wrench icon and excluded from average | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-NEW-56 | Usage Rate Dashboard includes Target value column | - | — | — |
-| FR-NEW-57 | Usage Rate Dashboard includes Average usage rate column | - | — | — |
-| FR-NEW-58 | Usage Rate Dashboard supports daily / monthly granularity | - | — | — |
-| FR-NEW-59 | Usage Rate Dashboard includes Ownership filter | - | — | — |
-| FR-NEW-60 | Usage rate data sourced from tracker telemetry only | - | — | — |
+| FR-NEW-57 | Usage Rate Dashboard includes Average usage rate column | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-NEW-58 | Usage Rate Dashboard supports daily / monthly granularity | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-NEW-59 | Usage Rate Dashboard includes Ownership filter | + | Реализация админ панели и стр. оборудования | Спринт 1 |
+| FR-NEW-60 | Usage rate data sourced from tracker telemetry only | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-NEW-61 | FO Equipment section includes checkboxes to display units on GIS map | - | — | — |
 | FR-NEW-62 | GIS map marker tooltip displays sensor data and current-day usage rate | - | — | — |
 | FR-NEW-63 | Usage Rate Dashboard displays booking count for selected period | - | — | — |
