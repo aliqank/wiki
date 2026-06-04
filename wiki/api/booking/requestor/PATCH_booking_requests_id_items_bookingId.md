@@ -46,7 +46,7 @@
 4. Если меняется `equipmentId`, проверить существование новой техники и получить ее атрибуты `ownershipType`, `shareType`, `fleetId`.
 5. Для итогового набора значений проверить, что техника не относится к `OnDemand`.
 6. Для итогового набора значений проверить [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период.
-   Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStatuses`.
+   Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStates`.
 7. Отдельно рассчитать наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с итоговым периодом item.
    Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует patch и используется только для информирования пользователя и последующего решения Fleet Owner.
 8. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item обязателен `justification`; при его отсутствии признак `hasRequiredJustification` остается `false` до последующего заполнения.

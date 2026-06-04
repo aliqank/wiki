@@ -8,7 +8,7 @@
 > `enum` заменены на `ref_*` таблицы.  
 > `name JSON` заменён на `nameEn`, `nameRu`, `nameKz`.
 > Для локализованных name-полей в текущем v12 предполагается, что `nameEn`, `nameRu`, `nameKz` являются обязательными (`not null`).
-> Для всех основных mutable таблиц в v12 предполагаются **system-versioned temporal tables**, кроме `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses`, которые остаются явными history/event tables.
+> Для всех основных mutable таблиц в v12 предполагаются **system-versioned temporal tables**, кроме `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStates`, которые остаются явными history/event tables.
 
 ---
 
@@ -76,15 +76,6 @@ erDiagram
         nvarchar nameRu
         nvarchar nameKz
         nvarchar iconUrl
-        int sortOrder
-    }
-
-    ref_equipment_current_status {
-        uniqueidentifier id PK
-        nvarchar code
-        nvarchar nameEn
-        nvarchar nameRu
-        nvarchar nameKz
         int sortOrder
     }
 
@@ -405,7 +396,6 @@ erDiagram
         uniqueidentifier equipmentTypeId FK
         uniqueidentifier fleetId FK
         uniqueidentifier ownershipTypeId FK
-        uniqueidentifier currentStatusId FK
         nvarchar tcoId
         nvarchar jdeId
         nvarchar stateNumber
@@ -447,7 +437,7 @@ erDiagram
         uniqueidentifier deletedBy
     }
 
-    EquipmentStatuses {
+    EquipmentStates {
         uniqueidentifier id PK
         uniqueidentifier equipmentId FK
         uniqueidentifier statusTypeId FK
@@ -771,9 +761,8 @@ erDiagram
     ref_fleet_manage_permission_type ||--o{ FleetManagePermissions : "permissionTypeId"
     ref_ownership_type ||--o{ Equipments : "ownershipTypeId"
     ref_share_type ||--o{ Equipments : "shareTypeId"
-    ref_equipment_current_status ||--o{ Equipments : "currentStatusId"
-    ref_equipment_status_type ||--o{ EquipmentStatuses : "statusTypeId"
-    ref_equipment_status_source ||--o{ EquipmentStatuses : "sourceId"
+    ref_equipment_status_type ||--o{ EquipmentStates : "statusTypeId"
+    ref_equipment_status_source ||--o{ EquipmentStates : "sourceId"
     ref_property_data_type ||--o{ Properties : "dataTypeId"
     ref_user_type ||--o{ Users : "userTypeId"
     ref_request_type ||--o{ BookingRequests : "requestTypeId"
@@ -791,7 +780,7 @@ erDiagram
 
     EquipmentBrands ||--o{ Equipments : "brandId"
     EquipmentModels ||--o{ Equipments : "modelId"
-    Equipments ||--o{ EquipmentStatuses : "equipmentId"
+    Equipments ||--o{ EquipmentStates : "equipmentId"
     Equipments ||--o{ EquipmentPhotos : "equipmentId"
     Equipments ||--o{ EquipmentProperties : "equipmentId"
     Equipments ||--o{ EquipmentMaintenanceContracts : "equipmentId"

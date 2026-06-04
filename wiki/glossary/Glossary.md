@@ -56,12 +56,12 @@
 Абсолютное ограничение доступности техники, при котором действие с бронью или выбор техники должно быть отклонено backend-ом независимо от наличия или отсутствия competing bookings.
 
 Типовые примеры:
-- по `EquipmentStatuses` для выбранного периода есть актуальный статус `Decommissioned`, `Frozen` или `InRepair`;
+- по `EquipmentStates` для выбранного периода есть актуальный статус `Decommissioned`, `Frozen` или `InRepair`;
 - техника не допускается к обычному booking flow по обязательным бизнес-правилам, например `OnDemand` техника вне scope соответствующего сценария;
 - для Assigned техники отсутствует обязательная authorization-запись в `EquipmentBookingAuthorizations`, если сценарий требует такую проверку.
 
 Явные примеры:
-- Пользователь пытается добавить технику в draft-заявку, но по `EquipmentStatuses` у этой техники на весь выбранный период есть активная запись `InRepair`. Результат: backend возвращает `EQUIPMENT_NOT_AVAILABLE`.
+- Пользователь пытается добавить технику в draft-заявку, но по `EquipmentStates` у этой техники на весь выбранный период есть активная запись `InRepair`. Результат: backend возвращает `EQUIPMENT_NOT_AVAILABLE`.
 - Fleet Owner пытается изменить период брони, но техника уже имеет актуальный статус `Frozen` на новый диапазон дат. Результат: изменение периода блокируется независимо от других броней.
 - Requestor выбирает Assigned технику, но для пары `equipmentId + userId` нет записи в `EquipmentBookingAuthorizations`. Результат: техника считается недоступной по hard restriction даже если в `Bookings` нет пересечений.
 
@@ -109,7 +109,7 @@
 | `FleetManagePermissions` | Таблица владения и делегирования управления fleet для конкретных пользователей, включая тип assignment и срок действия доступа. | `Fleets`, `Users`, `ref_fleet_manage_permission_type` |
 | `Equipments` | Основная таблица карточек техники. Хранит принадлежность, тип, статус, идентификаторы, бренд/модель, критичность, плановые показатели и оргпривязки. | `EquipmentTypes`, `Fleets`, `EquipmentBrands`, `EquipmentModels`, `ServiceZones`, `CostCenters`, `Locations`, `Sections`, reference tables статусов/типов |
 | `EquipmentPhotos` | Фотографии единицы техники с признаком primary и сортировкой. | `Equipments` |
-| `EquipmentStatuses` | История статусов техники: заморозка, ремонт, вывод из эксплуатации и другие статусы с периодами действия. | `Equipments`, `ref_equipment_status_type`, `ref_equipment_status_source` |
+| `EquipmentStates` | История статусов техники: заморозка, ремонт, вывод из эксплуатации и другие статусы с периодами действия. | `Equipments`, `ref_equipment_status_type`, `ref_equipment_status_source` |
 | `MeasurementUnits` | Справочник единиц измерения для динамических характеристик. | Используется в `Properties` |
 | `Properties` | Справочник определений динамических свойств техники. | `MeasurementUnits`, `ref_property_data_type`, используется в `EquipmentTypeProperties`, `EquipmentProperties`, `PropertyEnumValues` |
 | `PropertyEnumValues` | Справочник допустимых enum-значений для properties. | `Properties`, используется в `EquipmentProperties` |

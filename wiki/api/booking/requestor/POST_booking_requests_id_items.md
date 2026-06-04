@@ -45,7 +45,7 @@
 4. Для каждого элемента проверить, что техника не относится к `OnDemand`.
 5. Для каждого элемента проверить, что техника не является стационарной. Если `mobilityType = Stationary`, вернуть `422 VALIDATION_ERROR`.
 6. Для каждого элемента проверить [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период.
-   Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStatuses`.
+   Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStates`.
 7. Отдельно рассчитать наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с периодом создаваемой брони.
    Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует создание item и используется только для информирования пользователя и последующего решения Fleet Owner.
 8. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item потребуется `justification` на этапе последующего редактирования или перед submit.

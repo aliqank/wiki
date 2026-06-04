@@ -93,10 +93,10 @@
 | Категория | Таблицы | Решение |
 |---|---|---|
 | Temporal tables включить | `EquipmentTypes`, `Fleets`, `WorkCenters`, `EquipmentBrands`, `EquipmentModels`, `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections`, `FleetManagePermissions`, `Equipments`, `EquipmentPhotos`, `MeasurementUnits`, `Properties`, `PropertyEnumValues`, `EquipmentTypeProperties`, `EquipmentProperties`, `MaintenancePartners`, `EquipmentMaintenanceContracts`, `EquipmentFeedbacks`, `EquipmentBookingAuthorizations`, `SystemSettings`, `Users`, `BusinessPartners`, `BookingRequests`, `Bookings` | Включить temporal history |
-| Temporal tables не использовать | `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses` | Оставить явные append-only history/event tables |
+| Temporal tables не использовать | `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStates` | Оставить явные append-only history/event tables |
 
 Причина исключений:
-- `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses` уже являются доменными history/event таблицами
+- `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStates` уже являются доменными history/event таблицами
 - для них temporal не даёт дополнительной ценности и только усложняет модель
 
 Стандарт для temporal tables:
@@ -158,7 +158,6 @@ where isDeleted = 0;
 | `ref_ownership_type` | TcoOwned, LongTermRented, OnDemand |
 | `ref_share_type` | Shared, SharedWithConditions, Assigned |
 | `ref_equipment_status_type` | Frozen, InRepair, Decommissioned |
-| `ref_equipment_current_status` | Available, Frozen, InRepair, Decommissioned |
 | `ref_equipment_status_source` | Manual, JDE |
 | `ref_property_data_type` | Int, Decimal, String, Bit, Enum |
 | `ref_user_type` | Internal, External |
@@ -441,7 +440,6 @@ Filtered unique indexes:
 | `equipmentTypeId` | `uniqueidentifier FK -> EquipmentTypes` | |
 | `fleetId` | `uniqueidentifier FK -> Fleets` | |
 | `ownershipTypeId` | `uniqueidentifier FK -> ref_ownership_type` | |
-| `currentStatusId` | `uniqueidentifier FK -> ref_equipment_current_status` | Денормализованный текущий статус |
 | `tcoId` | `nvarchar(100) null` | ТШО-номер; обязателен для TCO-owned по бизнес-правилу |
 | `jdeId` | `nvarchar(100) null` | Внешний ID в JDE E1 |
 | `stateNumber` | `nvarchar(100) null` | Госномер |
@@ -462,8 +460,7 @@ Filtered unique indexes:
 | audit fields | см. conventions | |
 
 Комментарии:
-- `currentStatusId` обновляется атомарно при вставке/закрытии записей в `EquipmentStatuses`
-- history остаётся source of truth, `currentStatusId` — denormalized cache
+- history `EquipmentStates` остаётся source of truth для состояний и периодов недоступности техники
 - `OnDemand` техника не может участвовать в `Bookings`
 
 Filtered unique indexes:
@@ -483,7 +480,7 @@ Filtered unique indexes:
 | `isPrimary` | `bit not null default 0` |
 | audit fields | см. conventions |
 
-### 10. EquipmentStatuses
+### 10. EquipmentStates
 
 Назначение: история статусов техники. Хранит интервалы заморозки, ремонта, вывода из эксплуатации и других состояний, влияющих на доступность техники.
 
@@ -505,7 +502,7 @@ Filtered unique indexes:
 - filtered index on active statuses per business rules
 
 Замечание:
-- иконка статуса должна храниться в `ref_equipment_status_type.iconUrl`, так как это атрибут типа статуса, а не конкретной исторической записи `EquipmentStatuses`
+- иконка статуса должна храниться в `ref_equipment_status_type.iconUrl`, так как это атрибут типа статуса, а не конкретной исторической записи `EquipmentStates`
 
 ---
 
@@ -866,7 +863,7 @@ Filtered unique index:
 | enum -> reference tables | Исправлено |
 | jsonb -> отдельные колонки | Исправлено для локализации и EAV; для raw payload используется `nvarchar(max)` |
 | filtered unique indexes | Добавлены как правило моделирования |
-| currentStatus для техники | Добавлен `Equipments.currentStatusId` |
+| currentStatus для техники | Не хранится отдельным полем в `Equipments`; определяется по `EquipmentStates` |
 | SERIAL -> IDENTITY / SEQUENCE | Исправлено через `IDENTITY(1,1)` |
 | ownership model для fleet | Переведён на `FleetManagePermissions` + `ref_fleet_manage_permission_type` |
 | локальные JDE reference tables | Исключены из схемы |
