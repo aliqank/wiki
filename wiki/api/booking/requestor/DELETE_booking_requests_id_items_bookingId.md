@@ -10,19 +10,19 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Удалить booking item из черновика заявки |
+| Описание | Отменить booking item в черновике заявки |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/items/{bookingId}` |
 | Метод запроса | `DELETE` |
-| Связанные use cases | [`UC-REQ-02.7 - Удаление draft-брони`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.7%20-%20Удаление%20draft-брони.md) |
+| Связанные use cases | [`UC-REQ-02.7 - Отмена draft-брони`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.7%20-%20Отмена%20draft-брони.md), [`UC-REQ-07 - Отмена draft-брони requestor-ом со страницы Мои заявки`](../../../requirements/usecases/Requestor/UC-REQ-07%20-%20Отмена%20draft-брони%20requestor-ом%20со%20страницы%20Мои%20заявки.md) |
 | Согласовано | |
 
 ---
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Удаляет item только из draft-заявки.
+Новый метод. Отменяет item только в draft-заявке.
 
 ---
 
@@ -30,22 +30,23 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Удаление item доступно только в draft-заявке |
+| TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Отмена item доступна только в draft-заявке |
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Метод удаляет одну конкретную бронь из состава заявки |
+| TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Метод отменяет одну конкретную бронь из состава заявки |
 
 ---
 
 ## 3. Описание логики работы метода
 
 1. Проверить заявку, booking item и права доступа.
-2. Разрешить удаление только если заявка и item находятся в `Draft`.
-3. Выполнить soft delete записи `Bookings`.
-4. Вернуть `204 No Content`.
+2. Разрешить отмену только если заявка и item находятся в `Draft`.
+3. Перевести запись `Bookings` в `Closed` с `bookingClosureReason = Cancelled`.
+4. Создать запись в `BookingStatuses` с terminal state для отмененного item-а.
+5. Вернуть `204 No Content`.
 
 Сущности, участвующие в методе:
 - читаются: [`BookingRequests`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#21-bookingrequests), [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings)
-- изменяются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings)
+- изменяются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`BookingStatuses`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#24-bookingstatuses)
 
 ---
 
@@ -53,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Удаление item из своей draft-заявки |
+| `Requestor` | Отмена item в своей draft-заявке |
 
 ---
 

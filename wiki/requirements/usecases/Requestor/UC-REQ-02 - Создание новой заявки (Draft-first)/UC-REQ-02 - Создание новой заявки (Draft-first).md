@@ -31,7 +31,7 @@
 4. `UC-REQ-02.4 - Добавление техники в draft-заявку`
 5. `UC-REQ-02.5 - Редактирование брони или замена техники в draft`
 6. `UC-REQ-02.6 - Отправка draft-заявки`
-7. `UC-REQ-02.7 - Удаление draft-брони`
+7. `UC-REQ-02.7 - Отмена draft-брони`
 
 ---
 
@@ -132,7 +132,7 @@ sequenceDiagram
 3. Для выбранной техники обязателен `justification`, но пользователь его не заполнил после добавления item в заявку.
    Item остаётся незавершённым, а система не позволяет отправить заявку до исправления ошибки.
 
-4. Пользователь удаляет ранее добавленный booking item.
+4. Пользователь отменяет ранее добавленный booking item.
    Frontend вызывает [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md).
 
 5. Пользователь использует `Default Work Order`.
