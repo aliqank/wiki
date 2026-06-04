@@ -30,8 +30,11 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
+| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Результат метода отражается в request detail и request list view |
+| TCO Booking Tool | FR-042 | Booking lifecycle | Confirmed | BRD v13 | Метод выполняет один из lifecycle-переходов брони |
 | TCO Booking Tool | FR-058 | Requestor can revoke booking if not yet processed by FO | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | FR-068 | Booking -> Closed with closure reason Revoked once revoked | Confirmed | BRD v13 | Обновление статуса |
+| TCO Booking Tool | FR-NEW-17 | Aggregated Request status auto-calculated from RequestItem statuses | Confirmed | BRD v13 | После revoke пересчитывается агрегированный статус заявки |
 
 ---
 

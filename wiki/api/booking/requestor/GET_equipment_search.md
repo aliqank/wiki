@@ -31,9 +31,13 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request; availability updated | Confirmed | BRD v13 | Метод является точкой входа для выбора техники |
+| TCO Booking Tool | FR-032 | System prioritizes internal fleet | Confirmed | BRD v13 | Метод отбирает технику для requestor booking flow с учетом бизнес-правила приоритета internal fleet |
+| TCO Booking Tool | FR-033 | Requestor can add Shared equipment to request | Confirmed | BRD v13 | Shared equipment участвует в результатах поиска и дальнейшем booking flow |
 | TCO Booking Tool | FR-NEW-38 | Search: TCO equipment number + model mandatory; госномер if present | Confirmed | BRD v13 | В результатах поиска должен возвращаться `stateNumber`, если он заполнен |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Метод показывает [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction); [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) должен отображаться отдельно и не исключает технику из booking flow |
+| TCO Booking Tool | FR-041 | Equipment attributes displayed in booking | Confirmed | BRD v13 | Метод возвращает атрибуты техники, используемые при выборе и последующем отображении booking item |
 | TCO Booking Tool | FR-NEW-39 | Dynamic search filters by equipment type | Confirmed | BRD v13 | Метод принимает динамические фильтры |
+| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Метод использует reference values для фильтров `ownershipType` и `shareType` |
 | TCO Booking Tool | FR-NEW-68 | System dynamically shows only type-specific characteristics | Confirmed | BRD v13 | Набор фильтров зависит от equipment type |
 
 ---

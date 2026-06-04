@@ -31,8 +31,13 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-033 | Requestor can add Shared equipment to request | Confirmed | BRD v13 | Метод создает item для Shared equipment в рамках допустимого booking flow |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Создается отдельная бронь |
+| TCO Booking Tool | FR-039 | Each booking has unique ID, start/end datetimes | Confirmed | BRD v13 | Для каждого item создается booking со своим периодом |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Проверка доступности обязательна |
+| TCO Booking Tool | FR-NEW-04 | Admin authorizes specific users to book Assigned equipment | Confirmed | BRD v13 | При добавлении Assigned equipment применяется проверка авторизации |
+| TCO Booking Tool | FR-NEW-08 | Assigned equipment rules | Confirmed | BRD v13 | Assigned equipment доступен не всем пользователям и требует special handling |
+| TCO Booking Tool | FR-NEW-15 | Single form -> auto-split into individual bookings per equipment item | Confirmed | BRD v13 | Один вызов метода может создавать несколько отдельных booking item |
 | TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Проверка justification выполняется позже, перед submit |
 
 ---

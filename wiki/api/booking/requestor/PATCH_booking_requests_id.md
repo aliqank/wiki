@@ -32,6 +32,12 @@
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-030 | System supports draft saving | Confirmed | BRD v13 | Изменение draft-заявки |
+| TCO Booking Tool | FR-NEW-11 | Requestor selects priority P1-P4 | Confirmed | BRD v13 | Метод сохраняет `priority` в draft-заявке |
+| TCO Booking Tool | FR-NEW-12 | WO mandatory for Maintenance/Railroad/Operations; optional for Logistics; Location replaces WO for SCM Logistics | Confirmed | BRD v13 | Метод сохраняет request-level поля, участвующие в этой валидации |
+| TCO Booking Tool | FR-NEW-13 | Work Description mandatory | Confirmed | BRD v13 | Метод сохраняет `workDescription` в draft-заявке |
+| TCO Booking Tool | FR-NEW-14 | Comments optional | Confirmed | BRD v13 | Метод сохраняет необязательный `comments` |
+| TCO Booking Tool | FR-NEW-51 | Default Work Order / Default Work Center | Confirmed | BRD v13 | Метод поддерживает `isDefaultWorkOrder` и связанное поведение полей |
+| TCO Booking Tool | FR-NEW-69 | Priority field tooltips/hints | Confirmed | BRD v13 | Метод хранит выбранное значение priority, для которого на UI показываются подсказки |
 
 ---
 
