@@ -17,6 +17,7 @@
 | ID | Наименование | Область действия | Покрываемые FR | Основные API |
 |---|---|---|---|---|
 | `UC-REQ-01` | Просмотр моих заявок | Страница `Мои заявки` | `BRD: FR-025, FR-091` | [`GET /booking-requests/my`](../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../api/booking/requestor/GET_booking_requests_id.md) |
+| `UC-REQ-01.1` | Просмотр одной заявки | Страница `Мои заявки` -> detail view / экран `Новая заявка / Редактировать заявку` | `BRD: FR-024, FR-025, FR-026, FR-038, FR-039, FR-041; Additional: BRD-U-001` | [`GET /booking-requests/{id}`](../../api/booking/requestor/GET_booking_requests_id.md) |
 | `UC-REQ-02` | Создание новой заявки (Draft-first) | Модальное окно `Новая заявка` | `BRD: FR-023, FR-027, FR-030, FR-031, FR-038, FR-040, FR-NEW-04, FR-NEW-08, FR-NEW-11, FR-NEW-12, FR-NEW-13, FR-NEW-14, FR-NEW-15, FR-NEW-16, FR-NEW-17, FR-NEW-38, FR-NEW-39, FR-NEW-48, FR-NEW-50, FR-NEW-51, FR-NEW-68, FR-NEW-71` | [`POST /booking-requests`](../../api/booking/requestor/POST_booking_requests.md), [`PATCH /booking-requests/{id}`](../../api/booking/requestor/PATCH_booking_requests_id.md), [`GET /equipment/search`](../../api/booking/requestor/GET_equipment_search.md), [`POST /booking-requests/{id}/items`](../../api/booking/requestor/POST_booking_requests_id_items.md), [`POST /booking-requests/{id}/submit`](../../api/booking/requestor/POST_booking_requests_id_submit.md) |
 | `UC-REQ-02.1` | Создание пустого draft заявки | Кнопка `Создать заявку` | `BRD: FR-023, FR-027, FR-030` | [`POST /booking-requests`](../../api/booking/requestor/POST_booking_requests.md) |
 | `UC-REQ-02.2` | Заполнение и редактирование шапки заявки | Модальное окно `Новая заявка` | `BRD: FR-027, FR-NEW-11, FR-NEW-12, FR-NEW-13, FR-NEW-14, FR-NEW-48, FR-NEW-51` | [`PATCH /booking-requests/{id}`](../../api/booking/requestor/PATCH_booking_requests_id.md) |
@@ -47,6 +48,7 @@
 ## Файлы
 
 - [`Requestor/UC-REQ-01 - Просмотр моих заявок.md`](Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md)
+- [`Requestor/UC-REQ-01.1 - Просмотр одной заявки.md`](Requestor/UC-REQ-01.1%20-%20Просмотр%20одной%20заявки.md)
 - [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02 - Создание новой заявки (Draft-first).md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md)
 - [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.1 - Создание пустого draft заявки.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.1%20-%20Создание%20пустого%20draft%20заявки.md)
 - [`Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.2 - Заполнение и редактирование шапки заявки.md`](Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.2%20-%20Заполнение%20и%20редактирование%20шапки%20заявки.md)
