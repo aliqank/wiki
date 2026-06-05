@@ -660,6 +660,7 @@ erDiagram
         nvarchar workDescription
         nvarchar comments
         uniqueidentifier priorityId FK
+        uniqueidentifier requestorId FK
         uniqueidentifier createdBy
         datetime2 createdAt
         datetime2 updatedAt
@@ -807,5 +808,6 @@ erDiagram
     Users ||--o{ FleetManagePermissions : "userId"
     Users ||--o{ EquipmentBookingAuthorizations : "userId"
     Users ||--o{ BookingApprovals : "userId"
+    Users ||--o{ BookingRequests : "requestorId"
     BusinessPartners ||--o{ Users : "businessPartnerId"
 ```
