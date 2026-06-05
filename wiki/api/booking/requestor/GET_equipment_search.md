@@ -1,7 +1,7 @@
 # GET /equipment/search
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-05  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -50,6 +50,9 @@
 4. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
 5. Исключить стационарную HDE из поиска Requestor (`mobilityType = Stationary`).
 6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetId`, `workCenterId`, текстовому поиску и динамическим свойствам.
+   Для dynamic properties использовать правило:
+   - если `dataType = number`, фильтр задается диапазоном через `from` и/или `to`;
+   - для всех остальных типов (`string`, `enum`, `bool`) фильтр задается через `value`.
 7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
 8. Для периода рассчитать пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`.
    Эти пересечения не должны автоматически делать технику недоступной для выбора. Они используются как conflict/load information для UI.
@@ -103,18 +106,52 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 6 | Тип доступности | `shareType` | `string` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | Значения загружаются через [`GET /reference/share-types`](../reference/GET_reference_share_types.md) |
 | 7 | Fleet | `fleetId` | `uuid` | `-` | Если передан, должен существовать и соответствовать доступному для booking workflow флоту | — | Query param | Фильтр по `Equipments.fleetId` |
 | 8 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен соответствовать work center, на который можно бронировать технику | — | Query param | Фильтр по `EquipmentTypes.workCenterId` |
-| 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Формат зависит от типа свойства | `[]` | Query param | Передаются сериализованно |
+| 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Для `number` использовать `from` / `to`; для остальных типов использовать `value` | `[]` | Query param | Передаются сериализованно |
 | 10 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 11 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
+
+### Структура `propertyFilters[]`
+
+| № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
+|---|---|---|---|---|---|---|---|---|
+| 9.1 | Идентификатор динамического свойства | `propertyId` | `uuid` | `+` | Должен существовать среди свойств выбранного `equipmentTypeId` | — | Query param | |
+| 9.2 | Тип данных свойства | `dataType` | `string` | `+` | `string / number / enum / bool` | — | Query param | Должен соответствовать [`GET /reference/equipment-types/{equipmentTypeId}/properties`](../reference/GET_reference_equipment_types_id_properties.md) |
+| 9.3 | Нижняя граница диапазона | `from` | `decimal` | `-` | Используется только для `dataType = number` | `null` | Query param | Для numeric property |
+| 9.4 | Верхняя граница диапазона | `to` | `decimal` | `-` | Используется только для `dataType = number`; если переданы оба значения, `from <= to` | `null` | Query param | Для numeric property |
+| 9.5 | Значение фильтра | `value` | `string / bool / array<string>` | `-` | Обязательно для non-numeric property; не должно передаваться вместе с `from` / `to` | `null` | Query param | Для `string`, `enum`, `bool`; для multi-select enum допускается массив кодов |
+
+Правила заполнения `propertyFilters[]`:
+- для `dataType = number` frontend передает хотя бы одно из полей `from` или `to`;
+- для `dataType = number` поле `value` не передается;
+- для `dataType IN (string, enum, bool)` frontend передает поле `value`;
+- для `dataType IN (string, enum, bool)` поля `from` и `to` не передаются.
 
 ---
 
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetId=f3caa8da-11f2-4108-997f-2204041a1001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&page=1&limit=20
+GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetId=f3caa8da-11f2-4108-997f-2204041a1001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&propertyFilters=%5B%7B%22propertyId%22%3A%22a1b2c3d4-0001-4000-8000-000000000010%22%2C%22dataType%22%3A%22number%22%2C%22from%22%3A10%2C%22to%22%3A25%7D%2C%7B%22propertyId%22%3A%22a1b2c3d4-0001-4000-8000-000000000011%22%2C%22dataType%22%3A%22enum%22%2C%22value%22%3A%22STANDARD%22%7D%5D&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
+```
+
+Пример декодированного `propertyFilters`:
+
+```json
+[
+  {
+    "propertyId": "a1b2c3d4-0001-4000-8000-000000000010",
+    "dataType": "number",
+    "from": 10,
+    "to": 25
+  },
+  {
+    "propertyId": "a1b2c3d4-0001-4000-8000-000000000011",
+    "dataType": "enum",
+    "value": "STANDARD"
+  }
+]
 ```
 
 ---
