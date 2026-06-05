@@ -14,7 +14,7 @@
 | Спринт | Список FR |
 |---|---|
 | Спринт 1 | `FR-005`, `FR-006`, `FR-007`, `FR-008`, `FR-009`, `FR-010`, `FR-012`, `FR-013`, `FR-014`, `FR-015`, `FR-017`, `FR-018`, `FR-019`, `FR-020`, `FR-021`, `FR-025`, `FR-NEW-04`, `FR-NEW-05`, `FR-NEW-46`, `FR-NEW-49`, `FR-NEW-50`, `FR-NEW-53`, `FR-NEW-54`, `FR-NEW-55`, `FR-NEW-57`, `FR-NEW-58`, `FR-NEW-59`, `FR-NEW-60` |
-| Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-NEW-38`, `FR-NEW-39` |
+| Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-092`, `FR-NEW-37`, `FR-NEW-38`, `FR-NEW-39` |
 
 | FR | Описание | Покрыто | Use case | Спринт |
 |---|---|---|---|---|
@@ -54,7 +54,7 @@
 | FR-NEW-49 | Freeze fields on equipment card | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-023 | Requestor can create a Request | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки; UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
 | FR-024 | Request has unique ID and metadata | + | UC-REQ-01 - Просмотр моих заявок; UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки | Спринт 2 |
-| FR-025 | Requestor can view request details and status | + | UC-REQ-01 - Просмотр моих заявок; UC-REQ-03 - Отмена draft-заявки requestor-ом; UC-REQ-04 - Отзыв брони requestor-ом; UC-REQ-05 - Отзыв submitted-заявки requestor-ом | Спринт 1, Спринт 2 |
+| FR-025 | Requestor can view request details and status | + | UC-REQ-01 - Просмотр моих заявок; UC-REQ-03 - Отмена draft-заявки requestor-ом; UC-REQ-04 - Отзыв брони requestor-ом; UC-REQ-05 - Отзыв submitted-заявки requestor-ом; UC-COM-01 - Просмотр таймлайна брони | Спринт 1, Спринт 2 |
 | FR-026 | Request statuses: Draft, Submitted, In Progress, Completed | + | UC-REQ-01 - Просмотр моих заявок; UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
 | FR-027 | Requestor can edit/cancel draft before submission | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки; UC-REQ-02.2 - Заполнение и редактирование шапки заявки; UC-REQ-02.5 - Редактирование брони или замена техники в draft; UC-REQ-02.6 - Отправка draft-заявки; UC-REQ-02.7 - Отмена draft-брони; UC-REQ-03 - Отмена draft-заявки requestor-ом; UC-REQ-07 - Отмена draft-брони requestor-ом со страницы Мои заявки | Спринт 2 |
 | FR-028 | Service Work Requests auto-created with Draft status; visible to SWP role only | - | — | — |
@@ -138,14 +138,14 @@
 | FR-NEW-75 | System notifies FleetOwners' Supervisor when Long-term rented booking reaches Confirmed by FO | - | — | — |
 | FR-NEW-76 | System notifies Requestor and FO when FleetOwners' Supervisor makes a decision | - | — | — |
 | FR-091 | Requestor/SWP can search and filter own requests | + | UC-REQ-01 - Просмотр моих заявок | Спринт 2 |
-| FR-092 | Approver can view all pending and completed approvals | - | — | — |
+| FR-092 | Approver can view all pending and completed approvals | + | UC-COM-01 - Просмотр таймлайна брони | Спринт 2 |
 | FR-093 | Admin can view all requests | - | — | — |
 | FR-094 | System generates reports on Requests/Bookings/Equipment with filters | - | — | — |
 | FR-095 | Admin can view/download all reports | - | — | — |
 | FR-096 | FO can view/download own approval reports | - | — | — |
 | FR-097 | FO can view/download own equipment reports | - | — | — |
 | FR-098 | SWP and FOs can view SWR grouped by Work Orders | - | — | — |
-| FR-NEW-37 | Audit trail and history on demand | - | — | — |
+| FR-NEW-37 | Audit trail and history on demand | + | UC-COM-01 - Просмотр таймлайна брони | Спринт 2 |
 | FR-NEW-38 | Search: TCO equipment number + model mandatory; госномер if present | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-39 | Dynamic search filters by equipment type | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-45 | Dedicated Completed Requests page for Requestor, SWP, FO, Admin | - | — | — |
