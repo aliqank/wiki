@@ -52,7 +52,9 @@
 6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetId`, `workCenterId`, текстовому поиску и динамическим свойствам.
    Для dynamic properties использовать правило:
    - если `dataType = number`, фильтр задается диапазоном через `from` и/или `to`;
-   - для всех остальных типов (`string`, `enum`, `bool`) фильтр задается через `value`.
+   - если `dataType = enum`, фильтр задается через `values`;
+   - если `dataType = string`, фильтр задается через `values`;
+   - если `dataType = bool`, фильтр задается через `value`.
 7. Для `shareType = Assigned` вернуть элемент в списке, но пометить его как `isBookable = false`, если у пользователя нет записи в `EquipmentBookingAuthorizations`.
 8. Для периода рассчитать пересечения с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`.
    Эти пересечения не должны автоматически делать технику недоступной для выбора. Они используются как conflict/load information для UI.
@@ -106,7 +108,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 6 | Тип доступности | `shareType` | `string` | `-` | `Shared / SharedWithConditions / Assigned` | — | Query param | Значения загружаются через [`GET /reference/share-types`](../reference/GET_reference_share_types.md) |
 | 7 | Fleet | `fleetId` | `uuid` | `-` | Если передан, должен существовать и соответствовать доступному для booking workflow флоту | — | Query param | Фильтр по `Equipments.fleetId` |
 | 8 | Work Center | `workCenterId` | `uuid` | `-` | Если передан, должен соответствовать work center, на который можно бронировать технику | — | Query param | Фильтр по `EquipmentTypes.workCenterId` |
-| 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Для `number` использовать `from` / `to`; для остальных типов использовать `value` | `[]` | Query param | Передаются сериализованно |
+| 9 | Динамические фильтры | `propertyFilters` | `array<object>` | `-` | Для `number` использовать `from` / `to`; для `enum` и `string` использовать `values`; для `bool` использовать `value` | `[]` | Query param | Передаются сериализованно |
 | 10 | Номер страницы | `page` | `int` | `-` | Целое число >= 1 | `1` | Query param | |
 | 11 | Размер страницы | `limit` | `int` | `-` | Целое число >= 1 | `20` | Query param | |
 
@@ -118,12 +120,15 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 | 9.2 | Тип данных свойства | `dataType` | `string` | `+` | `string / number / enum / bool` | — | Query param | Должен соответствовать [`GET /reference/equipment-types/{equipmentTypeId}/properties`](../reference/GET_reference_equipment_types_id_properties.md) |
 | 9.3 | Нижняя граница диапазона | `from` | `decimal` | `-` | Используется только для `dataType = number` | `null` | Query param | Для numeric property |
 | 9.4 | Верхняя граница диапазона | `to` | `decimal` | `-` | Используется только для `dataType = number`; если переданы оба значения, `from <= to` | `null` | Query param | Для numeric property |
-| 9.5 | Значение фильтра | `value` | `string / bool / array<string>` | `-` | Обязательно для non-numeric property; не должно передаваться вместе с `from` / `to` | `null` | Query param | Для `string`, `enum`, `bool`; для multi-select enum допускается массив кодов |
+| 9.5 | Значение boolean-фильтра | `value` | `bool` | `-` | Используется только для `dataType = bool`; не должно передаваться вместе с `from`, `to` или `values` | `null` | Query param | Для boolean property |
+| 9.6 | Набор значений фильтра | `values` | `array<string>` | `-` | Используется только для `dataType = string` или `enum`; массив должен содержать как минимум одно значение; не должно передаваться вместе с `from`, `to` или `value` | `[]` | Query param | Для `enum` значения являются кодами справочника; для `string` значения интерпретируются как exact-match список |
 
 Правила заполнения `propertyFilters[]`:
 - для `dataType = number` frontend передает хотя бы одно из полей `from` или `to`;
-- для `dataType = number` поле `value` не передается;
-- для `dataType IN (string, enum, bool)` frontend передает поле `value`;
+- для `dataType = number` поля `value` и `values` не передаются;
+- для `dataType = enum` frontend передает поле `values`;
+- для `dataType = string` frontend передает поле `values`;
+- для `dataType = bool` frontend передает поле `value`;
 - для `dataType IN (string, enum, bool)` поля `from` и `to` не передаются.
 
 ---
@@ -131,7 +136,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 ## 8. Пример запроса
 
 ```http
-GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetId=f3caa8da-11f2-4108-997f-2204041a1001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&propertyFilters=%5B%7B%22propertyId%22%3A%22a1b2c3d4-0001-4000-8000-000000000010%22%2C%22dataType%22%3A%22number%22%2C%22from%22%3A10%2C%22to%22%3A25%7D%2C%7B%22propertyId%22%3A%22a1b2c3d4-0001-4000-8000-000000000011%22%2C%22dataType%22%3A%22enum%22%2C%22value%22%3A%22STANDARD%22%7D%5D&page=1&limit=20
+GET /api/booking/v1/equipment/search?equipmentTypeId=7b4f4b4d-52d4-4a77-b6b7-f2b7d7c81111&plannedStartDateTime=2026-05-20T08:00:00Z&plannedEndDateTime=2026-05-22T18:00:00Z&ownershipType=TcoOwned&fleetId=f3caa8da-11f2-4108-997f-2204041a1001&workCenterId=12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222&propertyFilters=%5B%7B%22propertyId%22%3A%22a1b2c3d4-0001-4000-8000-000000000010%22%2C%22dataType%22%3A%22number%22%2C%22from%22%3A10%2C%22to%22%3A25%7D%2C%7B%22propertyId%22%3A%22a1b2c3d4-0001-4000-8000-000000000011%22%2C%22dataType%22%3A%22enum%22%2C%22values%22%3A%5B%22STANDARD%22%2C%22HEAVY_DUTY%22%5D%7D%2C%7B%22propertyId%22%3A%22a1b2c3d4-0001-4000-8000-000000000012%22%2C%22dataType%22%3A%22string%22%2C%22values%22%3A%5B%22CAT%22%2C%22KOMATSU%22%5D%7D%5D&page=1&limit=20
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
@@ -149,7 +154,12 @@ Content-Type: application/json
   {
     "propertyId": "a1b2c3d4-0001-4000-8000-000000000011",
     "dataType": "enum",
-    "value": "STANDARD"
+    "values": ["STANDARD", "HEAVY_DUTY"]
+  },
+  {
+    "propertyId": "a1b2c3d4-0001-4000-8000-000000000012",
+    "dataType": "string",
+    "values": ["CAT", "KOMATSU"]
   }
 ]
 ```
