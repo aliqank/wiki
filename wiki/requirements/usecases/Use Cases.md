@@ -1,7 +1,7 @@
 # Use Cases
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-05  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -31,6 +31,7 @@
 | `UC-REQ-05` | Отзыв submitted-заявки requestor-ом | Страница `Мои заявки` / карточка submitted-заявки | `BRD: FR-025, FR-058, FR-NEW-17; Additional: BRD-U-003` | [`GET /booking-requests/my`](../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../api/booking/requestor/GET_booking_requests_id.md), request-level withdraw API / orchestration over [`POST /bookings/{id}/revoke`](../../api/booking/requestor/POST_bookings_id_revoke.md) *(TBD)* |
 | `UC-REQ-06` | Изменение плановой даты и времени окончания брони requestor-ом | Страница `Мои заявки` / detail view заявки / карточка booking item | `BRD: FR-061, FR-067, FR-081` | [`POST /bookings/{id}/extend`](../../api/booking/requestor/POST_bookings_id_extend.md), [`GET /booking-requests/{id}`](../../api/booking/requestor/GET_booking_requests_id.md), [`GET /booking-requests/my`](../../api/booking/requestor/GET_booking_requests_my.md) |
 | `UC-REQ-07` | Отмена draft-брони requestor-ом со страницы Мои заявки | Страница `Мои заявки` / summary-блок броней внутри draft-заявки | `BRD: FR-025, FR-027, FR-031, FR-038` | [`GET /booking-requests/my`](../../api/booking/requestor/GET_booking_requests_my.md), [`DELETE /booking-requests/{id}/items/{bookingId}`](../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md), [`GET /booking-requests/{id}`](../../api/booking/requestor/GET_booking_requests_id.md) |
+| `UC-COM-01` | Просмотр таймлайна брони | Страница `Мои заявки`, страница `Approvals`, detail / action view брони, карточка брони внутри заявки | `BRD: FR-NEW-37, FR-025, FR-092` | [`GET /bookings/{id}/timeline`](../../api/booking/common/GET_bookings_id_timeline.md) |
 | `UC-FO-01` | Просмотр списка заявок Fleet Owner | Страница `Approvals` → view `Requests` | `BRD: FR-092, FR-094, FR-043; Additional: BRD-U-001` | [`GET /approvals/requests`](../../api/booking/fleet-owner/GET_approvals_requests.md) |
 | `UC-FO-02` | Просмотр load summary Fleet Owner | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-NEW-64` | [`GET /approvals/bookings/{id}/load-summary`](../../api/booking/fleet-owner/GET_approvals_bookings_id_load_summary.md) |
 | `UC-FO-03` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/confirm`](../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md) |
@@ -60,6 +61,7 @@
 - [`Requestor/UC-REQ-05 - Отзыв submitted-заявки requestor-ом.md`](Requestor/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md)
 - [`Requestor/UC-REQ-06 - Изменение плановой даты и времени окончания брони requestor-ом.md`](Requestor/UC-REQ-06%20-%20Изменение%20плановой%20даты%20и%20времени%20окончания%20брони%20requestor-ом.md)
 - [`Requestor/UC-REQ-07 - Отмена draft-брони requestor-ом со страницы Мои заявки.md`](Requestor/UC-REQ-07%20-%20Отмена%20draft-брони%20requestor-ом%20со%20страницы%20Мои%20заявки.md)
+- [`common/UC-COM-01 - Просмотр таймлайна брони.md`](common/UC-COM-01%20-%20Просмотр%20таймлайна%20брони.md)
 - [`Fleet Owner/UC-FO-01 - Просмотр списка заявок Fleet Owner.md`](Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-02 - Просмотр load summary Fleet Owner.md`](Fleet%20Owner/UC-FO-02%20-%20Просмотр%20load%20summary%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий).md`](Fleet%20Owner/UC-FO-03%20-%20Подтверждение%20брони%20Fleet%20Owner%20(базовый%20сценарий).md)
