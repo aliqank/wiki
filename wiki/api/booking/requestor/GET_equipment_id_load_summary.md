@@ -1,7 +1,7 @@
 # GET /equipment/{id}/load-summary
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-05  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -41,6 +41,10 @@
 3. Выбрать из `Bookings` записи по `equipmentId = :id`, пересекающиеся с заданным периодом.
 4. Включить только статусы, релевантные для анализа загрузки: `Submitted`, `Confirmed`, `InProgress`.
 5. Вернуть summary с кратким списком пересечений и агрегатами по количеству записей.
+6. Для каждой пересекающейся брони дополнительно вернуть:
+   - фактические дата и время начала / завершения при наличии;
+   - статус как объект, а не как плоскую строку;
+   - `workDescription` из родительской `BookingRequest`.
 
 Сущности, участвующие в методе:
 - читаются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`BookingRequests`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#21-bookingrequests), [`Equipments`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#8-equipments)
@@ -127,9 +131,21 @@ Content-Type: application/json
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 3 | Номер заявки | requestNumber | string | string | — | backend composition from Bookings + BookingRequests + Equipments |  |
 | 4 | Номер Work Order | workOrderNumber | string | string | — | backend composition from Bookings + BookingRequests + Equipments | Может быть `null`, если для заявки используется `Default Work Order` |
-| 5 | Текущий статус | status | string | string | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 6 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
-| 7 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 5 | Описание работ из родительской заявки | workDescription | string | string | — | backend composition from BookingRequests | Поле родительской заявки |
+| 6 | Текущий статус | status | object | object | — | backend composition from Bookings + ref_booking_status + ref_booking_closure_reason |  |
+| 7 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 8 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | backend composition from Bookings + BookingRequests + Equipments |  |
+| 9 | Фактическая дата и время начала | actualStartDateTime | datetime | ISO 8601 | `null` | backend composition from Bookings | Для еще не начатой брони возвращается `null` |
+| 10 | Фактическая дата и время завершения | actualEndDateTime | datetime | ISO 8601 | `null` | backend composition from Bookings | Для незавершенной брони возвращается `null` |
+
+### Структура `value.items[].status`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Код lifecycle статуса | code | string | string | — | ref_booking_status | Например: `Submitted`, `Confirmed`, `InProgress`, `Closed` |
+| 2 | Подпись lifecycle статуса | label | string | string | — | ref_booking_status | UI-readable caption |
+| 3 | Код terminal closure reason | closureReason | string | null | `null` | ref_booking_closure_reason | Заполняется только если статус terminal |
+| 4 | Подпись terminal closure reason | closureReasonLabel | string | null | `null` | ref_booking_closure_reason | Заполняется только если статус terminal |
 
 ## 10. Пример ответа
 
@@ -146,9 +162,17 @@ Content-Type: application/json
         "requestId": "c777f75f-029d-4d8f-8c69-e74a1d280001",
         "requestNumber": "REQ-2026-00015",
         "workOrderNumber": "WO-2026-00421",
-        "status": "Confirmed",
+        "workDescription": "Excavator required for trench preparation near sector 4.",
+        "status": {
+          "code": "Confirmed",
+          "label": "Confirmed",
+          "closureReason": null,
+          "closureReasonLabel": null
+        },
         "plannedStartDateTime": "2026-05-20T06:00:00Z",
-        "plannedEndDateTime": "2026-05-21T18:00:00Z"
+        "plannedEndDateTime": "2026-05-21T18:00:00Z",
+        "actualStartDateTime": "2026-05-20T06:15:00Z",
+        "actualEndDateTime": null
       }
     ]
   },
