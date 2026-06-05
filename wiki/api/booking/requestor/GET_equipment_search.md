@@ -201,10 +201,11 @@ Content-Type: application/json
 | 10 | Признак обязательности обоснования | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_share_type + ref_ownership_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
 | 11 | Признак доступности бронирования | isBookable | bool | boolean | — | backend availability calculation from Equipments + EquipmentStates + EquipmentBookingAuthorizations | Отражает только [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), не competing bookings |
 | 12 | Причина недоступности бронирования | bookingUnavailableReason | null | — | `null` | backend availability calculation from Equipments + EquipmentStates + EquipmentBookingAuthorizations | Заполняется только для [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) |
-| 13 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
-| 14 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
-| 15 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |
-| 16 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
+| 13 | Признак конфликта с другими бронями на выбранный период | hasBookingConflict | bool | boolean | `false` | backend overlap check against active bookings | `true`, если по этой технике есть пересечение с другой бронью в статусе `Submitted`, `Confirmed` или `InProgress` |
+| 14 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
+| 15 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
+| 16 | Рабочий центр | workCenter | object | object | — | WorkCenters |  |
+| 17 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
 
 ### Структура `value.items[].baseLocationName`
 
@@ -268,6 +269,7 @@ Content-Type: application/json
         "requiresJustification": true,
         "isBookable": true,
         "bookingUnavailableReason": null,
+        "hasBookingConflict": true,
         "previewPhotoUrl": "https://cdn.example.com/equipment/c3b5af91-61f8-4bc0-bd88-d099d3e90001/preview.jpg",
         "fleet": {
           "id": "f0000001-0000-4000-8000-000000000001",
