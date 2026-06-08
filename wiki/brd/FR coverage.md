@@ -6,6 +6,7 @@
 - `Покрыто = +`, если FR покрыт текущими Requestor use case-ами (`UC-REQ-01..05`, включая дочерние `UC-REQ-02.*`)
 - `Покрыто = -`, если FR пока не покрыт use case-ами
 - для всех FR с `+` проставлен `Спринт 2`
+- для FR, покрытых Fleet Owner request-view use case-ами (`UC-FO-01`, `UC-FO-03..08`), дополнительно проставлен `Спринт 2.1 (fleetOwners request view)`
 - для `FR-005..FR-010`, `FR-012..FR-015`, `FR-017..FR-021`, `FR-025` проставлен `Спринт 1`
 - если FR относится к нескольким спринтам, указываются оба значения
 
@@ -15,6 +16,7 @@
 |---|---|
 | Спринт 1 | `FR-005`, `FR-006`, `FR-007`, `FR-008`, `FR-009`, `FR-010`, `FR-012`, `FR-013`, `FR-014`, `FR-015`, `FR-017`, `FR-018`, `FR-019`, `FR-020`, `FR-021`, `FR-025`, `FR-NEW-04`, `FR-NEW-05`, `FR-NEW-46`, `FR-NEW-49`, `FR-NEW-50`, `FR-NEW-53`, `FR-NEW-54`, `FR-NEW-55`, `FR-NEW-57`, `FR-NEW-58`, `FR-NEW-59`, `FR-NEW-60` |
 | Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-092`, `FR-NEW-37`, `FR-NEW-38`, `FR-NEW-39` |
+| Спринт 2.1 (fleetOwners request view) | `FR-043`, `FR-045`, `FR-046`, `FR-047`, `FR-048`, `FR-049`, `FR-050`, `FR-063`, `FR-064`, `FR-074`, `FR-079a`, `FR-092`, `FR-094`, `FR-NEW-18`, `FR-NEW-24`, `FR-NEW-32`, `FR-NEW-33` |
 
 | FR | Описание | Покрыто | Use case | Спринт |
 |---|---|---|---|---|
@@ -81,22 +83,22 @@
 | FR-040 | System validates availability before booking | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft | Спринт 2 |
 | FR-041 | Equipment attributes displayed in booking | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft | Спринт 2 |
 | FR-042 | Booking lifecycle: Draft, Submitted, Confirmed by FO, Confirmed, Declined, Revoked, Terminated, Completed | + | UC-REQ-04 - Отзыв брони requestor-ом | Спринт 2 |
-| FR-NEW-18 | Booking start = start of mobilization | - | — | — |
+| FR-NEW-18 | Booking start = start of mobilization | + | UC-FO-04 - Мобилизация техники | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-19 | No mandatory buffer between bookings | - | — | — |
 | FR-NEW-20 | Unwheeled equipment: notification displayed to Requestor | - | — | — |
 | FR-NEW-70 | Equipment load summary displayed to Requestor during equipment selection | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3.1 - Просмотр load summary при выборе техники | Спринт 2 |
-| FR-043 | Approver assigned automatically based on fleet ownership | - | — | — |
+| FR-043 | Approver assigned automatically based on fleet ownership | + | UC-FO-01 - Просмотр списка заявок Fleet Owner; UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий); UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-044 | Internal fleet booking confirmed/declined by FO | - | — | — |
-| FR-045 | FO can confirm incoming bookings | - | — | — |
-| FR-046 | FO can replace equipment before/after confirmation if booking not yet started | - | — | — |
-| FR-047 | FO cannot replace if booking revoked, terminated, or past end date | - | — | — |
-| FR-048 | FO can adjust booking date range before or after confirmation | - | — | — |
-| FR-049 | FO can decline booking; availability updated | - | — | — |
-| FR-050 | FO provides reason/comment when declining | - | — | — |
+| FR-045 | FO can confirm incoming bookings | + | UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий) | Спринт 2.1 (fleetOwners request view) |
+| FR-046 | FO can replace equipment before/after confirmation if booking not yet started | + | UC-FO-08 - Замена техники Fleet Owner | Спринт 2.1 (fleetOwners request view) |
+| FR-047 | FO cannot replace if booking revoked, terminated, or past end date | + | UC-FO-08 - Замена техники Fleet Owner | Спринт 2.1 (fleetOwners request view) |
+| FR-048 | FO can adjust booking date range before or after confirmation | + | UC-FO-07 - Изменение периода брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
+| FR-049 | FO can decline booking; availability updated | + | UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
+| FR-050 | FO provides reason/comment when declining | + | UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-21 | FO must respond within timeout | - | — | — |
 | FR-NEW-22 | If FO has free equipment and declines, reason is mandatory | - | — | — |
 | FR-NEW-23 | Reminder sent only to FO of the specific selected equipment | - | — | — |
-| FR-NEW-24 | FO presses Mobilization started to record actual start time | - | — | — |
+| FR-NEW-24 | FO presses Mobilization started to record actual start time | + | UC-FO-04 - Мобилизация техники | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-72 | Long-term rented booking moves to Confirmed by FO after FO confirmation and goes to Supervisor | - | — | — |
 | FR-NEW-73 | FleetOwners' Supervisor reviews Long-term rented booking in Confirmed by FO status | - | — | — |
 | FR-NEW-25 | On-demand BP equipment is view-only in Phase 1 | - | — | — |
@@ -111,16 +113,16 @@
 | FR-NEW-30 | If transport unavailable for Unwheeled, FO proposes nearest available date | - | — | — |
 | FR-NEW-31 | Booking can be closed early via Close early button | - | — | — |
 | FR-062 | Booking -> Submitted once Request submitted | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
-| FR-063 | TCO Owned booking -> Confirmed; Long-term rented booking -> Confirmed by FO once confirmed by FO | - | — | — |
-| FR-064 | Booking -> Declined once declined by FO | - | — | — |
+| FR-063 | TCO Owned booking -> Confirmed; Long-term rented booking -> Confirmed by FO once confirmed by FO | + | UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий) | Спринт 2.1 (fleetOwners request view) |
+| FR-064 | Booking -> Declined once declined by FO | + | UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-067 | Booking -> Submitted once extended by Requestor/SWP | - | — | — |
 | FR-068 | Booking -> Revoked once revoked | + | UC-REQ-04 - Отзыв брони requestor-ом | Спринт 2 |
 | FR-069 | Booking -> Terminated once terminated | - | — | — |
 | FR-072 | Request -> Draft when saved as draft | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки | Спринт 2 |
 | FR-073 | SWR -> Draft when imported from JDE | - | — | — |
-| FR-074 | Request -> In Progress when first booking goes In Progress | - | — | — |
-| FR-NEW-32 | Booking closure is manual only | - | — | — |
-| FR-NEW-33 | At close Requestor inputs actual start/end time for usage rate analytics | - | — | — |
+| FR-074 | Request -> In Progress when first booking goes In Progress | + | UC-FO-04 - Мобилизация техники | Спринт 2.1 (fleetOwners request view) |
+| FR-NEW-32 | Booking closure is manual only | + | UC-FO-05 - Закрытие брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
+| FR-NEW-33 | At close Requestor inputs actual start/end time for usage rate analytics | + | UC-FO-05 - Закрытие брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-44 | Request -> Completed when last active booking closed | - | — | — |
 | FR-NEW-77 | Long-term rented booking -> Confirmed by FO upon FO confirmation | - | — | — |
 | FR-NEW-78 | Long-term rented booking -> Confirmed or Declined upon Supervisor decision | - | — | — |
@@ -128,7 +130,7 @@
 | FR-077 | System notifies FO when request submitted | - | — | — |
 | FR-078 | System notifies FO when booking revoked | - | — | — |
 | FR-079 | System notifies Requestor/SWP of FO decision | - | — | — |
-| FR-079a | System notifies Requestor when FO updates booking period | - | — | — |
+| FR-079a | System notifies Requestor when FO updates booking period | + | UC-FO-07 - Изменение периода брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-080 | System notifies Requestor/SWP when FO terminates booking | - | — | — |
 | FR-081 | System notifies FO when Requestor extends booking | - | — | — |
 | FR-NEW-34 | 24h reminder to FO; 48h escalation to manager | - | — | — |
@@ -138,9 +140,9 @@
 | FR-NEW-75 | System notifies FleetOwners' Supervisor when Long-term rented booking reaches Confirmed by FO | - | — | — |
 | FR-NEW-76 | System notifies Requestor and FO when FleetOwners' Supervisor makes a decision | - | — | — |
 | FR-091 | Requestor/SWP can search and filter own requests | + | UC-REQ-01 - Просмотр моих заявок | Спринт 2 |
-| FR-092 | Approver can view all pending and completed approvals | + | UC-COM-01 - Просмотр таймлайна брони | Спринт 2 |
+| FR-092 | Approver can view all pending and completed approvals | + | UC-COM-01 - Просмотр таймлайна брони; UC-FO-01 - Просмотр списка заявок Fleet Owner | Спринт 2, Спринт 2.1 (fleetOwners request view) |
 | FR-093 | Admin can view all requests | - | — | — |
-| FR-094 | System generates reports on Requests/Bookings/Equipment with filters | - | — | — |
+| FR-094 | System generates reports on Requests/Bookings/Equipment with filters | + | UC-FO-01 - Просмотр списка заявок Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-095 | Admin can view/download all reports | - | — | — |
 | FR-096 | FO can view/download own approval reports | - | — | — |
 | FR-097 | FO can view/download own equipment reports | - | — | — |
@@ -183,5 +185,7 @@
 | AFR-03 | Admin manages organizational and location handbooks used in equipment card | - | — | Спринт 1 |
 | AFR-04 | Admin manages maintenance partners directory | - | — | Спринт 1 |
 | AFR-05 | Admin manages business partners directory used in equipment data model | - | — | Спринт 1 |
-| AFR-06 | Admin manages equipment maintenance contracts by equipment, partner and service type | - | — | Спринт 1 |
-| AFR-07 | Admin manages equipment types including class, mobility, work center and sorting attributes | - | — | Спринт 1 |
+| AFR-06 | Admin manages maintenance service types directory used in equipment maintenance contracts | - | — | Спринт 1 |
+| AFR-07 | Admin manages equipment maintenance contracts by equipment, partner and service type | - | — | Спринт 1 |
+| AFR-08 | Admin manages equipment types including class, mobility, work center and sorting attributes | - | — | Спринт 1 |
+| AFR-08 | Admin manages equipment types including class, mobility, work center and sorting attributes | - | — | Спринт 1 |
