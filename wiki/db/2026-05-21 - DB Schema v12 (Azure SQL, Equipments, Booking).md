@@ -1,7 +1,7 @@
 # DB Schema v12: Azure SQL adaptation for Equipments + Booking
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-06-03  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -162,7 +162,7 @@ where isDeleted = 0;
 | `ref_property_data_type` | Int, Decimal, String, Bit, Enum |
 | `ref_user_type` | Internal, External |
 | `ref_request_type` | Regular, ServiceWork |
-| `ref_request_priority` | P1, P2, P3, P4 |
+| `ref_request_priority` | P1, P2, P3, P4 + admin-managed description and UI color |
 | `ref_booking_request_status` | Draft, Submitted, InProgress, Closed |
 | `ref_request_closure_reason` | Cancelled, Completed |
 | `ref_booking_status` | Draft, Submitted, Confirmed, InProgress, Closed |
@@ -184,6 +184,20 @@ where isDeleted = 0;
 
 Индекс:
 - unique index on `code`
+
+Специализация для `ref_request_priority`:
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `descriptionEn` | `nvarchar(1000) null` | Описание бизнес-семантики приоритета для tooltip / hint в UI |
+| `descriptionRu` | `nvarchar(1000) null` | Локализованное описание на русском языке |
+| `descriptionKz` | `nvarchar(1000) null` | Локализованное описание на казахском языке |
+| `color` | `nvarchar(7) not null` | Цвет отображения приоритета в формате `#RRGGBB` |
+
+Примечание:
+- записи `P1`-`P4` остаются фиксированными seeded lookup values;
+- через Admin Panel допускается редактирование только `description*` и `color`;
+- `code`, `name*` и состав значений `P1`-`P4` не управляются через Admin API текущего scope.
 
 ---
 

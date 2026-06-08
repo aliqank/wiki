@@ -1,7 +1,7 @@
 # Booking API summary
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-06-05  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -30,7 +30,7 @@ Base URL: `/api/booking/v1`
 | `GET` | [`/reference/share-types`](reference/GET_reference_share_types.md) | Получить справочник share types для фильтра поиска |
 | `GET` | [`/reference/request-statuses`](reference/GET_reference_request_statuses.md) | Получить справочник статусов заявки для фильтра `Мои заявки` |
 | `GET` | [`/reference/requestor-request-types`](reference/GET_reference_requestor_request_types.md) | Получить справочник типов заявки для фильтра `Мои заявки` |
-| `GET` | [`/reference/request-priorities`](reference/GET_reference_request_priorities.md) | Получить справочник приоритетов заявки для фильтра `Мои заявки` |
+| `GET` | [`/reference/request-priorities`](reference/GET_reference_request_priorities.md) | Получить справочник приоритетов заявки для фильтров, tooltip-описаний и цветового отображения |
 | `GET` | [`/reference/approval-request-statuses`](reference/GET_reference_approval_request_statuses.md) | Получить справочник статусов заявки для Fleet Owner view `Approvals -> Requests` |
 | `GET` | [`/reference/approval-request-types`](reference/GET_reference_approval_request_types.md) | Получить справочник типов заявки для Fleet Owner view `Approvals -> Requests` |
 | `GET` | [`/reference/equipment-types/{equipmentTypeId}/properties`](reference/GET_reference_equipment_types_id_properties.md) | Получить динамические свойства выбранного типа техники |

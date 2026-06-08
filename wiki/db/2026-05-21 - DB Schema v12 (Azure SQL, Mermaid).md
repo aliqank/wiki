@@ -1,7 +1,7 @@
 # DB Schema v12 — Azure SQL Mermaid ER-диаграмма
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-06-03  
+**Last updated:** 2026-06-08  
 **Version:** v12 (Azure SQL adaptation)
 
 > Типы данных адаптированы под Azure SQL: `uniqueidentifier`, `datetime2(3)`, `bit`, `nvarchar(max)`.  
@@ -121,6 +121,10 @@ erDiagram
         nvarchar nameEn
         nvarchar nameRu
         nvarchar nameKz
+        nvarchar descriptionEn
+        nvarchar descriptionRu
+        nvarchar descriptionKz
+        nvarchar color
         int sortOrder
     }
 

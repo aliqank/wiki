@@ -42,6 +42,8 @@
 | [`wiki/requirements/usecases/Requestor/UC-REQ-02 - Создание новой заявки (Draft-first)/UC-REQ-02.3.1 - Просмотр load summary при выборе техники.md`](wiki/requirements/usecases/Requestor/UC-REQ-02%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BD%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%B7%D0%B0%D1%8F%D0%B2%D0%BA%D0%B8%20%28Draft-first%29/UC-REQ-02.3.1%20-%20%D0%9F%D1%80%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%20load%20summary%20%D0%BF%D1%80%D0%B8%20%D0%B2%D1%8B%D0%B1%D0%BE%D1%80%D0%B5%20%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8.md) | Dev-ready use case для просмотра Requestor `load summary` при выборе техники; фиксирует показ пересекающихся броней и `Work Order number`. |
 | [`wiki/api/`](wiki/api/) | Раздел для финальных API-спецификаций. |
 | [`wiki/api/common/Result Wrapper.md`](wiki/api/common/Result%20Wrapper.md) | Общая dev-ready спецификация `result wrapper`, используемого во всех API-методах. |
+| [`wiki/api/admin/request-priorities/2026-06-08 - GET_request-priorities.md`](wiki/api/admin/request-priorities/2026-06-08%20-%20GET_request-priorities.md) | Admin API для просмотра фиксированного справочника приоритетов заявки `P1`-`P4`, включая `description` и `color`. |
+| [`wiki/api/admin/request-priorities/2026-06-08 - PUT_request-priorities_id.md`](wiki/api/admin/request-priorities/2026-06-08%20-%20PUT_request-priorities_id.md) | Admin API для редактирования только `description` и `color` в справочнике приоритетов заявки. |
 
 Правило работы:
 - `source/`, `working_docs/`, `results/`, `client_docs/` не являются целевой точкой для актуальных dev-ready изменений; это source-of-context и historical snapshots.

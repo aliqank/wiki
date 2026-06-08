@@ -1,7 +1,7 @@
 # UC-FO-01 - Просмотр списка заявок Fleet Owner
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -24,7 +24,7 @@
 ## Основной сценарий
 
 1. Пользователь открывает страницу Fleet Owner `Approvals` и переключается во view `Requests`.
-2. Frontend загружает справочники фильтров через [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
+2. Frontend загружает справочники фильтров через [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md); для `priority` справочник также содержит `description` и `color`.
 3. Frontend вызывает [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md).
 4. Backend проверяет, что текущий пользователь имеет роль `FleetOwner`.
 5. Backend определяет список fleet-ов, где у текущего Fleet Owner есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access).
@@ -35,7 +35,8 @@
 10. Для каждой строки отображаются request-level поля и краткий состав связанных броней, доступных текущему Fleet Owner:
    - номер заявки;
    - текущий статус заявки;
-   - тип заявки.
+   - тип заявки;
+   - приоритет с цветом, соответствующим настройке справочника.
 11. Для каждой релевантной брони система также может показывать conflict indicator и quick action для открытия `load summary` прямо в строке брони.
 12. Пользователь получает в составе ответа всю информацию, необходимую для первичной работы со связанными бронями без обязательного дополнительного detail-запроса.
 
@@ -67,5 +68,5 @@
 3. Для request-level списка используется агрегированный статус заявки, а не статус отдельной брони.
 4. Для terminal request statuses должна использоваться актуальная семантика: request lifecycle использует единый статус `Closed`, а различие между pre-start cancellation и post-start completion хранится в `requestClosureReason`.
 5. Текущая версия use case предполагает, что для первичной работы со связанными booking item-ами достаточно данных из [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md).
-6. Для фильтра `status` используется [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), для фильтра `type` используется [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), для фильтра `priority` используется [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
+6. Для фильтра `status` используется [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), для фильтра `type` используется [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), для фильтра `priority` используется [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md), который также возвращает `description` и `color`.
 7. Признак конфликта в строке брони является short summary; детальный состав конфликтов / competing bookings раскрывается через `load summary`.
