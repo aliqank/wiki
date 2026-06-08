@@ -621,7 +621,7 @@ Filtered unique indexes:
 Назначение: справочник видов сервисного обслуживания / ремонтных направлений, которые могут быть привязаны к maintenance contract конкретной единицы техники.
 
 `MaintenanceServiceTypes`:
-- `nameEn`, `nameRu`, `nameKz`
+- `nameEn`, `nameRu`, `nameKz` (all required)
 - `sortOrder int`
 - audit fields
 

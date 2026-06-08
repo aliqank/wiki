@@ -37,7 +37,7 @@
 ## 3. Описание логики работы метода
 
 1. Принять тело запроса; провалидировать обязательные поля `name`.
-2. Проверить поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен.
+2. Проверить поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны.
 3. Проверить уникальность `name.Ru` в таблице `MaintenanceServiceTypes` WHERE `isDeleted = false`. Если запись уже существует - вернуть `422 VALIDATION_ERROR`.
 4. Рассчитать `sortOrder` как `MAX(sortOrder) + 10`, если значение явно не передано.
 5. Создать новую запись в `MaintenanceServiceTypes`; заполнить аудит-поля `createdAt`, `createdBy`.
@@ -72,7 +72,7 @@
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
-| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или значение уже существует в справочнике |
+| `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или значение `name.Ru` уже существует в справочнике |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
@@ -82,7 +82,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`
 
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Наименование service type | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; `name.Ru` уникален среди активных записей | — | Request body | |
+| 1 | Наименование service type | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; `name.Ru` уникален среди активных записей | — | Request body | |
 | 2 | Порядок сортировки | `sortOrder` | `int` | `-` | Если передан, целое число >= 0 | `MAX + 10` | Request body | |
 
 ---

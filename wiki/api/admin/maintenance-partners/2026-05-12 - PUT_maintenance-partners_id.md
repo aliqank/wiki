@@ -39,7 +39,7 @@
 ## 3. Описание логики работы метода
 
 1. Найти запись в `MaintenancePartners` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена — вернуть `404 NOT_FOUND`.
-2. Провалидировать `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `MaintenancePartners` WHERE `id` != `:id` AND `isDeleted = false`.
+2. Провалидировать `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально среди `MaintenancePartners` WHERE `id` != `:id` AND `isDeleted = false`.
 3. Обновить запись; заполнить `updatedAt`, `updatedBy`.
 4. Рассчитать `contractsCount` = COUNT(`EquipmentMaintenanceContracts` WHERE `partnerId` = `:id` AND `isDeleted = false`).
 5. Вернуть обновлённый объект `MaintenancePartner`.
@@ -74,7 +74,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `NOT_FOUND` | Партнер ТО не найден |
-| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует |
+| `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или локализованное имя уже существует |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Entity`
 
@@ -85,7 +85,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор партнера ТО | `id` | `uuid` | `+` | Валидный UUID v4 | — | Path param | |
-| 2 | Название партнера | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей кроме текущей | — | Request body | |
+| 2 | Название партнера | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально среди активных записей кроме текущей | — | Request body | |
 | 3 | Контактный телефон | `phoneNumber` | `string` | `-` | Свободный текст | `null` | Request body | |
 | 4 | Контактный email | `email` | `string` | `-` | Валидный email, если передан | `null` | Request body | |
 | 5 | Адрес | `address` | `string` | `-` | Свободный текст | `null` | Request body | |

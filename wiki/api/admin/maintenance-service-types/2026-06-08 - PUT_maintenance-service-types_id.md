@@ -37,7 +37,7 @@
 ## 3. Описание логики работы метода
 
 1. Найти запись в `MaintenanceServiceTypes` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена - вернуть `404 NOT_FOUND`.
-2. Провалидировать поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; `name.Ru` уникален среди `MaintenanceServiceTypes` WHERE `id` != `:id` AND `isDeleted = false`.
+2. Провалидировать поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; `name.Ru` уникален среди `MaintenanceServiceTypes` WHERE `id` != `:id` AND `isDeleted = false`.
 3. Если передан `sortOrder`, провалидировать, что это целое число >= 0.
 4. Обновить запись в `MaintenanceServiceTypes`; заполнить аудит-поля `updatedAt`, `updatedBy`.
 5. Рассчитать `contractsCount` = COUNT(`EquipmentMaintenanceContracts` WHERE `serviceTypeId` = `:id` AND `isDeleted = false`).
@@ -73,7 +73,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `NOT_FOUND` | Maintenance service type не найден |
-| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или уже существует в справочнике |
+| `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или значение `name.Ru` уже существует в справочнике |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Entity`
 
@@ -84,7 +84,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор service type | `id` | `uuid` | `+` | Должен быть валидным UUID v4 | — | Path param | |
-| 2 | Наименование service type | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; уникален среди активных записей | — | Request body | |
+| 2 | Наименование service type | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; `name.Ru` уникален среди активных записей | — | Request body | |
 | 3 | Порядок сортировки | `sortOrder` | `int` | `-` | Если передан, целое число >= 0 | Текущее значение | Request body | |
 
 ---
