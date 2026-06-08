@@ -140,7 +140,7 @@ Content-Type: application/json
 | 5 | Бренд техники | brand | string | string | — | EquipmentBrands |  |
 | 6 | Модель техники | model | string | string | — | EquipmentModels |  |
 | 7 | URL превью-фотографии | previewPhotoUrl | string | string | — | EquipmentPhotos |  |
-| 8 | Информация о business partner | businessPartner | object | object | — | backend composition from BusinessPartners + Fleets | Заменяет `fleet` |
+| 8 | Информация о business partner | businessPartner | object | object | — | backend composition from BusinessPartners + Fleets | Заменяет `fleet`; содержит расширенные contact / identity fields |
 | 9 | Рабочий центр | workCenter | object | object | — | WorkCenters | Optional showcase context |
 | 10 | Наименование базовой локации | baseLocationName | object | object | — | Locations |  |
 
@@ -158,6 +158,14 @@ Content-Type: application/json
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор business partner | id | uuid | UUID v4 | — | BusinessPartners.id |  |
 | 2 | Наименование business partner | name | object | object | — | BusinessPartners |  |
+| 3 | Описание business partner | description | string | string | `null` | BusinessPartners.description |  |
+| 4 | БИН контрагента | bin | string | string | `null` | BusinessPartners.bin |  |
+| 5 | Страна | country | string | string | `null` | BusinessPartners.country |  |
+| 6 | Город | city | string | string | `null` | BusinessPartners.city |  |
+| 7 | Адрес | address | string | string | `null` | BusinessPartners.address |  |
+| 8 | Email | email | string | string | `null` | BusinessPartners.email |  |
+| 9 | Номер телефона | phoneNumber | string | string | `null` | BusinessPartners.phoneNumber |  |
+| 10 | Внешний идентификатор | externalId | string | string | `null` | BusinessPartners.externalId |  |
 
 ### Структура `value.items[].businessPartner.name`
 
@@ -215,7 +223,15 @@ Content-Type: application/json
             "En": "Balkindge",
             "Ru": "Balkindge",
             "Kz": "Balkindge"
-          }
+          },
+          "description": "External on-demand equipment provider",
+          "bin": "123456789012",
+          "country": "Kazakhstan",
+          "city": "Atyrau",
+          "address": "Industrial zone 1",
+          "email": "catalog@balkindge.example",
+          "phoneNumber": "+7 701 123 4567",
+          "externalId": "BP-EXT-001"
         },
         "workCenter": {
           "id": "12a8b1ce-3aaf-4f55-8ac8-f8cf5d86c222",
@@ -245,5 +261,6 @@ Content-Type: application/json
 ## Замечания
 
 1. Метод принципиально не возвращает `tcoId`, `fleet`, `isBookable`, `requiresJustification`, `hasBookingConflict`, `bookingUnavailableReason`, `equipmentStateOnPeriod`.
-2. Витрина является read-only и не должна использоваться как альтернативный booking search flow.
-3. При необходимости `FR-NEW-28` должен быть покрыт отдельным endpoint / CTA flow, а не данным методом.
+2. `businessPartner` в showcase-ответе должен давать пользователю достаточный внешний контекст для контакта с BP без необходимости дополнительных lookup-запросов.
+3. Витрина является read-only и не должна использоваться как альтернативный booking search flow.
+4. При необходимости `FR-NEW-28` должен быть покрыт отдельным endpoint / CTA flow, а не данным методом.
