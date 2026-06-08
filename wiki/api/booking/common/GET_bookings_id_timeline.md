@@ -1,7 +1,7 @@
 # GET /bookings/{id}/timeline
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-06-05  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -51,7 +51,7 @@
 5. Подтянуть справочные данные из `ref_booking_status`, `ref_booking_closure_reason`, `ref_booking_approval_type`, `ref_booking_approval_status`.
 6. Построить единый event stream.
 7. Добавить derived execution milestone events из `Bookings.actualStartDateTime` и `Bookings.actualEndDateTime`, только если они не дублируют already existing lifecycle event с тем же timestamp.
-8. Отсортировать по `occurredAt ASC`, затем по `eventOrder ASC`, затем по `id ASC`.
+8. Отсортировать по `occurredAt ASC`, затем по `eventOrder ASC`.
 9. Вернуть агрегированный timeline.
 
 Сущности:
@@ -62,7 +62,7 @@
 - `ApprovalRecorded` строится только из `BookingApprovals`;
 - `ExecutionMilestone` строится как derived projection из factual booking timestamps;
 - timeline не заменяет source-of-truth таблицы и не должен использоваться как единственный источник lifecycle semantics;
-- один timeline item должен иметь ровно один `eventType`.
+- каждый timeline item относится ровно к одному типу внутренней backend-композиции: status event, approval event или execution milestone.
 
 Правила derived milestones:
 - `ExecutionStarted` добавляется, если `actualStartDateTime` заполнен и нет lifecycle event `InProgress` с идентичным timestamp;
@@ -141,16 +141,12 @@ Content-Type: application/json
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор timeline event | id | uuid / string | UUID v4 / string | — | source entity ID или backend synthetic ID | Для derived events допускается synthetic ID |
-| 2 | Тип события | eventType | string | string | — | backend timeline aggregation | `StatusChanged`, `ApprovalRecorded`, `ExecutionMilestone` |
-| 3 | Код события | eventCode | string | string | — | backend composition | Например: `BookingSubmitted`, `FoApprovalApproved`, `ExecutionStarted` |
-| 4 | Дата и время события | occurredAt | datetime | ISO 8601 | — | backend timeline aggregation | Основное поле сортировки |
-| 5 | Заголовок события | title | string | string | — | backend composition | Короткая UI-ready подпись |
-| 6 | Описание события | description | string | null | `null` | backend composition | Детализация для expanded UI |
-| 7 | Actor события | actor | object | object | — | backend composition from audit fields + Users |  |
-| 8 | Payload статуса | status | object | null | `null` | status-based events only | Для `StatusChanged` |
-| 9 | Payload approval step | approval | object | null | `null` | approval-based events only | Для `ApprovalRecorded` |
-| 10 | Комментарий | comment | string | null | `null` | source record comment / backend-generated milestone text |  |
+| 1 | Дата и время события | occurredAt | datetime | ISO 8601 | — | backend timeline aggregation | Основное поле сортировки |
+| 2 | Описание события | description | string | null | `null` | backend composition | Детализация для expanded UI |
+| 3 | Actor события | actor | object | object | — | backend composition from audit fields + Users |  |
+| 4 | Payload статуса | status | object | null | `null` | status-based events only | Для `StatusChanged` |
+| 5 | Payload approval step | approval | object | null | `null` | approval-based events only | Для `ApprovalRecorded` |
+| 6 | Комментарий | comment | string | null | `null` | source record comment / backend-generated milestone text |  |
 
 ### Структура `value[].actor`
 
@@ -186,11 +182,7 @@ Content-Type: application/json
 {
   "value": [
     {
-      "id": "11111111-2222-3333-4444-555555550001",
-      "eventType": "StatusChanged",
-      "eventCode": "BookingSubmitted",
       "occurredAt": "2026-05-14T10:00:00Z",
-      "title": "Booking submitted",
       "description": "Booking entered the approval flow.",
       "actor": {
         "userId": "8f83f79c-3d25-4f07-a17b-9dc4b9f25001",
@@ -208,11 +200,7 @@ Content-Type: application/json
       "comment": null
     },
     {
-      "id": "22222222-3333-4444-5555-666666660001",
-      "eventType": "ApprovalRecorded",
-      "eventCode": "FoApprovalApproved",
       "occurredAt": "2026-05-14T11:20:00Z",
-      "title": "Fleet Owner approved booking",
       "description": "Approval step 1 was completed with positive decision.",
       "actor": {
         "userId": "d61f5b36-c1c1-40de-a37a-11d6d1898002",
@@ -231,11 +219,7 @@ Content-Type: application/json
       "comment": "Approved for planned work window."
     },
     {
-      "id": "11111111-2222-3333-4444-555555550002",
-      "eventType": "StatusChanged",
-      "eventCode": "BookingConfirmed",
       "occurredAt": "2026-05-14T11:20:00Z",
-      "title": "Booking confirmed",
       "description": "All mandatory approvals were completed and booking became ready for execution.",
       "actor": {
         "userId": "d61f5b36-c1c1-40de-a37a-11d6d1898002",
@@ -253,11 +237,7 @@ Content-Type: application/json
       "comment": null
     },
     {
-      "id": "timeline-execution-start-8c4c8b6d-7bc0-41fb-9038-422cf55d1111",
-      "eventType": "ExecutionMilestone",
-      "eventCode": "ExecutionStarted",
       "occurredAt": "2026-05-20T08:05:00Z",
-      "title": "Execution started",
       "description": "Actual booking execution start was recorded.",
       "actor": {
         "userId": null,
