@@ -1,7 +1,7 @@
 # UC-FO-08 - Замена техники Fleet Owner
 
 **Created:** 2026-06-02  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -12,7 +12,7 @@
 |---|---|
 | Область действия | Страница Fleet Owner `Approvals` -> detail / action view конкретной брони |
 | Участник | Пользователь с ролью `FleetOwner` |
-| Покрываемые FR (BRD) | `FR-046`, `FR-047` |
+| Покрываемые FR (BRD) | `FR-046`, `FR-047`, `FR-NEW-19` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь еще не перешла в фактическое исполнение и находится в состоянии, допускающем замену техники (`Submitted` или `Confirmed`) |
 | Триггер | Нажатие кнопки `Change equipment` в карточке брони |

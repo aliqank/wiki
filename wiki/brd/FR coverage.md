@@ -37,7 +37,7 @@
 | FR-016 | Admin accesses all dashboards and reports | - | — | — |
 | FR-NEW-03 | Admin configures via Admin Panel: FO timeout, booking horizon, max duration, FleetOwners' Supervisor response timeout | - | — | — |
 | FR-NEW-04 | Admin authorizes specific users to book Assigned equipment | + | Реализация админ панели и стр. оборудования; UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft | Спринт 1, Спринт 2 |
-| FR-NEW-42 | Admin sets and updates fleet shared team email | - | — | — |
+| FR-NEW-42 | Admin sets and updates fleet shared team email | - | Покрыто интеграцией с PSWS / contact data; отдельный use case не актуален | — |
 | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | + | Реализация админ панели и стр. оборудования; UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 1, Спринт 2 |
 | FR-NEW-68 | System dynamically shows only type-specific characteristics in request form and equipment search filters | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку | Спринт 2 |
 | FR-NEW-74 | Admin configures FleetOwners' Supervisor response timeout via Admin Panel | - | — | — |
@@ -49,9 +49,9 @@
 | FR-022 | Requestor / SWP can submit feedback on equipment with confirmed booking | - | — | — |
 | FR-NEW-05 | FO uploads multiple photos; Requestor sees them in request form | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-NEW-06 | Repair status from JDE -> DataLake displayed in search and equipment list | - | — | — |
-| FR-NEW-07 | Stationary HDE excluded from Requestor search | - | — | — |
+| FR-NEW-07 | Stationary HDE excluded from Requestor search | + | UC-REQ-02.3 - Поиск техники для добавления в заявку *(свежее покрытие Спринта 2)* | Спринт 2 |
 | FR-NEW-08 | Assigned equipment: visible to all users; bookable only by Admin-authorized users with mandatory justification; FO can approve or decline | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft; UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
-| FR-NEW-09 | Shared with Conditions has visual color marker | - | — | — |
+| FR-NEW-09 | Shared with Conditions has visual color marker | + | UC-REQ-02.3 - Поиск техники для добавления в заявку *(свежее покрытие Спринта 2)* | Спринт 2 |
 | FR-NEW-40 | Equipment card (FO view) has booking calendar visual | - | — | — |
 | FR-NEW-41 | Multiple trackers per unit; FO can add trackers from equipment card UI | - | — | — |
 | FR-NEW-49 | Freeze fields on equipment card | + | Реализация админ панели и стр. оборудования | Спринт 1 |
@@ -63,7 +63,7 @@
 | FR-028 | Service Work Requests auto-created with Draft status; visible to SWP role only | - | — | — |
 | FR-029 | Only SWP can manage Service Work Requests | - | — | — |
 | FR-030 | System supports draft saving | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки | Спринт 2 |
-| FR-NEW-10 | On-demand booking only; weekly schedule management out of scope | - | — | — |
+| FR-NEW-10 | On-demand booking only; weekly schedule management out of scope | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров | Спринт 2, Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-11 | Requestor selects priority P1-P4 at request creation | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.2 - Заполнение и редактирование шапки заявки | Спринт 2 |
 | FR-NEW-12 | WO mandatory for some departments; optional for Logistics; Location replaces WO for SCM Logistics | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.2 - Заполнение и редактирование шапки заявки | Спринт 2 |
 | FR-NEW-13 | Work Description mandatory | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.2 - Заполнение и редактирование шапки заявки | Спринт 2 |
@@ -73,7 +73,7 @@
 | FR-NEW-17 | Aggregated Request status auto-calculated from RequestItem statuses | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.6 - Отправка draft-заявки; UC-REQ-04 - Отзыв брони requestor-ом; UC-REQ-05 - Отзыв submitted-заявки requestor-ом | Спринт 2 |
 | FR-NEW-48 | Select WO from JDE block on Submit Request page; WO list from JDE E1 via direct API; auto-generate draft | - | — | — |
 | FR-NEW-51 | Default Work Order / Default Work Center option | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.2 - Заполнение и редактирование шапки заявки | Спринт 2 |
-| FR-NEW-64 | Equipment loading summary in FO approval window | - | — | — |
+| FR-NEW-64 | Equipment loading summary in FO approval window | + | UC-FO-02 - Просмотр load summary Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-69 | Priority field displays tooltips/hints for each priority level | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.2 - Заполнение и редактирование шапки заявки | Спринт 2 |
 | FR-NEW-71 | Long-term rented equipment item requires mandatory Justification | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft; UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
 | FR-031 | Requestor can add/remove equipment items to a request; availability updated | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку; UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft; UC-REQ-02.7 - Отмена draft-брони; UC-REQ-07 - Отмена draft-брони requestor-ом со страницы Мои заявки | Спринт 2 |
@@ -85,7 +85,7 @@
 | FR-041 | Equipment attributes displayed in booking | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3 - Поиск техники для добавления в заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft | Спринт 2 |
 | FR-042 | Booking lifecycle: Draft, Submitted, Confirmed by FO, Confirmed, Declined, Revoked, Terminated, Completed | + | UC-REQ-04 - Отзыв брони requestor-ом | Спринт 2 |
 | FR-NEW-18 | Booking start = start of mobilization | + | UC-FO-04 - Мобилизация техники | Спринт 2.1 (fleetOwners request view) |
-| FR-NEW-19 | No mandatory buffer between bookings | - | — | — |
+| FR-NEW-19 | No mandatory buffer between bookings | + | UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий); UC-FO-07 - Изменение периода брони Fleet Owner; UC-FO-08 - Замена техники Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-20 | Unwheeled equipment: notification displayed to Requestor | - | — | — |
 | FR-NEW-70 | Equipment load summary displayed to Requestor during equipment selection | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.3.1 - Просмотр load summary при выборе техники | Спринт 2 |
 | FR-043 | Approver assigned automatically based on fleet ownership | + | UC-FO-01 - Просмотр списка заявок Fleet Owner; UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий); UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
@@ -97,7 +97,7 @@
 | FR-049 | FO can decline booking; availability updated | + | UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-050 | FO provides reason/comment when declining | + | UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-21 | FO must respond within timeout | - | — | — |
-| FR-NEW-22 | If FO has free equipment and declines, reason is mandatory | - | — | — |
+| FR-NEW-22 | If FO has free equipment and declines, reason is mandatory | + | UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-23 | Reminder sent only to FO of the specific selected equipment | - | — | — |
 | FR-NEW-24 | FO presses Mobilization started to record actual start time | + | UC-FO-04 - Мобилизация техники | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-72 | Long-term rented booking moves to Confirmed by FO after FO confirmation and goes to Supervisor | - | — | — |

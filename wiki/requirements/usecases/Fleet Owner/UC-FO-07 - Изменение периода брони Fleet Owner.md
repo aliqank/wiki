@@ -1,7 +1,7 @@
 # UC-FO-07 - Изменение периода брони Fleet Owner
 
 **Created:** 2026-06-02  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -12,7 +12,7 @@
 |---|---|
 | Область действия | Страница Fleet Owner `Approvals` -> detail / action view конкретной брони |
 | Участник | Пользователь с ролью `FleetOwner` |
-| Покрываемые FR (BRD) | `FR-048`, `FR-079a` |
+| Покрываемые FR (BRD) | `FR-048`, `FR-079a`, `FR-NEW-19` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь находится в lifecycle состоянии, в котором изменение периода еще допустимо: `Submitted`, `Confirmed` или `InProgress`; для `InProgress` разрешено изменять только `plannedEndDateTime`, а `plannedStartDateTime` больше не редактируется |
 | Триггер | Нажатие кнопки `Change period` в карточке брони |
