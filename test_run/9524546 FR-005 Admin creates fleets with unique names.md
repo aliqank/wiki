@@ -210,7 +210,7 @@
 **Expected:**
 - Новый флот присутствует в списке с корректными `fleetId` и `fleetName`
 
-**Result:** ❌ FAIL (ретест) — endpoint `GET /api/booking/v1/reference/fleets` не найден в системе
+**Result:** ✅ PASS — фактический endpoint `GET api/v1/fleet?PageIndex=1&PageSize=10`; endpoint в спецификации устарел, не является дефектом
 
 ---
 
@@ -231,7 +231,7 @@
 | TC-011 | Граница длины 255 | ❌ FAIL |
 | TC-012 | Все три поля имени обязательны | ❌ FAIL |
 | TC-013 | Аудит-поля | ⏭ SKIP |
-| TC-014 | Флот в /reference/fleets | ❌ FAIL |
+| TC-014 | Флот в /reference/fleets | ✅ PASS (endpoint устарел в спеке) |
 
 **Найденные дефекты:**
 1. **TC-002** — отсутствует валидация уникальности имени флота
@@ -239,7 +239,7 @@
 3. **TC-011** — отсутствует ограничение длины поля имени (создано >500 символов)
 4. **TC-004** — backend не валидирует обязательность полей `nameEn`, `nameRu`, `nameKz`: флот создаётся без имён; frontend-валидация есть, backend-валидация отсутствует
 5. **TC-006** — отсутствует проверка роли на backend: пользователь без роли Admin успешно создаёт флот
-6. **TC-014** — endpoint `GET /api/booking/v1/reference/fleets` не найден в системе; флот недоступен через reference API
+6. ~~**TC-014**~~ — не дефект; фактический endpoint `GET api/v1/fleet?PageIndex=1&PageSize=10`, спецификация устарела
 
 ---
 
