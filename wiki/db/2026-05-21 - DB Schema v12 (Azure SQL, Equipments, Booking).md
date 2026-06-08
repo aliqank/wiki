@@ -616,19 +616,31 @@ Filtered unique indexes:
 - `address nvarchar(500)`
 - audit fields
 
-#### 16.2 EquipmentMaintenanceContracts
+#### 16.2 MaintenanceServiceTypes
 
-Назначение: связующая таблица между техникой и сервисным партнером. Позволяет хранить, кто и по какому виду сервиса обслуживает конкретную единицу техники.
+Назначение: справочник видов сервисного обслуживания / ремонтных направлений, которые могут быть привязаны к maintenance contract конкретной единицы техники.
+
+`MaintenanceServiceTypes`:
+- `nameEn`, `nameRu`, `nameKz`
+- `sortOrder int`
+- audit fields
+
+Filtered unique indexes:
+- `(nameRu) where isDeleted = 0`
+
+#### 16.3 EquipmentMaintenanceContracts
+
+Назначение: связующая таблица между техникой, сервисным партнером и видом сервиса. Позволяет хранить, кто и по какому виду сервиса обслуживает конкретную единицу техники.
 
 `EquipmentMaintenanceContracts`:
 - `equipmentId uniqueidentifier FK`
 - `partnerId uniqueidentifier FK`
-- `serviceType nvarchar(255)`
+- `serviceTypeId uniqueidentifier FK -> MaintenanceServiceTypes`
 - `notes nvarchar(max) null`
 - audit fields
 
 Filtered unique index:
-- `(equipmentId, partnerId, serviceType) where isDeleted = 0`
+- `(equipmentId, partnerId, serviceTypeId) where isDeleted = 0`
 
 ### 17. EquipmentFeedbacks / EquipmentBookingAuthorizations
 

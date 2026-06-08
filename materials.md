@@ -44,6 +44,10 @@
 | [`wiki/api/common/Result Wrapper.md`](wiki/api/common/Result%20Wrapper.md) | Общая dev-ready спецификация `result wrapper`, используемого во всех API-методах. |
 | [`wiki/api/admin/request-priorities/2026-06-08 - GET_request-priorities.md`](wiki/api/admin/request-priorities/2026-06-08%20-%20GET_request-priorities.md) | Admin API для просмотра фиксированного справочника приоритетов заявки `P1`-`P4`, включая `description` и `color`. |
 | [`wiki/api/admin/request-priorities/2026-06-08 - PUT_request-priorities_id.md`](wiki/api/admin/request-priorities/2026-06-08%20-%20PUT_request-priorities_id.md) | Admin API для редактирования только `description` и `color` в справочнике приоритетов заявки. |
+| [`wiki/api/admin/maintenance-service-types/2026-06-08 - GET_maintenance-service-types.md`](wiki/api/admin/maintenance-service-types/2026-06-08%20-%20GET_maintenance-service-types.md) | Admin API для просмотра справочника видов сервисного обслуживания, используемого в `EquipmentMaintenanceContracts`. |
+| [`wiki/api/admin/maintenance-service-types/2026-06-08 - POST_maintenance-service-types.md`](wiki/api/admin/maintenance-service-types/2026-06-08%20-%20POST_maintenance-service-types.md) | Admin API для создания нового вида сервисного обслуживания. |
+| [`wiki/api/admin/maintenance-service-types/2026-06-08 - PUT_maintenance-service-types_id.md`](wiki/api/admin/maintenance-service-types/2026-06-08%20-%20PUT_maintenance-service-types_id.md) | Admin API для редактирования вида сервисного обслуживания. |
+| [`wiki/api/admin/maintenance-service-types/2026-06-08 - DELETE_maintenance-service-types_id.md`](wiki/api/admin/maintenance-service-types/2026-06-08%20-%20DELETE_maintenance-service-types_id.md) | Admin API для удаления вида сервисного обслуживания с guard по активным maintenance contracts. |
 
 Правило работы:
 - `source/`, `working_docs/`, `results/`, `client_docs/` не являются целевой точкой для актуальных dev-ready изменений; это source-of-context и historical snapshots.

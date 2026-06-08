@@ -557,11 +557,26 @@ erDiagram
         uniqueidentifier deletedBy
     }
 
+    MaintenanceServiceTypes {
+        uniqueidentifier id PK
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
     EquipmentMaintenanceContracts {
         uniqueidentifier id PK
         uniqueidentifier equipmentId FK
         uniqueidentifier partnerId FK
-        nvarchar serviceType
+        uniqueidentifier serviceTypeId FK
         nvarchar notes
         datetime2 createdAt
         uniqueidentifier createdBy
@@ -798,6 +813,7 @@ erDiagram
     Properties ||--o{ EquipmentTypeProperties : "propertyId"
     PropertyEnumValues ||--o{ EquipmentProperties : "propertyEnumValueId"
     MaintenancePartners ||--o{ EquipmentMaintenanceContracts : "partnerId"
+    MaintenanceServiceTypes ||--o{ EquipmentMaintenanceContracts : "serviceTypeId"
 
     BookingRequests ||--o{ Bookings : "requestId"
     Equipments ||--o{ Bookings : "equipmentId"

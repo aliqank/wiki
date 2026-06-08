@@ -116,7 +116,8 @@
 | `EquipmentTypeProperties` | Настройка того, какие свойства доступны для конкретного типа техники, включая обязательность, видимость и filterability. | `EquipmentTypes`, `Properties` |
 | `EquipmentProperties` | Значения динамических характеристик для конкретной единицы техники. | `Equipments`, `Properties`, `PropertyEnumValues` |
 | `MaintenancePartners` | Справочник сервисных/ремонтных партнёров. | Используется в `EquipmentMaintenanceContracts` |
-| `EquipmentMaintenanceContracts` | Связка техники с maintenance partner и видом сервиса. | `Equipments`, `MaintenancePartners` |
+| `MaintenanceServiceTypes` | Справочник видов сервисного обслуживания / ремонтных направлений. | Используется в `EquipmentMaintenanceContracts` |
+| `EquipmentMaintenanceContracts` | Связка техники с maintenance partner и видом сервиса из справочника. | `Equipments`, `MaintenancePartners`, `MaintenanceServiceTypes` |
 | `EquipmentFeedbacks` | Отзывы по технике, оставленные в контексте конкретной брони. | `Equipments`, `Bookings` |
 | `EquipmentBookingAuthorizations` | Таблица авторизаций пользователей на бронирование Assigned техники. | `Equipments`, `Users` |
 
