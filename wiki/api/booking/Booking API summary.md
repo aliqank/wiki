@@ -21,6 +21,7 @@ Base URL: `/api/booking/v1`
 | Метод | Путь | Назначение |
 |---|---|---|
 | `GET` | [`/equipment/search`](requestor/GET_equipment_search.md) | Поиск техники для создания заявки |
+| `GET` | [`/equipment/bp-showcase`](requestor/GET_equipment_bp_showcase.md) | Read-only витрина техники внешних business partners (`On-demand BP (Showcase)`) |
 | `GET` | [`/equipment/{id}`](requestor/GET_equipment_id.md) | Получить карточку техники в booking-контексте |
 | `GET` | [`/equipment/{id}/load-summary`](requestor/GET_equipment_id_load_summary.md) | Получить загрузку техники на выбранный период |
 | `GET` | [`/reference/equipment-types`](reference/GET_reference_equipment_types.md) | Получить справочник типов техники для фильтра поиска |

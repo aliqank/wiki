@@ -17,7 +17,7 @@
 |---|---|
 | Спринт 1 | `FR-005`, `FR-006`, `FR-007`, `FR-008`, `FR-009`, `FR-010`, `FR-012`, `FR-013`, `FR-014`, `FR-015`, `FR-017`, `FR-018`, `FR-019`, `FR-020`, `FR-021`, `FR-025`, `FR-NEW-04`, `FR-NEW-05`, `FR-NEW-46`, `FR-NEW-49`, `FR-NEW-50`, `FR-NEW-53`, `FR-NEW-54`, `FR-NEW-55`, `FR-NEW-57`, `FR-NEW-58`, `FR-NEW-59`, `FR-NEW-60` |
 | Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-092`, `FR-NEW-37`, `FR-NEW-38`, `FR-NEW-39` |
-| Спринт 2.1 (fleetOwners request view) | `FR-025`, `FR-043`, `FR-044`, `FR-045`, `FR-046`, `FR-047`, `FR-048`, `FR-049`, `FR-050`, `FR-063`, `FR-064`, `FR-074`, `FR-079a`, `FR-092`, `FR-NEW-18`, `FR-NEW-24`, `FR-NEW-32`, `FR-NEW-33`, `FR-NEW-37` |
+| Спринт 2.1 (fleetOwners request view) | `FR-025`, `FR-043`, `FR-044`, `FR-045`, `FR-046`, `FR-047`, `FR-048`, `FR-049`, `FR-050`, `FR-063`, `FR-064`, `FR-074`, `FR-079a`, `FR-092`, `FR-NEW-18`, `FR-NEW-24`, `FR-NEW-25`, `FR-NEW-26`, `FR-NEW-27`, `FR-NEW-32`, `FR-NEW-33`, `FR-NEW-37` |
 
 | FR | Описание | Покрыто | Use case | Спринт |
 |---|---|---|---|---|
@@ -102,9 +102,9 @@
 | FR-NEW-24 | FO presses Mobilization started to record actual start time | + | UC-FO-04 - Мобилизация техники | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-72 | Long-term rented booking moves to Confirmed by FO after FO confirmation and goes to Supervisor | - | — | — |
 | FR-NEW-73 | FleetOwners' Supervisor reviews Long-term rented booking in Confirmed by FO status | - | — | — |
-| FR-NEW-25 | On-demand BP equipment is view-only in Phase 1 | - | — | — |
-| FR-NEW-26 | On-demand BP equipment prices/rates not displayed | - | — | — |
-| FR-NEW-27 | BP populates own catalog cards | - | — | — |
+| FR-NEW-25 | On-demand BP equipment is view-only in Phase 1 | + | UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров | Спринт 2.1 (fleetOwners request view) |
+| FR-NEW-26 | On-demand BP equipment prices/rates not displayed | + | UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров | Спринт 2.1 (fleetOwners request view) |
+| FR-NEW-27 | BP populates own catalog cards | + | UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-28 | Go to BP catalog button after FO timeout | - | — | — |
 | FR-058 | Requestor/SWP can revoke booking if not yet processed by FO | + | UC-REQ-04 - Отзыв брони requestor-ом; UC-REQ-05 - Отзыв submitted-заявки requestor-ом | Спринт 2 |
 | FR-059 | FO can terminate confirmed booking; reason required; availability updated | - | — | — |
