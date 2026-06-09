@@ -103,6 +103,7 @@ Base URL: `/api/booking/v1`
 | Метод | Путь | Назначение |
 |---|---|---|
 | `GET` | [`/bookings/{id}/status-history`](common/GET_bookings_id_status_history.md) | История статусов брони |
+| `GET` | [`/bookings/{id}/feedbacks`](common/GET_bookings_id_feedbacks.md) | Список feedback-записей по технике в рамках конкретной брони |
 | `GET` | [`/booking-requests/{id}/status-history`](common/GET_booking_requests_id_status_history.md) | История статусов заявки |
 | `GET` | [`/bookings/{id}/timeline`](common/GET_bookings_id_timeline.md) | Агрегированный audit trail по брони |
 | `GET` | [`/reports/requests`](reports/GET_reports_requests.md) | Отчет по заявкам |

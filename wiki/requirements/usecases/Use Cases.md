@@ -35,6 +35,7 @@
 | `UC-REQ-08` | Оставление отзыва по технике в рамках брони | Страница `Мои заявки` / detail view заявки / detail view конкретной брони | `BRD: FR-022` | [`POST /bookings/{id}/feedback`](../../api/booking/requestor/POST_bookings_id_feedback.md) |
 | `UC-REQ-BP-01` | Просмотр витрины техники внешних бизнес-партнеров | Страница `BP Showcase` / `External BP Equipment Showcase` | `BRD: FR-NEW-25, FR-NEW-26, FR-NEW-27` | [`GET /equipment/bp-showcase`](../../api/booking/requestor/GET_equipment_bp_showcase.md) |
 | `UC-COM-01` | Просмотр таймлайна брони | Страница `Мои заявки`, страница `Approvals`, detail / action view брони, карточка брони внутри заявки | `BRD: FR-NEW-37, FR-025, FR-092` | [`GET /bookings/{id}/timeline`](../../api/booking/common/GET_bookings_id_timeline.md) |
+| `UC-COM-02` | Просмотр списка обратной связи по технике в рамках текущей брони | Страница `Мои заявки`, detail view заявки, detail view брони, Fleet Owner `Approvals` detail / action view | `BRD: FR-022` | [`GET /bookings/{id}/feedbacks`](../../api/booking/common/GET_bookings_id_feedbacks.md) |
 | `UC-FO-01` | Просмотр списка заявок Fleet Owner | Страница `Approvals` → view `Requests` | `BRD: FR-092, FR-094, FR-043; Additional: BRD-U-001` | [`GET /approvals/requests`](../../api/booking/fleet-owner/GET_approvals_requests.md) |
 | `UC-FO-02` | Просмотр load summary Fleet Owner | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-NEW-64` | [`GET /approvals/bookings/{id}/load-summary`](../../api/booking/fleet-owner/GET_approvals_bookings_id_load_summary.md) |
 | `UC-FO-03` | Подтверждение брони Fleet Owner (базовый сценарий) | Страница `Approvals` → view `Requests` → detail / action view брони | `BRD: FR-043, FR-045, FR-063` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/confirm`](../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md) |
@@ -68,6 +69,7 @@
 - [`Requestor/UC-REQ-08 - Оставление отзыва по технике в рамках брони.md`](Requestor/UC-REQ-08%20-%20Оставление%20отзыва%20по%20технике%20в%20рамках%20брони.md)
 - [`Requestor/UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров.md`](Requestor/UC-REQ-BP-01%20-%20Просмотр%20витрины%20техники%20внешних%20бизнес-партнеров.md)
 - [`common/UC-COM-01 - Просмотр таймлайна брони.md`](common/UC-COM-01%20-%20Просмотр%20таймлайна%20брони.md)
+- [`common/UC-COM-02 - Просмотр списка обратной связи по технике в рамках текущей брони.md`](common/UC-COM-02%20-%20Просмотр%20списка%20обратной%20связи%20по%20технике%20в%20рамках%20текущей%20брони.md)
 - [`Fleet Owner/UC-FO-01 - Просмотр списка заявок Fleet Owner.md`](Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-02 - Просмотр load summary Fleet Owner.md`](Fleet%20Owner/UC-FO-02%20-%20Просмотр%20load%20summary%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий).md`](Fleet%20Owner/UC-FO-03%20-%20Подтверждение%20брони%20Fleet%20Owner%20(базовый%20сценарий).md)
