@@ -31,10 +31,10 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-023 | Requestor can create a Request | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-024 | Request has unique ID and metadata | Confirmed | BRD v13 | При создании draft формируются `id`, `requestNumber`, `createdAt` и базовые метаданные |
 | TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Метод создает черновик |
 | TCO Booking Tool | FR-030 | System supports draft saving | Confirmed | BRD v13 | Заявка создается как draft |
-| TCO Booking Tool | FR-NEW-11 | Requestor selects priority P1-P4 | Confirmed | BRD v13 | Приоритет хранится на заявке и может быть заполнен позже, до submit |
-| TCO Booking Tool | FR-NEW-13 | Work Description mandatory | Confirmed | BRD v13 | Обязательное поле на этапе submit, а не на этапе создания draft |
+| TCO Booking Tool | FR-072 | Request -> Draft when saved as draft | Confirmed | BRD v13 | Метод создает заявку сразу в статусе `Draft` |
 
 ---
 

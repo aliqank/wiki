@@ -1,7 +1,7 @@
 # UC-FO-07 - Изменение периода брони Fleet Owner
 
 **Created:** 2026-06-02  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -12,7 +12,7 @@
 |---|---|
 | Область действия | Страница Fleet Owner `Approvals` -> detail / action view конкретной брони |
 | Участник | Пользователь с ролью `FleetOwner` |
-| Покрываемые FR (BRD) | `FR-048`, `FR-079a` |
+| Покрываемые FR (BRD) | `FR-048`, `FR-079a`, `FR-NEW-19` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь находится в lifecycle состоянии, в котором изменение периода еще допустимо: `Submitted`, `Confirmed` или `InProgress`; для `InProgress` разрешено изменять только `plannedEndDateTime`, а `plannedStartDateTime` больше не редактируется |
 | Триггер | Нажатие кнопки `Change period` в карточке брони |
@@ -49,12 +49,12 @@
    - [hard availability restriction](../../../glossary/Glossary.md#hard-availability-restriction): техника фактически недоступна независимо от competing bookings; такое изменение должно быть отклонено;
    - [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context): на новый период уже существуют другие активные брони той же техники; это должно быть показано Fleet Owner-у как контекст для решения, но не является автоматическим запретом.
 11. Примеры hard-ограничений на уровне таблиц:
-   - в `EquipmentStatuses` есть актуальная запись со статусом `Decommissioned`, `Frozen` или `InRepair`, покрывающая новый диапазон;
+   - в `EquipmentStates` есть актуальная запись со статусом `Decommissioned`, `Frozen` или `InRepair`, покрывающая новый диапазон;
    - в `Equipments` / reference-атрибутах техника относится к типу, который не допускается для данного сценария использования;
    - для связанного `equipmentId` действуют ограничения доступности, которые backend трактует как абсолютный запрет на бронирование независимо от конкурирующих заявок.
 12. Примеры conflict context на уровне таблиц:
    - в `Bookings` уже есть другая запись по тому же `equipmentId` со статусом `Submitted`, `Confirmed` или `InProgress`, и ее диапазон пересекается с новым периодом;
-   - в заявке может существовать несколько competing bookings той же техники, но пока это только overlap по данным `Bookings`, а не hard-stop по `EquipmentStatuses`.
+   - в заявке может существовать несколько competing bookings той же техники, но пока это только overlap по данным `Bookings`, а не hard-stop по `EquipmentStates`.
 13. Backend обновляет `plannedStartDateTime` и `plannedEndDateTime`.
 14. Backend создает запись в `BookingStatuses` с комментарием об изменении периода.
 15. Backend не переводит бронь в новый approval lifecycle status и не запускает повторное согласование.
@@ -93,4 +93,4 @@
 1. Use case покрывает изменение периода до подтверждения, после подтверждения и частично во время исполнения: для `Submitted` / `Confirmed` меняется весь плановый диапазон, для `InProgress` меняется только плановая дата окончания.
 2. Изменение периода не должно требовать повторного подтверждения Fleet Owner-ом и не должно возвращать бронь в lifecycle `Submitted`.
 3. Уведомление Requestor-а об изменении периода является обязательным side effect согласно `FR-079a`.
-4. Для данного сценария важно различать [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) и [hard availability restriction](../../../glossary/Glossary.md#hard-availability-restriction): overlap в `Bookings` сам по себе не блокирует действие, а абсолютная недоступность, зафиксированная бизнес-правилами и/или `EquipmentStatuses`, должна блокировать изменение периода.
+4. Для данного сценария важно различать [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) и [hard availability restriction](../../../glossary/Glossary.md#hard-availability-restriction): overlap в `Bookings` сам по себе не блокирует действие, а абсолютная недоступность, зафиксированная бизнес-правилами и/или `EquipmentStates`, должна блокировать изменение периода.

@@ -41,7 +41,7 @@
 
 1. Найти запись в `WorkCenters` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена — вернуть `404 NOT_FOUND`.
 2. Провалидировать поле `code`: непустая строка; уникальная в `WorkCenters` WHERE `id` ≠ `:id` AND `isDeleted = false`.
-3. Провалидировать поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально в `WorkCenters` WHERE `id` ≠ `:id` AND `isDeleted = false`.
+3. Провалидировать поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально в `WorkCenters` WHERE `id` ≠ `:id` AND `isDeleted = false`.
 4. Обновить запись в `WorkCenters`; заполнить аудит-поля `updatedAt` и `updatedBy`.
 5. Рассчитать `equipmentTypesCount` = COUNT(`EquipmentTypes` WHERE `workCenterId` = `:id` AND `isDeleted = false`).
 6. Вернуть обновлённый объект `WorkCenter` в формате общего `result wrapper` с HTTP 200.
@@ -77,7 +77,7 @@
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `NOT_FOUND` | Work center с указанным `id` не найден или помечен как удалённый |
 | `VALIDATION_ERROR` | Поле `code` пустое или уже существует в справочнике |
-| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует в справочнике |
+| `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или локализованное имя уже существует в справочнике |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Entity`
 
@@ -89,7 +89,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор work center | `id` | `uuid` | `+` | Должен быть валидным UUID v4 | — | Path param | |
 | 2 | Код work center | `code` | `string` | `+` | Непустая строка; уникальная среди `WorkCenters` WHERE `id` ≠ `:id` AND `isDeleted = false` | — | Request body | |
-| 3 | Наименование work center | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `WorkCenters` WHERE `id` ≠ `:id` AND `isDeleted = false` | — | Request body | |
+| 3 | Наименование work center | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально среди `WorkCenters` WHERE `id` ≠ `:id` AND `isDeleted = false` | — | Request body | |
 
 ---
 

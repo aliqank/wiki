@@ -30,7 +30,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
+| TCO Booking Tool | FR-024 | Request has unique ID and metadata | Confirmed | BRD v13 | Метод возвращает request number, createdAt и другие summary-метаданные заявки |
 | TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list [незавершенных заявок](../../../glossary/Glossary.md) |
+| TCO Booking Tool | FR-026 | Request statuses: Draft, Submitted, In Progress, Completed | Confirmed | BRD v13 | Метод работает со списком non-terminal request statuses в requestor view |
 | TCO Booking Tool | FR-091 | Requestor can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Определяет, какие request statuses считаются non-terminal для [`GET /booking-requests/my`](GET_booking_requests_my.md) |
 

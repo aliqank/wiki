@@ -31,8 +31,11 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-023 | Requestor can create a Request | Confirmed | BRD v13 | Метод завершает создание заявки |
+| TCO Booking Tool | FR-026 | Request statuses: Draft, Submitted, In Progress, Completed | Confirmed | BRD v13 | Метод переводит заявку из `Draft` в submitted flow |
 | TCO Booking Tool | FR-062 | Booking -> Submitted once Request submitted | Confirmed | BRD v13 | Все booking item-ы переводятся в `Submitted` |
-| TCO Booking Tool | FR-043 | Approver assigned automatically based on fleet ownership | Confirmed | BRD v13 | При submit начинается approval flow |
+| TCO Booking Tool | FR-NEW-08 | Assigned equipment rules | Confirmed | BRD v13 | Перед submit учитываются ограничения и обязательность justification для special sharing cases |
+| TCO Booking Tool | FR-NEW-16 | Partial confirmation: confirmed items proceed independently from declined | Confirmed | BRD v13 | Метод отправляет заявку в flow, где item-ы обрабатываются независимо |
+| TCO Booking Tool | FR-NEW-17 | Aggregated Request status auto-calculated from RequestItem statuses | Confirmed | BRD v13 | После submit request status и дальнейшие переходы зависят от item statuses |
 | TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Проверка перед отправкой |
 
 ---

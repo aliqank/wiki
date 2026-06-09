@@ -1,7 +1,7 @@
 # UC-FO-06 - Отклонение брони Fleet Owner
 
 **Created:** 2026-06-02  
-**Last updated:** 2026-06-02  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -12,7 +12,7 @@
 |---|---|
 | Область действия | Страница Fleet Owner `Approvals` -> view `Requests` -> detail / action view конкретной брони |
 | Участник | Пользователь с ролью `FleetOwner` |
-| Покрываемые FR (BRD) | `FR-043`, `FR-049`, `FR-050`, `FR-064` |
+| Покрываемые FR (BRD) | `FR-043`, `FR-044`, `FR-049`, `FR-050`, `FR-064`, `FR-NEW-22` |
 | Покрываемые FR (Additional list) | `BRD-U-001` |
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь находится в статусе `Submitted`; сценарий выполняется до фактического старта работ |
 | Триггер | Нажатие кнопки `Decline` в карточке брони, открытой из request view |

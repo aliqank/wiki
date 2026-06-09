@@ -1,7 +1,7 @@
 # UC-REQ-01 - Просмотр моих заявок
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-06-03  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -12,7 +12,7 @@
 |---|---|
 | Область действия | Страница `Мои заявки` |
 | Участник | Пользователь с ролью `Requestor` |
-| Покрываемые FR (BRD) | `FR-025`, `FR-091`; Additional: `BRD-U-001` |
+| Покрываемые FR (BRD) | `FR-024`, `FR-025`, `FR-026`, `FR-091`; Additional: `BRD-U-001` |
 | Покрываемые FR (Equipment block list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь находится на странице `Мои заявки`; пользователь имеет роль `Requestor` |
 | Триггер | Вход на страницу `Мои заявки` |
@@ -24,7 +24,7 @@
 ## Основной сценарий
 
 1. Пользователь открывает страницу `Мои заявки`.
-2. Frontend загружает справочники фильтров через [`GET /reference/request-statuses`](../../../api/booking/reference/GET_reference_request_statuses.md), [`GET /reference/requestor-request-types`](../../../api/booking/reference/GET_reference_requestor_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md).
+2. Frontend загружает справочники фильтров через [`GET /reference/request-statuses`](../../../api/booking/reference/GET_reference_request_statuses.md), [`GET /reference/requestor-request-types`](../../../api/booking/reference/GET_reference_requestor_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md); для `priority` справочник также содержит `description` и `color`.
 3. Frontend вызывает [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md).
 4. Backend возвращает только [незавершенные заявки](../../../glossary/Glossary.md) текущего пользователя.
 5. Frontend отображает список заявок в таблице.
@@ -33,7 +33,7 @@
    - дата создания;
    - данные реквестора;
    - номер Work Order;
-   - приоритет;
+   - приоритет с цветом, соответствующим настройке справочника;
    - краткий список броней.
 7. Для каждой брони в summary-блоке отображаются:
    - тип техники;

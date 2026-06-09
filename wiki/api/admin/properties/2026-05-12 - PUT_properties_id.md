@@ -40,7 +40,7 @@
 
 1. Найти запись в `Properties` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена — вернуть `404 NOT_FOUND`.
 2. Провалидировать `code`: непустая строка; код уникален среди `Properties` WHERE `id` != `:id` AND `isDeleted = false`.
-3. Провалидировать `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `Properties` WHERE `id` != `:id` AND `isDeleted = false`.
+3. Провалидировать `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально среди `Properties` WHERE `id` != `:id` AND `isDeleted = false`.
 4. Провалидировать `dataType` и `unitId` по тем же правилам, что и при создании.
 5. Обновить запись `Properties`, заполнить `updatedAt`, `updatedBy`.
 6. Получить актуальные `enumValues` и `equipmentTypesCount` для ответа.
@@ -77,7 +77,7 @@
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `NOT_FOUND` | Характеристика не найдена |
 | `VALIDATION_ERROR` | Поле `code` не передано, пустое или код уже существует |
-| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует |
+| `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или локализованное имя уже существует |
 | `VALIDATION_ERROR` | Поле `dataType` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Передан несуществующий или удалённый `unitId` |
 | `VALIDATION_ERROR` | `unitId` допустим только для `number` и `double` |
@@ -92,7 +92,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор характеристики | `id` | `uuid` | `+` | Валидный UUID v4 | — | Path param | |
 | 2 | Код характеристики | `code` | `string` | `+` | Непустая строка; уникален среди активных записей кроме текущей | — | Request body | |
-| 3 | Наименование характеристики | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди активных записей кроме текущей | — | Request body | |
+| 3 | Наименование характеристики | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально среди активных записей кроме текущей | — | Request body | |
 | 4 | Тип данных | `dataType` | `enum` | `+` | `number / double / text / boolean / enum` | — | Request body | |
 | 5 | Идентификатор единицы измерения | `unitId` | `uuid` | `-` | Только для `number` / `double` | `null` | Request body | |
 

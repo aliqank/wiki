@@ -52,8 +52,9 @@
 | AFR-03 | Admin manages organizational and location handbooks used in equipment card | CRUD справочников | `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections` | В BRD перечислены как handbook-managed, но без отдельной детализации по каждому набору сущностей |
 | AFR-04 | Admin manages maintenance partners directory | CRUD справочника | `MaintenancePartners` | В BRD есть упоминание Maintenance BP, но нет явного отдельного FR на CRUD этого справочника |
 | AFR-05 | Admin manages business partners directory used in equipment data model | CRUD справочника | `BusinessPartners` | Требуется для внешних контрагентов в unified equipment model |
-| AFR-06 | Admin manages equipment maintenance contracts by equipment, partner and service type | CRUD связующей сущности | `EquipmentMaintenanceContracts` | Для этой сущности в BRD v13 нет отдельного FR |
-| AFR-07 | Admin manages equipment types including class, mobility, work center and sorting attributes | CRUD справочника/сущности типа техники | `EquipmentTypes` | BRD явно описывает dynamic characteristics, но не формулирует отдельный FR на CRUD самих типов техники |
+| AFR-06 | Admin manages maintenance service types directory used in equipment maintenance contracts | CRUD справочника | `MaintenanceServiceTypes` | Новый справочник нормализует `serviceType`, ранее хранившийся строкой в `EquipmentMaintenanceContracts` |
+| AFR-07 | Admin manages equipment maintenance contracts by equipment, partner and service type | CRUD связующей сущности | `EquipmentMaintenanceContracts`, `MaintenanceServiceTypes` | В contract CRUD выбирается `serviceTypeId` из справочника, а не вводится free-text |
+| AFR-08 | Admin manages equipment types including class, mobility, work center and sorting attributes | CRUD справочника/сущности типа техники | `EquipmentTypes` | BRD явно описывает dynamic characteristics, но не формулирует отдельный FR на CRUD самих типов техники |
 
 ---
 

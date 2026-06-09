@@ -1,7 +1,7 @@
 # GET /bookings/{id}/status-history
 
 **Created:** 2026-05-14  
-**Last updated:** 2026-05-15  
+**Last updated:** 2026-06-05  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -21,7 +21,13 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для audit trail на уровне booking item.
+Уточненная dev-ready версия метода. Используется для audit trail на уровне booking item.
+
+Назначение текущей версии:
+- оставить метод строго в рамках lifecycle history;
+- добавить данные о том, кто изменил статус;
+- добавить terminal `closureReason` для `Closed` записей;
+- сделать ответ пригодным для прямого отображения в UI-таблице истории статусов.
 
 ---
 
@@ -30,6 +36,8 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-37 | Audit trail and history on demand | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | История статусов поддерживает transparency на details view |
+| TCO Booking Tool | FR-042 | Status tracking for bookings | Confirmed | BRD v13 | Метод возвращает lifecycle transitions брони |
 
 ---
 
@@ -37,11 +45,22 @@
 
 1. Проверить существование брони и права доступа по роли пользователя.
 2. Выбрать записи из `BookingStatuses` по `bookingId`.
-3. Отсортировать по `createdAt ASC`.
-4. Вернуть историю как коллекцию.
+3. Подтянуть `ref_booking_status` для machine-readable и UI-readable представления статуса.
+4. Left join `ref_booking_closure_reason` для terminal `Closed` записей.
+5. Left join `Users` по `BookingStatuses.createdBy` для возврата информации об actor-е.
+6. Отсортировать по `BookingStatuses.createdAt ASC`, затем по `BookingStatuses.id ASC` для детерминированного порядка.
+7. Вернуть одну запись на каждый фактически записанный lifecycle transition.
 
 Сущности:
-- читаются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`BookingStatuses`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#24-bookingstatuses)
+- читаются: [`Bookings`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#22-bookings), [`BookingStatuses`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#24-bookingstatuses), [`Users`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#19-users)
+
+Правила метода:
+- метод возвращает только lifecycle history и не должен включать approval decisions из `BookingApprovals`;
+- повторяющиеся статусы допустимы и должны возвращаться как отдельные записи, если они были записаны в `BookingStatuses`;
+- если `status != Closed`, поля `closureReason` и `closureReasonLabel` должны быть `null`;
+- поле `changedAt` является business-facing alias для `BookingStatuses.createdAt`;
+- поле `changedBy` должно строиться из audit actor `BookingStatuses.createdBy`;
+- если actor не резолвится в `Users`, backend должен вернуть fallback-представление, а не скрывать запись истории.
 
 ---
 
@@ -50,6 +69,7 @@
 | Наименование разрешения | Описание разрешения |
 |---|---|
 | `Requestor` | История собственной брони |
+| `ServiceWorkProcessor` | История броней по доступным Service Work Request |
 | `FleetOwner` | История брони своих флотов |
 | `FleetOwnersSupervisor` | История long-term rented броней |
 | `Admin` | Полный доступ |
@@ -71,8 +91,12 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | Нет доступа к истории брони |
 | `NOT_FOUND` | Бронь не найдена |
+| `ACTOR_RESOLUTION_FAILED` | Невалидный или нерезолвящийся actor в audit field; метод должен отдать fallback actor representation |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`
+
+Примечание:
+- `ACTOR_RESOLUTION_FAILED` не должен приводить к blocking response error; ожидаемое поведение — internal log + fallback actor representation.
 
 ---
 
@@ -111,9 +135,22 @@ Content-Type: application/json
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | BookingStatuses.id |  |
-| 2 | Текущий статус | status | string | string | — | BookingStatuses + ref_booking_status |  |
-| 3 | Дата и время создания записи статуса | createdAt | datetime | ISO 8601 | — | BookingStatuses.createdAt |  |
-| 4 | Комментарий | comment | null | — | `null` | BookingStatuses.comment |  |
+| 2 | Lifecycle status code | status | string | string | — | BookingStatuses + ref_booking_status | Стабильное machine-readable значение |
+| 3 | Lifecycle status label | statusLabel | string | string | — | ref_booking_status | UI-подпись статуса |
+| 4 | Код terminal closure reason | closureReason | string | null | `null` | BookingStatuses + ref_booking_closure_reason | Возвращается только для `Closed` |
+| 5 | Подпись terminal closure reason | closureReasonLabel | string | null | `null` | ref_booking_closure_reason | Возвращается только для `Closed` |
+| 6 | Дата и время изменения статуса | changedAt | datetime | ISO 8601 | — | BookingStatuses.createdAt | Business-facing alias для audit timestamp |
+| 7 | Комментарий | comment | string | null | `null` | BookingStatuses.comment |  |
+| 8 | Кто изменил статус | changedBy | object | object | — | backend composition from BookingStatuses + Users |  |
+
+### Структура `value[].changedBy`
+
+| № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
+|---|---|---|---|---|---|---|---|
+| 1 | Идентификатор actor-а | userId | uuid | UUID v4 | — | BookingStatuses.createdBy | Audit actor ID |
+| 2 | Отображаемое имя actor-а | displayName | string | string | — | Users.fullName / backend fallback | Например: `John Smith`, `System`, `Unknown user` |
+| 3 | Email actor-а | email | string | null | `null` | Users.email | Для system/unknown actor может быть `null` |
+| 4 | Тип actor-а | actorType | string | string | — | backend composition | `User`, `System`, `Unknown` |
 
 ## 10. Пример ответа
 
@@ -123,17 +160,59 @@ Content-Type: application/json
     {
       "id": "11111111-2222-3333-4444-555555550001",
       "status": "Draft",
-      "createdAt": "2026-05-14T09:15:00Z",
-      "comment": null
+      "statusLabel": "Draft",
+      "closureReason": null,
+      "closureReasonLabel": null,
+      "changedAt": "2026-05-14T09:15:00Z",
+      "comment": null,
+      "changedBy": {
+        "userId": "8f83f79c-3d25-4f07-a17b-9dc4b9f25001",
+        "displayName": "John Smith",
+        "email": "john.smith@tco.example",
+        "actorType": "User"
+      }
     },
     {
       "id": "11111111-2222-3333-4444-555555550002",
       "status": "Submitted",
-      "createdAt": "2026-05-14T10:00:00Z",
-      "comment": null
+      "statusLabel": "Submitted",
+      "closureReason": null,
+      "closureReasonLabel": null,
+      "changedAt": "2026-05-14T10:00:00Z",
+      "comment": "Submitted by Requestor",
+      "changedBy": {
+        "userId": "8f83f79c-3d25-4f07-a17b-9dc4b9f25001",
+        "displayName": "John Smith",
+        "email": "john.smith@tco.example",
+        "actorType": "User"
+      }
+    },
+    {
+      "id": "11111111-2222-3333-4444-555555550003",
+      "status": "Closed",
+      "statusLabel": "Closed",
+      "closureReason": "Completed",
+      "closureReasonLabel": "Completed",
+      "changedAt": "2026-05-20T17:45:00Z",
+      "comment": "Booking closed manually by Fleet Owner",
+      "changedBy": {
+        "userId": "d61f5b36-c1c1-40de-a37a-11d6d1898002",
+        "displayName": "Aigerim Sarsenova",
+        "email": "aigerim.sarsenova@tco.example",
+        "actorType": "User"
+      }
     }
   ],
   "isSuccess": true,
   "errors": []
 }
 ```
+
+---
+
+## 11. UI Interpretation Notes
+
+- Основные колонки для таблицы: `changedAt`, `statusLabel`, `changedBy.displayName`.
+- `closureReasonLabel` показывается только если `status = Closed`.
+- `comment` отображается как optional detail / tooltip и не должен быть обязательной колонкой.
+- Для строгой таблицы истории статусов frontend должен использовать именно этот endpoint, а не `timeline`.

@@ -27,19 +27,19 @@
 | FR-009 | Admin deletes fleets | CRUD сущности Fleet | `Fleets` | Предполагается soft delete по audit conventions |
 | FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool | CRUD EAV-модели и связки тип-свойство | `EquipmentTypes`, `Properties`, `MeasurementUnits`, `PropertyEnumValues`, `EquipmentTypeProperties`, `EquipmentProperties` | Прямое покрытие структуры динамических атрибутов |
 | FR-013 | Admin creates equipment (internal fleet) | CRUD сущности Equipment | `Equipments` | Основная карточка техники и обязательные связи хранятся в `Equipments` |
-| FR-014 | Admin edits equipment (extended edit) | CRUD сущности Equipment и связанных данных карточки | `Equipments`, `EquipmentStatuses`, `EquipmentPhotos`, `EquipmentProperties` | Расширенное редактирование включает статусы, фото и динамические свойства |
+| FR-014 | Admin edits equipment (extended edit) | CRUD сущности Equipment и связанных данных карточки | `Equipments`, `EquipmentStates`, `EquipmentPhotos`, `EquipmentProperties` | Расширенное редактирование включает статусы, фото и динамические свойства |
 | FR-015 | Admin deletes equipment | CRUD сущности Equipment | `Equipments` | Предполагается soft delete по audit conventions |
 | FR-NEW-04 | Admin authorizes specific users to book Assigned equipment | CRUD таблицы авторизаций | `EquipmentBookingAuthorizations`, `Equipments`, `Users` | Прямое покрытие списков авторизованных пользователей на единицу техники |
-| FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | CRUD справочников Equipment-блока | `WorkCenters`, `EquipmentBrands`, `EquipmentModels`, `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections`, `MeasurementUnits`, `Properties`, `PropertyEnumValues`, `MaintenancePartners`, `BusinessPartners`, `EquipmentTypes` | Это umbrella-FR для справочников и handbook-значений |
+| FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | CRUD справочников Equipment-блока | `WorkCenters`, `EquipmentBrands`, `EquipmentModels`, `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections`, `MeasurementUnits`, `Properties`, `PropertyEnumValues`, `MaintenancePartners`, `MaintenanceServiceTypes`, `BusinessPartners`, `EquipmentTypes` | Это umbrella-FR для справочников и handbook-значений |
 | FR-017 | Both internal and external FO can create equipment under own fleet | CRUD сущности Equipment | `Equipments`, `Fleets` | Табличная модель позволяет создавать технику с привязкой к флоту |
 | FR-018 | FO must indicate fleet of equipment; only own fleets selectable | Создание связи Equipment -> Fleet + CRUD | `Equipments`, `Fleets`, `FleetManagePermissions` | Ограничение "only own fleets" требует прикладной фильтрации в CRUD/UI |
-| FR-019 | FO can edit allowed equipment parameters; one user can own several fleets | CRUD карточки техники и связанных сущностей | `Equipments`, `EquipmentStatuses`, `EquipmentPhotos`, `EquipmentProperties`, `FleetManagePermissions` | Поддерживает редактирование разрешённых полей и владение несколькими флотами |
+| FR-019 | FO can edit allowed equipment parameters; one user can own several fleets | CRUD карточки техники и связанных сущностей | `Equipments`, `EquipmentStates`, `EquipmentPhotos`, `EquipmentProperties`, `FleetManagePermissions` | Поддерживает редактирование разрешённых полей и владение несколькими флотами |
 | FR-020 | FO can delete equipment (soft delete) | CRUD сущности Equipment | `Equipments` | Предполагается soft delete |
-| FR-021 | FO can freeze/unfreeze equipment for a period or indefinitely | CRUD статусов техники | `EquipmentStatuses`, `Equipments` | Покрывается статусами с `startsAt`, `endsAt`, `actualEndsAt`, `currentStatusId` |
+| FR-021 | FO can freeze/unfreeze equipment for a period or indefinitely | CRUD статусов техники | `EquipmentStates`, `Equipments` | Покрывается статусами с `startsAt`, `endsAt`, `actualEndsAt`; текущее состояние определяется по `EquipmentStates` |
 | FR-022 | Requestor can submit feedback on equipment with confirmed booking | CRUD feedback-сущности | `EquipmentFeedbacks` | Хранение фидбэка по booking и equipment покрыто явно |
 | FR-NEW-05 | FO uploads multiple photos; Requestor sees them in request form | CRUD фото техники | `EquipmentPhotos` | Множественные фото покрыты отдельной таблицей |
 | FR-NEW-08 | Assigned equipment: visible to all users; bookable only by Admin-authorized users with mandatory justification; FO can approve or decline | Структура данных для типа использования и авторизаций | `Equipments`, `EquipmentBookingAuthorizations` | Из этого FR данным набором таблиц закрывается именно часть про Assigned-тип и авторизованных пользователей; justification/approval закрываются за пределами Equipment-блока |
-| FR-NEW-49 | Freeze fields on equipment card: Заморозка, Причина заморозки, Дата завершения заморозки | CRUD статусов техники | `EquipmentStatuses`, `Equipments` | Поля заморозки покрываются статусной моделью |
+| FR-NEW-49 | Freeze fields on equipment card: Заморозка, Причина заморозки, Дата завершения заморозки | CRUD статусов техники | `EquipmentStates`, `Equipments` | Поля заморозки покрываются статусной моделью |
 
 ---
 
@@ -54,8 +54,9 @@
 | AFR-03 | Admin manages organizational and location handbooks used in equipment card | CRUD справочников | `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections` | В BRD перечислены как handbook-managed, но без отдельной детализации по каждому набору сущностей |
 | AFR-04 | Admin manages maintenance partners directory | CRUD справочника | `MaintenancePartners` | В BRD есть упоминание Maintenance BP, но нет явного отдельного FR на CRUD этого справочника |
 | AFR-05 | Admin manages business partners directory used in equipment data model | CRUD справочника | `BusinessPartners` | Требуется для внешних контрагентов в unified equipment model |
-| AFR-06 | Admin manages equipment maintenance contracts by equipment, partner and service type | CRUD связующей сущности | `EquipmentMaintenanceContracts` | Для этой сущности в BRD v13 нет отдельного FR |
-| AFR-07 | Admin manages equipment types including class, mobility, work center and sorting attributes | CRUD справочника/сущности типа техники | `EquipmentTypes` | BRD явно описывает dynamic characteristics, но не формулирует отдельный FR на CRUD самих типов техники |
+| AFR-06 | Admin manages maintenance service types directory used in equipment maintenance contracts | CRUD справочника | `MaintenanceServiceTypes` | Новый справочник нормализует `serviceType`, ранее хранившийся строкой в `EquipmentMaintenanceContracts` |
+| AFR-07 | Admin manages equipment maintenance contracts by equipment, partner and service type | CRUD связующей сущности | `EquipmentMaintenanceContracts`, `MaintenanceServiceTypes` | В contract CRUD выбирается `serviceTypeId` из справочника, а не вводится free-text |
+| AFR-08 | Admin manages equipment types including class, mobility, work center and sorting attributes | CRUD справочника/сущности типа техники | `EquipmentTypes` | BRD явно описывает dynamic characteristics, но не формулирует отдельный FR на CRUD самих типов техники |
 
 ---
 

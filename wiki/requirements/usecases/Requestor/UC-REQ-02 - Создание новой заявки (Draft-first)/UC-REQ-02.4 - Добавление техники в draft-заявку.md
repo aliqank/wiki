@@ -12,7 +12,7 @@
 |---|---|
 | Область действия | Окно `Добавить технику` |
 | Участник | `Requestor` |
-| Покрываемые FR (BRD) | `FR-031`, `FR-038`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-15`, `FR-NEW-71` |
+| Покрываемые FR (BRD) | `FR-031`, `FR-033`, `FR-038`, `FR-039`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-15`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
 | Триггер | Пользователь выбрал одну или несколько единиц техники и нажал `Добавить к заявке` |
 | Ожидаемый результат | В draft-заявку добавлены booking item-ы |
@@ -83,7 +83,7 @@ sequenceDiagram
    Backend все равно создает booking item-ы в draft-заявке. [Booking conflict context](../../../../glossary/Glossary.md#booking-conflict-context) не блокирует добавление и должен быть рассчитан и отображен пользователю как информационный признак для дальнейшего решения Fleet Owner.
 
 2. Добавление item не прошло из-за hard-ограничения доступности техники.
-   Backend возвращает ошибку валидации, если техника недоступна по [hard availability restrictions](../../../../glossary/Glossary.md#hard-availability-restriction), не связанным с competing bookings, например из-за `EquipmentStatuses`, `OnDemand`, `Stationary` или отсутствия требуемой authorization для `Assigned`.
+   Backend возвращает ошибку валидации, если техника недоступна по [hard availability restrictions](../../../../glossary/Glossary.md#hard-availability-restriction), не связанным с competing bookings, например из-за `EquipmentStates`, `OnDemand`, `Stationary` или отсутствия требуемой authorization для `Assigned`.
 
 3. Пользователь попытался добавить стационарную технику.
    Если `mobilityType = Stationary`, backend отклоняет добавление и возвращает ошибку валидации.

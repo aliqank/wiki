@@ -30,6 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
+| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Метод меняет доступное requestor состояние и отражается в request details/list view |
 | TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Прямое покрытие |
 
 ---

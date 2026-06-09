@@ -1,7 +1,7 @@
 # DB Schema v12: Azure SQL adaptation for Equipments + Booking
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-05-22  
+**Last updated:** 2026-06-08  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -93,10 +93,10 @@
 | Категория | Таблицы | Решение |
 |---|---|---|
 | Temporal tables включить | `EquipmentTypes`, `Fleets`, `WorkCenters`, `EquipmentBrands`, `EquipmentModels`, `Locations`, `CostCenters`, `ServiceZones`, `Divisions`, `Groups`, `Departments`, `Sections`, `FleetManagePermissions`, `Equipments`, `EquipmentPhotos`, `MeasurementUnits`, `Properties`, `PropertyEnumValues`, `EquipmentTypeProperties`, `EquipmentProperties`, `MaintenancePartners`, `EquipmentMaintenanceContracts`, `EquipmentFeedbacks`, `EquipmentBookingAuthorizations`, `SystemSettings`, `Users`, `BusinessPartners`, `BookingRequests`, `Bookings` | Включить temporal history |
-| Temporal tables не использовать | `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses` | Оставить явные append-only history/event tables |
+| Temporal tables не использовать | `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStates` | Оставить явные append-only history/event tables |
 
 Причина исключений:
-- `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses` уже являются доменными history/event таблицами
+- `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStates` уже являются доменными history/event таблицами
 - для них temporal не даёт дополнительной ценности и только усложняет модель
 
 Стандарт для temporal tables:
@@ -124,8 +124,8 @@ set (system_versioning = on (history_table = dbo.BookingsHistory));
 | Поле | Тип | Комментарий |
 |---|---|---|
 | `nameEn` | `nvarchar(255) not null` | Базовое обязательное отображаемое имя |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 
 ### 4. Уникальные индексы
 
@@ -158,12 +158,11 @@ where isDeleted = 0;
 | `ref_ownership_type` | TcoOwned, LongTermRented, OnDemand |
 | `ref_share_type` | Shared, SharedWithConditions, Assigned |
 | `ref_equipment_status_type` | Frozen, InRepair, Decommissioned |
-| `ref_equipment_current_status` | Available, Frozen, InRepair, Decommissioned |
 | `ref_equipment_status_source` | Manual, JDE |
 | `ref_property_data_type` | Int, Decimal, String, Bit, Enum |
 | `ref_user_type` | Internal, External |
 | `ref_request_type` | Regular, ServiceWork |
-| `ref_request_priority` | P1, P2, P3, P4 |
+| `ref_request_priority` | P1, P2, P3, P4 + admin-managed description and UI color |
 | `ref_booking_request_status` | Draft, Submitted, InProgress, Closed |
 | `ref_request_closure_reason` | Cancelled, Completed |
 | `ref_booking_status` | Draft, Submitted, Confirmed, InProgress, Closed |
@@ -178,13 +177,27 @@ where isDeleted = 0;
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `iconUrl` | `nvarchar(1000) null` |
 | `sortOrder` | `int not null default 0` |
 
 Индекс:
 - unique index on `code`
+
+Специализация для `ref_request_priority`:
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `descriptionEn` | `nvarchar(1000) null` | Описание бизнес-семантики приоритета для tooltip / hint в UI |
+| `descriptionRu` | `nvarchar(1000) null` | Локализованное описание на русском языке |
+| `descriptionKz` | `nvarchar(1000) null` | Локализованное описание на казахском языке |
+| `color` | `nvarchar(7) not null` | Цвет отображения приоритета в формате `#RRGGBB` |
+
+Примечание:
+- записи `P1`-`P4` остаются фиксированными seeded lookup values;
+- через Admin Panel допускается редактирование только `description*` и `color`;
+- `code`, `name*` и состав значений `P1`-`P4` не управляются через Admin API текущего scope.
 
 ---
 
@@ -198,8 +211,8 @@ where isDeleted = 0;
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `iconUrl` | `nvarchar(1000) null` | URL иконки типа техники |
 | `mobilityTypeId` | `uniqueidentifier FK -> ref_equipment_mobility_type` | |
 | `requiresTransport` | `bit not null` | Требуется транспортировка |
@@ -216,8 +229,8 @@ where isDeleted = 0;
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `fleetTypeId` | `uniqueidentifier FK -> ref_fleet_type` | |
 | `businessPartnerId` | `uniqueidentifier null FK -> BusinessPartners` | Для внешних fleet-ов задаёт принадлежность к BP-контуру |
 | `aadGroupId` | `nvarchar(255)` | ID AAD-группы Fleet Owner |
@@ -232,8 +245,8 @@ where isDeleted = 0;
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | audit fields | см. conventions |
 
 Filtered unique indexes:
@@ -247,8 +260,8 @@ Filtered unique indexes:
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `sortOrder` | `int not null` |
 | audit fields | см. conventions |
 
@@ -261,8 +274,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` |
 | `brandId` | `uniqueidentifier FK -> EquipmentBrands` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `sortOrder` | `int not null` |
 | audit fields | см. conventions |
 
@@ -284,8 +297,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) not null` | Код локации / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -301,8 +314,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) not null` | Код cost center из JDE |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -318,8 +331,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) not null` | Код сервисной зоны |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -335,8 +348,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` | |
 | `code` | `nvarchar(100) null` | Код дивизиона / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -353,8 +366,8 @@ Filtered unique indexes:
 | `divisionId` | `uniqueidentifier FK -> Divisions` | Родительский дивизион |
 | `code` | `nvarchar(100) null` | Код группы / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -372,8 +385,8 @@ Filtered unique indexes:
 | `groupId` | `uniqueidentifier FK -> Groups` | Родительская группа |
 | `code` | `nvarchar(100) null` | Код департамента / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -391,8 +404,8 @@ Filtered unique indexes:
 | `departmentId` | `uniqueidentifier FK -> Departments` | Родительский департамент |
 | `code` | `nvarchar(100) null` | Код отдела / unit / внешний идентификатор |
 | `nameEn` | `nvarchar(255) not null` | |
-| `nameRu` | `nvarchar(255) null` | |
-| `nameKz` | `nvarchar(255) null` | |
+| `nameRu` | `nvarchar(255) not null` | |
+| `nameKz` | `nvarchar(255) not null` | |
 | `sortOrder` | `int not null default 0` | Порядок отображения в UI |
 | audit fields | см. conventions | |
 
@@ -441,7 +454,6 @@ Filtered unique indexes:
 | `equipmentTypeId` | `uniqueidentifier FK -> EquipmentTypes` | |
 | `fleetId` | `uniqueidentifier FK -> Fleets` | |
 | `ownershipTypeId` | `uniqueidentifier FK -> ref_ownership_type` | |
-| `currentStatusId` | `uniqueidentifier FK -> ref_equipment_current_status` | Денормализованный текущий статус |
 | `tcoId` | `nvarchar(100) null` | ТШО-номер; обязателен для TCO-owned по бизнес-правилу |
 | `jdeId` | `nvarchar(100) null` | Внешний ID в JDE E1 |
 | `stateNumber` | `nvarchar(100) null` | Госномер |
@@ -462,8 +474,7 @@ Filtered unique indexes:
 | audit fields | см. conventions | |
 
 Комментарии:
-- `currentStatusId` обновляется атомарно при вставке/закрытии записей в `EquipmentStatuses`
-- history остаётся source of truth, `currentStatusId` — denormalized cache
+- history `EquipmentStates` остаётся source of truth для состояний и периодов недоступности техники
 - `OnDemand` техника не может участвовать в `Bookings`
 
 Filtered unique indexes:
@@ -483,7 +494,7 @@ Filtered unique indexes:
 | `isPrimary` | `bit not null default 0` |
 | audit fields | см. conventions |
 
-### 10. EquipmentStatuses
+### 10. EquipmentStates
 
 Назначение: история статусов техники. Хранит интервалы заморозки, ремонта, вывода из эксплуатации и других состояний, влияющих на доступность техники.
 
@@ -505,7 +516,7 @@ Filtered unique indexes:
 - filtered index on active statuses per business rules
 
 Замечание:
-- иконка статуса должна храниться в `ref_equipment_status_type.iconUrl`, так как это атрибут типа статуса, а не конкретной исторической записи `EquipmentStatuses`
+- иконка статуса должна храниться в `ref_equipment_status_type.iconUrl`, так как это атрибут типа статуса, а не конкретной исторической записи `EquipmentStates`
 
 ---
 
@@ -532,8 +543,8 @@ Filtered unique indexes:
 | `id` | `uniqueidentifier PK` |
 | `code` | `nvarchar(100) not null` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `dataTypeId` | `uniqueidentifier FK -> ref_property_data_type` |
 | `unitId` | `uniqueidentifier null FK -> MeasurementUnits` |
 | audit fields | см. conventions |
@@ -605,19 +616,31 @@ Filtered unique indexes:
 - `address nvarchar(500)`
 - audit fields
 
-#### 16.2 EquipmentMaintenanceContracts
+#### 16.2 MaintenanceServiceTypes
 
-Назначение: связующая таблица между техникой и сервисным партнером. Позволяет хранить, кто и по какому виду сервиса обслуживает конкретную единицу техники.
+Назначение: справочник видов сервисного обслуживания / ремонтных направлений, которые могут быть привязаны к maintenance contract конкретной единицы техники.
+
+`MaintenanceServiceTypes`:
+- `nameEn`, `nameRu`, `nameKz` (all required)
+- `sortOrder int`
+- audit fields
+
+Filtered unique indexes:
+- `(nameRu) where isDeleted = 0`
+
+#### 16.3 EquipmentMaintenanceContracts
+
+Назначение: связующая таблица между техникой, сервисным партнером и видом сервиса. Позволяет хранить, кто и по какому виду сервиса обслуживает конкретную единицу техники.
 
 `EquipmentMaintenanceContracts`:
 - `equipmentId uniqueidentifier FK`
 - `partnerId uniqueidentifier FK`
-- `serviceType nvarchar(255)`
+- `serviceTypeId uniqueidentifier FK -> MaintenanceServiceTypes`
 - `notes nvarchar(max) null`
 - audit fields
 
 Filtered unique index:
-- `(equipmentId, partnerId, serviceType) where isDeleted = 0`
+- `(equipmentId, partnerId, serviceTypeId) where isDeleted = 0`
 
 ### 17. EquipmentFeedbacks / EquipmentBookingAuthorizations
 
@@ -678,8 +701,8 @@ Filtered unique index:
 |---|---|
 | `id` | `uniqueidentifier PK` |
 | `nameEn` | `nvarchar(255) not null` |
-| `nameRu` | `nvarchar(255) null` |
-| `nameKz` | `nvarchar(255) null` |
+| `nameRu` | `nvarchar(255) not null` |
+| `nameKz` | `nvarchar(255) not null` |
 | `description` | `nvarchar(max) null` |
 | `bin` | `nvarchar(100) not null` |
 | `country` | `nvarchar(100) null` |
@@ -866,7 +889,7 @@ Filtered unique index:
 | enum -> reference tables | Исправлено |
 | jsonb -> отдельные колонки | Исправлено для локализации и EAV; для raw payload используется `nvarchar(max)` |
 | filtered unique indexes | Добавлены как правило моделирования |
-| currentStatus для техники | Добавлен `Equipments.currentStatusId` |
+| currentStatus для техники | Не хранится отдельным полем в `Equipments`; определяется по `EquipmentStates` |
 | SERIAL -> IDENTITY / SEQUENCE | Исправлено через `IDENTITY(1,1)` |
 | ownership model для fleet | Переведён на `FleetManagePermissions` + `ref_fleet_manage_permission_type` |
 | локальные JDE reference tables | Исключены из схемы |

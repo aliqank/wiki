@@ -1,13 +1,14 @@
 # DB Schema v12 — Azure SQL Mermaid ER-диаграмма
 
 **Created:** 2026-05-21  
-**Last updated:** 2026-05-22  
+**Last updated:** 2026-06-08  
 **Version:** v12 (Azure SQL adaptation)
 
 > Типы данных адаптированы под Azure SQL: `uniqueidentifier`, `datetime2(3)`, `bit`, `nvarchar(max)`.  
 > `enum` заменены на `ref_*` таблицы.  
 > `name JSON` заменён на `nameEn`, `nameRu`, `nameKz`.
-> Для всех основных mutable таблиц в v12 предполагаются **system-versioned temporal tables**, кроме `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStatuses`, которые остаются явными history/event tables.
+> Для локализованных name-полей в текущем v12 предполагается, что `nameEn`, `nameRu`, `nameKz` являются обязательными (`not null`).
+> Для всех основных mutable таблиц в v12 предполагаются **system-versioned temporal tables**, кроме `BookingStatuses`, `BookingRequestStatuses`, `EquipmentStates`, которые остаются явными history/event tables.
 
 ---
 
@@ -78,15 +79,6 @@ erDiagram
         int sortOrder
     }
 
-    ref_equipment_current_status {
-        uniqueidentifier id PK
-        nvarchar code
-        nvarchar nameEn
-        nvarchar nameRu
-        nvarchar nameKz
-        int sortOrder
-    }
-
     ref_equipment_status_source {
         uniqueidentifier id PK
         nvarchar code
@@ -129,6 +121,10 @@ erDiagram
         nvarchar nameEn
         nvarchar nameRu
         nvarchar nameKz
+        nvarchar descriptionEn
+        nvarchar descriptionRu
+        nvarchar descriptionKz
+        nvarchar color
         int sortOrder
     }
 
@@ -404,7 +400,6 @@ erDiagram
         uniqueidentifier equipmentTypeId FK
         uniqueidentifier fleetId FK
         uniqueidentifier ownershipTypeId FK
-        uniqueidentifier currentStatusId FK
         nvarchar tcoId
         nvarchar jdeId
         nvarchar stateNumber
@@ -446,7 +441,7 @@ erDiagram
         uniqueidentifier deletedBy
     }
 
-    EquipmentStatuses {
+    EquipmentStates {
         uniqueidentifier id PK
         uniqueidentifier equipmentId FK
         uniqueidentifier statusTypeId FK
@@ -562,11 +557,26 @@ erDiagram
         uniqueidentifier deletedBy
     }
 
+    MaintenanceServiceTypes {
+        uniqueidentifier id PK
+        nvarchar nameEn
+        nvarchar nameRu
+        nvarchar nameKz
+        int sortOrder
+        datetime2 createdAt
+        uniqueidentifier createdBy
+        datetime2 updatedAt
+        uniqueidentifier updatedBy
+        bit isDeleted
+        datetime2 deletedAt
+        uniqueidentifier deletedBy
+    }
+
     EquipmentMaintenanceContracts {
         uniqueidentifier id PK
         uniqueidentifier equipmentId FK
         uniqueidentifier partnerId FK
-        nvarchar serviceType
+        uniqueidentifier serviceTypeId FK
         nvarchar notes
         datetime2 createdAt
         uniqueidentifier createdBy
@@ -669,6 +679,7 @@ erDiagram
         nvarchar workDescription
         nvarchar comments
         uniqueidentifier priorityId FK
+        uniqueidentifier requestorId FK
         uniqueidentifier createdBy
         datetime2 createdAt
         datetime2 updatedAt
@@ -770,9 +781,8 @@ erDiagram
     ref_fleet_manage_permission_type ||--o{ FleetManagePermissions : "permissionTypeId"
     ref_ownership_type ||--o{ Equipments : "ownershipTypeId"
     ref_share_type ||--o{ Equipments : "shareTypeId"
-    ref_equipment_current_status ||--o{ Equipments : "currentStatusId"
-    ref_equipment_status_type ||--o{ EquipmentStatuses : "statusTypeId"
-    ref_equipment_status_source ||--o{ EquipmentStatuses : "sourceId"
+    ref_equipment_status_type ||--o{ EquipmentStates : "statusTypeId"
+    ref_equipment_status_source ||--o{ EquipmentStates : "sourceId"
     ref_property_data_type ||--o{ Properties : "dataTypeId"
     ref_user_type ||--o{ Users : "userTypeId"
     ref_request_type ||--o{ BookingRequests : "requestTypeId"
@@ -790,7 +800,7 @@ erDiagram
 
     EquipmentBrands ||--o{ Equipments : "brandId"
     EquipmentModels ||--o{ Equipments : "modelId"
-    Equipments ||--o{ EquipmentStatuses : "equipmentId"
+    Equipments ||--o{ EquipmentStates : "equipmentId"
     Equipments ||--o{ EquipmentPhotos : "equipmentId"
     Equipments ||--o{ EquipmentProperties : "equipmentId"
     Equipments ||--o{ EquipmentMaintenanceContracts : "equipmentId"
@@ -803,6 +813,7 @@ erDiagram
     Properties ||--o{ EquipmentTypeProperties : "propertyId"
     PropertyEnumValues ||--o{ EquipmentProperties : "propertyEnumValueId"
     MaintenancePartners ||--o{ EquipmentMaintenanceContracts : "partnerId"
+    MaintenanceServiceTypes ||--o{ EquipmentMaintenanceContracts : "serviceTypeId"
 
     BookingRequests ||--o{ Bookings : "requestId"
     Equipments ||--o{ Bookings : "equipmentId"
@@ -817,5 +828,6 @@ erDiagram
     Users ||--o{ FleetManagePermissions : "userId"
     Users ||--o{ EquipmentBookingAuthorizations : "userId"
     Users ||--o{ BookingApprovals : "userId"
+    Users ||--o{ BookingRequests : "requestorId"
     BusinessPartners ||--o{ Users : "businessPartnerId"
 ```

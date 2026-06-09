@@ -30,8 +30,12 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
+| TCO Booking Tool | FR-024 | Request has unique ID and metadata | Confirmed | BRD v13 | Метод возвращает идентификатор и метаданные заявки |
 | TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-026 | Request statuses: Draft, Submitted, In Progress, Completed | Confirmed | BRD v13 | Метод возвращает текущий статус заявки |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Метод возвращает item-ы заявки |
+| TCO Booking Tool | FR-039 | Each booking has unique ID, start/end datetimes | Confirmed | BRD v13 | Метод возвращает идентификаторы и плановый период booking item-ов |
+| TCO Booking Tool | FR-041 | Equipment attributes displayed in booking | Confirmed | BRD v13 | Метод возвращает атрибуты техники для отображения booking item |
 
 ---
 
@@ -146,17 +150,14 @@ Content-Type: application/json
 | 7 | ГРНЗ | stateNumber | string | string | — | Equipments.stateNumber |  |
 | 8 | Описание техники | equipmentDescription | string | string | — | Equipments.description | Описание/комментарий по единице техники |
 | 9 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
-| 10 | Список Fleet Owners | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
-| 11 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
-| 12 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
-| 13 | Конфликты с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflicts | object | object | — | backend overlap check against active bookings | Учитываются только брони со статусами `Submitted`, `Confirmed`, `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
-| 14 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
-| 15 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
-| 16 | Обоснование | justification | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
-| 17 | Признак, что для item обязателен justification | requiresJustification | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
-| 18 | Признак наличия обязательного justification | hasRequiredJustification | bool | boolean | — | backend business rule | `false`, если для item обязателен `justification`, но он еще не заполнен |
-| 19 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
-| 20 | Кто обновил текущий статус брони | statusUpdatedBy | object | object | — | last BookingStatuses + Users | Автор последнего status transition |
+| 10 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
+| 11 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
+| 12 | Конфликты с бронями в активном статусе (`Submitted`, `Confirmed`, `InProgress`) | activeBookingConflicts | object | object | — | backend overlap check against active bookings | Учитываются только брони со статусами `Submitted`, `Confirmed`, `InProgress` и с пересечением диапазона дат; `Draft` и `Closed` не учитываются |
+| 13 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
+| 14 | Характеристики техники | properties | array<object> | object[] | `[]` | backend composition from EquipmentProperties + Properties + PropertyEnumValues + MeasurementUnits | Список `ключ - значение` |
+| 15 | Объект обоснования | justification | object | object | — | backend composition from Bookings + business rules | Объединяет текст justification и его обязательность / заполненность |
+| 16 | Текущий статус брони | status | string | string | — | Bookings + ref_booking_status |  |
+| 17 | Кто обновил текущий статус брони | statusUpdatedBy | object | object | — | last BookingStatuses + Users | Автор последнего status transition |
 
 ### Структура `value.bookings[].fleet`
 
@@ -165,13 +166,13 @@ Content-Type: application/json
 | 1 | Идентификатор флота | id | uuid | UUID v4 | — | Fleets.id |  |
 | 2 | Наименование флота | name | string | string | — | Fleets.nameEn / localized projection |  |
 
-### Структура `value.bookings[].fleetOwners[]`
+### Структура `value.bookings[].justification`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
-| 1 | Идентификатор пользователя | userId | uuid | UUID v4 | — | Users.id | Только owner-assignment'ы из `FleetManagePermissions` |
-| 2 | Полное имя | fullName | string | string | — | Users.fullName |  |
-| 3 | Email | email | string | string | — | Users.email |  |
+| 1 | Текст обоснования | value | string | string | — | Bookings.justification | Пользователь редактирует это поле в строке/карточке брони |
+| 2 | Признак обязательности обоснования | isRequired | bool | boolean | — | backend business rule from Equipments + ref_ownership_type + ref_share_type | `true`, если `ownershipType = LongTermRented` или `shareType IN (Assigned, SharedWithConditions)` |
+| 3 | Признак наличия обязательного обоснования | isSatisfied | bool | boolean | — | backend business rule | `false`, если justification обязателен, но еще не заполнен |
 
 ### Структура `value.bookings[].statusUpdatedBy`
 
@@ -235,18 +236,6 @@ Content-Type: application/json
           "id": "f0000001-0000-4000-8000-000000000001",
           "name": "Maintenance Fleet"
         },
-        "fleetOwners": [
-          {
-            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100001",
-            "fullName": "Nurlan Sarsenov",
-            "email": "nurlan.sarsenov@tco.example"
-          },
-          {
-            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100002",
-            "fullName": "Aidos Beketov",
-            "email": "aidos.beketov@tco.example"
-          }
-        ],
         "plannedStartDateTime": "2026-05-20T08:00:00Z",
         "plannedEndDateTime": "2026-05-22T18:00:00Z",
         "properties": [
@@ -255,9 +244,11 @@ Content-Type: application/json
             "value": "1.8 L"
           }
         ],
-        "justification": "Required specialized bucket setup for this trench segment.",
-        "requiresJustification": true,
-        "hasRequiredJustification": true,
+        "justification": {
+          "value": "Required specialized bucket setup for this trench segment.",
+          "isRequired": true,
+          "isSatisfied": true
+        },
         "status": "Draft",
         "statusUpdatedBy": {
           "userId": "11111111-1111-1111-1111-111111111111",
@@ -283,13 +274,6 @@ Content-Type: application/json
           "id": "f0000001-0000-4000-8000-000000000002",
           "name": "Operations Fleet"
         },
-        "fleetOwners": [
-          {
-            "userId": "4c9ad2d2-6df8-4f7b-87fe-36cefc100003",
-            "fullName": "Marat Ibragimov",
-            "email": "marat.ibragimov@tco.example"
-          }
-        ],
         "plannedStartDateTime": "2026-05-20T08:00:00Z",
         "plannedEndDateTime": "2026-05-22T18:00:00Z",
         "properties": [
@@ -298,9 +282,11 @@ Content-Type: application/json
             "value": "2.0 L"
           }
         ],
-        "justification": "Required for parallel work on adjacent segment.",
-        "requiresJustification": true,
-        "hasRequiredJustification": true,
+        "justification": {
+          "value": "Required for parallel work on adjacent segment.",
+          "isRequired": true,
+          "isSatisfied": true
+        },
         "status": "Draft",
         "statusUpdatedBy": {
           "userId": "11111111-1111-1111-1111-111111111111",
@@ -322,4 +308,4 @@ Content-Type: application/json
 1. Метод должен возвращать полное текущее состояние заявки, а не только результат последнего действия над бронями.
 2. Метод используется как основной источник данных для страницы `Новая заявка / Редактировать заявку` после добавления техники.
 3. `bookingsCount` и `bookings[]` должны отражать все брони заявки целиком.
-4. По каждому item метод должен возвращать признаки `requiresJustification` и `hasRequiredJustification`, чтобы frontend мог сразу подсветить брони, где еще не заполнен обязательный `justification`.
+4. По каждому item метод должен возвращать объект `justification`, чтобы frontend мог сразу получить текст обоснования и признаки его обязательности / заполненности без разнесенных полей.

@@ -40,7 +40,7 @@
 ## 3. Описание логики работы метода
 
 1. Найти запись в `EquipmentTypes` WHERE `id` = `:id` AND `isDeleted = false`. Если запись не найдена — вернуть `404 NOT_FOUND`.
-2. Провалидировать поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально в `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false`. Если нарушено — вернуть `422 VALIDATION_ERROR`.
+2. Провалидировать поле `name`: должен быть передан объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально в `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false`. Если нарушено — вернуть `422 VALIDATION_ERROR`.
 3. Провалидировать поле `mobilityType`: должно входить в допустимые значения ENUM (`SelfPropelled / NonSelfPropelledMotorized / Stationary / NonMotorized`). Если нарушено — вернуть `422 VALIDATION_ERROR`.
 4. Обновить запись в `EquipmentTypes`; заполнить аудит-поля `updatedAt` (текущее время) и `updatedBy` (ID аутентифицированного пользователя).
 5. Рассчитать `equipmentsCount` = COUNT(`Equipments` WHERE `equipmentTypeId` = `:id` AND `isDeleted = false`).
@@ -76,7 +76,7 @@
 | `UNAUTHORIZED` | Пользователь не авторизован |
 | `FORBIDDEN` | У пользователя нет роли `Admin` |
 | `NOT_FOUND` | Тип техники с указанным `id` не найден или помечен как удалённый |
-| `VALIDATION_ERROR` | Поле `name` не передано, `name.Ru` пустое или локализованное имя уже существует в справочнике |
+| `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или локализованное имя уже существует в справочнике |
 | `VALIDATION_ERROR` | Поле `mobilityType` содержит недопустимое значение |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unprocessable Entity`
@@ -88,7 +88,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `422 Unproc
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор типа техники | `id` | `uuid` | `+` | Должен быть валидным UUID v4 | — | Path param | |
-| 2 | Наименование типа техники | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.Ru` обязателен; локализованное имя уникально среди `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false` | — | Request body | |
+| 2 | Наименование типа техники | `name` | `object` | `+` | Объект `{ En, Ru, Kz }`; `name.En`, `name.Ru`, `name.Kz` обязательны; локализованное имя уникально среди `EquipmentTypes` WHERE `id` ≠ `:id` AND `isDeleted = false` | — | Request body | |
 | 3 | Тип мобильности | `mobilityType` | `enum` | `+` | Одно из: `SelfPropelled`, `NonSelfPropelledMotorized`, `Stationary`, `NonMotorized` | — | Request body | |
 | 4 | Требуется ли транспортировка | `requiresTransport` | `bool` | `+` | Булево значение | — | Request body | |
 | 5 | Порядок отображения | `sortOrder` | `int` | `+` | Целое число >= 1 | — | Request body | В отличие от POST, при PUT `sortOrder` обязателен |
