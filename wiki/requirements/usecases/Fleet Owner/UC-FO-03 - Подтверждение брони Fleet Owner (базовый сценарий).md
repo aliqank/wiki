@@ -1,7 +1,7 @@
 # UC-FO-03 - Подтверждение брони [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) (базовый сценарий)
 
 **Created:** 2026-05-20  
-**Last updated:** 2026-06-08  
+**Last updated:** 2026-06-09  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -63,7 +63,7 @@
    Backend возвращает `EQUIPMENT_NOT_AVAILABLE`, если техника фактически недоступна по [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), не связанным с competing bookings.
 
 4. Бронь требует дополнительного согласования Supervisor.
-   Данный use case не применяется; используется отдельный сценарий, в котором после FO decision бронь остается в `Submitted` до завершения шага `SupervisorApproval`.
+   Данный use case не применяется; используется Supervisor-ветка: [`UC-SUP-01 - Просмотр очереди long-term rented броней Supervisor`](../FleetOwners%27%20Supervisor/UC-SUP-01%20-%20Просмотр%20очереди%20long-term%20rented%20броней%20Supervisor.md), [`UC-SUP-02 - Подтверждение long-term rented брони Supervisor`](../FleetOwners%27%20Supervisor/UC-SUP-02%20-%20Подтверждение%20long-term%20rented%20брони%20Supervisor.md) и [`UC-SUP-03 - Отклонение long-term rented брони Supervisor`](../FleetOwners%27%20Supervisor/UC-SUP-03%20-%20Отклонение%20long-term%20rented%20брони%20Supervisor.md). После positive решения FO бронь уходит в pending Supervisor approval и не становится финально `Confirmed` до решения Supervisor.
 
 5. Бронь требует транспортировки.
    Данный use case не применяется; используется отдельный сценарий с transport flow.
@@ -77,6 +77,6 @@
 
 1. Use case описывает только базовый позитивный путь для брони, которая после FO decision сразу переходит в `Confirmed`.
 2. Сценарий намеренно исключает ветки pending `SupervisorApproval` и transport-specific обработку.
-3. Для long-term rented booking после confirm [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) бронь не становится `Confirmed` сразу; она остается в `Submitted` до завершения всех обязательных approval steps.
+3. Для long-term rented booking после confirm [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) бронь не становится финально `Confirmed` сразу; требуется отдельное решение [`FleetOwners' Supervisor`](../../Roles%20and%20Access%20Model.md).
 4. Решение [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) должно фиксироваться не только как status transition, но и как отдельный approval step в `BookingApprovals`.
 5. Отдельный special status для продления не рассматривается; повторное согласование должно возвращать бронь в lifecycle `Submitted`.

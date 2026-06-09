@@ -1,7 +1,7 @@
 # Use Cases
 
 **Created:** 2026-05-15  
-**Last updated:** 2026-06-08  
+**Last updated:** 2026-06-09  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -45,6 +45,9 @@
 | `UC-FO-07` | Изменение периода брони Fleet Owner | Страница `Approvals` → detail / action view брони | `BRD: FR-048, FR-079a` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/change-period`](../../api/booking/fleet-owner/POST_approvals_bookings_id_change_period.md) |
 | `UC-FO-08` | Замена техники Fleet Owner | Страница `Approvals` → detail / action view брони | `BRD: FR-046, FR-047` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`GET /approvals/bookings/{id}/replacement-options`](../../api/booking/fleet-owner/GET_approvals_bookings_id_replacement_options.md), [`POST /approvals/bookings/{id}/change-equipment`](../../api/booking/fleet-owner/POST_approvals_bookings_id_change_equipment.md) |
 | `UC-FO-09` | Согласование изменения плановой даты и времени окончания брони | Страница `Approvals` → detail / action view брони с pending extension request | `BRD: FR-061, FR-067, FR-081` | [`GET /approvals/bookings/{id}`](../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/extension-approval`](../../api/booking/fleet-owner/POST_approvals_bookings_id_extension_approval.md) |
+| `UC-SUP-01` | Просмотр очереди long-term rented броней Supervisor | Страница `Approvals` / Supervisor queue | `BRD: FR-NEW-73, FR-NEW-75` | [`GET /supervisor/bookings`](../../api/booking/supervisor/GET_supervisor_bookings.md) |
+| `UC-SUP-02` | Подтверждение long-term rented брони Supervisor | Страница `Approvals` / Supervisor queue → detail / decision view брони | `BRD: FR-NEW-73, FR-NEW-76, FR-NEW-78` | [`GET /supervisor/bookings/{id}`](../../api/booking/supervisor/GET_supervisor_bookings_id.md), [`POST /supervisor/bookings/{id}/confirm`](../../api/booking/supervisor/POST_supervisor_bookings_id_confirm.md) |
+| `UC-SUP-03` | Отклонение long-term rented брони Supervisor | Страница `Approvals` / Supervisor queue → detail / decision view брони | `BRD: FR-NEW-73, FR-NEW-76, FR-NEW-78` | [`GET /supervisor/bookings/{id}`](../../api/booking/supervisor/GET_supervisor_bookings_id.md), [`POST /supervisor/bookings/{id}/decline`](../../api/booking/supervisor/POST_supervisor_bookings_id_decline.md) |
 
 ---
 
@@ -79,3 +82,6 @@
 - [`Fleet Owner/UC-FO-07 - Изменение периода брони Fleet Owner.md`](Fleet%20Owner/UC-FO-07%20-%20Изменение%20периода%20брони%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-08 - Замена техники Fleet Owner.md`](Fleet%20Owner/UC-FO-08%20-%20Замена%20техники%20Fleet%20Owner.md)
 - [`Fleet Owner/UC-FO-09 - Согласование изменения плановой даты и времени окончания брони.md`](Fleet%20Owner/UC-FO-09%20-%20Согласование%20изменения%20плановой%20даты%20и%20времени%20окончания%20брони.md)
+- [`FleetOwners' Supervisor/UC-SUP-01 - Просмотр очереди long-term rented броней Supervisor.md`](FleetOwners%27%20Supervisor/UC-SUP-01%20-%20Просмотр%20очереди%20long-term%20rented%20броней%20Supervisor.md)
+- [`FleetOwners' Supervisor/UC-SUP-02 - Подтверждение long-term rented брони Supervisor.md`](FleetOwners%27%20Supervisor/UC-SUP-02%20-%20Подтверждение%20long-term%20rented%20брони%20Supervisor.md)
+- [`FleetOwners' Supervisor/UC-SUP-03 - Отклонение long-term rented брони Supervisor.md`](FleetOwners%27%20Supervisor/UC-SUP-03%20-%20Отклонение%20long-term%20rented%20брони%20Supervisor.md)
