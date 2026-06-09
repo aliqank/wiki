@@ -5,6 +5,7 @@
 Ключевые точки входа:
 - [`brd/BRD.md`](brd/BRD.md) - опубликованный BRD для разработки (`DO NOT EDIT`)
 - [`requirements/`](requirements/) - финальные требования
+- [`requirements/Roles and Access Model.md`](requirements/Roles%20and%20Access%20Model.md) - опубликованная модель ролей, provisioning и access boundaries
 - [`requirements/usecases/Use Cases.md`](requirements/usecases/Use%20Cases.md) - сводка опубликованных use cases
 - [`requirements/Aggregated Request Status Rules.md`](requirements/Aggregated%20Request%20Status%20Rules.md) - правила агрегации статусов заявок
 - [`requirements/2026-05-22 - Request and Booking Status Semantics.md`](requirements/2026-05-22%20-%20Request%20and%20Booking%20Status%20Semantics.md) - семантика статусов Request / Booking

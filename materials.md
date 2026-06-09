@@ -36,6 +36,7 @@
 |--------------|----------|
 | [`wiki/navigation.md`](wiki/navigation.md) | **Правила назначения `wiki/`.** В `wiki/` хранятся только финальные, согласованные, ready-for-development артефакты. |
 | [`wiki/brd/BRD.md`](wiki/brd/BRD.md) | **Актуальный опубликованный BRD. DO NOT EDIT.** Использовать как главную версию BRD для разработки. |
+| [`wiki/requirements/Roles and Access Model.md`](wiki/requirements/Roles%20and%20Access%20Model.md) | Опубликованная финальная модель ролей и доступа: role catalog, approval responsibilities, provisioning и access boundaries. |
 | [`wiki/glossary/Glossary.md`](wiki/glossary/Glossary.md) | Файл публикации финального глоссария. На текущий момент создан как контейнер, содержательное наполнение ещё не опубликовано. |
 | [`wiki/requirements/`](wiki/requirements/) | Раздел для финальных требований, публикуемых по отдельной команде пользователя. |
 | [`wiki/requirements/usecases/`](wiki/requirements/usecases/) | Раздел для финальных use cases. |
