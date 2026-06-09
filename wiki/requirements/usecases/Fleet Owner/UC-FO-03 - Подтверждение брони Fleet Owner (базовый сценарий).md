@@ -43,7 +43,7 @@
    - бронь относится к зоне ответственности текущего [`Fleet Owner`](../../Roles%20and%20Access%20Model.md);
    - текущий статус равен `Submitted`;
    - отсутствуют [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), делающие технику фактически недоступной независимо от competing bookings.
-9. Backend переводит бронь в статус `Confirmed`.
+9. Backend переводит бронь в статус `Confirmed` только для брони, которая не требует дополнительного согласования Supervisor, то есть не относится к `Long-term rented` flow.
 10. Backend создает запись шага согласования в `BookingApprovals` с типом `FoApproval`, результатом `Approved` и `order = 1`.
 11. Backend создает запись в `BookingStatuses`.
 12. Frontend обновляет карточку и показывает новый статус `Confirmed`.
