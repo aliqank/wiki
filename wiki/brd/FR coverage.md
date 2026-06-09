@@ -9,6 +9,7 @@
 - для FR, покрытых Fleet Owner request-view use case-ами (`UC-FO-01`, `UC-FO-03..08`), дополнительно проставлен `Спринт 2.1 (fleetOwners request view)`
 - для FR, покрытых common timeline use case (`UC-COM-01`), дополнительно проставлен `Спринт 2.1 (fleetOwners request view)`
 - для FR, покрытых feedback и related booking insight use case-ами (`UC-REQ-08`, `UC-COM-02`, `UC-FO-02`), дополнительно проставлен `Спринт 2.2 (feedback and booking insights)`
+- для FR, покрытых Supervisor approval use case-ами (`UC-SUP-01..03`) и related long-term rented handoff в `UC-FO-03`, дополнительно проставлен `Спринт 2.3 (supervisor approval)`
 - для `FR-005..FR-010`, `FR-012..FR-015`, `FR-017..FR-021`, `FR-025` проставлен `Спринт 1`
 - если FR относится к нескольким спринтам, указываются оба значения
 
@@ -20,6 +21,7 @@
 | Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-092`, `FR-NEW-37`, `FR-NEW-38`, `FR-NEW-39` |
 | Спринт 2.1 (fleetOwners request view) | `FR-025`, `FR-043`, `FR-044`, `FR-045`, `FR-046`, `FR-047`, `FR-048`, `FR-049`, `FR-050`, `FR-063`, `FR-064`, `FR-074`, `FR-079a`, `FR-092`, `FR-NEW-18`, `FR-NEW-24`, `FR-NEW-25`, `FR-NEW-26`, `FR-NEW-27`, `FR-NEW-32`, `FR-NEW-33`, `FR-NEW-37` |
 | Спринт 2.2 (feedback and booking insights) | `FR-022`, `FR-NEW-40` |
+| Спринт 2.3 (supervisor approval) | `FR-NEW-72`, `FR-NEW-73`, `FR-NEW-75`, `FR-NEW-76`, `FR-NEW-77`, `FR-NEW-78` |
 
 | FR | Описание | Покрыто | Use case | Спринт |
 |---|---|---|---|---|
@@ -102,8 +104,8 @@
 | FR-NEW-22 | If FO has free equipment and declines, reason is mandatory | + | UC-FO-06 - Отклонение брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-23 | Reminder sent only to FO of the specific selected equipment | - | — | — |
 | FR-NEW-24 | FO presses Mobilization started to record actual start time | + | UC-FO-04 - Мобилизация техники | Спринт 2.1 (fleetOwners request view) |
-| FR-NEW-72 | Long-term rented booking moves to Confirmed by FO after FO confirmation and goes to Supervisor | - | — | — |
-| FR-NEW-73 | FleetOwners' Supervisor reviews Long-term rented booking in Confirmed by FO status | - | — | — |
+| FR-NEW-72 | Long-term rented booking moves to Confirmed by FO after FO confirmation and goes to Supervisor | + | UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий); UC-SUP-01 - Просмотр очереди long-term rented броней Supervisor | Спринт 2.3 (supervisor approval) |
+| FR-NEW-73 | FleetOwners' Supervisor reviews Long-term rented booking in Confirmed by FO status | + | UC-SUP-01 - Просмотр очереди long-term rented броней Supervisor; UC-SUP-02 - Подтверждение long-term rented брони Supervisor; UC-SUP-03 - Отклонение long-term rented брони Supervisor | Спринт 2.3 (supervisor approval) |
 | FR-NEW-25 | On-demand BP equipment is view-only in Phase 1 | + | UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-26 | On-demand BP equipment prices/rates not displayed | + | UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-27 | BP populates own catalog cards | + | UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров | Спринт 2.1 (fleetOwners request view) |
@@ -127,8 +129,8 @@
 | FR-NEW-32 | Booking closure is manual only | + | UC-FO-05 - Закрытие брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-33 | At close Requestor inputs actual start/end time for usage rate analytics | + | UC-FO-05 - Закрытие брони Fleet Owner | Спринт 2.1 (fleetOwners request view) |
 | FR-NEW-44 | Request -> Completed when last active booking closed | - | — | — |
-| FR-NEW-77 | Long-term rented booking -> Confirmed by FO upon FO confirmation | - | — | — |
-| FR-NEW-78 | Long-term rented booking -> Confirmed or Declined upon Supervisor decision | - | — | — |
+| FR-NEW-77 | Long-term rented booking -> Confirmed by FO upon FO confirmation | + | UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий) | Спринт 2.3 (supervisor approval) |
+| FR-NEW-78 | Long-term rented booking -> Confirmed or Declined upon Supervisor decision | + | UC-SUP-02 - Подтверждение long-term rented брони Supervisor; UC-SUP-03 - Отклонение long-term rented брони Supervisor | Спринт 2.3 (supervisor approval) |
 | FR-076 | System notifies SWP when SWR auto-created | - | — | — |
 | FR-077 | System notifies FO when request submitted | - | — | — |
 | FR-078 | System notifies FO when booking revoked | - | — | — |
@@ -140,8 +142,8 @@
 | FR-NEW-35 | Notification to Transportation Responsible for Unwheeled booking | - | — | — |
 | FR-NEW-36 | FO notified when Transportation Responsible decides | - | — | — |
 | FR-NEW-43 | Notifications delivered to fleet shared team email | - | — | — |
-| FR-NEW-75 | System notifies FleetOwners' Supervisor when Long-term rented booking reaches Confirmed by FO | - | — | — |
-| FR-NEW-76 | System notifies Requestor and FO when FleetOwners' Supervisor makes a decision | - | — | — |
+| FR-NEW-75 | System notifies FleetOwners' Supervisor when Long-term rented booking reaches Confirmed by FO | + | UC-SUP-01 - Просмотр очереди long-term rented броней Supervisor | Спринт 2.3 (supervisor approval) |
+| FR-NEW-76 | System notifies Requestor and FO when FleetOwners' Supervisor makes a decision | + | UC-SUP-02 - Подтверждение long-term rented брони Supervisor; UC-SUP-03 - Отклонение long-term rented брони Supervisor | Спринт 2.3 (supervisor approval) |
 | FR-091 | Requestor/SWP can search and filter own requests | + | UC-REQ-01 - Просмотр моих заявок | Спринт 2 |
 | FR-092 | Approver can view all pending and completed approvals | + | UC-COM-01 - Просмотр таймлайна брони; UC-FO-01 - Просмотр списка заявок Fleet Owner | Спринт 2, Спринт 2.1 (fleetOwners request view) |
 | FR-093 | Admin can view all requests | - | — | — |

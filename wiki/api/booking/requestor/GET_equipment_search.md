@@ -221,15 +221,15 @@ Content-Type: application/json
 | 1 | Наличие хотя бы одного state-пересечения на выбранный период | hasStatesOnPeriod | bool | boolean | `false` | backend overlap check against EquipmentStates | `true`, если на период поиска есть хотя бы один state interval |
 | 2 | Наличие ремонта на период | isInRepairOnPeriod | bool | boolean | `false` | backend overlap check against EquipmentStates | `true`, если есть пересечение с state type `InRepair` |
 | 3 | Наличие заморозки на период | isFrozenOnPeriod | bool | boolean | `false` | backend overlap check against EquipmentStates | `true`, если есть пересечение с state type `Frozen` |
-| 4 | Список пересекающихся state-записей | items | array<object> | object[] | `[]` | backend composition from EquipmentStates + ref_equipment_status_type + ref_equipment_status_source | Коллекция state intervals, попавших в период поиска |
+| 4 | Список пересекающихся state-записей | items | array<object> | object[] | `[]` | backend composition from EquipmentStates + ref_equipment_state_type + ref_equipment_status_source | Коллекция state intervals, попавших в период поиска |
 
 ### Структура `value.items[].equipmentStateOnPeriod.items[]`
 
 | № | Описание поля | Наименование поля модели | Тип параметра (backend) | Формат | Значение по умолчанию | Источник данных | Комментарий |
 |---|---|---|---|---|---|---|---|
 | 1 | Идентификатор state-записи | id | uuid | UUID v4 | — | EquipmentStates.id |  |
-| 2 | Код типа состояния | stateType | string | string | — | ref_equipment_status_type | Например: `InRepair`, `Frozen`, `Decommissioned` |
-| 3 | Подпись типа состояния | stateTypeLabel | string | string | — | ref_equipment_status_type | UI-readable caption |
+| 2 | Код типа состояния | stateType | string | string | — | ref_equipment_state_type | Например: `InRepair`, `Frozen`, `Decommissioned` |
+| 3 | Подпись типа состояния | stateTypeLabel | string | string | — | ref_equipment_state_type | UI-readable caption |
 | 4 | Источник состояния | source | string | null | `null` | ref_equipment_status_source | Например: `JDE`, `Manual` |
 | 5 | Дата и время начала состояния | startDateTime | datetime | ISO 8601 | — | EquipmentStates.startDateTime / equivalent period field |  |
 | 6 | Дата и время окончания состояния | endDateTime | datetime | ISO 8601 | `null` | EquipmentStates.endDateTime / equivalent period field | `null` для открытого интервала |

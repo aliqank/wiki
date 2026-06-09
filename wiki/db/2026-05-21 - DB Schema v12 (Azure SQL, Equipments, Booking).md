@@ -157,7 +157,7 @@ where isDeleted = 0;
 | `ref_equipment_class` | HDE, HDV |
 | `ref_ownership_type` | TcoOwned, LongTermRented, OnDemand |
 | `ref_share_type` | Shared, SharedWithConditions, Assigned |
-| `ref_equipment_status_type` | Frozen, InRepair, Decommissioned |
+| `ref_equipment_state_type` | Frozen, InRepair, Decommissioned |
 | `ref_equipment_status_source` | Manual, JDE |
 | `ref_property_data_type` | Int, Decimal, String, Bit, Enum |
 | `ref_user_type` | Internal, External |
@@ -502,7 +502,7 @@ Filtered unique indexes:
 |---|---|---|
 | `id` | `uniqueidentifier PK` | |
 | `equipmentId` | `uniqueidentifier FK -> Equipments` | |
-| `statusTypeId` | `uniqueidentifier FK -> ref_equipment_status_type` | Frozen / InRepair / Decommissioned |
+| `stateTypeId` | `uniqueidentifier FK -> ref_equipment_state_type` | Frozen / InRepair / Decommissioned |
 | `reason` | `nvarchar(max) null` | |
 | `startsAt` | `date not null` | |
 | `endsAt` | `date null` | |
@@ -512,11 +512,11 @@ Filtered unique indexes:
 | audit fields | см. conventions | |
 
 Индексы:
-- `(equipmentId, statusTypeId)`
+- `(equipmentId, stateTypeId)`
 - filtered index on active statuses per business rules
 
 Замечание:
-- иконка статуса должна храниться в `ref_equipment_status_type.iconUrl`, так как это атрибут типа статуса, а не конкретной исторической записи `EquipmentStates`
+- иконка статуса должна храниться в `ref_equipment_state_type.iconUrl`, так как это атрибут типа состояния, а не конкретной исторической записи `EquipmentStates`
 
 ---
 

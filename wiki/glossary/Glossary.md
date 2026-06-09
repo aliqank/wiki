@@ -109,7 +109,7 @@
 | `FleetManagePermissions` | Таблица владения и делегирования управления fleet для конкретных пользователей, включая тип assignment и срок действия доступа. | `Fleets`, `Users`, `ref_fleet_manage_permission_type` |
 | `Equipments` | Основная таблица карточек техники. Хранит принадлежность, тип, статус, идентификаторы, бренд/модель, критичность, плановые показатели и оргпривязки. | `EquipmentTypes`, `Fleets`, `EquipmentBrands`, `EquipmentModels`, `ServiceZones`, `CostCenters`, `Locations`, `Sections`, reference tables статусов/типов |
 | `EquipmentPhotos` | Фотографии единицы техники с признаком primary и сортировкой. | `Equipments` |
-| `EquipmentStates` | История статусов техники: заморозка, ремонт, вывод из эксплуатации и другие статусы с периодами действия. | `Equipments`, `ref_equipment_status_type`, `ref_equipment_status_source` |
+| `EquipmentStates` | История статусов техники: заморозка, ремонт, вывод из эксплуатации и другие статусы с периодами действия. | `Equipments`, `ref_equipment_state_type`, `ref_equipment_status_source` |
 | `MeasurementUnits` | Справочник единиц измерения для динамических характеристик. | Используется в `Properties` |
 | `Properties` | Справочник определений динамических свойств техники. | `MeasurementUnits`, `ref_property_data_type`, используется в `EquipmentTypeProperties`, `EquipmentProperties`, `PropertyEnumValues` |
 | `PropertyEnumValues` | Справочник допустимых enum-значений для properties. | `Properties`, используется в `EquipmentProperties` |

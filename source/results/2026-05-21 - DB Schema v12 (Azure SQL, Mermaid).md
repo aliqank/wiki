@@ -68,7 +68,7 @@ erDiagram
         int sortOrder
     }
 
-    ref_equipment_status_type {
+    ref_equipment_state_type {
         uniqueidentifier id PK
         nvarchar code
         nvarchar nameEn
@@ -412,7 +412,7 @@ erDiagram
     EquipmentStatuses {
         uniqueidentifier id PK
         uniqueidentifier equipmentId FK
-        uniqueidentifier statusTypeId FK
+        uniqueidentifier stateTypeId FK
         nvarchar reason
         date startsAt
         date endsAt
@@ -712,7 +712,7 @@ erDiagram
     ref_ownership_type ||--o{ Equipments : "ownershipTypeId"
     ref_share_type ||--o{ Equipments : "shareTypeId"
     ref_equipment_current_status ||--o{ Equipments : "currentStatusId"
-    ref_equipment_status_type ||--o{ EquipmentStatuses : "statusTypeId"
+    ref_equipment_state_type ||--o{ EquipmentStatuses : "stateTypeId"
     ref_equipment_status_source ||--o{ EquipmentStatuses : "sourceId"
     ref_property_data_type ||--o{ Properties : "dataTypeId"
     ref_user_type ||--o{ Users : "userTypeId"
