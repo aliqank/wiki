@@ -50,7 +50,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Полный отчет по work centers |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный отчет по work centers |
 
 ---
 

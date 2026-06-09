@@ -1,4 +1,4 @@
-# UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий)
+# UC-FO-03 - Подтверждение брони [`Fleet Owner`](../../Roles and Access Model.md) (базовый сценарий)
 
 **Created:** 2026-05-20  
 **Last updated:** 2026-06-08  
@@ -10,20 +10,20 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница Fleet Owner `Approvals` -> view `Requests` -> detail / action view конкретной брони |
-| Участник | Пользователь с ролью `FleetOwner` |
+| Область действия | Страница [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` -> view `Requests` -> detail / action view конкретной брони |
+| Участник | Пользователь с ролью [`FleetOwner`](../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-043`, `FR-044`, `FR-045`, `FR-063`, `FR-NEW-19` |
 | Покрываемые FR (Additional list) | — |
-| Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к fleet-у пользователя; бронь находится в статусе `Submitted`; сценарий не требует транспортировки и не требует дополнительного согласования Supervisor |
+| Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles and Access Model.md); бронь относится к fleet-у пользователя; бронь находится в статусе `Submitted`; сценарий не требует транспортировки и не требует дополнительного согласования Supervisor |
 | Триггер | Нажатие кнопки `Подтвердить` в карточке брони, открытой из request view |
-| Ожидаемый результат | Бронь подтверждена Fleet Owner и переходит в статус `Confirmed` |
+| Ожидаемый результат | Бронь подтверждена [`Fleet Owner`](../../Roles and Access Model.md) и переходит в статус `Confirmed` |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/confirm`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md) |
 
 ---
 
 ## Основной сценарий
 
-1. Fleet Owner открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
+1. [`Fleet Owner`](../../Roles and Access Model.md) открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
 2. Пользователь открывает внутри заявки detail / action view конкретной релевантной брони.
 3. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
 4. Пользователь проверяет ключевые данные брони:
@@ -40,14 +40,14 @@
 7. Frontend вызывает [`POST /approvals/bookings/{id}/confirm`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md).
 8. Backend проверяет, что:
    - бронь существует;
-   - бронь относится к зоне ответственности текущего Fleet Owner;
+   - бронь относится к зоне ответственности текущего [`Fleet Owner`](../../Roles and Access Model.md);
    - текущий статус равен `Submitted`;
    - отсутствуют [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction), делающие технику фактически недоступной независимо от competing bookings.
 9. Backend переводит бронь в статус `Confirmed`.
 10. Backend создает запись шага согласования в `BookingApprovals` с типом `FoApproval`, результатом `Approved` и `order = 1`.
 11. Backend создает запись в `BookingStatuses`.
 12. Frontend обновляет карточку и показывает новый статус `Confirmed`.
-13. Система обновляет request view так, чтобы подтвержденная бронь больше не отображалась как ожидающая решения Fleet Owner.
+13. Система обновляет request view так, чтобы подтвержденная бронь больше не отображалась как ожидающая решения [`Fleet Owner`](../../Roles and Access Model.md).
 
 ---
 
@@ -77,6 +77,6 @@
 
 1. Use case описывает только базовый позитивный путь для брони, которая после FO decision сразу переходит в `Confirmed`.
 2. Сценарий намеренно исключает ветки pending `SupervisorApproval` и transport-specific обработку.
-3. Для long-term rented booking после confirm Fleet Owner бронь не становится `Confirmed` сразу; она остается в `Submitted` до завершения всех обязательных approval steps.
-4. Решение Fleet Owner должно фиксироваться не только как status transition, но и как отдельный approval step в `BookingApprovals`.
+3. Для long-term rented booking после confirm [`Fleet Owner`](../../Roles and Access Model.md) бронь не становится `Confirmed` сразу; она остается в `Submitted` до завершения всех обязательных approval steps.
+4. Решение [`Fleet Owner`](../../Roles and Access Model.md) должно фиксироваться не только как status transition, но и как отдельный approval step в `BookingApprovals`.
 5. Отдельный special status для продления не рассматривается; повторное согласование должно возвращать бронь в lifecycle `Submitted`.

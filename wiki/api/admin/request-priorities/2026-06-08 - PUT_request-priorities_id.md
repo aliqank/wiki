@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Сохранить изменения описания и цвета приоритета заявки в справочнике Admin Panel |
+| Описание | Сохранить изменения описания и цвета приоритета заявки в справочнике [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/request-priorities/:id` |
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для редактирования только `description` и `color` существующих priority values `P1`-`P4` в Admin Panel.
+Новый метод. Используется для редактирования только `description` и `color` существующих priority values `P1`-`P4` в [`Admin`](../../../requirements/Roles and Access Model.md) Panel.
 
 ---
 
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Метод используется для управления metadata справочника приоритетов |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Метод используется для управления metadata справочника приоритетов |
 | TCO Booking Tool | FR-NEW-69 | Priority field tooltips/hints | Confirmed | BRD v13 | Через метод администратор редактирует descriptions для tooltip / hint |
 
 ---
@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Доступ к административной панели и справочнику request priorities |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику request priorities |
 
 ---
 
@@ -71,7 +71,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
 | `NOT_FOUND` | Priority с указанным `id` не найден |
 | `VALIDATION_ERROR` | Поле `color` не передано или не соответствует формату `#RRGGBB` |
 | `VALIDATION_ERROR` | Поле `description` не передано как объект `{ En, Ru, Kz }` |

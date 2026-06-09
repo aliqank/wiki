@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Отправить заявку на согласование |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/submit` |
 | Метод запроса | `POST` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.6 - Отправка draft-заявки`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.6%20-%20Отправка%20draft-заявки.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.6 - Отправка draft-заявки`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.6%20-%20Отправка%20draft-заявки.md) |
 | Согласовано | |
 
 ---
@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-023 | Requestor can create a Request | Confirmed | BRD v13 | Метод завершает создание заявки |
+| TCO Booking Tool | FR-023 | [`Requestor`](../../../requirements/Roles and Access Model.md) can create a Request | Confirmed | BRD v13 | Метод завершает создание заявки |
 | TCO Booking Tool | FR-026 | Request statuses: Draft, Submitted, In Progress, Completed | Confirmed | BRD v13 | Метод переводит заявку из `Draft` в submitted flow |
 | TCO Booking Tool | FR-062 | Booking -> Submitted once Request submitted | Confirmed | BRD v13 | Все booking item-ы переводятся в `Submitted` |
 | TCO Booking Tool | FR-NEW-08 | Assigned equipment rules | Confirmed | BRD v13 | Перед submit учитываются ограничения и обязательность justification для special sharing cases |
@@ -52,7 +52,7 @@
    - если `requiresJustification = true`, проверить, что `justification` заполнен и не является пустой / whitespace-only строкой;
    - если `requiresJustification = true` и `justification` не заполнен, считать item незавершенным и отклонять submit;
    - если техника `Assigned`, проверить наличие активной записи в `EquipmentBookingAuthorizations` для текущего пользователя и периода;
-   - наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) по той же технике не блокирует submit само по себе; такие конфликты допускаются и рассматриваются Fleet Owner на этапе approval.
+   - наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) по той же технике не блокирует submit само по себе; такие конфликты допускаются и рассматриваются [`Fleet Owner`](../../../requirements/Roles and Access Model.md) на этапе approval.
 4. Если хотя бы один item не прошел перечисленные проверки, вернуть `VALIDATION_ERROR` и не переводить заявку в `Submitted`.
 5. Обновить `BookingRequests.status = Submitted` и создать запись в `BookingRequestStatuses`.
 6. Для каждого item обновить `Bookings.status = Submitted` и создать запись в `BookingStatuses`.
@@ -69,7 +69,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Отправка собственной заявки |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Отправка собственной заявки |
 
 ---
 
@@ -77,8 +77,8 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Проверка дат | Конфигурируется Admin |
-| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка длительности | Конфигурируется Admin |
+| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Проверка дат | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка длительности | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
 
 ---
 

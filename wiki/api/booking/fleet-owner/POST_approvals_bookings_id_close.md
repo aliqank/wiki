@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Закрыть бронь вручную как Fleet Owner и зафиксировать фактическое время использования |
+| Описание | Закрыть бронь вручную как [`Fleet Owner`](../../../requirements/Roles and Access Model.md) и зафиксировать фактическое время использования |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/close` |
 | Метод запроса | `POST` |
 | Связанные use cases | [`UC-FO-05 - Закрытие брони Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-05%20-%20Закрытие%20брони%20Fleet%20Owner.md) |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Реализует manual close брони на стороне Fleet Owner.
+Новый метод. Реализует manual close брони на стороне [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
 
 ---
 
@@ -30,15 +30,15 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-32 | Booking closure is manual only — "Close" button by Requestor or FO | Confirmed | BRD v13 | Прямое покрытие для Fleet Owner сценария |
-| TCO Booking Tool | FR-NEW-33 | At close: Requestor inputs actual start/end time for usage rate analytics | Confirmed | BRD v13 | Для FO close используются те же фактические даты в аналитических целях |
+| TCO Booking Tool | FR-NEW-32 | Booking closure is manual only — "Close" button by Requestor or FO | Confirmed | BRD v13 | Прямое покрытие для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) сценария |
+| TCO Booking Tool | FR-NEW-33 | At close: [`Requestor`](../../../requirements/Roles and Access Model.md) inputs actual start/end time for usage rate analytics | Confirmed | BRD v13 | Для FO close используются те же фактические даты в аналитических целях |
 
 ---
 
 ## 3. Описание логики работы метода
 
-1. Проверить существование брони и права доступа Fleet Owner.
-2. Разрешить close только для активной подтвержденной / in-progress брони в зоне ответственности текущего Fleet Owner.
+1. Проверить существование брони и права доступа [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
+2. Разрешить close только для активной подтвержденной / in-progress брони в зоне ответственности текущего [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
 3. Провалидировать `actualStartDateTime` и `actualEndDateTime`.
 4. Обновить `Bookings.status = Closed`, `closureReason = Completed`, заполнить `actualStartDateTime`, `actualEndDateTime`.
 5. Создать запись в `BookingStatuses` с `status = Closed` и `closureReason = Completed`.
@@ -55,7 +55,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Закрытие броней своих флотов |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Закрытие броней своих флотов |
 
 ---
 

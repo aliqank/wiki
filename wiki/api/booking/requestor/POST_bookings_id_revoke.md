@@ -10,12 +10,12 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Отозвать бронь до решения Fleet Owner |
+| Описание | Отозвать бронь до решения [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/bookings/{id}/revoke` |
 | Метод запроса | `POST` |
-| Связанные use cases | [`UC-REQ-04 - Отзыв брони requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-04%20-%20Отзыв%20брони%20requestor-ом.md), [`UC-REQ-05 - Отзыв submitted-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md) |
+| Связанные use cases | [`UC-REQ-04 - Отзыв брони requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-04%20-%20Отзыв%20брони%20requestor-ом.md), [`UC-REQ-05 - Отзыв submitted-заявки requestor-ом`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md) |
 | Согласовано | |
 
 ---
@@ -30,9 +30,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Результат метода отражается в request detail и request list view |
+| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles and Access Model.md) can view request details and status | Confirmed | BRD v13 | Результат метода отражается в request detail и request list view |
 | TCO Booking Tool | FR-042 | Booking lifecycle | Confirmed | BRD v13 | Метод выполняет один из lifecycle-переходов брони |
-| TCO Booking Tool | FR-058 | Requestor can revoke booking if not yet processed by FO | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
+| TCO Booking Tool | FR-058 | [`Requestor`](../../../requirements/Roles and Access Model.md) can revoke booking if not yet processed by FO | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | FR-068 | Booking -> Closed with closure reason Revoked once revoked | Confirmed | BRD v13 | Обновление статуса |
 | TCO Booking Tool | FR-NEW-17 | Aggregated Request status auto-calculated from RequestItem statuses | Confirmed | BRD v13 | После revoke пересчитывается агрегированный статус заявки |
 
@@ -57,7 +57,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Отзыв собственной брони |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Отзыв собственной брони |
 
 ---
 

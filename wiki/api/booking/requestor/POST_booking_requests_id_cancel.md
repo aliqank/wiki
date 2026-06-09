@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Отменить черновик заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/cancel` |
 | Метод запроса | `POST` |
-| Связанные use cases | [`UC-REQ-03 - Отмена draft-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md) |
+| Связанные use cases | [`UC-REQ-03 - Отмена draft-заявки requestor-ом`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md) |
 | Согласовано | |
 
 ---
@@ -30,15 +30,15 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Метод меняет доступное requestor состояние и отражается в request details/list view |
-| TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles and Access Model.md) can view request details and status | Confirmed | BRD v13 | Метод меняет доступное requestor состояние и отражается в request details/list view |
+| TCO Booking Tool | FR-027 | [`Requestor`](../../../requirements/Roles and Access Model.md) can edit/cancel draft before submission | Confirmed | BRD v13 | Прямое покрытие |
 
 ---
 
 ## 3. Описание логики работы метода
 
 1. Проверить существование заявки и права доступа.
-   Для роли `Requestor` доступ определяется по `BookingRequests.requestorId = currentUserId`, а не по audit-полю `createdBy`.
+   Для роли [`Requestor`](../../../requirements/Roles and Access Model.md) доступ определяется по `BookingRequests.requestorId = currentUserId`, а не по audit-полю `createdBy`.
 2. Разрешить отмену только если статус заявки `Draft`.
 3. Обновить `BookingRequests.status = Closed`, `BookingRequests.closureReason = Cancelled`.
 4. Для всех связанных draft booking item-ов удалить их либо перевести в terminal state `Closed` с причиной `Cancelled`.
@@ -57,7 +57,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Отмена draft-заявки, где пользователь является `requestorId` |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Отмена draft-заявки, где пользователь является `requestorId` |
 
 ---
 

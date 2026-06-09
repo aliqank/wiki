@@ -55,7 +55,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `TransportationResponsible` | Отклонение транспортировки |
+| [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) | Отклонение транспортировки |
 
 ---
 
@@ -72,7 +72,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет роли `TransportationResponsible` |
+| `FORBIDDEN` | Нет роли [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_DECLINABLE` | Бронь не ожидает транспортного решения |
 | `VALIDATION_ERROR` | Не передана причина |

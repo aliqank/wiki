@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-73 | Supervisor reviews booking including Requestor justification | Confirmed | BRD v13 | Карточка решения |
+| TCO Booking Tool | FR-NEW-73 | Supervisor reviews booking including [`Requestor`](../../../requirements/Roles and Access Model.md) justification | Confirmed | BRD v13 | Карточка решения |
 
 ---
 
@@ -49,7 +49,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwnersSupervisor` | Просмотр карточек long-term rented броней на финальном шаге |
+| [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) | Просмотр карточек long-term rented броней на финальном шаге |
 
 ---
 
@@ -66,7 +66,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет роли `FleetOwnersSupervisor` |
+| `FORBIDDEN` | Нет роли [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) |
 | `NOT_FOUND` | Бронь не найдена |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`

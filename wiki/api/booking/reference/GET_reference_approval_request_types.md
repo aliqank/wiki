@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить справочник типов заявки для фильтра Fleet Owner view `Approvals -> Requests` |
+| Описание | Получить справочник типов заявки для фильтра [`Fleet Owner`](../../../requirements/Roles and Access Model.md) view `Approvals -> Requests` |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/reference/approval-request-types` |
 | Метод запроса | `GET` |
 | Связанные use cases | [`UC-FO-01 - Просмотр списка заявок Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md) |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый reference API для `UC-FO-03`. Используется для загрузки списка значений фильтра `type` во view Fleet Owner `Approvals -> Requests`.
+Новый reference API для `UC-FO-03`. Используется для загрузки списка значений фильтра `type` во view [`Fleet Owner`](../../../requirements/Roles and Access Model.md) `Approvals -> Requests`.
 
 ---
 
@@ -50,7 +50,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Просмотр и фильтрация заявок в approval request view |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр и фильтрация заявок в approval request view |
 
 ---
 

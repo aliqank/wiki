@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Зафиксировать начало мобилизации |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/mobilization-start` |
 | Метод запроса | `POST` |
 | Связанные use cases | [`UC-FO-04 - Мобилизация техники`](../../../requirements/usecases/Fleet%20Owner/UC-FO-04%20-%20Мобилизация%20техники.md) |
@@ -55,7 +55,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Фиксация начала мобилизации |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Фиксация начала мобилизации |
 
 ---
 

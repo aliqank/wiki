@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Страница `Мои заявки` / detail view заявки / detail view конкретной брони |
-| Участник | Пользователь с ролью `Requestor` или `ServiceWorkProcessor` |
+| Участник | Пользователь с ролью [`Requestor`](../../Roles and Access Model.md) или [`ServiceWorkProcessor`](../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-022` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован; пользователь имеет доступ к брони; бронь достигла `Confirmed` и выше; у брони есть связанная техника (`equipmentId`) |

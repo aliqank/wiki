@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Получить справочник work centers для фильтра формы создания заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/reference/work-centers` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
 | Согласовано | |
 
 ---
@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Work center участвует в фильтрации техники |
+| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add/remove equipment items to a request | Confirmed | BRD v13 | Work center участвует в фильтрации техники |
 
 ---
 
@@ -50,7 +50,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Создание и редактирование собственных заявок |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Создание и редактирование собственных заявок |
 
 ---
 

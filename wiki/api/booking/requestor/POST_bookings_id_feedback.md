@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Оставить отзыв по технике в рамках конкретной брони |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/bookings/{id}/feedback` |
 | Метод запроса | `POST` |
 | Согласовано | |
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-022 | Requestor can submit feedback on equipment with confirmed booking | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
+| TCO Booking Tool | FR-022 | [`Requestor`](../../../requirements/Roles and Access Model.md) can submit feedback on equipment with confirmed booking | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 
 ---
 
@@ -51,7 +51,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Оставление отзыва по своей брони |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Оставление отзыва по своей брони |
 
 ---
 

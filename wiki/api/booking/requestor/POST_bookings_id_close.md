@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Закрыть бронь вручную и зафиксировать фактическое время использования |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/bookings/{id}/close` |
 | Метод запроса | `POST` |
 | Согласовано | |
@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-32 | Booking closure is manual only | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-NEW-33 | At close: Requestor inputs actual start/end time | Confirmed | BRD v13 | Заполняются `actualStartDateTime`, `actualEndDateTime` |
+| TCO Booking Tool | FR-NEW-33 | At close: [`Requestor`](../../../requirements/Roles and Access Model.md) inputs actual start/end time | Confirmed | BRD v13 | Заполняются `actualStartDateTime`, `actualEndDateTime` |
 
 ---
 
@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Закрытие собственной брони |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Закрытие собственной брони |
 
 ---
 

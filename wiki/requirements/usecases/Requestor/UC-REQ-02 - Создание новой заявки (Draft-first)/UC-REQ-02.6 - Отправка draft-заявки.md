@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Экран `Новая заявка` |
-| Участник | `Requestor` |
+| Участник | [`Requestor`](../../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-023`, `FR-026`, `FR-027`, `FR-062`, `FR-NEW-08`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
 | Триггер | Нажатие кнопки `Отправить заявку` |
@@ -71,7 +71,7 @@ sequenceDiagram
    Frontend не вызывает [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md) до успешного завершения flush.
 
 4. На момент submit у одной или нескольких броней есть конфликты с другими активными бронями.
-   Backend не блокирует submit только из-за таких конфликтов. Заявка может быть отправлена в submitted flow, а решение по competing bookings принимается Fleet Owner на этапе approval.
+   Backend не блокирует submit только из-за таких конфликтов. Заявка может быть отправлена в submitted flow, а решение по competing bookings принимается [`Fleet Owner`](../../../Roles and Access Model.md) на этапе approval.
 
 5. На момент submit выявлено hard-ограничение доступности техники.
    Backend возвращает ошибку валидации, если техника недоступна по причинам, не связанным с competing bookings, и пользователь должен скорректировать draft.

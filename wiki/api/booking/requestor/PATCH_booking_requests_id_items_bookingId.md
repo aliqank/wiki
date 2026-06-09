@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Обновить booking item в черновике заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/items/{bookingId}` |
 | Метод запроса | `PATCH` |
-| Связанные use cases | [`UC-REQ-02.5 - Редактирование брони или замена техники в draft`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.5%20-%20Редактирование%20брони%20или%20замена%20техники%20в%20draft.md) |
+| Связанные use cases | [`UC-REQ-02.5 - Редактирование брони или замена техники в draft`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.5%20-%20Редактирование%20брони%20или%20замена%20техники%20в%20draft.md) |
 | Согласовано | |
 
 ---
@@ -30,13 +30,13 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Редактирование item в draft |
-| TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Замена техники внутри item |
+| TCO Booking Tool | FR-027 | [`Requestor`](../../../requirements/Roles and Access Model.md) can edit/cancel draft before submission | Confirmed | BRD v13 | Редактирование item в draft |
+| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add/remove equipment items to a request | Confirmed | BRD v13 | Замена техники внутри item |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Обновляется одна существующая бронь |
 | TCO Booking Tool | FR-039 | Each booking has unique ID, start/end datetimes | Confirmed | BRD v13 | Метод обновляет период существующего booking item |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Проверка доступности при изменении обязательна |
 | TCO Booking Tool | FR-041 | Equipment attributes displayed in booking | Confirmed | BRD v13 | При замене техники обновляются данные equipment, отображаемые в booking item |
-| TCO Booking Tool | FR-NEW-04 | Admin authorizes specific users to book Assigned equipment | Confirmed | BRD v13 | При смене техники на Assigned equipment применяется проверка авторизации |
+| TCO Booking Tool | FR-NEW-04 | [`Admin`](../../../requirements/Roles and Access Model.md) authorizes specific users to book Assigned equipment | Confirmed | BRD v13 | При смене техники на Assigned equipment применяется проверка авторизации |
 | TCO Booking Tool | FR-NEW-08 | Assigned equipment rules | Confirmed | BRD v13 | Метод поддерживает редактирование item с Assigned equipment по этим правилам |
 | TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Поддерживает позднее сохранение justification через autosave |
 
@@ -52,7 +52,7 @@
 6. Для итогового набора значений проверить [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период.
    Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStates`.
 7. Отдельно рассчитать наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с итоговым периодом item.
-   Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует patch и используется только для информирования пользователя и последующего решения Fleet Owner.
+   Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует patch и используется только для информирования пользователя и последующего решения [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
 8. Если итоговая техника относится к `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item обязателен `justification`; при его отсутствии признак `hasRequiredJustification` остается `false` до последующего заполнения.
 9. Если итоговая техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 10. Если обновляется `justification`, метод может вызываться frontend-ом как autosave без отдельной кнопки сохранения.
@@ -70,7 +70,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Редактирование item в своей draft-заявке |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Редактирование item в своей draft-заявке |
 
 ---
 
@@ -78,8 +78,8 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Проверка даты | Конфигурируется Admin |
-| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка периода | Конфигурируется Admin |
+| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Проверка даты | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка периода | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
 
 ---
 

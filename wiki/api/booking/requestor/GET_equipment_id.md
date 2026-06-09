@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Получить карточку единицы техники в booking-контексте |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/equipment/{id}` |
 | Метод запроса | `GET` |
 | Согласовано | |
@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-041 | Equipment attributes displayed in booking | Confirmed | BRD v13 | Метод возвращает карточку техники |
-| TCO Booking Tool | FR-NEW-05 | FO uploads multiple photos; Requestor sees them in request form | Confirmed | BRD v13 | В ответе нужны фото |
+| TCO Booking Tool | FR-NEW-05 | FO uploads multiple photos; [`Requestor`](../../../requirements/Roles and Access Model.md) sees them in request form | Confirmed | BRD v13 | В ответе нужны фото |
 
 ---
 
@@ -51,7 +51,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Просмотр техники для создания заявки |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр техники для создания заявки |
 
 ---
 

@@ -31,9 +31,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool | Confirmed | BRD v13 | Единицы измерения используются в характеристиках |
-| TCO Booking Tool | FR-014 | Admin редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Нужен для редактирования справочника |
-| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Справочник управляется через Admin Panel |
+| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles and Access Model.md) configures dynamic custom characteristics per equipment type via [`Admin`](../../../requirements/Roles and Access Model.md) Panel tool | Confirmed | BRD v13 | Единицы измерения используются в характеристиках |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Нужен для редактирования справочника |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Справочник управляется через [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 
 ---
 
@@ -57,7 +57,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Доступ к административной панели и справочнику единиц измерения |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику единиц измерения |
 
 ---
 
@@ -74,7 +74,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
 | `NOT_FOUND` | Единица измерения не найдена |
 | `VALIDATION_ERROR` | Поле `code` пустое или уже существует |
 | `VALIDATION_ERROR` | Поле `sortOrder` имеет недопустимое значение |

@@ -50,8 +50,8 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Usage rate по своей технике |
-| `Admin` | Полный usage rate dashboard |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Usage rate по своей технике |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный usage rate dashboard |
 
 ---
 

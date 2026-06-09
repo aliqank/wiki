@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Обновить черновик заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}` |
 | Метод запроса | `PATCH` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.2 - Заполнение и редактирование шапки заявки`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.2%20-%20Заполнение%20и%20редактирование%20шапки%20заявки.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.2 - Заполнение и редактирование шапки заявки`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.2%20-%20Заполнение%20и%20редактирование%20шапки%20заявки.md) |
 | Согласовано | |
 
 ---
@@ -30,9 +30,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-027 | Requestor can edit/cancel draft before submission | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-027 | [`Requestor`](../../../requirements/Roles and Access Model.md) can edit/cancel draft before submission | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-030 | System supports draft saving | Confirmed | BRD v13 | Изменение draft-заявки |
-| TCO Booking Tool | FR-NEW-11 | Requestor selects priority P1-P4 | Confirmed | BRD v13 | Метод сохраняет `priority` в draft-заявке |
+| TCO Booking Tool | FR-NEW-11 | [`Requestor`](../../../requirements/Roles and Access Model.md) selects priority P1-P4 | Confirmed | BRD v13 | Метод сохраняет `priority` в draft-заявке |
 | TCO Booking Tool | FR-NEW-12 | WO mandatory for Maintenance/Railroad/Operations; optional for Logistics; Location replaces WO for SCM Logistics | Confirmed | BRD v13 | Метод сохраняет request-level поля, участвующие в этой валидации |
 | TCO Booking Tool | FR-NEW-13 | Work Description mandatory | Confirmed | BRD v13 | Метод сохраняет `workDescription` в draft-заявке |
 | TCO Booking Tool | FR-NEW-14 | Comments optional | Confirmed | BRD v13 | Метод сохраняет необязательный `comments` |
@@ -44,7 +44,7 @@
 ## 3. Описание логики работы метода
 
 1. Проверить существование заявки и права доступа.
-   Для роли `Requestor` доступ определяется по `BookingRequests.requestorId = currentUserId`, а не по audit-полю `createdBy`.
+   Для роли [`Requestor`](../../../requirements/Roles and Access Model.md) доступ определяется по `BookingRequests.requestorId = currentUserId`, а не по audit-полю `createdBy`.
 2. Разрешить редактирование только если `BookingRequests.status = Draft`.
 3. Обновить только переданные поля.
 4. Сохранить `updatedAt`, `updatedBy`.
@@ -60,7 +60,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Редактирование draft-заявки, где пользователь является `requestorId` |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Редактирование draft-заявки, где пользователь является `requestorId` |
 
 ---
 

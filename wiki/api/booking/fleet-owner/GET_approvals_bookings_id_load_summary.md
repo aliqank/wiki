@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить сводку загрузки техники на даты брони для Fleet Owner |
+| Описание | Получить сводку загрузки техники на даты брони для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/load-summary` |
 | Метод запроса | `GET` |
 | Связанные use cases | [`UC-FO-02 - Просмотр load summary Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-02%20-%20Просмотр%20load%20summary%20Fleet%20Owner.md) |
@@ -53,7 +53,7 @@ Frontend открывает popup / modal `Load summary` по выбранной
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Просмотр загрузки техники по своим броням |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр загрузки техники по своим броням |
 
 ---
 
@@ -151,7 +151,7 @@ Content-Type: application/json
 
 ## Замечания
 
-1. Summary предназначен для принятия решения Fleet Owner по competing bookings и не является самостоятельным hard-stop механизмом.
+1. Summary предназначен для принятия решения [`Fleet Owner`](../../../requirements/Roles and Access Model.md) по competing bookings и не является самостоятельным hard-stop механизмом.
 2. Типовой popup / modal `Load summary` показывает:
    - контекст текущей брони, уже известный frontend-у из строки списка или detail view;
    - summary line на основе `activeBookingsCount`;

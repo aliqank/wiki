@@ -12,17 +12,17 @@
 |---|---|
 | Описание | Получить постраничный список техники для выбора в форме создания заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/equipment/search` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md), [`UC-REQ-02.5 - Редактирование брони или замена техники в draft`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.5%20-%20Редактирование%20брони%20или%20замена%20техники%20в%20draft.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md), [`UC-REQ-02.5 - Редактирование брони или замена техники в draft`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.5%20-%20Редактирование%20брони%20или%20замена%20техники%20в%20draft.md) |
 | Согласовано | |
 
 ---
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется в форме создания заявки Requestor для поиска техники по типу, периоду и динамическим фильтрам.
+Новый метод. Используется в форме создания заявки [`Requestor`](../../../requirements/Roles and Access Model.md) для поиска техники по типу, периоду и динамическим фильтрам.
 
 ---
 
@@ -30,14 +30,14 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request; availability updated | Confirmed | BRD v13 | Метод является точкой входа для выбора техники |
+| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add/remove equipment items to a request; availability updated | Confirmed | BRD v13 | Метод является точкой входа для выбора техники |
 | TCO Booking Tool | FR-032 | System prioritizes internal fleet | Confirmed | BRD v13 | Метод отбирает технику для requestor booking flow с учетом бизнес-правила приоритета internal fleet |
-| TCO Booking Tool | FR-033 | Requestor can add Shared equipment to request | Confirmed | BRD v13 | Shared equipment участвует в результатах поиска и дальнейшем booking flow |
+| TCO Booking Tool | FR-033 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add Shared equipment to request | Confirmed | BRD v13 | Shared equipment участвует в результатах поиска и дальнейшем booking flow |
 | TCO Booking Tool | FR-NEW-38 | Search: TCO equipment number + model mandatory; госномер if present | Confirmed | BRD v13 | В результатах поиска должен возвращаться `stateNumber`, если он заполнен |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Метод показывает [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction); [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) должен отображаться отдельно и не исключает технику из booking flow |
 | TCO Booking Tool | FR-041 | Equipment attributes displayed in booking | Confirmed | BRD v13 | Метод возвращает атрибуты техники, используемые при выборе и последующем отображении booking item |
 | TCO Booking Tool | FR-NEW-39 | Dynamic search filters by equipment type | Confirmed | BRD v13 | Метод принимает динамические фильтры |
-| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Метод использует reference values для фильтров `ownershipType` и `shareType` |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Метод использует reference values для фильтров `ownershipType` и `shareType` |
 | TCO Booking Tool | FR-NEW-68 | System dynamically shows only type-specific characteristics | Confirmed | BRD v13 | Набор фильтров зависит от equipment type |
 
 ---
@@ -48,7 +48,7 @@
 2. Выбрать записи из `Equipments` WHERE `isDeleted = false`.
 3. Исключить из выдачи списанную технику: записи с текущим статусом `Decommissioned` не должны возвращаться в результатах поиска.
 4. Исключить технику `ownershipType = OnDemand`, так как она не участвует в booking workflow.
-5. Исключить стационарную HDE из поиска Requestor (`mobilityType = Stationary`).
+5. Исключить стационарную HDE из поиска [`Requestor`](../../../requirements/Roles and Access Model.md) (`mobilityType = Stationary`).
 6. Применить фильтры по `equipmentTypeId`, `ownershipType`, `shareType`, `fleetId`, `workCenterId`, флагу скрытия техники в ремонте, текстовому поиску и динамическим свойствам.
    Для dynamic properties использовать правило:
    - если `dataType = number`, фильтр задается диапазоном через `from` и/или `to`;
@@ -76,7 +76,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Создание и просмотр собственных заявок |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Создание и просмотр собственных заявок |
 
 ---
 
@@ -84,8 +84,8 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Ограничивает максимально допустимую дату поиска | Конфигурируется Admin |
-| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Ограничивает диапазон поиска | Конфигурируется Admin |
+| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Ограничивает максимально допустимую дату поиска | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Ограничивает диапазон поиска | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
 
 ---
 
@@ -94,7 +94,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Requestor` |
+| `FORBIDDEN` | У пользователя нет роли [`Requestor`](../../../requirements/Roles and Access Model.md) |
 | `VALIDATION_ERROR` | Период поиска невалиден или превышает системные ограничения |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`

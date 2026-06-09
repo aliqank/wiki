@@ -50,8 +50,8 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Полный отчет по всем броням |
-| `FleetOwner` | Отчет по своим броням |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный отчет по всем броням |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Отчет по своим броням |
 
 ---
 

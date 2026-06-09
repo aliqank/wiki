@@ -11,10 +11,10 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Экран `Новая заявка` |
-| Участник | Пользователь с ролью `Requestor` |
+| Участник | Пользователь с ролью [`Requestor`](../../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-023`, `FR-024`, `FR-026`, `FR-027`, `FR-030`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-062`, `FR-072`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-10`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-38`, `FR-NEW-39`, `FR-NEW-50`, `FR-NEW-51`, `FR-NEW-68`, `FR-NEW-69`, `FR-NEW-70`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
-| Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль `Requestor` |
+| Предусловие | Пользователь авторизован; пользователь находится на странице, где доступно создание заявки; пользователь имеет роль [`Requestor`](../../../Roles and Access Model.md) |
 | Триггер | Нажатие кнопки `Создать заявку` |
 | Ожидаемый результат | Создана новая draft-заявка, пользователь может добавить технику, сохранить черновик или отправить заявку |
 | Используемые API | [`POST /booking-requests`](../../../../api/booking/requestor/POST_booking_requests.md), [`PATCH /booking-requests/{id}`](../../../../api/booking/requestor/PATCH_booking_requests_id.md), [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md), [`POST /booking-requests/{id}/items`](../../../../api/booking/requestor/POST_booking_requests_id_items.md), [`DELETE /booking-requests/{id}/items/{bookingId}`](../../../../api/booking/requestor/DELETE_booking_requests_id_items_bookingId.md), [`POST /booking-requests/{id}/submit`](../../../../api/booking/requestor/POST_booking_requests_id_submit.md), [`GET /reference/equipment-types`](../../../../api/booking/reference/GET_reference_equipment_types.md), [`GET /reference/fleets`](../../../../api/booking/reference/GET_reference_fleets.md), [`GET /reference/work-centers`](../../../../api/booking/reference/GET_reference_work_centers.md), [`GET /reference/ownership-types`](../../../../api/booking/reference/GET_reference_ownership_types.md), [`GET /reference/share-types`](../../../../api/booking/reference/GET_reference_share_types.md), [`GET /reference/equipment-types/{equipmentTypeId}/properties`](../../../../api/booking/reference/GET_reference_equipment_types_id_properties.md) |

@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Получить справочник ownership types для фильтра формы создания заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/reference/ownership-types` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
 | Согласовано | |
 
 ---
@@ -30,14 +30,14 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-031 | Requestor can add/remove equipment items to a request | Confirmed | BRD v13 | Тип владения участвует в фильтрации техники |
+| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add/remove equipment items to a request | Confirmed | BRD v13 | Тип владения участвует в фильтрации техники |
 
 ---
 
 ## 3. Описание логики работы метода
 
 1. Вернуть набор reference values для `ownershipType`, используемых в booking workflow.
-2. Исключить значения, которые не участвуют в поиске Requestor, например `OnDemand`.
+2. Исключить значения, которые не участвуют в поиске [`Requestor`](../../../requirements/Roles and Access Model.md), например `OnDemand`.
 
 Сущности, участвующие в методе:
 - читаются: [`ref_ownership_type`](../../../db/2026-05-21%20-%20DB%20Schema%20v12%20%28Azure%20SQL%2C%20Equipments%2C%20Booking%29.md#reference-tables-instead-of-enums)
@@ -49,7 +49,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Создание и редактирование собственных заявок |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Создание и редактирование собственных заявок |
 
 ---
 

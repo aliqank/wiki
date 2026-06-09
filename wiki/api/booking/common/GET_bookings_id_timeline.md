@@ -36,9 +36,9 @@
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-37 | Audit trail and history on demand | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-077 | System notifies FO when request submitted | Confirmed | BRD v13 | Timeline должен отражать submit lifecycle event |
-| TCO Booking Tool | FR-079 | System notifies Requestor/SWP of FO decision | Confirmed | BRD v13 | Timeline должен отражать approval decisions |
-| TCO Booking Tool | FR-NEW-75 | System notifies FleetOwners' Supervisor when Long-term rented booking reaches Confirmed by FO | Confirmed | BRD v13 | Timeline должен показывать multi-step approval chain |
-| TCO Booking Tool | FR-NEW-76 | System notifies Requestor and FO when FleetOwners' Supervisor makes a decision | Confirmed | BRD v13 | Timeline должен показывать supervisor decision event |
+| TCO Booking Tool | FR-079 | System notifies [`Requestor`](../../../requirements/Roles and Access Model.md)/SWP of FO decision | Confirmed | BRD v13 | Timeline должен отражать approval decisions |
+| TCO Booking Tool | FR-NEW-75 | System notifies [`FleetOwners' Supervisor`](../../../requirements/Roles and Access Model.md) when Long-term rented booking reaches Confirmed by FO | Confirmed | BRD v13 | Timeline должен показывать multi-step approval chain |
+| TCO Booking Tool | FR-NEW-76 | System notifies Requestor and FO when [`FleetOwners' Supervisor`](../../../requirements/Roles and Access Model.md) makes a decision | Confirmed | BRD v13 | Timeline должен показывать supervisor decision event |
 
 ---
 
@@ -79,11 +79,11 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Timeline собственной брони |
-| `ServiceWorkProcessor` | Timeline броней по доступным Service Work Request |
-| `FleetOwner` | Timeline броней своих флотов |
-| `FleetOwnersSupervisor` | Timeline long-term rented броней |
-| `Admin` | Полный доступ |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Timeline собственной брони |
+| [`ServiceWorkProcessor`](../../../requirements/Roles and Access Model.md) | Timeline броней по доступным Service Work Request |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Timeline броней своих флотов |
+| [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) | Timeline long-term rented броней |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный доступ |
 
 ---
 

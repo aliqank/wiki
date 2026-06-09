@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить постраничный список бизнес-партнёров для справочника Admin Panel |
+| Описание | Получить постраничный список бизнес-партнёров для справочника [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/business-partners` |
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для экрана управления справочником бизнес-партнёров в Admin Panel. Возвращает список записей с данными, достаточными для отображения и guard-логики удаления.
+Новый метод. Используется для экрана управления справочником бизнес-партнёров в [`Admin`](../../../requirements/Roles and Access Model.md) Panel. Возвращает список записей с данными, достаточными для отображения и guard-логики удаления.
 
 ---
 
@@ -31,8 +31,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-014 | Admin редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Метод нужен для управления справочником бизнес-партнёров |
-| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Справочник управляется через Admin Panel |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Метод нужен для управления справочником бизнес-партнёров |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Справочник управляется через [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 
 ---
 
@@ -55,7 +55,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Доступ к административной панели и справочнику бизнес-партнёров |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику бизнес-партнёров |
 
 ---
 
@@ -72,7 +72,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 

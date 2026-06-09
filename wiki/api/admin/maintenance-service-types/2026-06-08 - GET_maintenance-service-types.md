@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить постраничный список видов сервисного обслуживания для справочника Admin Panel |
+| Описание | Получить постраничный список видов сервисного обслуживания для справочника [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/maintenance-service-types` |
@@ -29,8 +29,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Справочник управляется через Admin Panel |
-| TCO Booking Tool | AFR-06 | Admin manages maintenance service types directory used in equipment maintenance contracts | Confirmed | wiki/brd/new FR's/Список FR по equipment.md | Новый handbook для нормализации `serviceType` |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Справочник управляется через [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| TCO Booking Tool | AFR-06 | [`Admin`](../../../requirements/Roles and Access Model.md) manages maintenance service types directory used in equipment maintenance contracts | Confirmed | wiki/brd/new FR's/Список FR по equipment.md | Новый handbook для нормализации `serviceType` |
 
 ---
 
@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Доступ к административной панели и справочнику maintenance service types |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику maintenance service types |
 
 ---
 
@@ -70,7 +70,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 

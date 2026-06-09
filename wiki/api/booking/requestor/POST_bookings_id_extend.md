@@ -12,17 +12,17 @@
 |---|---|
 | Описание | Запросить изменение `plannedEndDateTime` активной брони |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/bookings/{id}/extend` |
 | Метод запроса | `POST` |
-| Связанные use cases | [`UC-REQ-06 - Изменение плановой даты и времени окончания брони requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-06%20-%20Изменение%20плановой%20даты%20и%20времени%20окончания%20брони%20requestor-ом.md) |
+| Связанные use cases | [`UC-REQ-06 - Изменение плановой даты и времени окончания брони requestor-ом`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-06%20-%20Изменение%20плановой%20даты%20и%20времени%20окончания%20брони%20requestor-ом.md) |
 | Согласовано | |
 
 ---
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обрабатывает запрос Requestor на изменение `plannedEndDateTime` с разным поведением для pre-start и `InProgress` сценариев.
+Новый метод. Обрабатывает запрос [`Requestor`](../../../requirements/Roles and Access Model.md) на изменение `plannedEndDateTime` с разным поведением для pre-start и `InProgress` сценариев.
 
 ---
 
@@ -30,9 +30,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-061 | Requestor can extend confirmed booking | Confirmed | BRD v13 | Базовое покрытие change-end-date сценария для текущего scope |
+| TCO Booking Tool | FR-061 | [`Requestor`](../../../requirements/Roles and Access Model.md) can extend confirmed booking | Confirmed | BRD v13 | Базовое покрытие change-end-date сценария для текущего scope |
 | TCO Booking Tool | FR-067 | Booking -> Submitted once extended | Confirmed | BRD v13 | Для pre-start сценария после изменения срок снова требует решения FO |
-| TCO Booking Tool | FR-081 | System notifies FO when Requestor extends booking | Confirmed | BRD v13 | Уведомление FO обязательно |
+| TCO Booking Tool | FR-081 | System notifies FO when [`Requestor`](../../../requirements/Roles and Access Model.md) extends booking | Confirmed | BRD v13 | Уведомление FO обязательно |
 
 ---
 
@@ -42,11 +42,11 @@
 2. Разрешить изменение `plannedEndDateTime` только для активной брони в статусе `Submitted`, `Confirmed` или `InProgress`.
 3. Провалидировать новый `newPlannedEndDateTime`, [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) и [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) на новый период.
 4. Если текущий статус равен `Submitted` или `Confirmed`, обновить `Bookings.plannedEndDateTime`, перевести бронь в `Submitted` и создать запись в `BookingStatuses`.
-5. Если текущий статус равен `InProgress`, не менять статус брони, создать отдельную запись [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) в `BookingApprovals` для запроса на изменение срока и не применять новое `plannedEndDateTime` до решения Fleet Owner.
-6. После положительного решения Fleet Owner:
+5. Если текущий статус равен `InProgress`, не менять статус брони, создать отдельную запись [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) в `BookingApprovals` для запроса на изменение срока и не применять новое `plannedEndDateTime` до решения [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
+6. После положительного решения [`Fleet Owner`](../../../requirements/Roles and Access Model.md):
    - для pre-start сценария вернуть бронь в `Confirmed`;
    - для `InProgress` сценария сохранить статус `InProgress` и применить новое `plannedEndDateTime`.
-7. Уведомить Fleet Owner о запросе на изменение срока брони.
+7. Уведомить [`Fleet Owner`](../../../requirements/Roles and Access Model.md) о запросе на изменение срока брони.
 8. Вернуть обновленную или pending-to-approval бронь в зависимости от текущего сценария.
 
 Сущности, участвующие в методе:
@@ -60,7 +60,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Изменение `plannedEndDateTime` собственной брони |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Изменение `plannedEndDateTime` собственной брони |
 
 ---
 
@@ -68,7 +68,7 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка нового периода | Конфигурируется Admin |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка нового периода | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
 
 ---
 

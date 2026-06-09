@@ -11,10 +11,10 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Страница `Мои заявки` / карточка submitted-заявки |
-| Участник | Пользователь с ролью `Requestor` |
+| Участник | Пользователь с ролью [`Requestor`](../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-025`, `FR-058`, `FR-NEW-17` |
 | Покрываемые FR (Additional list) | `BRD-U-003` |
-| Предусловие | Пользователь авторизован; у пользователя есть собственная заявка в статусе `Submitted`; ни один booking item этой заявки еще не был подтвержден Fleet Owner |
+| Предусловие | Пользователь авторизован; у пользователя есть собственная заявка в статусе `Submitted`; ни один booking item этой заявки еще не был подтвержден [`Fleet Owner`](../../Roles and Access Model.md) |
 | Триггер | Нажатие кнопки `Отозвать заявку` |
 | Ожидаемый результат | Все еще не обработанные booking item-ы заявки отозваны, заявка больше не активна и переходит в `Closed` |
 | Используемые API | [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md), request-level withdraw API / orchestration over [`POST /bookings/{id}/revoke`](../../../api/booking/requestor/POST_bookings_id_revoke.md) *(TBD)* |
@@ -25,7 +25,7 @@
 
 1. Пользователь открывает страницу `Мои заявки`.
 2. Frontend загружает список заявок через [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md).
-3. Для submitted-заявки frontend показывает действие `Отозвать заявку`, только если ни один booking item этой заявки еще не был подтвержден Fleet Owner.
+3. Для submitted-заявки frontend показывает действие `Отозвать заявку`, только если ни один booking item этой заявки еще не был подтвержден [`Fleet Owner`](../../Roles and Access Model.md).
 4. Пользователь нажимает `Отозвать заявку`.
 5. Frontend показывает подтверждающий диалог и предупреждает, что будут отозваны все еще не обработанные booking item-ы заявки.
 6. После подтверждения frontend вызывает request-level withdraw flow.
@@ -72,7 +72,7 @@ sequenceDiagram
 1. Пользователь передумал отзывать заявку.
    Пользователь закрывает подтверждающий диалог, запрос не выполняется.
 
-2. Хотя бы один booking item уже подтвержден Fleet Owner.
+2. Хотя бы один booking item уже подтвержден [`Fleet Owner`](../../Roles and Access Model.md).
    Система не разрешает request-level withdraw. Пользователь может работать только с отдельными допустимыми booking item-ами по item-level сценариям.
 
 3. Пока пользователь подтверждал действие, один из booking item-ов был обработан FO.

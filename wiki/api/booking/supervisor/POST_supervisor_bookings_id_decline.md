@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwnersSupervisor` | Финальное отклонение long-term rented брони |
+| [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) | Финальное отклонение long-term rented брони |
 
 ---
 
@@ -71,7 +71,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет роли `FleetOwnersSupervisor` |
+| `FORBIDDEN` | Нет роли [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_DECLINABLE` | По брони не ожидается шаг `SupervisorApproval` |
 | `VALIDATION_ERROR` | Не передан обязательный комментарий |

@@ -49,9 +49,9 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | История собственной заявки |
-| `FleetOwner` | История заявок по своим броням |
-| `Admin` | Полный доступ |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | История собственной заявки |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | История заявок по своим броням |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный доступ |
 
 ---
 

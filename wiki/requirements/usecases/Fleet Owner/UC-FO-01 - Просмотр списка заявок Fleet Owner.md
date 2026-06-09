@@ -1,4 +1,4 @@
-# UC-FO-01 - Просмотр списка заявок Fleet Owner
+# UC-FO-01 - Просмотр списка заявок [`Fleet Owner`](../../Roles and Access Model.md)
 
 **Created:** 2026-05-21  
 **Last updated:** 2026-06-08  
@@ -10,29 +10,29 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница Fleet Owner `Approvals` -> view `Requests` |
-| Участник | Пользователь с ролью `FleetOwner` |
+| Область действия | Страница [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` -> view `Requests` |
+| Участник | Пользователь с ролью [`FleetOwner`](../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-092`, `FR-043` |
 | Покрываемые FR (Additional list) | `BRD-U-001` |
-| Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; пользователю доступны один или несколько fleet-ов |
-| Триггер | Вход на страницу Fleet Owner `Approvals` c активной view `Requests` |
-| Ожидаемый результат | Отображается paginated список заявок, относящихся к зоне ответственности Fleet Owner, с request-level статусом и базовыми фильтрами |
+| Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles and Access Model.md); пользователю доступны один или несколько fleet-ов |
+| Триггер | Вход на страницу [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` c активной view `Requests` |
+| Ожидаемый результат | Отображается paginated список заявок, относящихся к зоне ответственности [`Fleet Owner`](../../Roles and Access Model.md), с request-level статусом и базовыми фильтрами |
 | Используемые API | [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md), [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md) |
 
 ---
 
 ## Основной сценарий
 
-1. Пользователь открывает страницу Fleet Owner `Approvals` и переключается во view `Requests`.
+1. Пользователь открывает страницу [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` и переключается во view `Requests`.
 2. Frontend загружает справочники фильтров через [`GET /reference/approval-request-statuses`](../../../api/booking/reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../../../api/booking/reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md); для `priority` справочник также содержит `description` и `color`.
 3. Frontend вызывает [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md).
-4. Backend проверяет, что текущий пользователь имеет роль `FleetOwner`.
+4. Backend проверяет, что текущий пользователь имеет роль [`FleetOwner`](../../Roles and Access Model.md).
 5. Backend определяет список fleet-ов, где у текущего Fleet Owner есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access).
 6. Backend выбирает только те `BookingRequests`, в составе которых есть booking item-ы по этим fleet-ам.
 7. Backend применяет request-level фильтры экрана по статусу, типу заявки и периоду.
 8. Backend рассчитывает и возвращает paginated список заявок вместе с релевантными `bookingSummaries` внутри каждой заявки.
 9. Frontend отображает таблицу заявок.
-10. Для каждой строки отображаются request-level поля и краткий состав связанных броней, доступных текущему Fleet Owner:
+10. Для каждой строки отображаются request-level поля и краткий состав связанных броней, доступных текущему [`Fleet Owner`](../../Roles and Access Model.md):
    - номер заявки;
    - текущий статус заявки;
    - тип заявки;
@@ -44,7 +44,7 @@
 
 ## Альтернативные сценарии
 
-1. У Fleet Owner нет заявок в зоне ответственности.
+1. У [`Fleet Owner`](../../Roles and Access Model.md) нет заявок в зоне ответственности.
    Система отображает пустое состояние без строк таблицы.
 
 2. Пользователь применяет фильтр по статусу заявки.
@@ -64,7 +64,7 @@
 ## Замечания
 
 1. View `Requests` является request-centric: одна строка списка соответствует одной заявке, а не отдельной брони.
-2. В список не должны попадать заявки, не имеющие booking item-ов по fleet-ам текущего Fleet Owner.
+2. В список не должны попадать заявки, не имеющие booking item-ов по fleet-ам текущего [`Fleet Owner`](../../Roles and Access Model.md).
 3. Для request-level списка используется агрегированный статус заявки, а не статус отдельной брони.
 4. Для terminal request statuses должна использоваться актуальная семантика: request lifecycle использует единый статус `Closed`, а различие между pre-start cancellation и post-start completion хранится в `requestClosureReason`.
 5. Текущая версия use case предполагает, что для первичной работы со связанными booking item-ами достаточно данных из [`GET /approvals/requests`](../../../api/booking/fleet-owner/GET_approvals_requests.md).

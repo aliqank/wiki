@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Получить постраничный список техники внешних business partners для read-only showcase |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/equipment/bp-showcase` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров`](../../../requirements/usecases/Requestor/UC-REQ-BP-01%20-%20Просмотр%20витрины%20техники%20внешних%20бизнес-партнеров.md) |
+| Связанные use cases | [`UC-REQ-BP-01 - Просмотр витрины техники внешних бизнес-партнеров`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-BP-01%20-%20Просмотр%20витрины%20техники%20внешних%20бизнес-партнеров.md) |
 | Согласовано | |
 
 ---
@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-25 | On-demand BP (Showcase): Requestor can view on-demand BP equipment; no booking action in Phase 1 | Confirmed | BRD v13 | Прямое покрытие showcase browse flow |
+| TCO Booking Tool | FR-NEW-25 | On-demand BP (Showcase): [`Requestor`](../../../requirements/Roles and Access Model.md) can view on-demand BP equipment; no booking action in Phase 1 | Confirmed | BRD v13 | Прямое покрытие showcase browse flow |
 | TCO Booking Tool | FR-NEW-26 | On-demand BP (Showcase) equipment prices/rates NOT displayed | Confirmed | BRD v13 | Метод не возвращает коммерческие данные |
 | TCO Booking Tool | FR-NEW-27 | BP populates own catalog cards | Confirmed | BRD v13 | Метод возвращает BP-provided showcase data |
 
@@ -59,7 +59,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Просмотр BP showcase техники в read-only режиме |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр BP showcase техники в read-only режиме |
 
 ---
 
@@ -76,7 +76,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Requestor` |
+| `FORBIDDEN` | У пользователя нет роли [`Requestor`](../../../requirements/Roles and Access Model.md) |
 | `VALIDATION_ERROR` | Передан невалидный `businessPartnerId`, `workCenterId` или некорректный формат `propertyFilters` |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `422 Unprocessable Entity`

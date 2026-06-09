@@ -11,10 +11,10 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Страница `Мои заявки` |
-| Участник | Пользователь с ролью `Requestor` |
+| Участник | Пользователь с ролью [`Requestor`](../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-024`, `FR-025`, `FR-026`, `FR-091`; Additional: `BRD-U-001` |
 | Покрываемые FR (Equipment block list) | — |
-| Предусловие | Пользователь авторизован в системе; пользователь находится на странице `Мои заявки`; пользователь имеет роль `Requestor` |
+| Предусловие | Пользователь авторизован в системе; пользователь находится на странице `Мои заявки`; пользователь имеет роль [`Requestor`](../../Roles and Access Model.md) |
 | Триггер | Вход на страницу `Мои заявки` |
 | Ожидаемый результат | Отображается список [незавершенных заявок](../../../glossary/Glossary.md) текущего пользователя с краткой информацией по броням |
 | Используемые API | [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md), [`GET /reference/request-statuses`](../../../api/booking/reference/GET_reference_request_statuses.md), [`GET /reference/requestor-request-types`](../../../api/booking/reference/GET_reference_requestor_request_types.md), [`GET /reference/request-priorities`](../../../api/booking/reference/GET_reference_request_priorities.md) |

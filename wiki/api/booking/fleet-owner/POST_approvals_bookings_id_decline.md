@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Отклонить бронь как Fleet Owner |
+| Описание | Отклонить бронь как [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/decline` |
 | Метод запроса | `POST` |
 | Связанные use cases | [`UC-FO-06 - Отклонение брони Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-06%20-%20Отклонение%20брони%20Fleet%20Owner.md) |
@@ -61,7 +61,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Отклонение броней своих флотов |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Отклонение броней своих флотов |
 
 ---
 

@@ -36,7 +36,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-37 | Audit trail and history on demand | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | История статусов поддерживает transparency на details view |
+| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles and Access Model.md) can view request details and status | Confirmed | BRD v13 | История статусов поддерживает transparency на details view |
 | TCO Booking Tool | FR-042 | Status tracking for bookings | Confirmed | BRD v13 | Метод возвращает lifecycle transitions брони |
 
 ---
@@ -68,11 +68,11 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | История собственной брони |
-| `ServiceWorkProcessor` | История броней по доступным Service Work Request |
-| `FleetOwner` | История брони своих флотов |
-| `FleetOwnersSupervisor` | История long-term rented броней |
-| `Admin` | Полный доступ |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | История собственной брони |
+| [`ServiceWorkProcessor`](../../../requirements/Roles and Access Model.md) | История броней по доступным Service Work Request |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | История брони своих флотов |
+| [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) | История long-term rented броней |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный доступ |
 
 ---
 

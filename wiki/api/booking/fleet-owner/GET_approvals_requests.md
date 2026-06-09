@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить список заявок Fleet Owner с вложенными бронями для работы |
+| Описание | Получить список заявок [`Fleet Owner`](../../../requirements/Roles and Access Model.md) с вложенными бронями для работы |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/approvals/requests` |
 | Метод запроса | `GET` |
 | Связанные use cases | [`UC-FO-01 - Просмотр списка заявок Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md) |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для Fleet Owner view `Requests` как request-centric список заявок с составом броней, достаточным для первичной обработки без обязательного дополнительного detail-запроса.
+Новый метод. Используется для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) view `Requests` как request-centric список заявок с составом броней, достаточным для первичной обработки без обязательного дополнительного detail-запроса.
 
 Для загрузки значений фильтров UI использует отдельные reference API: [`GET /reference/approval-request-statuses`](../reference/GET_reference_approval_request_statuses.md), [`GET /reference/approval-request-types`](../reference/GET_reference_approval_request_types.md), [`GET /reference/request-priorities`](../reference/GET_reference_request_priorities.md).
 
@@ -45,7 +45,7 @@
 3. По умолчанию исключить из выдачи заявки со статусами `Draft`, `Closed`.
 4. Применить request-level фильтры по статусу, типу, приоритету, поиску и периоду создания заявки.
 5. Отсортировать заявки по `createdAt DESC`.
-6. Для каждой заявки вернуть только связанные booking item-ы, которые относятся к зоне ответственности текущего Fleet Owner.
+6. Для каждой заявки вернуть только связанные booking item-ы, которые относятся к зоне ответственности текущего [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
 7. Для каждой такой брони собрать краткий `bookingSummary`, достаточный для принятия решения о дальнейшей работе с заявкой, включая краткий conflict context для UI.
 8. Вернуть paginated список.
 
@@ -59,7 +59,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Просмотр заявок и связанных броней по управляемым флотам |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр заявок и связанных броней по управляемым флотам |
 
 ---
 
@@ -76,7 +76,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `FleetOwner` |
+| `FORBIDDEN` | У пользователя нет роли [`FleetOwner`](../../../requirements/Roles and Access Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
@@ -111,7 +111,7 @@ Content-Type: application/json
 
 Возвращаемые данные обёрнуты в общий [`result wrapper`](../../common/Result%20Wrapper.md).
 
-Метод возвращает только активные для Fleet Owner заявки со статусами `Submitted` и `InProgress`. `Draft` и `Closed` не должны попадать в выдачу текущего списка; завершенные и архивные сценарии должны обслуживаться отдельным history flow.
+Метод возвращает только активные для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) заявки со статусами `Submitted` и `InProgress`. `Draft` и `Closed` не должны попадать в выдачу текущего списка; завершенные и архивные сценарии должны обслуживаться отдельным history flow.
 
 ### Структура `result wrapper`
 
@@ -141,7 +141,7 @@ Content-Type: application/json
 | 7 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 | 8 | Дата и время создания заявки | createdAt | datetime | ISO 8601 | — | BookingRequests.createdAt |  |
 | 9 | Данные requestor | requestor | object | object | — | BookingRequests.requestorId + Users | Business-requestor заявки |
-| 10 | Количество броней, доступных текущему Fleet Owner | bookingsCount | int | integer | — | backend aggregation | Считаются только item-ы в зоне ответственности текущего FO |
+| 10 | Количество броней, доступных текущему [`Fleet Owner`](../../../requirements/Roles and Access Model.md) | bookingsCount | int | integer | — | backend aggregation | Считаются только item-ы в зоне ответственности текущего FO |
 | 11 | Сводный список броней для работы | bookingSummaries | array<object> | object[] | `[]` | backend composition from Bookings + Equipments + EquipmentTypes + EquipmentBrands + EquipmentModels + WorkCenters + Fleets + Users | Возвращаются только релевантные FO item-ы |
 
 ### Структура `value.items[].requestor`
@@ -175,7 +175,7 @@ Content-Type: application/json
 | 9 | Тип владения техникой | ownershipType | string | string | — | Equipments + ref_ownership_type |  |
 | 10 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
 | 11 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота техники |
-| 12 | Список Fleet Owners | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
+| 12 | Список [`Fleet Owner`](../../../requirements/Roles and Access Model.md)s | fleetOwners | array<object> | object[] | `[]` | Fleets + FleetManagePermissions + Users | Только owner-assignment'ы для флота |
 | 13 | Плановая дата и время начала | plannedStartDateTime | datetime | ISO 8601 | — | Bookings.plannedStartDateTime |  |
 | 14 | Плановая дата и время окончания | plannedEndDateTime | datetime | ISO 8601 | — | Bookings.plannedEndDateTime |  |
 | 15 | Текущий статус брони | status | string | string | — | Bookings + BookingStatuses |  |
@@ -321,6 +321,6 @@ Content-Type: application/json
 ## Замечания
 
 1. Метод является request-centric: одна строка списка соответствует одной заявке, но внутри строки возвращается релевантный набор связанных броней.
-2. В `bookingSummaries` не должны попадать чужие booking item-ы, не относящиеся к зоне ответственности текущего Fleet Owner.
-3. Если в заявке есть брони по нескольким fleet-ам, Fleet Owner видит только те item-ы, по которым он вправе принимать решение.
+2. В `bookingSummaries` не должны попадать чужие booking item-ы, не относящиеся к зоне ответственности текущего [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
+3. Если в заявке есть брони по нескольким fleet-ам, [`Fleet Owner`](../../../requirements/Roles and Access Model.md) видит только те item-ы, по которым он вправе принимать решение.
 4. Текущая версия метода должна содержать достаточно данных для первичной работы с заявкой и её релевантными booking item-ами без обязательного отдельного detail API.

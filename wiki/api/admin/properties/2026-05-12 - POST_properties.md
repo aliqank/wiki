@@ -31,8 +31,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool | Confirmed | BRD v13 | Нужен для пополнения EAV-справочника |
-| TCO Booking Tool | FR-014 | Admin редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Нужен для пополнения справочника |
+| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles and Access Model.md) configures dynamic custom characteristics per equipment type via [`Admin`](../../../requirements/Roles and Access Model.md) Panel tool | Confirmed | BRD v13 | Нужен для пополнения EAV-справочника |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Нужен для пополнения справочника |
 
 ---
 
@@ -60,7 +60,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Доступ к административной панели и справочнику характеристик |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику характеристик |
 
 ---
 
@@ -77,7 +77,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
 | `VALIDATION_ERROR` | Поле `code` не передано, пустое или код уже существует |
 | `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или локализованное имя уже существует |
 | `VALIDATION_ERROR` | Поле `dataType` содержит недопустимое значение |

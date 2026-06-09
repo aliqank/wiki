@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Получить справочник статусов заявки для фильтра страницы `Мои заявки` |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/reference/request-statuses` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md) |
+| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md) |
 | Согласовано | |
 
 ---
@@ -30,8 +30,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Список заявок должен использовать согласованные request statuses |
-| TCO Booking Tool | FR-091 | Requestor can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `status` должны загружаться отдельным reference API для текущего scope |
+| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles and Access Model.md) can view request details and status | Confirmed | BRD v13 | Список заявок должен использовать согласованные request statuses |
+| TCO Booking Tool | FR-091 | [`Requestor`](../../../requirements/Roles and Access Model.md) can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `status` должны загружаться отдельным reference API для текущего scope |
 | TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Для active list используются только non-terminal request statuses |
 
 ---
@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Просмотр и фильтрация собственных заявок |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр и фильтрация собственных заявок |
 
 ---
 

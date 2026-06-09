@@ -1,4 +1,4 @@
-# UC-FO-02 - Просмотр load summary Fleet Owner
+# UC-FO-02 - Просмотр load summary [`Fleet Owner`](../../Roles and Access Model.md)
 
 **Created:** 2026-05-28  
 **Last updated:** 2026-06-02  
@@ -10,11 +10,11 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница Fleet Owner `Approvals` -> view `Requests` -> booking row action `Load summary`; optional detail / action view конкретной брони |
-| Участник | Пользователь с ролью `FleetOwner` |
+| Область действия | Страница [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` -> view `Requests` -> booking row action `Load summary`; optional detail / action view конкретной брони |
+| Участник | Пользователь с ролью [`FleetOwner`](../../Roles and Access Model.md) |
 | Покрываемые FR (BRD) | `FR-NEW-64` |
 | Покрываемые FR (Additional list) | — |
-| Предусловие | Пользователь авторизован в системе; пользователь имеет роль `FleetOwner`; бронь относится к зоне ответственности пользователя; пользователь находится на странице `Approvals` во view `Requests` |
+| Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles and Access Model.md); бронь относится к зоне ответственности пользователя; пользователь находится на странице `Approvals` во view `Requests` |
 | Триггер | Нажатие кнопки `Load summary` в строке брони на странице `Requests` или открытие блока `Load summary` в detail / action view брони |
 | Ожидаемый результат | Пользователь видит сводку пересекающихся активных броней по той же технике на даты текущей брони без обязательного перехода в отдельную карточку брони |
 | Используемые API | [`GET /approvals/bookings/{id}/load-summary`](../../../api/booking/fleet-owner/GET_approvals_bookings_id_load_summary.md) |
@@ -23,13 +23,13 @@
 
 ## Основной сценарий
 
-1. Fleet Owner открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
+1. [`Fleet Owner`](../../Roles and Access Model.md) открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
 2. Пользователь находит нужную бронь внутри заявки и нажимает кнопку `Load summary` в строке этой брони.
 3. Frontend определяет `bookingId` выбранной брони из строки списка.
 4. Frontend вызывает [`GET /approvals/bookings/{id}/load-summary`](../../../api/booking/fleet-owner/GET_approvals_bookings_id_load_summary.md).
 5. Backend проверяет, что:
    - бронь существует;
-   - текущий пользователь имеет доступ к брони как Fleet Owner;
+   - текущий пользователь имеет доступ к брони как [`Fleet Owner`](../../Roles and Access Model.md);
    - бронь относится к зоне ответственности пользователя.
 6. Backend находит пересекающиеся активные брони по тому же `equipmentId` на даты текущей брони.
 7. Backend исключает из результата текущую бронь.
@@ -62,7 +62,7 @@
 
 ## Замечания
 
-1. Load summary используется как информационный блок для принятия решения Fleet Owner и сам по себе не является hard-stop механизмом.
+1. Load summary используется как информационный блок для принятия решения [`Fleet Owner`](../../Roles and Access Model.md) и сам по себе не является hard-stop механизмом.
 2. В summary должны попадать только пересекающиеся активные брони по той же технике, а не вся история бронирований.
 3. Данный use case является вспомогательным по отношению к `UC-FO-03` и может вызываться до confirm / decline решения.
 4. Открытие отдельного detail / action view не является обязательным для просмотра load summary.

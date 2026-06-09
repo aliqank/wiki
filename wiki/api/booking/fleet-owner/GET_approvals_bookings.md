@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить очередь броней на согласование для Fleet Owner |
+| Описание | Получить очередь броней на согласование для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings` |
 | Метод запроса | `GET` |
 | Согласовано | |
@@ -52,7 +52,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Просмотр броней по управляемым флотам |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр броней по управляемым флотам |
 
 ---
 
@@ -69,7 +69,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `FleetOwner` |
+| `FORBIDDEN` | У пользователя нет роли [`FleetOwner`](../../../requirements/Roles and Access Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
@@ -125,7 +125,7 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | Bookings.id |  |
 | 2 | Идентификатор заявки | requestId | uuid | UUID v4 | — | backend composition from Bookings + BookingRequests + Equipments + EquipmentTypes + Fleets |  |
 | 3 | Номер заявки | requestNumber | string | string | — | BookingRequests.requestNumber |  |
-| 4 | Requestor | requestor | string | string | — | BookingRequests.requestorId + Users.fullName | Business-requestor заявки |
+| 4 | [`Requestor`](../../../requirements/Roles and Access Model.md) | requestor | string | string | — | BookingRequests.requestorId + Users.fullName | Business-requestor заявки |
 | 5 | Номер Work Order | workOrderNumber | string | string | — | BookingRequests.workOrderNumber |  |
 | 6 | Приоритет | priority | string | string | — | BookingRequests + ref_request_priority |  |
 | 7 | Дата создания брони | bookingCreatedAt | datetime | ISO 8601 | — | Bookings.createdAt |  |

@@ -10,12 +10,12 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить сводку загрузки техники на выбранный период для Requestor |
+| Описание | Получить сводку загрузки техники на выбранный период для [`Requestor`](../../../requirements/Roles and Access Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Requestor UI` |
+| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/equipment/{id}/load-summary` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-02.3.1 - Просмотр load summary при выборе техники`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3.1%20-%20Просмотр%20load%20summary%20при%20выборе%20техники.md) |
+| Связанные use cases | [`UC-REQ-02.3.1 - Просмотр load summary при выборе техники`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3.1%20-%20Просмотр%20load%20summary%20при%20выборе%20техники.md) |
 | Согласовано | |
 
 ---
@@ -56,7 +56,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Requestor` | Выбор техники в заявке |
+| [`Requestor`](../../../requirements/Roles and Access Model.md) | Выбор техники в заявке |
 
 ---
 
@@ -184,4 +184,4 @@ Content-Type: application/json
 ## Замечания
 
 1. Наличие записей в load summary не означает автоматический запрет на создание или отправку заявки.
-2. Summary используется для информирования Requestor о competing bookings по выбранной технике.
+2. Summary используется для информирования [`Requestor`](../../../requirements/Roles and Access Model.md) о competing bookings по выбранной технике.

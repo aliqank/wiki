@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обрабатывает удаление записи бизнес-партнёра из справочника Admin Panel. Удаление реализовано как soft delete. Если бизнес-партнёр используется хотя бы одним активным external user, удаление запрещено.
+Новый метод. Обрабатывает удаление записи бизнес-партнёра из справочника [`Admin`](../../../requirements/Roles and Access Model.md) Panel. Удаление реализовано как soft delete. Если бизнес-партнёр используется хотя бы одним активным external user, удаление запрещено.
 
 ---
 
@@ -31,8 +31,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-014 | Admin редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Удаление бизнес-партнёра входит в управление справочником |
-| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Справочник управляется через Admin Panel |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Удаление бизнес-партнёра входит в управление справочником |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Справочник управляется через [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 
 ---
 
@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Доступ к административной панели и справочнику бизнес-партнёров |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику бизнес-партнёров |
 
 ---
 
@@ -71,7 +71,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
 | `NOT_FOUND` | Бизнес-партнёр не найден или уже помечен как удалённый |
 | `BUSINESS_PARTNER_IN_USE` | Удаление невозможно: к бизнес-партнёру привязаны активные external users |
 

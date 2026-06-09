@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить справочник статусов заявки для фильтра Fleet Owner view `Approvals -> Requests` |
+| Описание | Получить справочник статусов заявки для фильтра [`Fleet Owner`](../../../requirements/Roles and Access Model.md) view `Approvals -> Requests` |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/reference/approval-request-statuses` |
 | Метод запроса | `GET` |
 | Связанные use cases | [`UC-FO-01 - Просмотр списка заявок Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-01%20-%20Просмотр%20списка%20заявок%20Fleet%20Owner.md) |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый reference API для `UC-FO-03`. Используется для загрузки списка значений фильтра `status` во view Fleet Owner `Approvals -> Requests`.
+Новый reference API для `UC-FO-03`. Используется для загрузки списка значений фильтра `status` во view [`Fleet Owner`](../../../requirements/Roles and Access Model.md) `Approvals -> Requests`.
 
 ---
 
@@ -40,7 +40,7 @@
 
 1. Выбрать записи из `ref_booking_request_status`.
 2. Вернуть только значения, допустимые для фильтра [`GET /approvals/requests`](../fleet-owner/GET_approvals_requests.md): `Submitted`, `InProgress`.
-3. Не возвращать `Draft` и `Closed`, так как они не должны использоваться во Fleet Owner request list.
+3. Не возвращать `Draft` и `Closed`, так как они не должны использоваться во [`Fleet Owner`](../../../requirements/Roles and Access Model.md) request list.
 4. Отсортировать записи по `sortOrder`.
 
 Сущности, участвующие в методе:
@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Просмотр и фильтрация заявок в approval request view |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр и фильтрация заявок в approval request view |
 
 ---
 

@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Создать новый тип техники в справочнике Admin Panel |
+| Описание | Создать новый тип техники в справочнике [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/equipment-types` |
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обеспечивает создание типа техники через форму AP-02 в Admin Panel. Тип техники является корневой справочной сущностью: к нему привязываются динамические характеристики (EquipmentTypeProperties) и единицы техники (Equipments). Метод поддерживает передачу стартового списка характеристик типа в одном запросе.
+Новый метод. Обеспечивает создание типа техники через форму AP-02 в [`Admin`](../../../requirements/Roles and Access Model.md) Panel. Тип техники является корневой справочной сущностью: к нему привязываются динамические характеристики (EquipmentTypeProperties) и единицы техники (Equipments). Метод поддерживает передачу стартового списка характеристик типа в одном запросе.
 
 ---
 
@@ -31,8 +31,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-010 | Admin configures dynamic custom characteristics per equipment type via Admin Panel tool; characteristics appear automatically in equipment card, request form, and search filters based on equipment type | Confirmed | BRD v13 | Создание типа является предусловием для настройки его характеристик |
-| TCO Booking Tool | FR-NEW-50 | Admin manages all reference/handbook values via Admin Panel | Confirmed | BRD v13 | Типы техники — справочная сущность, управляемая Admin Panel |
+| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles and Access Model.md) configures dynamic custom characteristics per equipment type via [`Admin`](../../../requirements/Roles and Access Model.md) Panel tool; characteristics appear automatically in equipment card, request form, and search filters based on equipment type | Confirmed | BRD v13 | Создание типа является предусловием для настройки его характеристик |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Типы техники — справочная сущность, управляемая [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
 | TCO Booking Tool | FR-NEW-68 | System dynamically shows only type-specific characteristics in request creation form and equipment search filters, based on the selected equipment type | Confirmed | BRD v13 | Требует наличия созданных типов техники в справочнике |
 
 ---
@@ -63,7 +63,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `Admin` | Доступ к административной панели и управлению справочниками типов техники |
+| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и управлению справочниками типов техники |
 
 ---
 
@@ -80,7 +80,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли `Admin` |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
 | `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или локализованное имя уже существует в справочнике |
 | `VALIDATION_ERROR` | Поле `mobilityType` содержит недопустимое значение |
 | `VALIDATION_ERROR` | Поле `equipmentClass` содержит недопустимое значение |

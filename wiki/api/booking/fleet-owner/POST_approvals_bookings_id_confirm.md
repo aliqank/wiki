@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Подтвердить бронь как Fleet Owner |
+| Описание | Подтвердить бронь как [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / Fleet Owner UI` |
+| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/confirm` |
 | Метод запроса | `POST` |
 | Связанные use cases | [`UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий)`](../../../requirements/usecases/Fleet%20Owner/UC-FO-03%20-%20Подтверждение%20брони%20Fleet%20Owner%20(базовый%20сценарий).md) |
@@ -59,7 +59,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| `FleetOwner` | Подтверждение броней своих флотов |
+| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Подтверждение броней своих флотов |
 
 ---
 
@@ -67,7 +67,7 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Таймаут ответа Supervisor | `SUPERVISOR_RESPONSE_TIMEOUT_HOURS` | `int` | Используется после появления pending шага `SupervisorApproval` | Конфигурируется Admin |
+| Таймаут ответа Supervisor | `SUPERVISOR_RESPONSE_TIMEOUT_HOURS` | `int` | Используется после появления pending шага `SupervisorApproval` | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
 
 ---
 
@@ -111,7 +111,7 @@ Content-Type: application/json
 ## Замечания
 
 1. Наличие competing bookings по той же технике не должно автоматически блокировать confirm.
-2. Решение по конфликтующим броням принимает Fleet Owner на основании load summary и бизнес-контекста.
+2. Решение по конфликтующим броням принимает [`Fleet Owner`](../../../requirements/Roles and Access Model.md) на основании load summary и бизнес-контекста.
 
 ---
 
