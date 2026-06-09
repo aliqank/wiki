@@ -1,7 +1,7 @@
 # UC-FO-06 - Отклонение брони [`Fleet Owner`](../../Roles%20and%20Access%20Model.md)
 
 **Created:** 2026-06-02  
-**Last updated:** 2026-06-08  
+**Last updated:** 2026-06-09  
 **Автор документов:** Telman Nurzhanov (SA)
 
 ---
@@ -10,12 +10,12 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) `Approvals` -> view `Requests` -> detail / action view конкретной брони |
+| Область действия | Страница [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) `Approvals` -> view `Requests` -> строка конкретной брони в списке / detail / action view конкретной брони |
 | Участник | Пользователь с ролью [`FleetOwner`](../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-043`, `FR-044`, `FR-049`, `FR-050`, `FR-064`, `FR-NEW-22` |
 | Покрываемые FR (Additional list) | `BRD-U-001` |
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles%20and%20Access%20Model.md); бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь находится в статусе `Submitted`; сценарий выполняется до фактического старта работ |
-| Триггер | Нажатие кнопки `Decline` в карточке брони, открытой из request view |
+| Триггер | Нажатие кнопки `Decline` в строке брони на странице `Requests` или в карточке брони, открытой из request view |
 | Ожидаемый результат | Бронь отклонена [`Fleet Owner`](../../Roles%20and%20Access%20Model.md)-ом и переходит в terminal status `Closed` с `closureReason = Declined`; агрегированный статус заявки пересчитан |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/decline`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md) |
 
@@ -24,15 +24,15 @@
 ## Основной сценарий
 
 1. [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
-2. Пользователь открывает внутри заявки detail / action view конкретной релевантной брони.
-3. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
-4. Пользователь проверяет ключевые данные брони:
+2. Пользователь находит внутри заявки конкретную релевантную бронь и может либо открыть detail / action view, либо выполнить действие прямо из строки этой брони.
+3. Если пользователь открывает detail / action view, frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
+4. Пользователь проверяет ключевые данные брони, доступные в строке списка и/или detail view:
    - requestor;
    - Work Order и приоритет;
    - технику;
    - плановый период;
    - контекст заявки и причину, по которой бронь должна быть отклонена.
-5. Пользователь нажимает кнопку `Decline`.
+5. Пользователь нажимает кнопку `Decline` в строке брони или в detail / action view.
 6. Frontend открывает форму decline и требует обязательную причину отклонения.
 7. Пользователь вводит `reason` и подтверждает действие.
 8. Frontend вызывает [`POST /approvals/bookings/{id}/decline`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md).
@@ -73,6 +73,9 @@
 5. Отклоняемая бронь является последней активной в заявке.
    После decline backend дополнительно пересчитывает request-level terminal результат по aggregated rules: `Closed + Cancelled` или `Closed + Completed` в зависимости от того, была ли заявка ранее в `InProgress`.
 
+6. Пользователь отклоняет бронь прямо из строки списка без открытия detail view.
+   Frontend использует `bookingId` выбранной строки, открывает ту же форму обязательной причины decline и вызывает тот же [`POST /approvals/bookings/{id}/decline`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md); backend применяет ту же бизнес-логику, а frontend обновляет строку брони и request view без обязательной навигации в карточку.
+
 ---
 
 ## Замечания
@@ -82,3 +85,4 @@
 3. На уровне booking lifecycle отклонение выражается через `status = Closed` и `closureReason = Declined`.
 4. На уровне request lifecycle отклонение одной брони не означает автоматическое закрытие всей заявки; ключевым условием является наличие или отсутствие других активных booking item-ов.
 5. Если после decline активных booking item-ов не осталось, request-level результат должен определяться по `Aggregated Request Status Rules.md`, а не выводиться только из closure reason отклоненной брони.
+6. Действие decline должно быть доступно как из detail / action view, так и напрямую из строки брони на странице `Requests`, если frontend может собрать обязательную форму причины decline без перехода в отдельную карточку.

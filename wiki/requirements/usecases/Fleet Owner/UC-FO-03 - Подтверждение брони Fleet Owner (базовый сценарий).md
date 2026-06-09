@@ -10,12 +10,12 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) `Approvals` -> view `Requests` -> detail / action view конкретной брони |
+| Область действия | Страница [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) `Approvals` -> view `Requests` -> строка конкретной брони в списке / detail / action view конкретной брони |
 | Участник | Пользователь с ролью [`FleetOwner`](../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-043`, `FR-044`, `FR-045`, `FR-063`, `FR-NEW-19` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles%20and%20Access%20Model.md); бронь относится к fleet-у пользователя; бронь находится в статусе `Submitted`; сценарий не требует транспортировки и не требует дополнительного согласования Supervisor |
-| Триггер | Нажатие кнопки `Подтвердить` в карточке брони, открытой из request view |
+| Триггер | Нажатие кнопки `Подтвердить` в строке брони на странице `Requests` или в карточке брони, открытой из request view |
 | Ожидаемый результат | Бронь подтверждена [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) и переходит в статус `Confirmed` |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/confirm`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md) |
 
@@ -24,9 +24,9 @@
 ## Основной сценарий
 
 1. [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
-2. Пользователь открывает внутри заявки detail / action view конкретной релевантной брони.
-3. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
-4. Пользователь проверяет ключевые данные брони:
+2. Пользователь находит внутри заявки конкретную релевантную бронь и может либо открыть detail / action view, либо выполнить действие прямо из строки этой брони.
+3. Если пользователь открывает detail / action view, frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
+4. Пользователь проверяет ключевые данные брони, доступные в строке списка и/или detail view:
    - requestor;
    - Work Order и приоритет;
    - технику;
@@ -36,7 +36,7 @@
    - не требуется перевозка;
    - не требуется дополнительное согласование Supervisor;
    - текущий статус позволяет confirm.
-6. Пользователь нажимает кнопку `Подтвердить`.
+6. Пользователь нажимает кнопку `Подтвердить` в строке брони или в detail / action view.
 7. Frontend вызывает [`POST /approvals/bookings/{id}/confirm`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md).
 8. Backend проверяет, что:
    - бронь существует;
@@ -71,6 +71,9 @@
 6. Пользователь не имеет доступа к брони.
    Backend возвращает `FORBIDDEN`.
 
+7. Пользователь подтверждает бронь прямо из строки списка без открытия detail view.
+   Frontend использует `bookingId` выбранной строки и вызывает тот же [`POST /approvals/bookings/{id}/confirm`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_confirm.md); backend применяет ту же бизнес-логику, а frontend обновляет строку брони и request view без обязательной навигации в карточку.
+
 ---
 
 ## Замечания
@@ -80,3 +83,4 @@
 3. Для long-term rented booking после confirm [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) бронь не становится финально `Confirmed` сразу; требуется отдельное решение [`FleetOwners' Supervisor`](../../Roles%20and%20Access%20Model.md).
 4. Решение [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) должно фиксироваться не только как status transition, но и как отдельный approval step в `BookingApprovals`.
 5. Отдельный special status для продления не рассматривается; повторное согласование должно возвращать бронь в lifecycle `Submitted`.
+6. Действие confirm должно быть доступно как из detail / action view, так и напрямую из строки брони на странице `Requests`, если в строке уже показан достаточный контекст для принятия решения.
