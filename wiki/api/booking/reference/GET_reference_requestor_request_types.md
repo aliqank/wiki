@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Получить справочник типов заявки для фильтра страницы `Мои заявки` |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/reference/requestor-request-types` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md) |
+| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md) |
 | Согласовано | |
 
 ---
@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-091 | [`Requestor`](../../../requirements/Roles and Access Model.md) can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `type` должны загружаться отдельным reference API для текущего scope |
+| TCO Booking Tool | FR-091 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `type` должны загружаться отдельным reference API для текущего scope |
 
 ---
 
@@ -50,7 +50,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр и фильтрация собственных заявок |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр и фильтрация собственных заявок |
 
 ---
 

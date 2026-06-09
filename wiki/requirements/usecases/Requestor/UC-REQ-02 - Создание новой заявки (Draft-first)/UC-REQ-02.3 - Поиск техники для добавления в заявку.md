@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Окно `Добавить технику` |
-| Участник | [`Requestor`](../../../Roles and Access Model.md) |
+| Участник | [`Requestor`](../../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-031`, `FR-032`, `FR-033`, `FR-040`, `FR-041`, `FR-NEW-07`, `FR-NEW-09`, `FR-NEW-38`, `FR-NEW-39`, `FR-NEW-50`, `FR-NEW-68` |
 | Покрываемые FR (Additional list) | — |
 | Триггер | Открытие окна `Добавить технику` |
@@ -35,7 +35,7 @@
 6. Frontend вызывает [`GET /equipment/search`](../../../../api/booking/requestor/GET_equipment_search.md).
 7. Backend возвращает список техники, доступной по фильтрам и периоду.
 8. Списанная техника с текущим статусом `Decommissioned` исключается из выдачи и не отображается пользователю.
-9. Стационарная HDE не должна возвращаться в [`Requestor`](../../../Roles and Access Model.md) search и не отображается пользователю.
+9. Стационарная HDE не должна возвращаться в [`Requestor`](../../../Roles%20and%20Access%20Model.md) search и не отображается пользователю.
 10. Frontend отображает результаты поиска.
 11. Для техники `Shared with Conditions` frontend показывает visual color marker на основе returned business context.
 

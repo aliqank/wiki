@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Досрочно завершить подтвержденную бронь |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/bookings/{id}/terminate` |
 | Метод запроса | `POST` |
 | Согласовано | |
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-060 | [`Requestor`](../../../requirements/Roles and Access Model.md) can terminate confirmed booking | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
+| TCO Booking Tool | FR-060 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can terminate confirmed booking | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | FR-069 | Booking -> Closed with closure reason Terminated once terminated | Confirmed | BRD v13 | Обновление статуса |
 
 ---
@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Terminate собственной брони |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Terminate собственной брони |
 
 ---
 

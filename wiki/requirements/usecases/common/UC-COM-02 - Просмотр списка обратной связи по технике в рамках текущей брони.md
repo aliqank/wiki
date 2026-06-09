@@ -10,8 +10,8 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница `Мои заявки`, detail view заявки, detail view брони, [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` detail / action view |
-| Участник | Пользователь с ролью [`Requestor`](../../Roles and Access Model.md), [`ServiceWorkProcessor`](../../Roles and Access Model.md) или [`FleetOwner`](../../Roles and Access Model.md) |
+| Область действия | Страница `Мои заявки`, detail view заявки, detail view брони, [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) `Approvals` detail / action view |
+| Участник | Пользователь с ролью [`Requestor`](../../Roles%20and%20Access%20Model.md), [`ServiceWorkProcessor`](../../Roles%20and%20Access%20Model.md) или [`FleetOwner`](../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-022` *(read-side continuation of feedback flow)* |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован; пользователь уже находится в контексте конкретной брони; у пользователя есть право просмотра этой брони |
@@ -41,19 +41,19 @@
 
 ## Варианты доступа по ролям
 
-### 1. [`Requestor`](../../Roles and Access Model.md)
+### 1. [`Requestor`](../../Roles%20and%20Access%20Model.md)
 
 - видит feedback-list собственной брони;
 - не должен видеть feedback по брони другого пользователя без отдельного access context.
 
-### 2. [`ServiceWorkProcessor`](../../Roles and Access Model.md)
+### 2. [`ServiceWorkProcessor`](../../Roles%20and%20Access%20Model.md)
 
 - видит feedback-list брони, относящейся к доступному `Service Work Request`;
 - доступ определяется business context-ом JDE-sourced request.
 
-### 3. [`FleetOwner`](../../Roles and Access Model.md)
+### 3. [`FleetOwner`](../../Roles%20and%20Access%20Model.md)
 
-- видит feedback-list брони, относящейся к fleet-у, где у пользователя есть [`Fleet Management Access`](../../Roles and Access Model.md#специальные-access-concepts);
+- видит feedback-list брони, относящейся к fleet-у, где у пользователя есть [`Fleet Management Access`](../../Roles%20and%20Access%20Model.md#%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-access-concepts);
 - не должен видеть feedback по броням вне зоны ответственности своих fleet-ов.
 
 ---

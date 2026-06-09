@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Получить детальную информацию по заявке |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md), [`UC-REQ-03 - Отмена draft-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md), [`UC-REQ-04 - Отзыв брони requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-04%20-%20Отзыв%20брони%20requestor-ом.md), [`UC-REQ-05 - Отзыв submitted-заявки requestor-ом`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md) |
+| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md), [`UC-REQ-03 - Отмена draft-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md), [`UC-REQ-04 - Отзыв брони requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-04%20-%20Отзыв%20брони%20requestor-ом.md), [`UC-REQ-05 - Отзыв submitted-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md) |
 | Согласовано | |
 
 ---
@@ -31,7 +31,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-024 | Request has unique ID and metadata | Confirmed | BRD v13 | Метод возвращает идентификатор и метаданные заявки |
-| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles and Access Model.md) can view request details and status | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can view request details and status | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-026 | Request statuses: Draft, Submitted, In Progress, Completed | Confirmed | BRD v13 | Метод возвращает текущий статус заявки |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Метод возвращает item-ы заявки |
 | TCO Booking Tool | FR-039 | Each booking has unique ID, start/end datetimes | Confirmed | BRD v13 | Метод возвращает идентификаторы и плановый период booking item-ов |
@@ -42,7 +42,7 @@
 ## 3. Описание логики работы метода
 
 1. Получить `BookingRequests` по `id`.
-2. Проверить доступ: [`Requestor`](../../../requirements/Roles and Access Model.md) видит только заявки, где `BookingRequests.requestorId = currentUserId`.
+2. Проверить доступ: [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) видит только заявки, где `BookingRequests.requestorId = currentUserId`.
 3. Подтянуть связанные `Bookings`, а также справочные данные по технике.
 4. Вернуть агрегированную модель заявки, достаточную для отображения обновленного состояния страницы `Новая заявка / Редактировать заявку` после добавления техники.
 
@@ -56,7 +56,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр собственных заявок |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр собственных заявок |
 
 ---
 

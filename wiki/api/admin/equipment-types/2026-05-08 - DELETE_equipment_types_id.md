@@ -31,8 +31,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles and Access Model.md) configures dynamic custom characteristics per equipment type via [`Admin`](../../../requirements/Roles and Access Model.md) Panel tool; characteristics appear automatically in equipment card, request form, and search filters based on equipment type | Confirmed | BRD v13 | Управление жизненным циклом типов техники (включая удаление) входит в скоуп [`Admin`](../../../requirements/Roles and Access Model.md) Panel tool |
-| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Типы техники — справочная сущность; их удаление входит в управление справочниками |
+| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) configures dynamic custom characteristics per equipment type via [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel tool; characteristics appear automatically in equipment card, request form, and search filters based on equipment type | Confirmed | BRD v13 | Управление жизненным циклом типов техники (включая удаление) входит в скоуп [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel tool |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel | Confirmed | BRD v13 | Типы техники — справочная сущность; их удаление входит в управление справочниками |
 
 ---
 
@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и управлению справочниками типов техники |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к административной панели и управлению справочниками типов техники |
 
 ---
 
@@ -71,7 +71,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | `NOT_FOUND` | Тип техники с указанным `id` не найден или уже помечен как удалённый |
 | `EQUIPMENT_TYPE_IN_USE` | Удаление невозможно: к типу привязаны активные единицы техники |
 
@@ -137,5 +137,5 @@ Authorization: Bearer <token>
 ## Замечания
 
 1. Guard на уровне API обязателен, даже если frontend заблаговременно блокирует кнопку «Удалить» при `equipmentsCount > 0` (значение берётся из [`GET /equipment-types`](2026-05-08 - GET_equipment_types.md)). Это защищает от race condition и прямых API-вызовов.
-2. Метод выполняет soft delete только записи `EquipmentTypes`. Связанные записи `EquipmentTypeProperties` остаются в базе с `isDeleted = false` — они становятся неактивными вместе с типом, т.к. все GET-методы [`Admin`](../../../requirements/Roles and Access Model.md) Panel фильтруют `EquipmentTypes WHERE isDeleted = false`.
-3. После успешного soft delete тип техники перестаёт появляться во всех GET-методах (список AP-01, карточка AP-02, поиск для [`Requestor`](../../../requirements/Roles and Access Model.md)). Отменить удаление через API невозможно — только прямым вмешательством в БД.
+2. Метод выполняет soft delete только записи `EquipmentTypes`. Связанные записи `EquipmentTypeProperties` остаются в базе с `isDeleted = false` — они становятся неактивными вместе с типом, т.к. все GET-методы [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel фильтруют `EquipmentTypes WHERE isDeleted = false`.
+3. После успешного soft delete тип техники перестаёт появляться во всех GET-методах (список AP-01, карточка AP-02, поиск для [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md)). Отменить удаление через API невозможно — только прямым вмешательством в БД.

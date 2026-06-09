@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Получить динамические свойства выбранного типа техники для фильтров формы создания заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/reference/equipment-types/{equipmentTypeId}/properties` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.3 - Поиск техники для добавления в заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.3%20-%20Поиск%20техники%20для%20добавления%20в%20заявку.md) |
 | Согласовано | |
 
 ---
@@ -52,7 +52,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Создание и редактирование собственных заявок |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Создание и редактирование собственных заявок |
 
 ---
 

@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Метод раскрывает детали конфликтов, уже учитываемых в availability check |
-| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles and Access Model.md) can view request details and status | Confirmed | BRD v13 | Позволяет детализировать конфликты из карточки брони |
+| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can view request details and status | Confirmed | BRD v13 | Позволяет детализировать конфликты из карточки брони |
 
 ---
 
@@ -56,10 +56,10 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр конфликтов собственной брони |
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр конфликтов броней своих флотов |
-| [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) | Просмотр конфликтов long-term rented броней |
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный доступ |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр конфликтов собственной брони |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр конфликтов броней своих флотов |
+| [`FleetOwnersSupervisor`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр конфликтов long-term rented броней |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Полный доступ |
 
 ---
 
@@ -137,7 +137,7 @@ Content-Type: application/json
 | 10 | Дата и время окончания пересечения | overlapEndDateTime | datetime | ISO 8601 | — | backend overlap calculation | `MIN(source.plannedEndDateTime, conflicting.plannedEndDateTime)` |
 | 11 | Код рабочего центра | workCenterCode | string | string | — | WorkCenters.code |  |
 | 12 | Fleet | fleet | object | object | — | Fleets | Базовый контекст флота конфликтующей брони |
-| 13 | [`Requestor`](../../../requirements/Roles and Access Model.md) | requestor | object | object | — | BookingRequests.requestorId + Users | Business-requestor конфликтующей заявки |
+| 13 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | requestor | object | object | — | BookingRequests.requestorId + Users | Business-requestor конфликтующей заявки |
 
 ### Структура `value.items[].fleet`
 

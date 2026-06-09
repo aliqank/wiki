@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обрабатывает удаление записи work center из справочника [`Admin`](../../../requirements/Roles and Access Model.md) Panel. Удаление реализовано как soft delete. Если work center используется хотя бы одним активным типом техники, удаление запрещено.
+Новый метод. Обрабатывает удаление записи work center из справочника [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel. Удаление реализовано как soft delete. Если work center используется хотя бы одним активным типом техники, удаление запрещено.
 
 ---
 
@@ -31,9 +31,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-013 | [`Admin`](../../../requirements/Roles and Access Model.md) создаёт equipment types / equipment-related master data | Confirmed | BRD v13 | Work centers являются связанным справочником для типов техники |
-| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Удаление work center входит в управление справочником |
-| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Work centers управляются через [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| TCO Booking Tool | FR-013 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) создаёт equipment types / equipment-related master data | Confirmed | BRD v13 | Work centers являются связанным справочником для типов техники |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Удаление work center входит в управление справочником |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel | Confirmed | BRD v13 | Work centers управляются через [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
 
 ---
 
@@ -55,7 +55,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику work centers |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к административной панели и справочнику work centers |
 
 ---
 
@@ -72,7 +72,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | `NOT_FOUND` | Work center с указанным `id` не найден или уже помечен как удалённый |
 | `WORK_CENTER_IN_USE` | Удаление невозможно: к work center привязаны активные типы техники |
 

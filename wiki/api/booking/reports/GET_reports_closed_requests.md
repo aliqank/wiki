@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-45 | Dedicated Closed Requests / terminal requests page | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-NEW-52 | [`Requestor`](../../../requirements/Roles and Access Model.md) has access to Request History | Confirmed | BRD v13 | Аналог в отчетном разрезе |
+| TCO Booking Tool | FR-NEW-52 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) has access to Request History | Confirmed | BRD v13 | Аналог в отчетном разрезе |
 
 ---
 
@@ -52,9 +52,9 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Только terminal собственные заявки |
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Завершенные заявки по своим флотам |
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный список |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Только terminal собственные заявки |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Завершенные заявки по своим флотам |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Полный список |
 
 ---
 

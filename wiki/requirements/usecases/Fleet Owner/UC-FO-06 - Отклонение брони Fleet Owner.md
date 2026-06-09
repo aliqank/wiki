@@ -1,4 +1,4 @@
-# UC-FO-06 - Отклонение брони [`Fleet Owner`](../../Roles and Access Model.md)
+# UC-FO-06 - Отклонение брони [`Fleet Owner`](../../Roles%20and%20Access%20Model.md)
 
 **Created:** 2026-06-02  
 **Last updated:** 2026-06-08  
@@ -10,20 +10,20 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` -> view `Requests` -> detail / action view конкретной брони |
-| Участник | Пользователь с ролью [`FleetOwner`](../../Roles and Access Model.md) |
+| Область действия | Страница [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) `Approvals` -> view `Requests` -> detail / action view конкретной брони |
+| Участник | Пользователь с ролью [`FleetOwner`](../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-043`, `FR-044`, `FR-049`, `FR-050`, `FR-064`, `FR-NEW-22` |
 | Покрываемые FR (Additional list) | `BRD-U-001` |
-| Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles and Access Model.md); бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь находится в статусе `Submitted`; сценарий выполняется до фактического старта работ |
+| Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles%20and%20Access%20Model.md); бронь относится к fleet-у, по которому у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access); бронь находится в статусе `Submitted`; сценарий выполняется до фактического старта работ |
 | Триггер | Нажатие кнопки `Decline` в карточке брони, открытой из request view |
-| Ожидаемый результат | Бронь отклонена [`Fleet Owner`](../../Roles and Access Model.md)-ом и переходит в terminal status `Closed` с `closureReason = Declined`; агрегированный статус заявки пересчитан |
+| Ожидаемый результат | Бронь отклонена [`Fleet Owner`](../../Roles%20and%20Access%20Model.md)-ом и переходит в terminal status `Closed` с `closureReason = Declined`; агрегированный статус заявки пересчитан |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/decline`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md) |
 
 ---
 
 ## Основной сценарий
 
-1. [`Fleet Owner`](../../Roles and Access Model.md) открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
+1. [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) открывает страницу `Approvals` во view `Requests` и выбирает заявку из списка.
 2. Пользователь открывает внутри заявки detail / action view конкретной релевантной брони.
 3. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
 4. Пользователь проверяет ключевые данные брони:
@@ -38,7 +38,7 @@
 8. Frontend вызывает [`POST /approvals/bookings/{id}/decline`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_decline.md).
 9. Backend проверяет, что:
    - бронь существует;
-   - бронь относится к зоне ответственности текущего [`Fleet Owner`](../../Roles and Access Model.md);
+   - бронь относится к зоне ответственности текущего [`Fleet Owner`](../../Roles%20and%20Access%20Model.md);
    - текущий статус равен `Submitted`;
    - передана непустая причина decline.
 10. Backend переводит бронь в terminal state `Closed` с `closureReason = Declined`.
@@ -52,7 +52,7 @@
    - статус брони `Closed`;
    - closure reason `Declined`;
    - зафиксированную причину decline.
-15. Система обновляет request view так, чтобы отклоненная бронь больше не отображалась как ожидающая решения [`Fleet Owner`](../../Roles and Access Model.md).
+15. Система обновляет request view так, чтобы отклоненная бронь больше не отображалась как ожидающая решения [`Fleet Owner`](../../Roles%20and%20Access%20Model.md).
 
 ---
 
@@ -77,8 +77,8 @@
 
 ## Замечания
 
-1. Use case покрывает именно decline-решение со стороны [`Fleet Owner`](../../Roles and Access Model.md) на этапе `Submitted` и не применяется после перехода брони в `Confirmed` или `InProgress`.
-2. Для long-term rented брони отказ [`Fleet Owner`](../../Roles and Access Model.md) завершает сценарий сразу: Supervisor approval step не создается.
+1. Use case покрывает именно decline-решение со стороны [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) на этапе `Submitted` и не применяется после перехода брони в `Confirmed` или `InProgress`.
+2. Для long-term rented брони отказ [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) завершает сценарий сразу: Supervisor approval step не создается.
 3. На уровне booking lifecycle отклонение выражается через `status = Closed` и `closureReason = Declined`.
 4. На уровне request lifecycle отклонение одной брони не означает автоматическое закрытие всей заявки; ключевым условием является наличие или отсутствие других активных booking item-ов.
 5. Если после decline активных booking item-ов не осталось, request-level результат должен определяться по `Aggregated Request Status Rules.md`, а не выводиться только из closure reason отклоненной брони.

@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый reference API для `UC-REQ-01`. Используется для загрузки списка значений фильтра `priority`, tooltip-описаний и UI-цветов приоритета на страницах Requestor / [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
+Новый reference API для `UC-REQ-01`. Используется для загрузки списка значений фильтра `priority`, tooltip-описаний и UI-цветов приоритета на страницах Requestor / [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md).
 
 ---
 
@@ -30,7 +30,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-091 | [`Requestor`](../../../requirements/Roles and Access Model.md) can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `priority` должны загружаться отдельным reference API для текущего scope |
+| TCO Booking Tool | FR-091 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can search and filter own requests | Confirmed | BRD v13 | Значения фильтра `priority` должны загружаться отдельным reference API для текущего scope |
 | TCO Booking Tool | FR-NEW-69 | Priority field tooltips/hints | Confirmed | BRD v13 | Метод возвращает локализованные descriptions для tooltip / hint по каждому priority value |
 
 ---
@@ -52,8 +52,8 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр и фильтрация собственных заявок |
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр request-level очереди и фильтров [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр и фильтрация собственных заявок |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр request-level очереди и фильтров [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 ---
 

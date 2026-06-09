@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Досрочно завершить бронь как [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
+| Описание | Досрочно завершить бронь как [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/terminate` |
 | Метод запроса | `POST` |
 | Согласовано | |
@@ -52,7 +52,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Досрочное завершение броней своих флотов |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Досрочное завершение броней своих флотов |
 
 ---
 

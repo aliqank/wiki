@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Наполняет очередь для [`Transportation Responsible`](../../../requirements/Roles and Access Model.md).
+Новый метод. Наполняет очередь для [`Transportation Responsible`](../../../requirements/Roles%20and%20Access%20Model.md).
 
 ---
 
@@ -30,13 +30,13 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-29 | Three-step Unwheeled flow | Confirmed | BRD v13 | Очередь транспортных задач |
-| TCO Booking Tool | FR-NEW-35 | Notification to [`Transportation Responsible`](../../../requirements/Roles and Access Model.md) | Confirmed | BRD v13 | Получатель рассматривает очередь |
+| TCO Booking Tool | FR-NEW-35 | Notification to [`Transportation Responsible`](../../../requirements/Roles%20and%20Access%20Model.md) | Confirmed | BRD v13 | Получатель рассматривает очередь |
 
 ---
 
 ## 3. Описание логики работы метода
 
-1. Проверить роль текущего пользователя [`TransportationResponsible`](../../../requirements/Roles and Access Model.md).
+1. Проверить роль текущего пользователя [`TransportationResponsible`](../../../requirements/Roles%20and%20Access%20Model.md).
 2. Выбрать брони, для которых требуется транспортировка и ожидается решение транспортной роли.
 3. Подтянуть transport linkage из `BookingTransportations`, если для брони уже создана транспортирующая бронь.
 4. Подтянуть данные заявки и техники.
@@ -51,7 +51,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) | Доступ к транспортным задачам по unwheeled технике |
+| [`TransportationResponsible`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к транспортным задачам по unwheeled технике |
 
 ---
 
@@ -68,7 +68,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет роли [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | Нет роли [`TransportationResponsible`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 

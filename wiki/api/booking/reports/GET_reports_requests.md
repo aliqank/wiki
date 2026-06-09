@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-094 | System generates reports on Requests/Bookings/Equipment with filters | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-095 | [`Admin`](../../../requirements/Roles and Access Model.md) can view/download all reports | Confirmed | BRD v13 | Полный доступ |
+| TCO Booking Tool | FR-095 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) can view/download all reports | Confirmed | BRD v13 | Полный доступ |
 
 ---
 
@@ -50,8 +50,8 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Все заявки и все отчеты |
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Только заявки по своим флотам |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Все заявки и все отчеты |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Только заявки по своим флотам |
 
 ---
 

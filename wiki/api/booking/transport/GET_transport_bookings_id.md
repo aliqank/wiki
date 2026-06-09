@@ -49,7 +49,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) | Просмотр транспортных задач |
+| [`TransportationResponsible`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр транспортных задач |
 
 ---
 
@@ -66,7 +66,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет роли [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | Нет роли [`TransportationResponsible`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | `NOT_FOUND` | Бронь не найдена |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`

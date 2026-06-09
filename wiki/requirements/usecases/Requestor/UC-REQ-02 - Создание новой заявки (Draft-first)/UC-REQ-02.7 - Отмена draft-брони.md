@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Карточка booking item в draft-заявке |
-| Участник | [`Requestor`](../../../Roles and Access Model.md) |
+| Участник | [`Requestor`](../../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-027`, `FR-031`, `FR-038` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован; открыта собственная draft-заявка; в заявке есть booking item в статусе `Draft` |

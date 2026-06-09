@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Страница `BP Showcase` / `External BP Equipment Showcase` |
-| Участник | Пользователь с ролью [`Requestor`](../../Roles and Access Model.md) |
+| Участник | Пользователь с ролью [`Requestor`](../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-NEW-25`, `FR-NEW-26`, `FR-NEW-27` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован; пользователь имеет доступ к странице showcase; в Phase 1 `On-demand BP (Showcase)` доступна только как read-only витрина |

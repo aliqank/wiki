@@ -11,12 +11,12 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Страница `Мои заявки` / карточка заявки / карточка booking item в отправленной заявке |
-| Участник | Пользователь с ролью [`Requestor`](../../Roles and Access Model.md) |
+| Участник | Пользователь с ролью [`Requestor`](../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-025`, `FR-042`, `FR-058`, `FR-068`, `FR-NEW-17` |
 | Покрываемые FR (Additional list) | — |
-| Предусловие | Пользователь авторизован; у пользователя есть собственная незавершенная заявка; в заявке есть бронь в статусе `Submitted`, которая еще не обработана [`Fleet Owner`](../../Roles and Access Model.md) |
+| Предусловие | Пользователь авторизован; у пользователя есть собственная незавершенная заявка; в заявке есть бронь в статусе `Submitted`, которая еще не обработана [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) |
 | Триггер | Нажатие кнопки `Отозвать бронь` |
-| Ожидаемый результат | Выбранная бронь переведена в статус `Closed` с причиной `Revoked`; агрегированный статус заявки пересчитан; [`Fleet Owner`](../../Roles and Access Model.md) получает уведомление |
+| Ожидаемый результат | Выбранная бронь переведена в статус `Closed` с причиной `Revoked`; агрегированный статус заявки пересчитан; [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) получает уведомление |
 | Используемые API | [`GET /booking-requests/my`](../../../api/booking/requestor/GET_booking_requests_my.md), [`POST /bookings/{id}/revoke`](../../../api/booking/requestor/POST_bookings_id_revoke.md), [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md) |
 
 ---
@@ -32,11 +32,11 @@
 7. Backend проверяет, что:
    - бронь существует;
    - родительская заявка брони имеет `BookingRequests.requestorId`, совпадающий с текущим пользователем;
-   - бронь еще не обработана [`Fleet Owner`](../../Roles and Access Model.md);
+   - бронь еще не обработана [`Fleet Owner`](../../Roles%20and%20Access%20Model.md);
    - текущий статус брони равен `Submitted`.
 8. Backend переводит booking item в статус `Closed` с terminal причиной `Revoked`.
 9. Backend сохраняет запись в истории статусов брони и пересчитывает агрегированный статус родительской заявки.
-10. Система отправляет уведомление [`Fleet Owner`](../../Roles and Access Model.md) об отзыве брони.
+10. Система отправляет уведомление [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) об отзыве брони.
 11. Frontend обновляет строку заявки на странице `Мои заявки`.
 12. При необходимости пользователь открывает детальный просмотр заявки через [`GET /booking-requests/{id}`](../../../api/booking/requestor/GET_booking_requests_id.md) для просмотра полного актуального состава booking item-ов.
 
@@ -73,7 +73,7 @@ sequenceDiagram
 1. Пользователь передумал отзывать бронь.
    Пользователь закрывает подтверждающий диалог, вызов API не выполняется.
 
-2. [`Fleet Owner`](../../Roles and Access Model.md) уже обработал бронь.
+2. [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) уже обработал бронь.
    Backend возвращает `BOOKING_NOT_REVOCABLE`, frontend показывает сообщение об ошибке и не меняет статус.
 
 3. Пользователь пытается отозвать не свою бронь.
@@ -92,7 +92,7 @@ sequenceDiagram
 
 ## Замечания
 
-1. Use case относится только к отзыву брони до решения [`Fleet Owner`](../../Roles and Access Model.md); после решения FO применяются другие сценарии жизненного цикла, например termination.
+1. Use case относится только к отзыву брони до решения [`Fleet Owner`](../../Roles%20and%20Access%20Model.md); после решения FO применяются другие сценарии жизненного цикла, например termination.
 2. Отзыв выполняется на уровне отдельного booking item, а не всей заявки.
-3. `Revoked` трактуется как terminal причина закрытия брони, инициируемая [`Requestor`](../../Roles and Access Model.md) до FO action.
+3. `Revoked` трактуется как terminal причина закрытия брони, инициируемая [`Requestor`](../../Roles%20and%20Access%20Model.md) до FO action.
 4. Правила пересчета request-level статуса после `revoke` и других item-level переходов зафиксированы в отдельном документе `wiki/requirements/Aggregated Request Status Rules.md`.

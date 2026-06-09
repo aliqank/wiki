@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) | Подтверждение транспортировки |
+| [`TransportationResponsible`](../../../requirements/Roles%20and%20Access%20Model.md) | Подтверждение транспортировки |
 
 ---
 
@@ -70,7 +70,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет роли [`TransportationResponsible`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | Нет роли [`TransportationResponsible`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_CONFIRMABLE` | Бронь не ожидает транспортного решения |
 

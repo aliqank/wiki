@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить детали брони для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
+| Описание | Получить детали брони для [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}` |
 | Метод запроса | `GET` |
 | Связанные use cases | [`UC-FO-03 - Подтверждение брони Fleet Owner (базовый сценарий)`](../../../requirements/usecases/Fleet%20Owner/UC-FO-03%20-%20Подтверждение%20брони%20Fleet%20Owner%20(базовый%20сценарий).md), [`UC-FO-04 - Мобилизация техники`](../../../requirements/usecases/Fleet%20Owner/UC-FO-04%20-%20Мобилизация%20техники.md), [`UC-FO-05 - Закрытие брони Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-05%20-%20Закрытие%20брони%20Fleet%20Owner.md) |
@@ -51,7 +51,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр броней по своим флотам |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр броней по своим флотам |
 
 ---
 

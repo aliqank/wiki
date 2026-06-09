@@ -31,8 +31,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles and Access Model.md) configures dynamic custom characteristics per equipment type via [`Admin`](../../../requirements/Roles and Access Model.md) Panel tool; characteristics appear automatically in equipment card, request form, and search filters based on equipment type | Confirmed | BRD v13 | Метод удаляет привязку характеристики из типа |
-| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Нужен для удаления строки характеристики из блока B |
+| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) configures dynamic custom characteristics per equipment type via [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel tool; characteristics appear automatically in equipment card, request form, and search filters based on equipment type | Confirmed | BRD v13 | Метод удаляет привязку характеристики из типа |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Нужен для удаления строки характеристики из блока B |
 | TCO Booking Tool | FR-NEW-68 | System dynamically shows only type-specific characteristics in request creation form and equipment search filters, based on the selected equipment type | Confirmed | BRD v13 | Удаление привязки влияет на UI и фильтры |
 
 ---
@@ -55,7 +55,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и управлению справочниками типов техники |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к административной панели и управлению справочниками типов техники |
 
 ---
 
@@ -72,7 +72,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | `NOT_FOUND` | Тип техники или запись привязки характеристики не найдена |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`

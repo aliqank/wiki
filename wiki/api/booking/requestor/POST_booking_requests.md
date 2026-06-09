@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Создать пустой черновик заявки на бронирование |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests` |
 | Метод запроса | `POST` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.1 - Создание пустого draft заявки`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.1%20-%20Создание%20пустого%20draft%20заявки.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.1 - Создание пустого draft заявки`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.1%20-%20Создание%20пустого%20draft%20заявки.md) |
 | Согласовано | |
 
 ---
@@ -30,9 +30,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-023 | [`Requestor`](../../../requirements/Roles and Access Model.md) can create a Request | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-023 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can create a Request | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-024 | Request has unique ID and metadata | Confirmed | BRD v13 | При создании draft формируются `id`, `requestNumber`, `createdAt` и базовые метаданные |
-| TCO Booking Tool | FR-027 | [`Requestor`](../../../requirements/Roles and Access Model.md) can edit/cancel draft before submission | Confirmed | BRD v13 | Метод создает черновик |
+| TCO Booking Tool | FR-027 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can edit/cancel draft before submission | Confirmed | BRD v13 | Метод создает черновик |
 | TCO Booking Tool | FR-030 | System supports draft saving | Confirmed | BRD v13 | Заявка создается как draft |
 | TCO Booking Tool | FR-072 | Request -> Draft when saved as draft | Confirmed | BRD v13 | Метод создает заявку сразу в статусе `Draft` |
 
@@ -62,7 +62,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Создание обычной заявки |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Создание обычной заявки |
 
 ---
 
@@ -70,7 +70,7 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Подсказки приоритета | `REQUEST_PRIORITY_HINTS` | `json` | Используются UI-формой; backend только хранит `priority` | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Подсказки приоритета | `REQUEST_PRIORITY_HINTS` | `json` | Используются UI-формой; backend только хранит `priority` | Конфигурируется [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 ---
 

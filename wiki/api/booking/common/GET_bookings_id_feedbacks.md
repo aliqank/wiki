@@ -31,9 +31,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-022 | [`Requestor`](../../../requirements/Roles and Access Model.md) / SWP can submit feedback on equipment with confirmed booking | Confirmed | BRD v13 | Read-side continuation feedback flow |
-| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles and Access Model.md) can view request details and status | Confirmed | BRD v13 | Feedback list is part of booking details transparency |
-| TCO Booking Tool | FR-092 | [`FleetOwner`](../../../requirements/Roles and Access Model.md) can work with request / booking details in approvals context | Confirmed | BRD v13 | FO needs read access to feedback for own fleet bookings |
+| TCO Booking Tool | FR-022 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) / SWP can submit feedback on equipment with confirmed booking | Confirmed | BRD v13 | Read-side continuation feedback flow |
+| TCO Booking Tool | FR-025 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can view request details and status | Confirmed | BRD v13 | Feedback list is part of booking details transparency |
+| TCO Booking Tool | FR-092 | [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) can work with request / booking details in approvals context | Confirmed | BRD v13 | FO needs read access to feedback for own fleet bookings |
 
 ---
 
@@ -67,10 +67,10 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Может видеть feedback-list собственной брони |
-| [`ServiceWorkProcessor`](../../../requirements/Roles and Access Model.md) | Может видеть feedback-list брони, относящейся к доступному Service Work Request |
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Может видеть feedback-list брони своих fleet-ов / fleet-ов, где есть [`Fleet Management Access`](../../../requirements/Roles and Access Model.md#специальные-access-concepts) |
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Полный доступ |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Может видеть feedback-list собственной брони |
+| [`ServiceWorkProcessor`](../../../requirements/Roles%20and%20Access%20Model.md) | Может видеть feedback-list брони, относящейся к доступному Service Work Request |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Может видеть feedback-list брони своих fleet-ов / fleet-ов, где есть [`Fleet Management Access`](../../../requirements/Roles%20and%20Access%20Model.md#%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-access-concepts) |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Полный доступ |
 
 ---
 

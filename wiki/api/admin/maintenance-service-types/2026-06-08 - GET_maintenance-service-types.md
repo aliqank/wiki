@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить постраничный список видов сервисного обслуживания для справочника [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| Описание | Получить постраничный список видов сервисного обслуживания для справочника [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/maintenance-service-types` |
@@ -29,8 +29,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Справочник управляется через [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
-| TCO Booking Tool | AFR-06 | [`Admin`](../../../requirements/Roles and Access Model.md) manages maintenance service types directory used in equipment maintenance contracts | Confirmed | wiki/brd/new FR's/Список FR по equipment.md | Новый handbook для нормализации `serviceType` |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel | Confirmed | BRD v13 | Справочник управляется через [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
+| TCO Booking Tool | AFR-06 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) manages maintenance service types directory used in equipment maintenance contracts | Confirmed | wiki/brd/new FR's/Список FR по equipment.md | Новый handbook для нормализации `serviceType` |
 
 ---
 
@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику maintenance service types |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к административной панели и справочнику maintenance service types |
 
 ---
 
@@ -70,7 +70,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 

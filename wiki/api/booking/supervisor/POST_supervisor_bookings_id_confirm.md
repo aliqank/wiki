@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) | Финальное подтверждение long-term rented брони |
+| [`FleetOwnersSupervisor`](../../../requirements/Roles%20and%20Access%20Model.md) | Финальное подтверждение long-term rented брони |
 
 ---
 
@@ -70,7 +70,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | Нет роли [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | Нет роли [`FleetOwnersSupervisor`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | `NOT_FOUND` | Бронь не найдена |
 | `BOOKING_NOT_CONFIRMABLE` | По брони не ожидается шаг `SupervisorApproval` |
 

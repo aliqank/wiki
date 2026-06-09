@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Окно `Добавить технику` |
-| Участник | [`Requestor`](../../../Roles and Access Model.md) |
+| Участник | [`Requestor`](../../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-031`, `FR-033`, `FR-038`, `FR-039`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-15`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
 | Триггер | Пользователь выбрал одну или несколько единиц техники и нажал `Добавить к заявке` |
@@ -47,7 +47,7 @@
    - марка, модель;
    - номер ТШО;
    - ГРНЗ;
-   - данные [`Fleet Owner`](../../../Roles and Access Model.md);
+   - данные [`Fleet Owner`](../../../Roles%20and%20Access%20Model.md);
    - плановые даты начала и завершения брони;
    - характеристики техники в виде `ключ - значение`;
    - поле `justification`, которое пользователь заполняет непосредственно в карточке / строке этой брони.
@@ -80,7 +80,7 @@ sequenceDiagram
 ## Альтернативные сценарии
 
 1. У выбранной техники есть конфликты с другими активными бронями на тот же период.
-   Backend все равно создает booking item-ы в draft-заявке. [Booking conflict context](../../../../glossary/Glossary.md#booking-conflict-context) не блокирует добавление и должен быть рассчитан и отображен пользователю как информационный признак для дальнейшего решения [`Fleet Owner`](../../../Roles and Access Model.md).
+   Backend все равно создает booking item-ы в draft-заявке. [Booking conflict context](../../../../glossary/Glossary.md#booking-conflict-context) не блокирует добавление и должен быть рассчитан и отображен пользователю как информационный признак для дальнейшего решения [`Fleet Owner`](../../../Roles%20and%20Access%20Model.md).
 
 2. Добавление item не прошло из-за hard-ограничения доступности техники.
    Backend возвращает ошибку валидации, если техника недоступна по [hard availability restrictions](../../../../glossary/Glossary.md#hard-availability-restriction), не связанным с competing bookings, например из-за `EquipmentStates`, `OnDemand`, `Stationary` или отсутствия требуемой authorization для `Assigned`.

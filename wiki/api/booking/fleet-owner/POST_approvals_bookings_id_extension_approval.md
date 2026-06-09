@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Принять решение [`Fleet Owner`](../../../requirements/Roles and Access Model.md) по запросу на изменение `plannedEndDateTime` |
+| Описание | Принять решение [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) по запросу на изменение `plannedEndDateTime` |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/extension-approval` |
 | Метод запроса | `POST` |
 | Связанные use cases | [`UC-FO-09 - Согласование изменения плановой даты и времени окончания брони`](../../../requirements/usecases/Fleet%20Owner/UC-FO-09%20-%20Согласование%20изменения%20плановой%20даты%20и%20времени%20окончания%20брони.md) |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется [`Fleet Owner`](../../../requirements/Roles and Access Model.md)-ом для approve/decline запроса [`Requestor`](../../../requirements/Roles and Access Model.md) на изменение `plannedEndDateTime`.
+Новый метод. Используется [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md)-ом для approve/decline запроса [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) на изменение `plannedEndDateTime`.
 
 ---
 
@@ -30,15 +30,15 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-061 | [`Requestor`](../../../requirements/Roles and Access Model.md) can extend confirmed booking | Confirmed | BRD v13 | Метод завершает approval-часть flow для текущего scope |
+| TCO Booking Tool | FR-061 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can extend confirmed booking | Confirmed | BRD v13 | Метод завершает approval-часть flow для текущего scope |
 | TCO Booking Tool | FR-067 | Booking -> Submitted once extended | Confirmed | BRD v13 | Для pre-start сценария request возвращается в approval cycle |
-| TCO Booking Tool | FR-081 | System notifies FO when [`Requestor`](../../../requirements/Roles and Access Model.md) extends booking | Confirmed | BRD v13 | Метод является ответом на такое уведомление |
+| TCO Booking Tool | FR-081 | System notifies FO when [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) extends booking | Confirmed | BRD v13 | Метод является ответом на такое уведомление |
 
 ---
 
 ## 3. Описание логики работы метода
 
-1. Проверить существование брони и права доступа [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
+1. Проверить существование брони и права доступа [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md).
 2. Проверить, что по брони есть pending [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval).
 3. Принять решение `Approved` или `Declined`.
 4. Создать запись в `BookingApprovals` с `approvalType = BookingExtensionApproval`.
@@ -60,7 +60,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Принятие решения по [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) для броней fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Принятие решения по [Booking Extension Approval](../../../glossary/Glossary.md#booking-extension-approval) для броней fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
 
 ---
 
@@ -91,7 +91,7 @@ HTTP-коды: `401 Unauthorized`, `403 Forbidden`, `404 Not Found`, `409 Confli
 | № | Описание параметра | Наименование параметра модели | Тип параметра (backend) | Обязательно для заполнения (+ not nullable / - nullable) | Требование валидаций (если требуется) | Значение по умолчанию | Раздел нахождения параметра | Комментарий |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Идентификатор брони | `id` | `uuid` | `+` | Должен существовать | — | Path param | |
-| 2 | Решение [`Fleet Owner`](../../../requirements/Roles and Access Model.md) | `decision` | `string` | `+` | `Approved / Declined` | — | Request body | |
+| 2 | Решение [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) | `decision` | `string` | `+` | `Approved / Declined` | — | Request body | |
 | 3 | Комментарий | `comment` | `string` | `-` | — | — | Request body | |
 
 ---

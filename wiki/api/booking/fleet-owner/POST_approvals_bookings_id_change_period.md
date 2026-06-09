@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Изменить период брони как [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
+| Описание | Изменить период брони как [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/change-period` |
 | Метод запроса | `POST` |
 | Связанные use cases | [`UC-FO-07 - Изменение периода брони Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-07%20-%20Изменение%20периода%20брони%20Fleet%20Owner.md) |
@@ -31,7 +31,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-048 | FO can adjust booking date range before or after confirmation | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-079a | System notifies [`Requestor`](../../../requirements/Roles and Access Model.md) when FO updates booking period | Confirmed | BRD v13 | Есть side effect-уведомление |
+| TCO Booking Tool | FR-079a | System notifies [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) when FO updates booking period | Confirmed | BRD v13 | Есть side effect-уведомление |
 
 ---
 
@@ -41,7 +41,7 @@
 2. Проверить, что статус брони допускает изменение периода: `Submitted`, `Confirmed` или `InProgress`.
 3. Если бронь находится в `InProgress`, разрешить изменять только `plannedEndDateTime`; изменение `plannedStartDateTime` должно отклоняться.
 4. Провалидировать новый диапазон дат и [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction).
-   Пересечения с другими активными бронями должны рассчитываться как [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) и не блокируют изменение периода сами по себе.
+   Пересечения с другими активными бронями должны рассчитываться как [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) для [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) и не блокируют изменение периода сами по себе.
 5. Для `Submitted` / `Confirmed` обновить `plannedStartDateTime` и `plannedEndDateTime`.
 6. Для `InProgress` обновить только `plannedEndDateTime`.
 7. Создать запись в `BookingStatuses` с комментарием.
@@ -57,7 +57,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Изменение периода броней fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Изменение периода броней fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
 
 ---
 
@@ -65,7 +65,7 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка нового периода | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка нового периода | Конфигурируется [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 ---
 

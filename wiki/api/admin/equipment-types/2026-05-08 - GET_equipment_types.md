@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить постраничный список типов техники для экрана AP-01 в [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| Описание | Получить постраничный список типов техники для экрана AP-01 в [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/equipment-types` |
@@ -29,9 +29,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles and Access Model.md) конфигурирует динамические характеристики по типам техники через [`Admin`](../../../requirements/Roles and Access Model.md) Panel tool | Confirmed | BRD v13 | Метод нужен для списка типов техники в [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
-| TCO Booking Tool | FR-013 | [`Admin`](../../../requirements/Roles and Access Model.md) создаёт equipment types / equipment-related master data | Confirmed | BRD v13 | Метод чтения списка нужен для AP-01 |
-| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Список типов техники является входной точкой к карточке типа |
+| TCO Booking Tool | FR-010 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) конфигурирует динамические характеристики по типам техники через [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel tool | Confirmed | BRD v13 | Метод нужен для списка типов техники в [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
+| TCO Booking Tool | FR-013 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) создаёт equipment types / equipment-related master data | Confirmed | BRD v13 | Метод чтения списка нужен для AP-01 |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Список типов техники является входной точкой к карточке типа |
 
 ---
 
@@ -57,7 +57,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочникам типов техники |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к административной панели и справочникам типов техники |
 
 ---
 
@@ -74,7 +74,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 

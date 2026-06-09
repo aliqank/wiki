@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Добавить один или несколько booking item-ов в черновик заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/items` |
 | Метод запроса | `POST` |
-| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.4 - Добавление техники в draft-заявку`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.4%20-%20Добавление%20техники%20в%20draft-заявку.md) |
+| Связанные use cases | [`UC-REQ-02 - Создание новой заявки (Draft-first)`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first).md), [`UC-REQ-02.4 - Добавление техники в draft-заявку`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.4%20-%20Добавление%20техники%20в%20draft-заявку.md) |
 | Согласовано | |
 
 ---
@@ -30,12 +30,12 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add/remove equipment items to a request | Confirmed | BRD v13 | Прямое покрытие |
-| TCO Booking Tool | FR-033 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add Shared equipment to request | Confirmed | BRD v13 | Метод создает item для Shared equipment в рамках допустимого booking flow |
+| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can add/remove equipment items to a request | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-033 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can add Shared equipment to request | Confirmed | BRD v13 | Метод создает item для Shared equipment в рамках допустимого booking flow |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Создается отдельная бронь |
 | TCO Booking Tool | FR-039 | Each booking has unique ID, start/end datetimes | Confirmed | BRD v13 | Для каждого item создается booking со своим периодом |
 | TCO Booking Tool | FR-040 | System validates availability before booking | Confirmed | BRD v13 | Проверка доступности обязательна |
-| TCO Booking Tool | FR-NEW-04 | [`Admin`](../../../requirements/Roles and Access Model.md) authorizes specific users to book Assigned equipment | Confirmed | BRD v13 | При добавлении Assigned equipment применяется проверка авторизации |
+| TCO Booking Tool | FR-NEW-04 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) authorizes specific users to book Assigned equipment | Confirmed | BRD v13 | При добавлении Assigned equipment применяется проверка авторизации |
 | TCO Booking Tool | FR-NEW-08 | Assigned equipment rules | Confirmed | BRD v13 | Assigned equipment доступен не всем пользователям и требует special handling |
 | TCO Booking Tool | FR-NEW-15 | Single form -> auto-split into individual bookings per equipment item | Confirmed | BRD v13 | Один вызов метода может создавать несколько отдельных booking item |
 | TCO Booking Tool | FR-NEW-71 | Justification mandatory for Long-term rented item | Confirmed | BRD v13 | Проверка justification выполняется позже, перед submit |
@@ -52,7 +52,7 @@
 6. Для каждого элемента проверить [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) на выбранный период.
    Под [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) в рамках текущего базового сценария понимается, что техника не заблокирована причинами, не связанными с competing bookings, например активными записями в `EquipmentStates`.
 7. Отдельно рассчитать наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) с активными записями `Bookings` со статусами `Submitted`, `Confirmed`, `InProgress`, если их период пересекается с периодом создаваемой брони.
-   Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует создание item и используется только для информирования пользователя и последующего решения [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
+   Такой [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не блокирует создание item и используется только для информирования пользователя и последующего решения [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md).
 8. Если техника `LongTermRented`, `Assigned` или `SharedWithConditions`, определить, что для item потребуется `justification` на этапе последующего редактирования или перед submit.
 9. Если техника `Assigned`, проверить `EquipmentBookingAuthorizations`.
 10. Создать отдельную запись `Bookings` со статусом `Draft` для каждого элемента из `items[]`; `justification` на этом этапе не передается и может оставаться пустым до отдельного сохранения через редактирование item.
@@ -69,7 +69,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Добавление техники в свою заявку |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Добавление техники в свою заявку |
 
 ---
 
@@ -77,8 +77,8 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Проверка даты | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
-| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка периода | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Проверка даты | Конфигурируется [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Проверка периода | Конфигурируется [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 ---
 

@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить очередь long-term rented броней для [`FleetOwners' Supervisor`](../../../requirements/Roles and Access Model.md) |
+| Описание | Получить очередь long-term rented броней для [`FleetOwners' Supervisor`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Booking / Supervisor UI` |
 | Endpoint URL | `/api/booking/v1/supervisor/bookings` |
@@ -36,7 +36,7 @@
 
 ## 3. Описание логики работы метода
 
-1. Проверить роль текущего пользователя [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md).
+1. Проверить роль текущего пользователя [`FleetOwnersSupervisor`](../../../requirements/Roles%20and%20Access%20Model.md).
 2. Выбрать брони, для которых по business rules и approval chain требуется шаг `SupervisorApproval`.
 3. Подтянуть `BookingRequests`, `Equipments`, `EquipmentTypes`.
 4. Вернуть пагинированный список.
@@ -50,7 +50,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) | Доступ к очереди финального согласования long-term rented броней |
+| [`FleetOwnersSupervisor`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к очереди финального согласования long-term rented броней |
 
 ---
 
@@ -58,7 +58,7 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Таймаут ответа Supervisor | `SUPERVISOR_RESPONSE_TIMEOUT_HOURS` | `int` | Может отображаться в UI как SLA | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Таймаут ответа Supervisor | `SUPERVISOR_RESPONSE_TIMEOUT_HOURS` | `int` | Может отображаться в UI как SLA | Конфигурируется [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 ---
 
@@ -67,7 +67,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`FleetOwnersSupervisor`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`FleetOwnersSupervisor`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 

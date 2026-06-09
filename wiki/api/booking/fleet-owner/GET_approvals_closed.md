@@ -10,9 +10,9 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить историю closed / processed согласований [`Fleet Owner`](../../../requirements/Roles and Access Model.md) |
+| Описание | Получить историю closed / processed согласований [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/closed` |
 | Метод запроса | `GET` |
 | Согласовано | |
@@ -49,7 +49,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр истории обработанных броней |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр истории обработанных броней |
 
 ---
 
@@ -66,7 +66,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`FleetOwner`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 

@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Заменить технику в брони |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/change-equipment` |
 | Метод запроса | `POST` |
 | Связанные use cases | [`UC-FO-08 - Замена техники Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-08%20-%20Замена%20техники%20Fleet%20Owner.md) |
@@ -56,7 +56,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Замена техники в бронях fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Замена техники в бронях fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
 
 ---
 

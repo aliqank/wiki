@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Страница `Мои заявки`, страница `Approvals`, detail / action view брони, карточка брони внутри заявки |
-| Участник | Пользователь с ролью [`Requestor`](../../Roles and Access Model.md), [`ServiceWorkProcessor`](../../Roles and Access Model.md), [`FleetOwner`](../../Roles and Access Model.md), [`FleetOwnersSupervisor`](../../Roles and Access Model.md) или [`Admin`](../../Roles and Access Model.md), имеющий доступ к конкретной брони |
+| Участник | Пользователь с ролью [`Requestor`](../../Roles%20and%20Access%20Model.md), [`ServiceWorkProcessor`](../../Roles%20and%20Access%20Model.md), [`FleetOwner`](../../Roles%20and%20Access%20Model.md), [`FleetOwnersSupervisor`](../../Roles%20and%20Access%20Model.md) или [`Admin`](../../Roles%20and%20Access%20Model.md), имеющий доступ к конкретной брони |
 | Покрываемые FR (BRD) | `FR-NEW-37`, `FR-025`, `FR-092` |
 | Покрываемые FR (Additional list) | — |
 | Предусловие | Пользователь авторизован в системе; пользователь уже находится в контексте заявки или брони; в UI доступен `bookingId` целевой брони; пользователь имеет право просмотра этой брони |

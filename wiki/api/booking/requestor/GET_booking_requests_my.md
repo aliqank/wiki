@@ -12,17 +12,17 @@
 |---|---|
 | Описание | Получить список [незавершенных заявок](../../../glossary/Glossary.md), где текущий пользователь является business-requestor-ом |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/my` |
 | Метод запроса | `GET` |
-| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md), [`UC-REQ-03 - Отмена draft-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md), [`UC-REQ-04 - Отзыв брони requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-04%20-%20Отзыв%20брони%20requestor-ом.md), [`UC-REQ-05 - Отзыв submitted-заявки requestor-ом`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md) |
+| Связанные use cases | [`UC-REQ-01 - Просмотр моих заявок`](../../../requirements/usecases/Requestor/UC-REQ-01%20-%20Просмотр%20моих%20заявок.md), [`UC-REQ-03 - Отмена draft-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-03%20-%20Отмена%20draft-заявки%20requestor-ом.md), [`UC-REQ-04 - Отзыв брони requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-04%20-%20Отзыв%20брони%20requestor-ом.md), [`UC-REQ-05 - Отзыв submitted-заявки requestor-ом`](../../../requirements/usecases/Requestor/UC-REQ-05%20-%20Отзыв%20submitted-заявки%20requestor-ом.md) |
 | Согласовано | |
 
 ---
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для страницы «Мои заявки» как summary API для списка [незавершенных заявок](../../../glossary/Glossary.md) [`Requestor`](../../../requirements/Roles and Access Model.md).
+Новый метод. Используется для страницы «Мои заявки» как summary API для списка [незавершенных заявок](../../../glossary/Glossary.md) [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md).
 
 ---
 
@@ -33,14 +33,14 @@
 | TCO Booking Tool | FR-024 | Request has unique ID and metadata | Confirmed | BRD v13 | Метод возвращает request number, createdAt и другие summary-метаданные заявки |
 | TCO Booking Tool | FR-025 | Requestor can view request details and status | Confirmed | BRD v13 | Частичное покрытие на уровне summary-list [незавершенных заявок](../../../glossary/Glossary.md) |
 | TCO Booking Tool | FR-026 | Request statuses: Draft, Submitted, In Progress, Completed | Confirmed | BRD v13 | Метод работает со списком non-terminal request statuses в requestor view |
-| TCO Booking Tool | FR-091 | [`Requestor`](../../../requirements/Roles and Access Model.md) can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
+| TCO Booking Tool | FR-091 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can search and filter own requests | Confirmed | BRD v13 | Прямое покрытие для текущего scope |
 | TCO Booking Tool | BRD-U-001 | Request terminal status semantics | Confirmed | BRD Updates | Определяет, какие request statuses считаются non-terminal для [`GET /booking-requests/my`](GET_booking_requests_my.md) |
 
 ---
 
 ## 3. Описание логики работы метода
 
-1. Для [`Requestor`](../../../requirements/Roles and Access Model.md) выбрать `BookingRequests` по `requestorId = currentUserId`.
+1. Для [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) выбрать `BookingRequests` по `requestorId = currentUserId`.
 2. По умолчанию исключить terminal status заявки: `Closed`.
 3. Применить фильтры по `status`, `type`, `priority`, `search`, `createdFrom`, `createdTo`.
 4. Если передан `status`, он должен относиться только к статусам [незавершенной заявки](../../../glossary/Glossary.md): `Draft`, `Submitted`, `InProgress`.
@@ -61,7 +61,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр заявок, где пользователь является `requestorId` |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр заявок, где пользователь является `requestorId` |
 
 ---
 

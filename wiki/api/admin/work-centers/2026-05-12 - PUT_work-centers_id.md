@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Сохранить изменения work center в справочнике [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| Описание | Сохранить изменения work center в справочнике [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/work-centers/:id` |
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Обрабатывает редактирование строки work center в справочнике [`Admin`](../../../requirements/Roles and Access Model.md) Panel.
+Новый метод. Обрабатывает редактирование строки work center в справочнике [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel.
 
 ---
 
@@ -31,9 +31,9 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-013 | [`Admin`](../../../requirements/Roles and Access Model.md) создаёт equipment types / equipment-related master data | Confirmed | BRD v13 | Work centers являются связанным справочником для типов техники |
-| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles and Access Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Метод нужен для редактирования справочника work centers |
-| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Work centers управляются через [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| TCO Booking Tool | FR-013 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) создаёт equipment types / equipment-related master data | Confirmed | BRD v13 | Work centers являются связанным справочником для типов техники |
+| TCO Booking Tool | FR-014 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) редактирует параметры техники и связанные справочные сущности | Confirmed | BRD v13 | Метод нужен для редактирования справочника work centers |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel | Confirmed | BRD v13 | Work centers управляются через [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
 
 ---
 
@@ -57,7 +57,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику work centers |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к административной панели и справочнику work centers |
 
 ---
 
@@ -74,7 +74,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 | `NOT_FOUND` | Work center с указанным `id` не найден или помечен как удалённый |
 | `VALIDATION_ERROR` | Поле `code` пустое или уже существует в справочнике |
 | `VALIDATION_ERROR` | Поле `name` не передано, одно из полей `name.En`, `name.Ru`, `name.Kz` пустое или локализованное имя уже существует в справочнике |

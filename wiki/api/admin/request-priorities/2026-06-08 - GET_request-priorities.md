@@ -10,7 +10,7 @@
 
 | Параметр | Значение |
 |---|---|
-| Описание | Получить список приоритетов заявки для справочника [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| Описание | Получить список приоритетов заявки для справочника [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
 | Доступ только авторизованным пользователям | `+` |
 | Модуль системы | `Admin Panel` |
 | Endpoint URL | `/api/admin/v1/request-priorities` |
@@ -21,7 +21,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется для экрана [`Admin`](../../../requirements/Roles and Access Model.md) Panel, где администратор просматривает фиксированный справочник приоритетов `P1`-`P4` и редактирует для них `description` и `color`.
+Новый метод. Используется для экрана [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel, где администратор просматривает фиксированный справочник приоритетов `P1`-`P4` и редактирует для них `description` и `color`.
 
 ---
 
@@ -29,7 +29,7 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles and Access Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles and Access Model.md) Panel | Confirmed | BRD v13 | Метод используется для управления metadata справочника приоритетов |
+| TCO Booking Tool | FR-NEW-50 | [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) manages all reference/handbook values via [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel | Confirmed | BRD v13 | Метод используется для управления metadata справочника приоритетов |
 | TCO Booking Tool | FR-NEW-69 | Priority field tooltips/hints | Confirmed | BRD v13 | Метод возвращает descriptions, используемые в tooltip / hint |
 
 ---
@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Admin`](../../../requirements/Roles and Access Model.md) | Доступ к административной панели и справочнику request priorities |
+| [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) | Доступ к административной панели и справочнику request priorities |
 
 ---
 
@@ -70,7 +70,7 @@
 | Код | Описание ошибки |
 |---|---|
 | `UNAUTHORIZED` | Пользователь не авторизован |
-| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles and Access Model.md) |
+| `FORBIDDEN` | У пользователя нет роли [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 HTTP-коды: `401 Unauthorized`, `403 Forbidden`
 
@@ -111,8 +111,8 @@ Content-Type: application/json
 | 1 | Идентификатор записи | id | uuid | UUID v4 | — | ref_request_priority.id |  |
 | 2 | Код приоритета | code | string | string | — | ref_request_priority.code | `P1 / P2 / P3 / P4`, read-only |
 | 3 | Локализованное наименование | name | object | object | — | ref_request_priority | read-only |
-| 4 | Локализованное описание | description | object | object | — | ref_request_priority | Редактируется в [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
-| 5 | Цвет отображения | color | string | `#RRGGBB` | — | ref_request_priority.color | Редактируется в [`Admin`](../../../requirements/Roles and Access Model.md) Panel |
+| 4 | Локализованное описание | description | object | object | — | ref_request_priority | Редактируется в [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
+| 5 | Цвет отображения | color | string | `#RRGGBB` | — | ref_request_priority.color | Редактируется в [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) Panel |
 | 6 | Порядок сортировки | sortOrder | int | integer | — | ref_request_priority.sortOrder | read-only |
 
 ### Структура `value[].name`
@@ -163,4 +163,4 @@ Content-Type: application/json
 ## Замечания
 
 1. Метод возвращает фиксированный seeded справочник приоритетов; создание и удаление приоритетов не входят в текущий scope.
-2. Поля `code`, `name`, `sortOrder` в [`Admin`](../../../requirements/Roles and Access Model.md) UI отображаются как read-only.
+2. Поля `code`, `name`, `sortOrder` в [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) UI отображаются как read-only.

@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Получить историю terminal-заявок текущего пользователя |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/history` |
 | Метод запроса | `GET` |
 | Согласовано | |
@@ -30,7 +30,7 @@
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
 | TCO Booking Tool | FR-NEW-45 | Dedicated Closed Requests / Request History page | Confirmed | BRD v13 | Метод наполняет отдельную страницу |
-| TCO Booking Tool | FR-NEW-52 | [`Requestor`](../../../requirements/Roles and Access Model.md) has access to Request History | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-NEW-52 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) has access to Request History | Confirmed | BRD v13 | Прямое покрытие |
 
 ---
 
@@ -53,7 +53,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Просмотр истории своих заявок |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр истории своих заявок |
 
 ---
 

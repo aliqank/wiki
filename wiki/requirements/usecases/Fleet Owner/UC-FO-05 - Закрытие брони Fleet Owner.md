@@ -1,4 +1,4 @@
-# UC-FO-05 - Закрытие брони [`Fleet Owner`](../../Roles and Access Model.md)
+# UC-FO-05 - Закрытие брони [`Fleet Owner`](../../Roles%20and%20Access%20Model.md)
 
 **Created:** 2026-06-01  
 **Last updated:** 2026-06-02  
@@ -10,11 +10,11 @@
 
 | Поле | Значение |
 |---|---|
-| Область действия | Страница [`Fleet Owner`](../../Roles and Access Model.md) `Approvals` -> detail / action view активной брони |
-| Участник | Пользователь с ролью [`FleetOwner`](../../Roles and Access Model.md) |
+| Область действия | Страница [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) `Approvals` -> detail / action view активной брони |
+| Участник | Пользователь с ролью [`FleetOwner`](../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-NEW-32`, `FR-NEW-33` |
 | Покрываемые FR (Additional list) | `BRD-U-001` |
-| Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles and Access Model.md); бронь относится к fleet-у пользователя; бронь находится в активном статусе `Confirmed` или `InProgress`; сценарий выполняется для ручного завершения брони |
+| Предусловие | Пользователь авторизован в системе; пользователь имеет роль [`FleetOwner`](../../Roles%20and%20Access%20Model.md); бронь относится к fleet-у пользователя; бронь находится в активном статусе `Confirmed` или `InProgress`; сценарий выполняется для ручного завершения брони |
 | Триггер | Нажатие кнопки `Close` в карточке активной брони |
 | Ожидаемый результат | Бронь вручную закрыта, фактические даты использования зафиксированы, статус брони переходит в `Closed` с причиной `Completed` |
 | Используемые API | [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md), [`POST /approvals/bookings/{id}/close`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_close.md) |
@@ -23,7 +23,7 @@
 
 ## Основной сценарий
 
-1. [`Fleet Owner`](../../Roles and Access Model.md) открывает страницу `Approvals` и переходит в detail / action view активной брони.
+1. [`Fleet Owner`](../../Roles%20and%20Access%20Model.md) открывает страницу `Approvals` и переходит в detail / action view активной брони.
 2. Frontend загружает актуальные данные брони через [`GET /approvals/bookings/{id}`](../../../api/booking/fleet-owner/GET_approvals_bookings_id.md).
 3. Система отображает бронь в активном статусе и показывает действие `Close`.
 4. Пользователь проверяет контекст брони:
@@ -39,7 +39,7 @@
 7. Frontend вызывает [`POST /approvals/bookings/{id}/close`](../../../api/booking/fleet-owner/POST_approvals_bookings_id_close.md).
 8. Backend проверяет, что:
    - бронь существует;
-   - бронь относится к зоне ответственности текущего [`Fleet Owner`](../../Roles and Access Model.md);
+   - бронь относится к зоне ответственности текущего [`Fleet Owner`](../../Roles%20and%20Access%20Model.md);
    - текущий статус позволяет close;
    - `actualStartDateTime <= actualEndDateTime`.
 9. Backend переводит бронь в `Closed` с terminal причиной `Completed`.
@@ -74,7 +74,7 @@
 
 ## Замечания
 
-1. Use case описывает ручное завершение брони [`Fleet Owner`](../../Roles and Access Model.md)-ом и является следующим базовым шагом после `UC-FO-04`, если работа по брони фактически завершена.
+1. Use case описывает ручное завершение брони [`Fleet Owner`](../../Roles%20and%20Access%20Model.md)-ом и является следующим базовым шагом после `UC-FO-04`, если работа по брони фактически завершена.
 2. Автоматическое закрытие по datetime не допускается.
 3. На уровне booking lifecycle завершение выражается через `status = Closed` и `closureReason = Completed`.
 4. Если бронь уже стартовала через `UC-FO-04`, `actualStartDateTime` обычно уже известен системе, но в close-flow все равно должен быть передан и/или подтвержден для аналитики.

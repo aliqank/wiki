@@ -11,7 +11,7 @@
 | Поле | Значение |
 |---|---|
 | Область действия | Карточка booking item в draft-заявке |
-| Участник | [`Requestor`](../../../Roles and Access Model.md) |
+| Участник | [`Requestor`](../../../Roles%20and%20Access%20Model.md) |
 | Покрываемые FR (BRD) | `FR-027`, `FR-031`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-NEW-04`, `FR-NEW-08`, `FR-NEW-71` |
 | Покрываемые FR (Additional list) | — |
 | Триггер | Пользователь редактирует период брони, justification или хочет заменить технику |
@@ -62,7 +62,7 @@ sequenceDiagram
 ## Альтернативные сценарии
 
 1. При замене техники новая единица имеет конфликты с другими активными бронями на выбранный период.
-   Backend сохраняет обновление item. Наличие [booking conflict context](../../../../glossary/Glossary.md#booking-conflict-context) не блокирует редактирование и должно быть отражено в UI как информационный признак для последующего решения [`Fleet Owner`](../../../Roles and Access Model.md).
+   Backend сохраняет обновление item. Наличие [booking conflict context](../../../../glossary/Glossary.md#booking-conflict-context) не блокирует редактирование и должно быть отражено в UI как информационный признак для последующего решения [`Fleet Owner`](../../../Roles%20and%20Access%20Model.md).
 
 2. Пользователь меняет период брони.
    Backend повторно валидирует итоговые значения item. [Booking conflict context](../../../../glossary/Glossary.md#booking-conflict-context) не блокирует сохранение, но должен быть рассчитан как active booking conflicts. [Hard availability restrictions](../../../../glossary/Glossary.md#hard-availability-restriction) по-прежнему блокируют обновление.

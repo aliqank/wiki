@@ -12,10 +12,10 @@
 |---|---|
 | Описание | Отменить booking item в черновике заявки |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Requestor`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Requestor UI` |
 | Endpoint URL | `/api/booking/v1/booking-requests/{id}/items/{bookingId}` |
 | Метод запроса | `DELETE` |
-| Связанные use cases | [`UC-REQ-02.7 - Отмена draft-брони`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.7%20-%20Отмена%20draft-брони.md), [`UC-REQ-07 - Отмена draft-брони requestor-ом со страницы Мои заявки`](../../../requirements/usecases/[`Requestor`](../../../requirements/Roles and Access Model.md)/UC-REQ-07%20-%20Отмена%20draft-брони%20requestor-ом%20со%20страницы%20Мои%20заявки.md) |
+| Связанные use cases | [`UC-REQ-02.7 - Отмена draft-брони`](../../../requirements/usecases/Requestor/UC-REQ-02%20-%20Создание%20новой%20заявки%20(Draft-first)/UC-REQ-02.7%20-%20Отмена%20draft-брони.md), [`UC-REQ-07 - Отмена draft-брони requestor-ом со страницы Мои заявки`](../../../requirements/usecases/Requestor/UC-REQ-07%20-%20Отмена%20draft-брони%20requestor-ом%20со%20страницы%20Мои%20заявки.md) |
 | Согласовано | |
 
 ---
@@ -30,8 +30,8 @@
 
 | Наименование проекта | Номер требования | Описание требования | Статус | Источник | Комментарий |
 |---|---|---|---|---|---|
-| TCO Booking Tool | FR-027 | [`Requestor`](../../../requirements/Roles and Access Model.md) can edit/cancel draft before submission | Confirmed | BRD v13 | Отмена item доступна только в draft-заявке |
-| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles and Access Model.md) can add/remove equipment items to a request | Confirmed | BRD v13 | Прямое покрытие |
+| TCO Booking Tool | FR-027 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can edit/cancel draft before submission | Confirmed | BRD v13 | Отмена item доступна только в draft-заявке |
+| TCO Booking Tool | FR-031 | [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) can add/remove equipment items to a request | Confirmed | BRD v13 | Прямое покрытие |
 | TCO Booking Tool | FR-038 | Each equipment item in request = separate booking | Confirmed | BRD v13 | Метод отменяет одну конкретную бронь из состава заявки |
 
 ---
@@ -54,7 +54,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`Requestor`](../../../requirements/Roles and Access Model.md) | Отмена item в своей draft-заявке |
+| [`Requestor`](../../../requirements/Roles%20and%20Access%20Model.md) | Отмена item в своей draft-заявке |
 
 ---
 

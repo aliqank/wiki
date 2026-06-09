@@ -12,7 +12,7 @@
 |---|---|
 | Описание | Получить список replacement candidates для замены техники в конкретной брони |
 | Доступ только авторизованным пользователям | `+` |
-| Модуль системы | `Booking / [`Fleet Owner`](../../../requirements/Roles and Access Model.md) UI` |
+| Модуль системы | `Booking / Fleet Owner UI` |
 | Endpoint URL | `/api/booking/v1/approvals/bookings/{id}/replacement-options` |
 | Метод запроса | `GET` |
 | Связанные use cases | [`UC-FO-08 - Замена техники Fleet Owner`](../../../requirements/usecases/Fleet%20Owner/UC-FO-08%20-%20Замена%20техники%20Fleet%20Owner.md) |
@@ -22,7 +22,7 @@
 
 ## 1. Задачи, в рамках которых вносятся изменения в метод
 
-Новый метод. Используется [`Fleet Owner`](../../../requirements/Roles and Access Model.md)-ом для загрузки списка допустимых replacement candidates перед заменой техники в брони.
+Новый метод. Используется [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md)-ом для загрузки списка допустимых replacement candidates перед заменой техники в брони.
 
 ---
 
@@ -38,7 +38,7 @@
 
 ## 3. Описание логики работы метода
 
-1. Проверить существование исходной брони и права доступа [`Fleet Owner`](../../../requirements/Roles and Access Model.md).
+1. Проверить существование исходной брони и права доступа [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md).
 2. Проверить, что статус исходной брони допускает замену техники: `Submitted` или `Confirmed`.
 3. Определить `workCenterId`, текущий период брони и текущий `equipmentId` из исходной брони.
 4. Сформировать базовый набор replacement candidates из техники, которая:
@@ -61,7 +61,7 @@
 
 | Наименование разрешения | Описание разрешения |
 |---|---|
-| [`FleetOwner`](../../../requirements/Roles and Access Model.md) | Просмотр replacement candidates для броней fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
+| [`FleetOwner`](../../../requirements/Roles%20and%20Access%20Model.md) | Просмотр replacement candidates для броней fleet-ов, по которым у пользователя есть [Fleet Management Access](../../../glossary/Glossary.md#fleet-management-access) |
 
 ---
 
@@ -69,8 +69,8 @@
 
 | Наименование | Код | Тип значения | Описание | Значение по умолчанию |
 |---|---|---|---|---|
-| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Используется при валидации периода исходной брони | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
-| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Используется при повторной проверке периода | Конфигурируется [`Admin`](../../../requirements/Roles and Access Model.md) |
+| Горизонт бронирования | `BOOKING_HORIZON_DAYS` | `int` | Используется при валидации периода исходной брони | Конфигурируется [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
+| Максимальная длительность брони | `MAX_BOOKING_DURATION_DAYS` | `int` | Используется при повторной проверке периода | Конфигурируется [`Admin`](../../../requirements/Roles%20and%20Access%20Model.md) |
 
 ---
 
@@ -174,7 +174,7 @@ Content-Type: application/json
 
 ## Замечания
 
-1. Метод предназначен только для [`Fleet Owner`](../../../requirements/Roles and Access Model.md) replacement flow и не заменяет generic equipment search.
+1. Метод предназначен только для [`Fleet Owner`](../../../requirements/Roles%20and%20Access%20Model.md) replacement flow и не заменяет generic equipment search.
 2. Replacement candidates должны быть ограничены тем же `Work Center`, что и исходная бронь.
 3. Техника с [hard availability restrictions](../../../glossary/Glossary.md#hard-availability-restriction) не должна попадать в итоговую выдачу.
 4. Наличие [booking conflict context](../../../glossary/Glossary.md#booking-conflict-context) не должно автоматически исключать технику из replacement candidates.
