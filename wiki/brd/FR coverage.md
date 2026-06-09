@@ -8,7 +8,7 @@
 - для всех FR с `+` проставлен `Спринт 2`
 - для FR, покрытых Fleet Owner request-view use case-ами (`UC-FO-01`, `UC-FO-03..08`), дополнительно проставлен `Спринт 2.1 (fleetOwners request view)`
 - для FR, покрытых common timeline use case (`UC-COM-01`), дополнительно проставлен `Спринт 2.1 (fleetOwners request view)`
-- для FR, покрытых feedback use case-ами (`UC-REQ-08`, `UC-COM-02`), дополнительно проставлен `Спринт 2.2 (feedback)`
+- для FR, покрытых feedback и related booking insight use case-ами (`UC-REQ-08`, `UC-COM-02`, `UC-FO-02`), дополнительно проставлен `Спринт 2.2 (feedback and booking insights)`
 - для `FR-005..FR-010`, `FR-012..FR-015`, `FR-017..FR-021`, `FR-025` проставлен `Спринт 1`
 - если FR относится к нескольким спринтам, указываются оба значения
 
@@ -19,7 +19,7 @@
 | Спринт 1 | `FR-005`, `FR-006`, `FR-007`, `FR-008`, `FR-009`, `FR-010`, `FR-012`, `FR-013`, `FR-014`, `FR-015`, `FR-017`, `FR-018`, `FR-019`, `FR-020`, `FR-021`, `FR-025`, `FR-NEW-04`, `FR-NEW-05`, `FR-NEW-46`, `FR-NEW-49`, `FR-NEW-50`, `FR-NEW-53`, `FR-NEW-54`, `FR-NEW-55`, `FR-NEW-57`, `FR-NEW-58`, `FR-NEW-59`, `FR-NEW-60` |
 | Спринт 2 | `FR-NEW-04`, `FR-NEW-50`, `FR-NEW-68`, `FR-NEW-08`, `FR-023`, `FR-024`, `FR-025`, `FR-026`, `FR-027`, `FR-030`, `FR-NEW-11`, `FR-NEW-12`, `FR-NEW-13`, `FR-NEW-14`, `FR-NEW-15`, `FR-NEW-16`, `FR-NEW-17`, `FR-NEW-51`, `FR-NEW-69`, `FR-NEW-71`, `FR-031`, `FR-032`, `FR-033`, `FR-038`, `FR-039`, `FR-040`, `FR-041`, `FR-042`, `FR-NEW-70`, `FR-058`, `FR-062`, `FR-068`, `FR-072`, `FR-091`, `FR-092`, `FR-NEW-37`, `FR-NEW-38`, `FR-NEW-39` |
 | Спринт 2.1 (fleetOwners request view) | `FR-025`, `FR-043`, `FR-044`, `FR-045`, `FR-046`, `FR-047`, `FR-048`, `FR-049`, `FR-050`, `FR-063`, `FR-064`, `FR-074`, `FR-079a`, `FR-092`, `FR-NEW-18`, `FR-NEW-24`, `FR-NEW-25`, `FR-NEW-26`, `FR-NEW-27`, `FR-NEW-32`, `FR-NEW-33`, `FR-NEW-37` |
-| Спринт 2.2 (feedback) | `FR-022` |
+| Спринт 2.2 (feedback and booking insights) | `FR-022`, `FR-NEW-40` |
 
 | FR | Описание | Покрыто | Use case | Спринт |
 |---|---|---|---|---|
@@ -48,13 +48,13 @@
 | FR-019 | FO can edit allowed equipment parameters; one user can own several fleets | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-020 | FO can delete equipment (soft delete) | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-021 | FO can freeze/unfreeze equipment for a period or indefinitely | + | Реализация админ панели и стр. оборудования | Спринт 1 |
-| FR-022 | Requestor / SWP can submit feedback on equipment with confirmed booking | + | UC-REQ-08 - Оставление отзыва по технике в рамках брони; UC-COM-02 - Просмотр списка обратной связи по технике в рамках текущей брони | Спринт 2.2 (feedback) |
+| FR-022 | Requestor / SWP can submit feedback on equipment with confirmed booking | + | UC-REQ-08 - Оставление отзыва по технике в рамках брони; UC-COM-02 - Просмотр списка обратной связи по технике в рамках текущей брони | Спринт 2.2 (feedback and booking insights) |
 | FR-NEW-05 | FO uploads multiple photos; Requestor sees them in request form | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-NEW-06 | Repair status from JDE -> DataLake displayed in search and equipment list | - | — | — |
 | FR-NEW-07 | Stationary HDE excluded from Requestor search | + | UC-REQ-02.3 - Поиск техники для добавления в заявку *(свежее покрытие Спринта 2)* | Спринт 2 |
 | FR-NEW-08 | Assigned equipment: visible to all users; bookable only by Admin-authorized users with mandatory justification; FO can approve or decline | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.4 - Добавление техники в draft-заявку; UC-REQ-02.5 - Редактирование брони или замена техники в draft; UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
 | FR-NEW-09 | Shared with Conditions has visual color marker | + | UC-REQ-02.3 - Поиск техники для добавления в заявку *(свежее покрытие Спринта 2)* | Спринт 2 |
-| FR-NEW-40 | Equipment card (FO view) has booking calendar visual | - | — | — |
+| FR-NEW-40 | Equipment card (FO view) has booking calendar visual | + | UC-FO-02 - Просмотр load summary Fleet Owner | Спринт 2.2 (feedback and booking insights) |
 | FR-NEW-41 | Multiple trackers per unit; FO can add trackers from equipment card UI | - | — | — |
 | FR-NEW-49 | Freeze fields on equipment card | + | Реализация админ панели и стр. оборудования | Спринт 1 |
 | FR-023 | Requestor can create a Request | + | UC-REQ-02 - Создание новой заявки (Draft-first); UC-REQ-02.1 - Создание пустого draft заявки; UC-REQ-02.6 - Отправка draft-заявки | Спринт 2 |
